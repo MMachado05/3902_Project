@@ -18,5 +18,8 @@ e.g. "Create Static Sprite for MC"
 - *Branches*: Lowercase, hyphens for spaces.
 - *Code*: Follow C# naming conventions as specified in Carmen.
 
+## Code Reviews
 
-
+At least 2 reviewers for *every* Pull Requests (PR). 
+Reviewers should build and run to ensure no errors.
+Feedback should be documented (whether errors are found or not) as comments, code comments preferred.
