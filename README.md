@@ -40,3 +40,7 @@ Relevant Tasks are those that are not crucial but must be completed.
 P4: Enhancments
 Enhancments are tasks not required for a Sprint, but if time allows can be implemented.
 
+## Communication
+
+Discussion for each Task/Issue should mainly be kept on Github. 
+For historical reasons, Tasks should be marked as Done when completed, never deleted.
