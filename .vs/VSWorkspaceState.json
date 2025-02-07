@@ -1,16 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Command",
+    "\\Command\\Concrete Commands",
+    "\\Command\\Controllers",
     "\\Content",
-    "\\Packages",
-    "\\Packages\\Blocks",
-    "\\Packages\\Characters",
-    "\\Packages\\Characters\\States",
-    "\\Packages\\Commands",
-    "\\Packages\\Controllers",
-    "\\Packages\\Items",
-    "\\Packages\\Sprites"
+    "\\Interfaces",
+    "\\Managers",
+    "\\Movement",
+    "\\Renderer",
+    "\\Renderer\\Factories"
   ],
-  "SelectedNode": "\\Game1.cs",
   "PreviewInSolutionExplorer": false
 }

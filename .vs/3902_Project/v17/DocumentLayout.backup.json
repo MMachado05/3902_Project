@@ -3,94 +3,35 @@
   "WorkspaceRootPath": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\LeftWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\DownWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Renderer\\Renderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\RightWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Interfaces\\ISprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Interfaces\\ISprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\UpWalk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Managers\\CharacterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Managers\\CharacterManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\MovingAnimatedSprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sandbox\\Sandbox\\Game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Movement\\Movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Movement\\Movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Factories\\CharacterFactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Renderer\\Factories\\CharacterFactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\LeftStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\StaticSprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\UpStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\IController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Controllers\\IController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\RightStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\DownStopped.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Game1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\MouseController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Controllers\\MouseController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\KeyboardController.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Controllers\\KeyboardController.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\MouseController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\KeyboardController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\ISprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Sprites\\ISprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\ICommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Commands\\ICommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\SetSpriteCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Packages\\Commands\\SetSpriteCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Commands\\SetSpritesCommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\IController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ICommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ISprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\AnimatedSprite.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -100,202 +41,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LeftWalk.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftWalk.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\LeftWalk.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftWalk.cs",
-              "RelativeToolTip": "Packages\\Sprites\\LeftWalk.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:12:17.563Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "DownWalk.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownWalk.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\DownWalk.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownWalk.cs",
-              "RelativeToolTip": "Packages\\Sprites\\DownWalk.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAACCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:09:52.696Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RightWalk.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightWalk.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\RightWalk.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightWalk.cs",
-              "RelativeToolTip": "Packages\\Sprites\\RightWalk.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:09:21.443Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UpWalk.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpWalk.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\UpWalk.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpWalk.cs",
-              "RelativeToolTip": "Packages\\Sprites\\UpWalk.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAowC0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:07:51.126Z",
+              "Title": "Project.csproj",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Project.csproj",
+              "RelativeDocumentMoniker": "Project.csproj",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Project.csproj",
+              "RelativeToolTip": "Project.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-07T01:06:19.887Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "LeftStopped.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftStopped.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\LeftStopped.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\LeftStopped.cs",
-              "RelativeToolTip": "Packages\\Sprites\\LeftStopped.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAJAAAAAAAAAA==",
+              "Title": "CharacterFactory.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Factories\\CharacterFactory.cs",
+              "RelativeDocumentMoniker": "Renderer\\Factories\\CharacterFactory.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Factories\\CharacterFactory.cs",
+              "RelativeToolTip": "Renderer\\Factories\\CharacterFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:05:04.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-07T00:24:13.78Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "DownStopped.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownStopped.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\DownStopped.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\DownStopped.cs",
-              "RelativeToolTip": "Packages\\Sprites\\DownStopped.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAdAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Renderer.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Renderer.cs",
+              "RelativeDocumentMoniker": "Renderer\\Renderer.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Renderer\\Renderer.cs",
+              "RelativeToolTip": "Renderer\\Renderer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:04:05.745Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-07T00:22:45.582Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "RightStopped.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightStopped.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\RightStopped.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\RightStopped.cs",
-              "RelativeToolTip": "Packages\\Sprites\\RightStopped.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAdAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ISprite.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Interfaces\\ISprite.cs",
+              "RelativeDocumentMoniker": "Interfaces\\ISprite.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Interfaces\\ISprite.cs",
+              "RelativeToolTip": "Interfaces\\ISprite.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T23:03:24.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-07T00:20:33.45Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CharacterManager.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Managers\\CharacterManager.cs",
+              "RelativeDocumentMoniker": "Managers\\CharacterManager.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Managers\\CharacterManager.cs",
+              "RelativeToolTip": "Managers\\CharacterManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-07T00:18:59.021Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Game1.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Game1.cs",
-              "RelativeDocumentMoniker": "Game1.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Game1.cs",
-              "RelativeToolTip": "Game1.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAmwFwAAAAlAAAAAAAAAA==",
+              "Title": "Movement.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Movement\\Movement.cs",
+              "RelativeDocumentMoniker": "Movement\\Movement.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Movement\\Movement.cs",
+              "RelativeToolTip": "Movement\\Movement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T21:46:22.859Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\IController.cs",
-              "RelativeDocumentMoniker": "Packages\\Controllers\\IController.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\IController.cs",
-              "RelativeToolTip": "Packages\\Controllers\\IController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:30:30.706Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MouseController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\MouseController.cs",
-              "RelativeDocumentMoniker": "Packages\\Controllers\\MouseController.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\MouseController.cs",
-              "RelativeToolTip": "Packages\\Controllers\\MouseController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:51:58.82Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "KeyboardController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\KeyboardController.cs",
-              "RelativeDocumentMoniker": "Packages\\Controllers\\KeyboardController.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Controllers\\KeyboardController.cs",
-              "RelativeToolTip": "Packages\\Controllers\\KeyboardController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:50:12.154Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ICommand.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\ICommand.cs",
-              "RelativeDocumentMoniker": "Packages\\Commands\\ICommand.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\ICommand.cs",
-              "RelativeToolTip": "Packages\\Commands\\ICommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:48:46.873Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "SetSpriteCommand.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\SetSpriteCommand.cs",
-              "RelativeDocumentMoniker": "Packages\\Commands\\SetSpriteCommand.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Commands\\SetSpriteCommand.cs",
-              "RelativeToolTip": "Packages\\Commands\\SetSpriteCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:47:31.676Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UpStopped.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpStopped.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\UpStopped.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\UpStopped.cs",
-              "RelativeToolTip": "Packages\\Sprites\\UpStopped.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:39:02.67Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ISprite.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\ISprite.cs",
-              "RelativeDocumentMoniker": "Packages\\Sprites\\ISprite.cs",
-              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Packages\\Sprites\\ISprite.cs",
-              "RelativeToolTip": "Packages\\Sprites\\ISprite.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:29:39.163Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T23:47:18.679Z"
             }
           ]
         }
@@ -305,148 +128,43 @@
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "FloatingWindowState": {
-        "Id": "2e6e165c-f639-410f-a41f-3157a0e38d5c",
+        "Id": "228faae8-bc0f-4675-aa1e-c7f8bfec2d47",
         "Display": 0,
-        "X": 785,
-        "Y": 270,
-        "Width": 1417,
-        "Height": 1006,
+        "X": 38,
+        "Y": 236,
+        "Width": 1502,
+        "Height": 1118,
         "WindowState": 0
       },
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 4,
               "Title": "Game1.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Game1.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Game1.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Game1.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Game1.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAASwCwAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:22:54.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "AnimatedSprite.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\AnimatedSprite.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\AnimatedSprite.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\AnimatedSprite.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\AnimatedSprite.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sandbox\\Sandbox\\Game1.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sandbox\\Sandbox\\Game1.cs",
+              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sandbox\\Sandbox\\Game1.cs",
+              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sandbox\\Sandbox\\Game1.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:27:25.942Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MovingAnimatedSprite.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\MovingAnimatedSprite.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\MovingAnimatedSprite.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\MovingAnimatedSprite.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\MovingAnimatedSprite.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:27:26.038Z",
+              "WhenOpened": "2025-02-06T23:06:57.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "StaticSprite.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\StaticSprite.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\StaticSprite.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Sprites\\StaticSprite.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Sprites\\StaticSprite.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAkAAAAAAAAAA==",
+              "Title": "Game1.cs",
+              "DocumentMoniker": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Game1.cs",
+              "RelativeDocumentMoniker": "Game1.cs",
+              "ToolTip": "C:\\Users\\Osama\\Documents\\GitHub\\3902_Project\\Game1.cs",
+              "RelativeToolTip": "Game1.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:27:26.205Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ISprite.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ISprite.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ISprite.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ISprite.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ISprite.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:29:31.85Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ICommand.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ICommand.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ICommand.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ICommand.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\ICommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:30:00.658Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "IController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\IController.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\IController.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\IController.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Interfaces\\IController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:30:24.182Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "SetSpritesCommand.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Commands\\SetSpritesCommand.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Commands\\SetSpritesCommand.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Commands\\SetSpritesCommand.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Commands\\SetSpritesCommand.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:31:12.716Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "KeyboardController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\KeyboardController.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Controllers\\KeyboardController.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\KeyboardController.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Controllers\\KeyboardController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:49:48.784Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "MouseController.cs",
-              "DocumentMoniker": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\MouseController.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Controllers\\MouseController.cs",
-              "ToolTip": "C:\\Users\\Osama\\source\\repos\\Sprint0\\Sprint0\\Controllers\\MouseController.cs",
-              "RelativeToolTip": "..\\..\\..\\source\\repos\\Sprint0\\Sprint0\\Controllers\\MouseController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-04T22:49:49.917Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-06T17:40:58.462Z"
             }
           ]
         }
