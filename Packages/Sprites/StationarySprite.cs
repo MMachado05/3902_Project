@@ -3,18 +3,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project;
 
-public class StationarySprite : ISprite
+public class StationarySprite : AbstractSprite
 {
-    private Texture2D texture;
-    private int maxFrames;
-
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public StationarySprite(Texture2D texture, Rectangle source, int widthPixels,
+        int heightPixels, int scaleFactor) : base(texture, source, widthPixels, heightPixels, scaleFactor)
     {
-        throw new System.NotImplementedException();
     }
 
-    public void Update()
+    public override void Draw(SpriteBatch spriteBatch, Vector2 position)
     {
-        throw new System.NotImplementedException();
+        // Calculate destination rectangle
+        Rectangle destRectangle = new Rectangle();
+        destRectangle.X = (int)(position.X - (base.widthPixels / 2)) * base.scaleFactor;
+        destRectangle.Y = (int)(position.Y - (base.heightPixels / 2)) * base.scaleFactor;
+        destRectangle.Width = (int)(position.X + (base.widthPixels / 2)) * base.scaleFactor;
+        destRectangle.Height = (int)(position.Y + (base.heightPixels / 2)) * base.scaleFactor;
+
+        spriteBatch.Draw(base.texture, destRectangle, base.source, Color.White);
+    }
+
+    public override void Update()
+    {
+        // Empty method, stationary sprite
     }
 }
