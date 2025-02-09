@@ -18,6 +18,7 @@
 *.ncb
 *.suo
 *.tlb
+*.sln
 *.tlh
 *.bak
 *.[Cc]ache
