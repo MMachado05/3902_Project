@@ -36,22 +36,22 @@ public class SpriteFactory
     public ISprite NewUpStoppedPlayer()
     {
       return new StationarySprite(this.playerSpriteSheet,
-          new Rectangle(0, 0, 32, 32), 32, 32, 2);
+          new Rectangle(0, 0, 32, 32), 2);
     }
     public ISprite NewRightStoppedPlayer()
     {
       return new StationarySprite(this.playerSpriteSheet,
-          new Rectangle(32, 0, 32, 32), 32, 32, 2);
+          new Rectangle(32, 0, 32, 32), 2);
     }
     public ISprite NewDownStoppedPlayer()
     {
       return new StationarySprite(this.playerSpriteSheet,
-          new Rectangle(64, 0, 32, 32), 32, 32, 2);
+          new Rectangle(64, 0, 32, 32), 2);
     }
     public ISprite NewLeftStoppedPlayer()
     {
       return new StationarySprite(this.playerSpriteSheet,
-          new Rectangle(96, 0, 32, 32), 32, 32, 2);
+          new Rectangle(96, 0, 32, 32), 2);
     }
 
     // Walking Player sprites
@@ -96,5 +96,72 @@ public class SpriteFactory
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
           new Rectangle(64, 288, 64, 32), 2, 4);
+    }
+
+    // ----------------- DAMAGED --------------------
+    // Stopped Player sprites
+    public ISprite NewDamagedUpStoppedPlayer()
+    {
+      return new StationarySprite(this.playerSpriteSheet,
+          new Rectangle(128 + 0, 0, 32, 32), 2);
+    }
+    public ISprite NewDamagedRightStoppedPlayer()
+    {
+      return new StationarySprite(this.playerSpriteSheet,
+          new Rectangle(128 + 32, 0, 32, 32), 2);
+    }
+    public ISprite NewDamagedDownStoppedPlayer()
+    {
+      return new StationarySprite(this.playerSpriteSheet,
+          new Rectangle(128 + 64, 0, 32, 32), 2);
+    }
+    public ISprite NewDamagedLeftStoppedPlayer()
+    {
+      return new StationarySprite(this.playerSpriteSheet,
+          new Rectangle(128 + 96, 0, 32, 32), 2);
+    }
+
+    // Walking Player sprites
+    public ISprite NewDamagedUpWalkingPlayer()
+    {
+      return new AnimatedLoopSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 0, 32, 32, 32), 2, 4);
+    }
+    public ISprite NewDamagedRightWalkingPlayer()
+    {
+      return new AnimatedLoopSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 32, 32, 32, 32), 2, 4);
+    }
+    public ISprite NewDamagedDownWalkingPlayer()
+    {
+      return new AnimatedLoopSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 64, 32, 32, 32), 2, 4);
+    }
+    public ISprite NewDamagedLeftWalkingPlayer()
+    {
+      return new AnimatedLoopSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 96, 32, 32, 32), 2, 4);
+    }
+
+    // Attacking Player sprites - single use
+    public ISprite NewDamagedUpAttackingPlayer()
+    {
+      return new SingleAnimationSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 0, 160, 32, 64), 2, 4);
+    }
+    public ISprite NewDamagedRightAttackingPlayer()
+    {
+      return new SingleAnimationSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 64, 160, 64, 32), 2, 4);
+    }
+    public ISprite NewDamagedDownAttackingPlayer()
+    {
+      return new SingleAnimationSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 32, 160, 32, 64), 2, 4);
+    }
+    public ISprite NewDamagedLeftAttackingPlayer()
+    {
+      return new SingleAnimationSprite(this.playerSpriteSheet,
+          new Rectangle(128 + 64, 288, 64, 32), 2, 4);
     }
 }
