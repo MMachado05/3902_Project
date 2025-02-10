@@ -15,7 +15,7 @@ public class AnimatedLoopSprite : AbstractSprite
     /// the constructor argument.
     /// </summary>
     public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-        int scaleFactor, int maxFrames) : base(texture, sourceInitial, scaleFactor)
+        int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
     {
         this.maxFrames = maxFrames - 1;
         this.currFrame = 0;

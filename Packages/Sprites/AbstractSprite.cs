@@ -7,23 +7,33 @@ public abstract class AbstractSprite : ISprite
 {
     protected Texture2D texture;
     protected Rectangle source;
-    protected SpriteType type;
+    protected SpriteState state;
     protected int widthPixels;
     protected int heightPixels;
     protected int scaleFactor;
 
     public AbstractSprite(Texture2D texture, Rectangle source, int scaleFactor,
-        SpriteType type)
+        SpriteState state)
     {
         this.texture = texture;
         this.source = source;
         this.widthPixels = source.Width;
         this.heightPixels = source.Height;
         this.scaleFactor = scaleFactor;
-        this.type = type;
+        this.state = state;
     }
 
-    public abstract SpriteType Type { get; }
+    public SpriteState State
+    {
+        get
+        {
+            return this.state;
+        }
+        set
+        {
+            this.state = value;
+        }
+    }
 
     public Rectangle Source
     {
