@@ -13,6 +13,11 @@ public class SpriteFactory
 
     private Texture2D playerSpriteSheet;
 
+    private int scale;
+    // TODO: In the future, we'll want all drawing to be delegated to some external
+    // "renderer" object. Scaling, destRectangles... all that stuff should be done
+    // somewhere else.
+
     private static SpriteFactory instance = new SpriteFactory();
 
     public static SpriteFactory Instance
