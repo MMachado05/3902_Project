@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project;
 
-public class AnimatedSprite : AbstractSprite
+public class AnimatedLoopSprite : AbstractSprite
 {
     private int maxFrames;
     private int currFrame;
@@ -14,7 +14,7 @@ public class AnimatedSprite : AbstractSprite
     /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
     /// the constructor argument.
     /// </summary>
-    public AnimatedSprite(Texture2D texture, Rectangle sourceInitial, int widthPixels, int heightPixels,
+    public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial, int widthPixels, int heightPixels,
         int scaleFactor, int maxFrames) : base(texture, sourceInitial, widthPixels,
           heightPixels, scaleFactor)
     {
