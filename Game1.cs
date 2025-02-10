@@ -5,16 +5,10 @@ using Microsoft.Xna.Framework.Input;
 namespace Project
 {
 
-    public class Game1 : Game
-    {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-
-        internal CharacterManager CharacterManager = new();
-        public int Printscale = 3;
-
-        internal IController _keyboardController;
-        internal IController _mouseController;
+public class Game1 : Game
+{
+    private GraphicsDeviceManager _graphics;
+    private SpriteBatch _spriteBatch;
 
         public Game1()
         {
@@ -23,26 +17,19 @@ namespace Project
             IsMouseVisible = true;
         }
 
-        protected override void Initialize()
-        {
-            base.Initialize();
+    protected override void Initialize()
+    {
+        // TODO: Add your initialization logic here
 
-            CharacterManager = new();
+        base.Initialize();
+    }
 
-            LoadContent();
-        }
+    protected override void LoadContent()
+    {
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        protected override void LoadContent()
-        {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            _keyboardController = new KeyboardController(this);
-            _mouseController = new MouseController(this, _graphics);
-
-            //add load content from CharacterManager
-            CharacterManager.LoadContent(_graphics, _spriteBatch, Content);
-        }
+        // TODO: use this.Content to load your game content here
+    }
 
         protected override void Update(GameTime gameTime)
         {
@@ -51,8 +38,7 @@ namespace Project
 
             CharacterManager.Update(gameTime);
 
-            _keyboardController.Update();
-            //_mouseController.Update();
+        // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -61,13 +47,8 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
-            CharacterManager.Draw(_spriteBatch);
-            _spriteBatch.End();
+        // TODO: Add your drawing code here
 
-            base.Draw(gameTime);
-        }
-
+        base.Draw(gameTime);
     }
-
 }
