@@ -11,12 +11,12 @@ public abstract class AbstractSprite : ISprite
     protected int heightPixels;
     protected int scaleFactor;
 
-    public AbstractSprite(Texture2D texture, Rectangle source, int widthPixels, int heightPixels, int scaleFactor)
+    public AbstractSprite(Texture2D texture, Rectangle source, int scaleFactor)
     {
       this.texture = texture;
       this.source = source;
-      this.widthPixels = widthPixels;
-      this.heightPixels = heightPixels;
+      this.widthPixels = source.Width;
+      this.heightPixels = source.Height;
       this.scaleFactor = scaleFactor;
     }
 

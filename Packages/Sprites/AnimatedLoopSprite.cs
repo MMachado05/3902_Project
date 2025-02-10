@@ -14,9 +14,8 @@ public class AnimatedLoopSprite : AbstractSprite
     /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
     /// the constructor argument.
     /// </summary>
-    public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial, int widthPixels, int heightPixels,
-        int scaleFactor, int maxFrames) : base(texture, sourceInitial, widthPixels,
-          heightPixels, scaleFactor)
+    public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
+        int scaleFactor, int maxFrames) : base(texture, sourceInitial, scaleFactor)
     {
         this.maxFrames = maxFrames - 1;
         this.currFrame = 0;
