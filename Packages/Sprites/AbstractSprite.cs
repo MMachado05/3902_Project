@@ -32,6 +32,19 @@ public abstract class AbstractSprite : ISprite
       }
     }
 
-    public abstract void Draw(SpriteBatch spriteBatch, Vector2 position);
+    public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
+    {
+        Rectangle destRectangle = new Rectangle();
+
+        int scaledHalfWidth = this.widthPixels / 2 * this.scaleFactor;
+        int scaledHalfHeight = this.heightPixels / 2 * this.scaleFactor;
+
+        destRectangle.X = (int)(position.X - scaledHalfWidth);
+        destRectangle.Y = (int)(position.Y - scaledHalfHeight);
+        destRectangle.Width = this.widthPixels * this.scaleFactor;
+        destRectangle.Height = this.heightPixels * this.scaleFactor;
+
+        spriteBatch.Draw(this.texture, destRectangle, this.source, Color.White);
+    }
     public abstract void Update();
 }

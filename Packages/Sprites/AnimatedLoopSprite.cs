@@ -23,17 +23,6 @@ public class AnimatedLoopSprite : AbstractSprite
         this.topLeftYInitial = sourceInitial.Y;
     }
 
-    public override void Draw(SpriteBatch spriteBatch, Vector2 position)
-    {
-        Rectangle destRectangle = new Rectangle();
-        destRectangle.X = (int)(position.X - (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Y = (int)(position.Y - (base.heightPixels / 2)) * base.scaleFactor;
-        destRectangle.Width = (int)(position.X + (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Height = (int)(position.Y + (base.heightPixels / 2)) * base.scaleFactor;
-
-        spriteBatch.Draw(base.texture, destRectangle, base.source, Color.White);
-    }
-
     public override void Update()
     {
       this.currFrame++;
