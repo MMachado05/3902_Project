@@ -14,8 +14,8 @@ public class EnemyManager
         enemies = new List<Enemy>
             {
                 new Goblin(new Vector2(100, 100)),
-                new Skeleton(new Vector2(200, 200)),
-                new Dragon(new Vector2(300, 300))
+                new Skeleton(new Vector2(100, 100)),
+                new Dragon(new Vector2(100, 100))
             };
         currentEnemyIndex = 0;
     }

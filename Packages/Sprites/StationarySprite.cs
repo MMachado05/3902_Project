@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -14,10 +15,14 @@ public class StationarySprite : AbstractSprite
     {
         // Calculate destination rectangle
         Rectangle destRectangle = new Rectangle();
-        destRectangle.X = (int)(position.X - (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Y = (int)(position.Y - (base.heightPixels / 2)) * base.scaleFactor;
-        destRectangle.Width = (int)(position.X + (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Height = (int)(position.Y + (base.heightPixels / 2)) * base.scaleFactor;
+
+        int scaledHalfWidth = base.widthPixels / 2 * base.scaleFactor;
+        int scaledHalfHeight = base.heightPixels / 2 * base.scaleFactor;
+
+        destRectangle.X = (int)(position.X - scaledHalfWidth);
+        destRectangle.Y = (int)(position.Y - scaledHalfHeight);
+        destRectangle.Width = base.widthPixels * base.scaleFactor;
+        destRectangle.Height = base.heightPixels * base.scaleFactor;
 
         spriteBatch.Draw(base.texture, destRectangle, base.source, Color.White);
     }

@@ -21,7 +21,7 @@ namespace Project.Enemies.EnemyStateClasses
 
         public void Update(IEnemy enemy)
         {
-            moveTimer += 1f;
+            moveTimer += 0.25f;
             enemy.SetPosition(enemy.Position + direction * enemy.Speed);
 
             if (moveTimer > 3)

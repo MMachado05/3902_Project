@@ -9,7 +9,7 @@ namespace Project.Enemies.EnemyStateClasses
 
         public void Update(IEnemy enemy)
         {
-            timer += 1f;
+            timer += 0.75f;
             if (timer > 2)
             {
                 enemy.SetState(new MovingState());
