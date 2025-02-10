@@ -37,11 +37,11 @@ public class AnimatedLoopSprite : AbstractSprite
 
     public override void Update()
     {
-      currFrame++;
-      if (currFrame == maxFrames)
-        currFrame = 0;
+      this.currFrame++;
+      if (this.currFrame == this.maxFrames)
+        this.currFrame = 0;
 
       // All sprites are animated downwards
-      base.source.Y = this.topLeftYInitial + (base.heightPixels * currFrame);
+      base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
     }
 }
