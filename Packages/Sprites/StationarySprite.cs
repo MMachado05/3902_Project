@@ -1,9 +1,9 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
-
 
     public class StationarySprite : AbstractSprite
     {
@@ -15,6 +15,19 @@ namespace Project
 
         public override void Draw(SpriteBatch spriteBatch, Vector2 position)
         {
+            // Kev changes:
+            
+            // // Calculate destination rectangle
+            // Rectangle destRectangle = new Rectangle();
+
+            // int scaledHalfWidth = base.widthPixels / 2 * base.scaleFactor;
+            // int scaledHalfHeight = base.heightPixels / 2 * base.scaleFactor;
+
+            // destRectangle.X = (int)(position.X - scaledHalfWidth);
+            // destRectangle.Y = (int)(position.Y - scaledHalfHeight);
+            // destRectangle.Width = base.widthPixels * base.scaleFactor;
+            // destRectangle.Height = base.heightPixels * base.scaleFactor;
+
             // Calculate destination rectangle
             Rectangle destRectangle = new Rectangle();
             destRectangle.X = (int)(position.X - (base.widthPixels / 2)) * base.scaleFactor;

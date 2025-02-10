@@ -3,11 +3,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Project.Enemies;
+using Project.Enemies.EnemyClasses;
+using Project.Controllers.ControllerClasses;
+using Project.Commands.CommandClasses;
 
 namespace Project
 {
-
-
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -24,6 +26,13 @@ namespace Project
 
         private string lastDirection = "Down"; // Default direction set to "down" for now.
         private bool isMoving = false; // Tracks if player is currently moving; used to set static animation
+        
+        // Kev adds:
+        private EnemyManager enemyManager;
+        private EnemyController enemyController;
+        private ISprite goblinTexture;
+        private Texture2D skeletonTexture;
+        private Texture2D dragonTexture;
 
         public Game1()
         {
@@ -54,7 +63,36 @@ namespace Project
 
             // Initialize KeyboardController with movement commands
             _keyboardController = new KeyboardController(this);
+
+            // Kev adds:
+            enemyManager = new EnemyManager();
+            
+            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
+            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
+
+            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>();
+            enemyCommands.Add(Keys.O, previousEnemyCommand);
+            enemyCommands.Add(Keys.P, nextEnemyCommand);
+
+            enemyController = new EnemyController(enemyCommands);
+
+            goblinTexture = SpriteFactory.Instance.NewDownStoppedPlayer();
+            skeletonTexture = new Texture2D(GraphicsDevice, 50, 50);
+            dragonTexture = new Texture2D(GraphicsDevice, 50, 50);
+
+            Color[] goblinData = new Color[50 * 50];
+            Color[] skeletonData = new Color[50 * 50];
+            Color[] dragonData = new Color[50 * 50];
+            for (int i = 0; i < goblinData.Length; i++) goblinData[i] = Color.Green;
+            for (int i = 0; i < skeletonData.Length; i++) skeletonData[i] = Color.White;
+            for (int i = 0; i < dragonData.Length; i++) dragonData[i] = Color.Red;
+
+            skeletonTexture.SetData(skeletonData);
+            dragonTexture.SetData(dragonData);
+
+            base.Initialize();
         }
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -70,6 +108,9 @@ namespace Project
             }
             else isMoving = true;
 
+            // Kev adds:
+            enemyController.Update();
+            enemyManager.Update(gameTime);
 
             _keyboardController.Update();
 
@@ -80,6 +121,8 @@ namespace Project
                 elapsedTime = 0f;
             }
 
+
+
             base.Update(gameTime);
         }
 
@@ -87,8 +130,19 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp); //Kev was: _spriteBatch.Begin();
             playerSprite.Draw(_spriteBatch, playerPositionVector);
+            _spriteBatch.End();
+
+            // Kev adds:
+            Enemy currentEnemy = enemyManager.GetCurrentEnemy();
+            if (currentEnemy is Goblin)
+                goblinTexture.Draw(_spriteBatch, currentEnemy.Position);
+            else if (currentEnemy is Skeleton)
+                _spriteBatch.Draw(skeletonTexture, currentEnemy.Position, Color.White);
+            else if (currentEnemy is Dragon)
+                _spriteBatch.Draw(dragonTexture, currentEnemy.Position, Color.White);
+            
             _spriteBatch.End();
 
             base.Draw(gameTime);
