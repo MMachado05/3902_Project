@@ -89,8 +89,6 @@ namespace Project
 
             skeletonTexture.SetData(skeletonData);
             dragonTexture.SetData(dragonData);
-
-            base.Initialize();
         }
 
 
@@ -130,9 +128,8 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp); //Kev was: _spriteBatch.Begin();
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp); //Kev was: _spriteBatch.Begin(); || 
             playerSprite.Draw(_spriteBatch, playerPositionVector);
-            _spriteBatch.End();
 
             // Kev adds:
             Enemy currentEnemy = enemyManager.GetCurrentEnemy();
