@@ -24,4 +24,13 @@ public class SpriteFactory
     {
     }
 
+    public void LoadAllTextures(ContentManager content)
+    {
+        playerSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplate"); // TODO: Replace with actual
+    }
+
+    public ISprite CreatePlayerSprite()
+    {
+
+    }
 }
