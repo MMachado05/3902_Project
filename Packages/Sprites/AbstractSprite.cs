@@ -13,23 +13,23 @@ public abstract class AbstractSprite : ISprite
 
     public AbstractSprite(Texture2D texture, Rectangle source, int scaleFactor)
     {
-      this.texture = texture;
-      this.source = source;
-      this.widthPixels = source.Width;
-      this.heightPixels = source.Height;
-      this.scaleFactor = scaleFactor;
+        this.texture = texture;
+        this.source = source;
+        this.widthPixels = source.Width;
+        this.heightPixels = source.Height;
+        this.scaleFactor = scaleFactor;
     }
 
     public Rectangle Source
     {
-      get
-      {
-        return this.source;
-      }
-      set
-      {
-        this.source = value;
-      }
+        get
+        {
+            return this.source;
+        }
+        set
+        {
+            this.source = value;
+        }
     }
 
     public virtual void Draw(SpriteBatch spriteBatch, Vector2 position)
