@@ -1,51 +1,103 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Project;
-
-public class Game1 : Game
+namespace Project
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 
-    public Game1()
+
+    public class Game1 : Game
     {
-        _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        private KeyboardController _keyboardController;
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
+        private ISprite playerSprite;
+        private Rectangle playerPosition;
 
-        base.Initialize();
-    }
+        private string lastDirection = "Down"; // Default direction set to "down" for now.
 
-    protected override void LoadContent()
-    {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        public Game1()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+        }
 
-        // TODO: use this.Content to load your game content here
-    }
+        protected override void Initialize()
+        {
+            playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
 
-    protected override void Update(GameTime gameTime)
-    {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+            base.Initialize(); // Does this go first or last????
+        }
 
-        // TODO: Add your update logic here
+        protected override void LoadContent()
+        {
+            // Create a new SpriteBatch, which can be used to draw textures.
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        base.Update(gameTime);
-    }
+            // Load all textures
+            SpriteFactory.Instance.LoadAllTextures(Content);
 
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+            // Set initial sprite to standing still
+            playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
-        // TODO: Add your drawing code here
+            // Initialize KeyboardController with movement commands
+            _keyboardController = new KeyboardController(this);
+        }
 
-        base.Draw(gameTime);
+        protected override void Update(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+
+            _keyboardController.Update();
+            playerSprite.Update();
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin();
+            playerSprite.Draw(_spriteBatch, new Vector2(playerPosition.X, playerPosition.Y));
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        public void ChangePlayerSprite(ISprite newSprite)
+        {
+            playerSprite = newSprite;
+        }
+
+        public void MovePlayer(int dx, int dy, string direction)
+        {
+            playerPosition = new Rectangle(playerPosition.X + dx, playerPosition.Y + dy, playerPosition.Width, playerPosition.Height);
+            lastDirection = direction; // Store last movement direction, used to setting the attack animation
+        }
+
+        public void Attack()
+        {
+            switch (lastDirection)
+            {
+                case "Up":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
+                    break;
+                case "Down":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
+                    break;
+                case "Left":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
+                    break;
+                case "Right":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
+                    break;
+            }
+        }
     }
 }
