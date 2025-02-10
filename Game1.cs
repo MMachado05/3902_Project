@@ -17,6 +17,7 @@ namespace Project
         private Rectangle playerPosition;
 
         private string lastDirection = "Down"; // Default direction set to "down" for now.
+        private bool isMoving = false; // Tracks if player is currently moving; used to set static animation
 
         public Game1()
         {
@@ -40,7 +41,7 @@ namespace Project
             // Load all textures
             SpriteFactory.Instance.LoadAllTextures(Content);
 
-            // Set initial sprite to standing still
+            // Set initial sprite to static down
             playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement commands
@@ -51,6 +52,17 @@ namespace Project
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            // Check if player has stopped moving
+            KeyboardState state = Keyboard.GetState();
+            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)))
+            {
+                SetStaticSprite(); // Set idle sprite; moved to another function for clarity
+            }
+            else
+            {
+                isMoving = true;
+            }
 
 
             _keyboardController.Update();
@@ -96,6 +108,25 @@ namespace Project
                     break;
                 case "Right":
                     ChangePlayerSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
+                    break;
+            }
+        }
+
+        private void SetStaticSprite()
+        {
+            switch (lastDirection)
+            {
+                case "Up":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
+                    break;
+                case "Down":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
+                    break;
+                case "Left":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
+                    break;
+                case "Right":
+                    ChangePlayerSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
                     break;
             }
         }
