@@ -16,7 +16,8 @@ namespace Project
         /// the constructor argument.
         /// </summary>
         public SingleAnimationSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, SpriteState active, SpriteState complete) : base(texture, sourceInitial, scaleFactor, active)
+            int scaleFactor, int maxFrames, SpriteState active, SpriteState complete,
+            int originX=-1, int originY=-1) : base(texture, sourceInitial, scaleFactor, active, originX, originY)
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;

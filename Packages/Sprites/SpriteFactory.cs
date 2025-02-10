@@ -86,22 +86,22 @@ public class SpriteFactory
     public ISprite NewUpAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
+          new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
     }
     public ISprite NewRightAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
+          new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
     }
     public ISprite NewDownAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
+          new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
     }
     public ISprite NewLeftAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
+          new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
     }
 
     // ----------------- DAMAGED --------------------
@@ -153,21 +153,21 @@ public class SpriteFactory
     public ISprite NewDamagedUpAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(128 + 0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
-    }
-    public ISprite NewDamagedRightAttackingPlayer()
-    {
-      return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(128 + 64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
-    }
-    public ISprite NewDamagedDownAttackingPlayer()
-    {
-      return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(128 + 32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
-    }
-    public ISprite NewDamagedLeftAttackingPlayer()
-    {
-      return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(128 + 64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack);
+          new Rectangle(128 + 0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+    }                                                                                                                   
+    public ISprite NewDamagedRightAttackingPlayer()                                                                     
+    {                                                                                                                   
+      return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
+          new Rectangle(128 + 64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+    }                                                                                                                   
+    public ISprite NewDamagedDownAttackingPlayer()                                                                      
+    {                                                                                                                   
+      return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
+          new Rectangle(128 + 32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+    }                                                                                                                   
+    public ISprite NewDamagedLeftAttackingPlayer()                                                                      
+    {                                                                                                                   
+      return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
+          new Rectangle(128 + 64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
     }
 }

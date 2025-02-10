@@ -11,9 +11,11 @@ public abstract class AbstractSprite : ISprite
     protected int widthPixels;
     protected int heightPixels;
     protected int scaleFactor;
+    protected int originX;
+    protected int originY;
 
     public AbstractSprite(Texture2D texture, Rectangle source, int scaleFactor,
-        SpriteState state)
+        SpriteState state, int originX=-1, int originY=-1)
     {
         this.texture = texture;
         this.source = source;
@@ -21,6 +23,8 @@ public abstract class AbstractSprite : ISprite
         this.heightPixels = source.Height;
         this.scaleFactor = scaleFactor;
         this.state = state;
+        this.originX = originX;
+        this.originY = originY;
     }
 
     public SpriteState State
@@ -51,11 +55,14 @@ public abstract class AbstractSprite : ISprite
     {
         Rectangle destRectangle = new Rectangle();
 
-        int scaledHalfWidth = this.widthPixels / 2 * this.scaleFactor;
-        int scaledHalfHeight = this.heightPixels / 2 * this.scaleFactor;
+        int xOffset = this.widthPixels / 2 * this.scaleFactor;
+        int yOffset = this.heightPixels / 2 * this.scaleFactor;
 
-        destRectangle.X = (int)(position.X - scaledHalfWidth);
-        destRectangle.Y = (int)(position.Y - scaledHalfHeight);
+        if (originX >= 0) xOffset += xOffset - originX;
+        if (originY >= 0) yOffset += yOffset - originY;
+
+        destRectangle.X = (int)(position.X - xOffset);
+        destRectangle.Y = (int)(position.Y - yOffset);
         destRectangle.Width = this.widthPixels * this.scaleFactor;
         destRectangle.Height = this.heightPixels * this.scaleFactor;
 
