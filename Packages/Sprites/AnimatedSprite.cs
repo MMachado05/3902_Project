@@ -7,6 +7,8 @@ public class AnimatedSprite : AbstractSprite
 {
     private int maxFrames;
     private int currFrame;
+    private int topLeftXInitial;
+    private int topLeftYInitial;
 
     /// <summary>
     /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
@@ -18,6 +20,8 @@ public class AnimatedSprite : AbstractSprite
     {
         this.maxFrames = maxFrames - 1;
         this.currFrame = 0;
+        this.topLeftXInitial = sourceInitial.X;
+        this.topLeftYInitial = sourceInitial.Y;
     }
 
     public override void Draw(SpriteBatch spriteBatch, Vector2 position)
@@ -33,6 +37,11 @@ public class AnimatedSprite : AbstractSprite
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+      currFrame++;
+      if (currFrame == maxFrames)
+        currFrame = 0;
+
+      // All sprites are animated downwards
+      base.source.Y = this.topLeftYInitial + (base.heightPixels * currFrame);
     }
 }
