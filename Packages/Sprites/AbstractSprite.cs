@@ -72,3 +72,5 @@ public abstract class AbstractSprite : ISprite
     }
     public abstract void Update();
 }
+
+}

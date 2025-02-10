@@ -173,3 +173,6 @@ namespace Project
           new Rectangle(128 + 64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
     }
 }
+
+
+}
