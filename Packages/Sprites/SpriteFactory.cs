@@ -38,66 +38,66 @@ namespace Project
         public ISprite NewUpStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(0, 0, 32, 32), 2);
+                new Rectangle(0, 0, 32, 32), 1);
         }
         public ISprite NewRightStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(32, 0, 32, 32), 2);
+                new Rectangle(32, 0, 32, 32), 1);
         }
         public ISprite NewDownStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(64, 0, 32, 32), 2);
+                new Rectangle(64, 0, 32, 32), 1);
         }
         public ISprite NewLeftStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(96, 0, 32, 32), 2);
+                new Rectangle(96, 0, 32, 32), 1);
         }
 
         // Walking Player sprites
         public ISprite NewUpWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(0, 32, 32, 32), 2, 4);
+                new Rectangle(0, 32, 32, 32), 1, 4);
         }
         public ISprite NewRightWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(32, 32, 32, 32), 2, 4);
+                new Rectangle(32, 32, 32, 32), 1, 4);
         }
         public ISprite NewDownWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(64, 32, 32, 32), 2, 4);
+                new Rectangle(64, 32, 32, 32), 1, 4);
         }
         public ISprite NewLeftWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(96, 32, 32, 32), 2, 4);
+                new Rectangle(96, 32, 32, 32), 1, 4);
         }
 
         // Attacking Player sprites - single use
         public ISprite NewUpAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(0, 160, 32, 64), 2, 4);
+                new Rectangle(0, 160, 32, 64), 1, 4);
         }
         public ISprite NewRightAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(64, 160, 64, 32), 2, 4);
+                new Rectangle(64, 160, 64, 32), 1, 4);
         }
         public ISprite NewDownAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(32, 160, 32, 64), 2, 4);
+                new Rectangle(32, 160, 32, 64), 1, 4);
         }
         public ISprite NewLeftAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(64, 288, 64, 32), 2, 4);
+                new Rectangle(64, 288, 64, 32), 1, 4);
         }
 
         // ----------------- DAMAGED --------------------
@@ -105,66 +105,66 @@ namespace Project
         public ISprite NewDamagedUpStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(128 + 0, 0, 32, 32), 2);
+                new Rectangle(128 + 0, 0, 32, 32), 1);
         }
         public ISprite NewDamagedRightStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(128 + 32, 0, 32, 32), 2);
+                new Rectangle(128 + 32, 0, 32, 32), 1);
         }
         public ISprite NewDamagedDownStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(128 + 64, 0, 32, 32), 2);
+                new Rectangle(128 + 64, 0, 32, 32), 1);
         }
         public ISprite NewDamagedLeftStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(128 + 96, 0, 32, 32), 2);
+                new Rectangle(128 + 96, 0, 32, 32), 1);
         }
 
         // Walking Player sprites
         public ISprite NewDamagedUpWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 0, 32, 32, 32), 2, 4);
+                new Rectangle(128 + 0, 32, 32, 32), 1, 4);
         }
         public ISprite NewDamagedRightWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 32, 32, 32, 32), 2, 4);
+                new Rectangle(128 + 32, 32, 32, 32), 1, 4);
         }
         public ISprite NewDamagedDownWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 64, 32, 32, 32), 2, 4);
+                new Rectangle(128 + 64, 32, 32, 32), 1, 4);
         }
         public ISprite NewDamagedLeftWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 96, 32, 32, 32), 2, 4);
+                new Rectangle(128 + 96, 32, 32, 32), 1, 4);
         }
 
         // Attacking Player sprites - single use
         public ISprite NewDamagedUpAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 0, 160, 32, 64), 2, 4);
+                new Rectangle(128 + 0, 160, 32, 64), 1, 4);
         }
         public ISprite NewDamagedRightAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 64, 160, 64, 32), 2, 4);
+                new Rectangle(128 + 64, 160, 64, 32), 1, 4);
         }
         public ISprite NewDamagedDownAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 32, 160, 32, 64), 2, 4);
+                new Rectangle(128 + 32, 160, 32, 64), 1, 4);
         }
         public ISprite NewDamagedLeftAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(128 + 64, 288, 64, 32), 2, 4);
+                new Rectangle(128 + 64, 288, 64, 32), 1, 4);
         }
     }
 }
