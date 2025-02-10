@@ -28,6 +28,8 @@ public class AnimatedLoopSprite : AbstractSprite
       this.currFrame++;
       if (this.currFrame == this.maxFrames)
         this.currFrame = 0;
+      else
+        this.currFrame++;
 
       // All sprites are animated downwards
       base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
