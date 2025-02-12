@@ -7,6 +7,7 @@ using Project.Enemies;
 using Project.Enemies.EnemyClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Commands.CommandClasses;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Project
 {
@@ -119,7 +120,12 @@ namespace Project
                 elapsedTime = 0f;
             }
 
-
+            if (playerSprite.State == SpriteState.FinishedAttack)
+            {
+                SetStaticSprite();
+                isAttacking = false;
+                isMoving = false;
+            }
 
             base.Update(gameTime);
         }
@@ -128,7 +134,7 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp); //Kev was: _spriteBatch.Begin(); || 
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             playerSprite.Draw(_spriteBatch, playerPositionVector);
 
             // Kev adds:
@@ -198,7 +204,7 @@ namespace Project
                 case "Up":
                 if (!isAttacking)
                     ChangePlayerSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
-                    break;
+                break;
                 case "Down":
                 if (!isAttacking)
                     ChangePlayerSprite(SpriteFactory.Instance.NewDownStoppedPlayer());

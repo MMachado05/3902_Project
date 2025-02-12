@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -28,12 +29,11 @@ namespace Project
 
     public override void Update()
     {
-      this.currFrame++;
+      Console.WriteLine("currFrame: " + this.currFrame);
       if (this.currFrame == this.maxFrames)
         this.currFrame = 0;
       else
         this.currFrame++;
-
             // All sprites are animated downwards
             base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
         }

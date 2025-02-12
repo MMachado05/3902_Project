@@ -29,7 +29,7 @@ namespace Project
 
         public override void Update()
         {
-            Console.WriteLine("ATTcurrFrame: " + this.currFrame);
+            //Console.WriteLine("ATTcurrFrame: " + this.currFrame);
             if (this.currFrame < this.maxFrames)
             {
                 this.currFrame++;
@@ -38,6 +38,7 @@ namespace Project
             else
             {
                 base.State = this.complete;
+                this.currFrame = 0;
             }
         }
     }
