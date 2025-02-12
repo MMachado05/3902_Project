@@ -11,7 +11,7 @@ namespace Project.Enemies.EnemyStateClasses
 
         public void Update(IEnemy enemy)
         {
-            timer += 0.25f;
+            timer += 0.1f;
 
             if (enemy is Enemy e)
             {
