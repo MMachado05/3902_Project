@@ -23,7 +23,7 @@ namespace Project.Blocks
             Source=src;
             Destination=dst;
         }
-         public void draw()
+         public void Draw()
         {
          spriteBatch.Draw(texture,Source,Destination,Color.White);
          
