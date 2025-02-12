@@ -25,7 +25,6 @@ public class AnimatedLoopSprite : AbstractSprite
 
     public override void Update()
     {
-        this.currFrame++;
         if (this.currFrame == this.maxFrames)
             this.currFrame = 0;
         else

@@ -36,7 +36,9 @@ namespace Project
             else
             {
                 base.State = this.complete;
+                this.currFrame = 0;
             }
+
         }
     }
 }
