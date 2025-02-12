@@ -15,7 +15,7 @@ public class AnimatedLoopSprite : AbstractSprite
     /// the constructor argument.
     /// </summary>
     public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-        int scaleFactor, int maxFrames) : base(texture, sourceInitial, scaleFactor)
+        int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
     {
         this.maxFrames = maxFrames - 1;
         this.currFrame = 0;
@@ -23,24 +23,15 @@ public class AnimatedLoopSprite : AbstractSprite
         this.topLeftYInitial = sourceInitial.Y;
     }
 
-    public override void Draw(SpriteBatch spriteBatch, Vector2 position)
-    {
-        Rectangle destRectangle = new Rectangle();
-        destRectangle.X = (int)(position.X - (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Y = (int)(position.Y - (base.heightPixels / 2)) * base.scaleFactor;
-        destRectangle.Width = (int)(position.X + (base.widthPixels / 2)) * base.scaleFactor;
-        destRectangle.Height = (int)(position.Y + (base.heightPixels / 2)) * base.scaleFactor;
-
-        spriteBatch.Draw(base.texture, destRectangle, base.source, Color.White);
-    }
-
     public override void Update()
     {
-      this.currFrame++;
-      if (this.currFrame == this.maxFrames)
-        this.currFrame = 0;
+        this.currFrame++;
+        if (this.currFrame == this.maxFrames)
+            this.currFrame = 0;
+        else
+            this.currFrame++;
 
-      // All sprites are animated downwards
-      base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
+        // All sprites are animated downwards
+        base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
     }
 }
