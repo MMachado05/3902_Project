@@ -10,10 +10,15 @@ namespace Project.Packages.Items
 {
     public class Arrow : Item
     {
-        Arrow()
+        public Arrow()
         {
-            SetPosition(new Vector2(100, 10));
-            Speed = 0;
-        }   
+            Position = new Vector2(100, 10);
+            Speed = 10;
+        }
+        
+        public void Draw(ISprite isprite, SpriteBatch spriteBatch)
+        {
+            isprite.Draw(spriteBatch, Position);
+        }
     }
 }

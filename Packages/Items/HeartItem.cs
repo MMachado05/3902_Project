@@ -10,10 +10,14 @@ namespace Project.Packages.Items
 {
     public class HeartItem : Item
     {
-        HeartItem()
+        public HeartItem()
         {
-            SetPosition(new Vector2(10, 10));
-            Speed = 10;
-        }   
+            Position = new Vector2(10, 10);
+            Speed = 0;
+        }
+        public void Draw(ISprite isprite, SpriteBatch spriteBatch)
+        {
+            isprite.Draw(spriteBatch, Position);
+        }
     }
 }
