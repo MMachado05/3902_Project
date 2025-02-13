@@ -13,7 +13,7 @@ namespace Project.Packages.Items
         public Arrow()
         {
             Position = new Vector2(100, 10);
-            Speed = 10;
+            Speed = 3;
         }
         
         public void Draw(ISprite isprite, SpriteBatch spriteBatch)

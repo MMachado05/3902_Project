@@ -12,7 +12,7 @@ namespace Project.Packages.Items
     {
         public HeartItem()
         {
-            Position = new Vector2(10, 10);
+            Position = new Vector2(20, 20);
             Speed = 0;
         }
         public void Draw(ISprite isprite, SpriteBatch spriteBatch)

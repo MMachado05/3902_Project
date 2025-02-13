@@ -42,8 +42,8 @@ public class Game1 : Game
         // TODO: use this.Content to load your game content here
         Texture2D heartTexture = Content.Load<Texture2D>("test_item");
         Texture2D arrowTexture = Content.Load<Texture2D>("arrow");
-        heartSprite = new AnimatedLoopSprite(heartTexture, new Rectangle(0,0,32,32), 1, 4);
-        arrowSprite = new AnimatedLoopSprite(arrowTexture, new Rectangle(0, 0, 32, 32), 1, 4);
+        heartSprite = new AnimatedLoopSprite(heartTexture, new Rectangle(0,0,64,64), 3, 4);
+        arrowSprite = new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3);
 
     }
 
