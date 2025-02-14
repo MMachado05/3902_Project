@@ -17,14 +17,14 @@ namespace Project
         private SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
 
-        private ISprite playerSprite;
+        public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
         private float elapsedTime;
         public SpriteType spriteType;
-        public SpriteState spriteState;
+        //public SpriteState spriteState;
 
-        private string lastDirection = "Down"; // Default direction set to "down" for now.
+        public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
         private bool isMoving = false; // Tracks if player is currently moving; used to set static animation
         
         // Kev adds:
@@ -97,20 +97,16 @@ namespace Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            _keyboardController.Update();
+
             // Check if player has stopped moving
             KeyboardState state = Keyboard.GetState();
-            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)))
+            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)) && playerSprite.State != SpriteState.Attacking)
             {
                 SetStaticSprite(); // Set idle sprite; moved to another function for clarity
                 isMoving = false;
             }
             else isMoving = true;
-
-            // Kev adds:
-            enemyController.Update();
-            enemyManager.Update(gameTime);
-
-            _keyboardController.Update();
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
@@ -119,11 +115,15 @@ namespace Project
                 elapsedTime = 0f;
             }
 
-            if (playerSprite.State == SpriteState.FinishedAttack)
-            {
-                SetStaticSprite();
-                isMoving = false;
-            }
+            // if (playerSprite.State == SpriteState.FinishedAttack)
+            // {
+            //     SetStaticSprite();
+            //     isMoving = false;
+            // }
+
+            // Kev adds
+            enemyController.Update();
+            enemyManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -168,7 +168,6 @@ namespace Project
             switch (lastDirection)
             {
                 case "Up":
-                
                     ChangePlayerSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
                 break;
                 case "Down":

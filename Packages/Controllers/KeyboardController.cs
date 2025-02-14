@@ -22,8 +22,8 @@ namespace Project
             _commands.Add(Keys.S, new MoveCommand(_game, "Down"));
             _commands.Add(Keys.D, new MoveCommand(_game, "Right"));
             
-            _commands.Add(Keys.Z, new AttackCommand(_game, _direction));
-            _commands.Add(Keys.N, new AttackCommand(_game, direction));
+            _commands.Add(Keys.Z, new AttackCommand(_game));
+            _commands.Add(Keys.N, new AttackCommand(_game));
 
 
             //_commands.Add(Keys.D0, new QuitCommand(game));
