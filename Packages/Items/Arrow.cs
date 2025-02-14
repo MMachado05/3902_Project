@@ -20,5 +20,6 @@ namespace Project.Packages.Items
         {
             isprite.Draw(spriteBatch, Position);
         }
+
     }
 }

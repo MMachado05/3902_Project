@@ -17,18 +17,21 @@ namespace Project.Packages.Items
         public void Update()
         {
             Position = new Vector2(Position.X + Speed, Position.Y);
-            if (Position.X > 200 || Position.X < 0)
+            if (Position.X > 800 || Position.X < 0)
             {
-                bounceOffWall(); 
+                bounceOffWall();
             }
-        }
 
-        void bounceOffWall ()
-        {
-            Speed = -Speed;
-        }
+        
+    }
 
-        public void Draw(ISprite isprite, SpriteBatch spriteBatch) { }
+void bounceOffWall()
+{
+    Speed = -Speed;
+}
+
+
+public void Draw(ISprite isprite, SpriteBatch spriteBatch) { }
 
     }
 }
