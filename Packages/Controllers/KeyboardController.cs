@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
 
 namespace Project
@@ -7,19 +8,22 @@ namespace Project
     {
         private Dictionary<Keys, ICommand> _commands;
         private Game1 _game;
+        private string _direction;
 
 
-        public KeyboardController(Game1 game)
+        public KeyboardController(Game1 game, String direction)
         {
             _game = game;
+            _direction = direction;
+
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.W, new MoveCommand(_game, "Up"));
             _commands.Add(Keys.A, new MoveCommand(_game, "Left"));
             _commands.Add(Keys.S, new MoveCommand(_game, "Down"));
             _commands.Add(Keys.D, new MoveCommand(_game, "Right"));
             
-            _commands.Add(Keys.Z, new AttackCommand(_game));
-            _commands.Add(Keys.N, new AttackCommand(_game));
+            _commands.Add(Keys.Z, new AttackCommand(_game, _direction));
+            _commands.Add(Keys.N, new AttackCommand(_game, direction));
 
 
             //_commands.Add(Keys.D0, new QuitCommand(game));

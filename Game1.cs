@@ -22,8 +22,7 @@ namespace Project
         private Vector2 playerPositionVector;
         private float elapsedTime;
         public SpriteType spriteType;
-
-        private bool isAttacking = false;
+        public SpriteState spriteState;
 
         private string lastDirection = "Down"; // Default direction set to "down" for now.
         private bool isMoving = false; // Tracks if player is currently moving; used to set static animation
@@ -63,7 +62,7 @@ namespace Project
             playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement commands
-            _keyboardController = new KeyboardController(this);
+            _keyboardController = new KeyboardController(this, lastDirection);
 
             // Kev adds:
             enemyManager = new EnemyManager();
@@ -123,7 +122,6 @@ namespace Project
             if (playerSprite.State == SpriteState.FinishedAttack)
             {
                 SetStaticSprite();
-                isAttacking = false;
                 isMoving = false;
             }
 
@@ -164,57 +162,22 @@ namespace Project
             lastDirection = direction; // Store last movement direction, used to setting the attack and idle animations
         }
 
-        public void Attack()
-        {   
-            switch (lastDirection)
-            {
-                case "Up":
-                if (!isAttacking){
-                    isAttacking = true;
-                    ChangePlayerSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
-                }
-                    break;
-                case "Down":
-                if (!isAttacking){
-                    isAttacking = true;
-                    ChangePlayerSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
-                                }
-                    break;
-                case "Left":
-                    if (!isAttacking){
-                    isAttacking = true;
-                    ChangePlayerSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
-                                }
-                    break;
-                case "Right":
-                    if (!isAttacking){
-                    isAttacking = true;
-                    ChangePlayerSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
-                                }
-                    break;
-            }
-            
-        }
-
         private void SetStaticSprite()
         {
 
             switch (lastDirection)
             {
                 case "Up":
-                if (!isAttacking)
+                
                     ChangePlayerSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
                 break;
                 case "Down":
-                if (!isAttacking)
                     ChangePlayerSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
                     break;
                 case "Left":
-                if (!isAttacking)
                     ChangePlayerSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
                     break;
                 case "Right":
-                if (!isAttacking)
                     ChangePlayerSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
                     break;
             }

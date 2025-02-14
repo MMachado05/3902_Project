@@ -29,7 +29,7 @@ namespace Project
 
     public override void Update()
     {
-      Console.WriteLine("currFrame: " + this.currFrame);
+      //Console.WriteLine("currFrame: " + this.currFrame);
       if (this.currFrame == this.maxFrames)
         this.currFrame = 0;
       else
