@@ -35,10 +35,10 @@ namespace Project
       this.scale = 2;
     }
 
-        public void LoadAllTextures(ContentManager content)
-        {
-            this.playerSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplate"); // TODO: Replace with actual
-        }
+    public void LoadAllTextures(ContentManager content)
+    {
+        this.playerSpriteSheet = content.Load<Texture2D>("HoodedCharacterTextureTemplate");
+    }
 
     // Stopped Player sprites
     public ISprite NewUpStoppedPlayer()

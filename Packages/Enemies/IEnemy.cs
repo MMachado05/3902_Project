@@ -8,7 +8,7 @@ namespace Project.Enemies
         float Speed { get; set; }
         void SetState(IEnemyState newState);
         void SetPosition(Vector2 newPosition);
-        void Update();
-        void Attack();
+        void UpdateState(GameTime gameTime);
+        void UpdateAnimation(GameTime gameTime);
     }
 }

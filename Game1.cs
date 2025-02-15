@@ -7,7 +7,6 @@ using Project.Enemies;
 using Project.Enemies.EnemyClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Commands.CommandClasses;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Project
 {
@@ -28,9 +27,8 @@ namespace Project
         // Kev adds:
         private EnemyManager enemyManager;
         private EnemyController enemyController;
-        private ISprite goblinTexture;
-        private Texture2D skeletonTexture;
-        private Texture2D dragonTexture;
+
+        private float elapsedTime;
 
         public Game1()
         {
@@ -74,20 +72,20 @@ namespace Project
             enemyCommands.Add(Keys.P, nextEnemyCommand);
 
             enemyController = new EnemyController(enemyCommands);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-            goblinTexture = SpriteFactory.Instance.NewDownStoppedPlayer();
-            skeletonTexture = new Texture2D(GraphicsDevice, 50, 50);
-            dragonTexture = new Texture2D(GraphicsDevice, 50, 50);
+            enemyManager = new EnemyManager();
 
-            Color[] goblinData = new Color[50 * 50];
-            Color[] skeletonData = new Color[50 * 50];
-            Color[] dragonData = new Color[50 * 50];
-            for (int i = 0; i < goblinData.Length; i++) goblinData[i] = Color.Green;
-            for (int i = 0; i < skeletonData.Length; i++) skeletonData[i] = Color.White;
-            for (int i = 0; i < dragonData.Length; i++) dragonData[i] = Color.Red;
+            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
+            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
-            skeletonTexture.SetData(skeletonData);
-            dragonTexture.SetData(dragonData);
+            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            {
+                { Keys.O, previousEnemyCommand },
+                { Keys.P, nextEnemyCommand }
+            };
+
+            enemyController = new EnemyController(enemyCommands);
         }
 
 
@@ -109,8 +107,16 @@ namespace Project
 
             // Kev adds
             enemyController.Update();
-            enemyManager.Update(gameTime);
 
+
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime > 0.25)
+            {
+                enemyManager.GetCurrentEnemy().UpdateAnimation(gameTime);
+                elapsedTime = 0f;
+            }
+
+            enemyManager.GetCurrentEnemy().UpdateState(gameTime);
             base.Update(gameTime);
         }
 
@@ -130,6 +136,8 @@ namespace Project
             else if (currentEnemy is Dragon)
                 _spriteBatch.Draw(dragonTexture, currentEnemy.Position, Color.White);
             
+            enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
