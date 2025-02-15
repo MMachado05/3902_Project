@@ -74,10 +74,6 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             enemyManager = new EnemyManager();
-
-
-
-            enemyController = new EnemyController(enemyCommands);
         }
 
 
