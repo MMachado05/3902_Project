@@ -55,11 +55,14 @@ public abstract class AbstractSprite : ISprite
     {
         Rectangle destRectangle = new Rectangle();
 
+        // <position> represents center of texture; apply offsets to
+        // Rectangle drawing so that this is maintained
         int xOffset = this.widthPixels / 2 * this.scaleFactor;
         int yOffset = this.heightPixels / 2 * this.scaleFactor;
 
-        if (originX >= 0) xOffset += xOffset - originX;
-        if (originY >= 0) yOffset += yOffset - originY;
+        // Change offsets based on desired texture origin
+        if (originX >= 0) xOffset += xOffset - (this.scaleFactor * originX);
+        if (originY >= 0) yOffset += yOffset - (this.scaleFactor * originY);
 
         destRectangle.X = (int)(position.X - xOffset);
         destRectangle.Y = (int)(position.Y - yOffset);
