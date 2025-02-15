@@ -4,40 +4,39 @@ namespace Project
 {
     public class AttackCommand : ICommand
     {
-        private Game1 _game;
+        private Player _player;
 
-        public AttackCommand(Game1 game)
+        public AttackCommand(Player player)
         {
-            _game = game;
+            _player = player;
         }
 
         public void Execute()
         {
-            string _direction = _game.lastDirection; // Needed to be in update() method, since in constructor != what direction user is facing at runtime
 
-            Console.WriteLine("spriteState: " + this._game.playerSprite.State);
-            switch (_direction)
+            string direction = _player.LastDirection; // Must be in Excecute for lastest direction, NOT constructor
+
+            // Console.WriteLine("spriteState: " + this._game.playerSprite.State);
+
+            if (_player.Sprite.State != SpriteState.Attacking){
+
+            
+            switch (direction)
             {
                 case "Up":
-                if (_game.playerSprite.State != SpriteState.Attacking){
-                    _game.ChangePlayerSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
-                }
+                    _player.ChangeSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
                     break;
                 case "Down":
-                if (_game.playerSprite.State != SpriteState.Attacking){
-                    _game.ChangePlayerSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
-                }
+                _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
                     break;
                 case "Left":
-                if (_game.playerSprite.State != SpriteState.Attacking){
-                    _game.ChangePlayerSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
-                }
+                    _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
                     break;
                 case "Right":
-                if (_game.playerSprite.State != SpriteState.Attacking){
-                    _game.ChangePlayerSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
-                }
+                    _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
                     break;
+            }
+
             }
             
         }

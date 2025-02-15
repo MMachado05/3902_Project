@@ -16,16 +16,14 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
+        private Player player; 
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
-        private float elapsedTime;
         public SpriteType spriteType;
-        //public SpriteState spriteState;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
-        private bool isMoving = false; // Tracks if player is currently moving; used to set static animation
         
         // Kev adds:
         private EnemyManager enemyManager;
@@ -45,7 +43,8 @@ namespace Project
         {
             playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
             playerPositionVector = new Vector2(100, 100);
-            elapsedTime = 0f;
+
+            player = new Player();
 
             base.Initialize(); // Does this go first or last????
         }
@@ -61,8 +60,8 @@ namespace Project
             // Set initial sprite to static down
             playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
-            // Initialize KeyboardController with movement commands
-            _keyboardController = new KeyboardController(this, lastDirection);
+            // Initialize KeyboardController with movement commands, pass in player
+            _keyboardController = new KeyboardController(player);
 
             // Kev adds:
             enemyManager = new EnemyManager();
@@ -101,25 +100,12 @@ namespace Project
 
             // Check if player has stopped moving
             KeyboardState state = Keyboard.GetState();
-            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)) && playerSprite.State != SpriteState.Attacking)
+            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
-                SetStaticSprite(); // Set idle sprite; moved to another function for clarity
-                isMoving = false;
-            }
-            else isMoving = true;
-
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (elapsedTime > 0.25)
-            {
-                playerSprite.Update();
-                elapsedTime = 0f;
+                player.SetStaticSprite(); // Set idle sprite; moved to player function
             }
 
-            // if (playerSprite.State == SpriteState.FinishedAttack)
-            // {
-            //     SetStaticSprite();
-            //     isMoving = false;
-            // }
+            player.Update(gameTime);
 
             // Kev adds
             enemyController.Update();
@@ -133,7 +119,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            playerSprite.Draw(_spriteBatch, playerPositionVector);
+            player.Draw(_spriteBatch); // updated to player class
 
             // Kev adds:
             Enemy currentEnemy = enemyManager.GetCurrentEnemy();
@@ -149,37 +135,5 @@ namespace Project
             base.Draw(gameTime);
         }
 
-        public void ChangePlayerSprite(ISprite newSprite)
-        {
-            playerSprite = newSprite;
-        }
-
-        public void MovePlayer(int dx, int dy, string direction)
-        {
-            playerPositionVector.X += dx;
-            playerPositionVector.Y += dy;
-            playerPosition = new Rectangle(playerPosition.X + dx, playerPosition.Y + dy, playerPosition.Width, playerPosition.Height);
-            lastDirection = direction; // Store last movement direction, used to setting the attack and idle animations
-        }
-
-        private void SetStaticSprite()
-        {
-
-            switch (lastDirection)
-            {
-                case "Up":
-                    ChangePlayerSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
-                break;
-                case "Down":
-                    ChangePlayerSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
-                    break;
-                case "Left":
-                    ChangePlayerSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
-                    break;
-                case "Right":
-                    ChangePlayerSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
-                    break;
-            }
-        }
     }
 }

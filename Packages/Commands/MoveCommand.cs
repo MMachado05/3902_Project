@@ -4,50 +4,61 @@ namespace Project
 {
     public class MoveCommand : ICommand
     {
-        private Game1 _game;
+        private Player _player;
         private string _direction;
 
-        public MoveCommand(Game1 game, string direction)
+        public MoveCommand(Player player, string direction)
         {
-            _game = game;
             _direction = direction;
+            _player = player;
         }
 
         public void Execute()
         {
             // Maybe avoid hardcoding speed
+            int dx = 0, dy = 0;
+
+            switch (_direction){
+                case "Up": dy = -2; 
+            break;
+                case "Down": dy = 2;
+            break;
+                case "Left": dx = -2;
+            break;
+                case "Right": dx = 2;
+            break;
+            }
+
+            _player.Move(dx, dy, _direction);
+
             switch (_direction)
             {
                 case "Up":
-                    _game.MovePlayer(0, -2, "Up");
-                    if (_game.spriteType != SpriteType.WalkingUp)
+                    if (_player.SpriteType != SpriteType.WalkingUp)
                     {
-                        _game.spriteType = SpriteType.WalkingUp;
-                        _game.ChangePlayerSprite(SpriteFactory.Instance.NewUpWalkingPlayer());
+                        _player.SpriteType = SpriteType.WalkingUp;
+                        _player.ChangeSprite(SpriteFactory.Instance.NewUpWalkingPlayer());
                     }
                     break;
                 case "Down":
-                    _game.MovePlayer(0, 2, "Down");
-                    if (_game.spriteType != SpriteType.WalkingDown)
+                    if (_player.SpriteType != SpriteType.WalkingDown)
                     {
-                        _game.spriteType = SpriteType.WalkingDown;
-                        _game.ChangePlayerSprite(SpriteFactory.Instance.NewDownWalkingPlayer());
+                        _player.SpriteType = SpriteType.WalkingDown;
+                        _player.ChangeSprite(SpriteFactory.Instance.NewDownWalkingPlayer());
                     }
                     break;
                 case "Left":
-                    _game.MovePlayer(-2, 0, "Left");
-                    if (_game.spriteType != SpriteType.WalkingLeft)
+                    if (_player.SpriteType != SpriteType.WalkingLeft)
                     {
-                        _game.spriteType = SpriteType.WalkingLeft;
-                        _game.ChangePlayerSprite(SpriteFactory.Instance.NewLeftWalkingPlayer());
+                        _player.SpriteType = SpriteType.WalkingLeft;
+                        _player.ChangeSprite(SpriteFactory.Instance.NewLeftWalkingPlayer());
                     }
                     break;
                 case "Right":
-                    _game.MovePlayer(2, 0, "Right");
-                    if (_game.spriteType != SpriteType.WalkingRight)
+                    if (_player.SpriteType != SpriteType.WalkingRight)
                     {
-                        _game.spriteType = SpriteType.WalkingRight;
-                        _game.ChangePlayerSprite(SpriteFactory.Instance.NewRightWalkingPlayer());
+                        _player.SpriteType = SpriteType.WalkingRight;
+                        _player.ChangeSprite(SpriteFactory.Instance.NewRightWalkingPlayer());
                     }
                     break;
             }

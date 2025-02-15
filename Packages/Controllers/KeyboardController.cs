@@ -7,30 +7,24 @@ namespace Project
     public class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> _commands;
-        private Game1 _game;
-        private string _direction;
+        private Player _player;
 
 
-        public KeyboardController(Game1 game, String direction)
+        public KeyboardController(Player player)
         {
-            _game = game;
-            _direction = direction;
-
-            _commands = new Dictionary<Keys, ICommand>();
-            _commands.Add(Keys.W, new MoveCommand(_game, "Up"));
-            _commands.Add(Keys.A, new MoveCommand(_game, "Left"));
-            _commands.Add(Keys.S, new MoveCommand(_game, "Down"));
-            _commands.Add(Keys.D, new MoveCommand(_game, "Right"));
             
-            _commands.Add(Keys.Z, new AttackCommand(_game));
-            _commands.Add(Keys.N, new AttackCommand(_game));
+            _player = player;
+            _commands = new Dictionary<Keys, ICommand>();
+            _commands.Add(Keys.W, new MoveCommand(_player, "Up"));
+            _commands.Add(Keys.A, new MoveCommand(_player, "Left"));
+            _commands.Add(Keys.S, new MoveCommand(_player, "Down"));
+            _commands.Add(Keys.D, new MoveCommand(_player, "Right"));
+            
+            _commands.Add(Keys.Z, new AttackCommand(_player));
+            _commands.Add(Keys.N, new AttackCommand(_player));
 
 
             //_commands.Add(Keys.D0, new QuitCommand(game));
-            //_commands.Add(Keys.D1, new SetSpritesCommand(game, Game1.LuigiSpriteNames.Static));
-            //_commands.Add(Keys.D2, new SetSpritesCommand(game, Game1.LuigiSpriteNames.Animated));
-            //_commands.Add(Keys.D3, new SetSpritesCommand(game, Game1.LuigiSpriteNames.MovingStatic));
-            //_commands.Add(Keys.D4, new SetSpritesCommand(game, Game1.LuigiSpriteNames.MovingAnimated));
         }
 
         public void Update()
@@ -42,7 +36,7 @@ namespace Project
             {
                 if (_commands.ContainsKey(key))
                 {
-                    _commands.GetValueOrDefault(key).Execute(); // Maybe: _commands[key].Execute();
+                    _commands[key].Execute(); // Was: _commands.GetValueOrDefault(key).Execute()
                 }
 
             }
