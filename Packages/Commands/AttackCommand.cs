@@ -18,27 +18,28 @@ namespace Project
 
             // Console.WriteLine("spriteState: " + this._game.playerSprite.State);
 
-            if (_player.Sprite.State != SpriteState.Attacking){
-
-            
-            switch (direction)
+            if (_player.Sprite.State != SpriteState.Attacking)
             {
-                case "Up":
-                    _player.ChangeSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
-                    break;
-                case "Down":
-                _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
-                    break;
-                case "Left":
-                    _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
-                    break;
-                case "Right":
-                    _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
-                    break;
-            }
+
+
+                switch (direction)
+                {
+                    case "Up":
+                        _player.ChangeSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
+                        break;
+                    case "Down":
+                        _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
+                        break;
+                    case "Left":
+                        _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
+                        break;
+                    case "Right":
+                        _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
+                        break;
+                }
 
             }
-            
+
         }
     }
 }
