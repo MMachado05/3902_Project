@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Project
+﻿namespace Project
 {
     public class AttackCommand : ICommand
     {
@@ -16,12 +14,8 @@ namespace Project
 
             string direction = _player.LastDirection; // Must be in Excecute for lastest direction, NOT constructor
 
-            // Console.WriteLine("spriteState: " + this._game.playerSprite.State);
-
             if (_player.Sprite.State != SpriteState.Attacking)
             {
-
-
                 switch (direction)
                 {
                     case "Up":
