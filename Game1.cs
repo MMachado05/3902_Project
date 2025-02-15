@@ -11,6 +11,7 @@ public class Game1 : Game
     private SpriteBatch _spriteBatch;
     public SolidBlock activeBlock;
     public NextBlockCommand nextBlockCommand;
+    public PreviousBlockCommand previousBlockCommand;
     public KeyboardState input;
     public KeyboardState previous;
     SolidBlockController solidBlockController;
@@ -29,6 +30,17 @@ public class Game1 : Game
                  position=0;
              }
          }
+         public void previousBlock()
+         {
+             if(position>0){
+                 position--;
+                 activeBlock = arrayOfSolidBlock[position];
+             }else{
+                 activeBlock=arrayOfSolidBlock[arrayOfSolidBlock.Length-1];
+                 position=arrayOfSolidBlock.Length-1;
+             }
+         }
+
 
     public Game1()
     {
@@ -68,7 +80,8 @@ public class Game1 : Game
         activeBlock = arrayOfSolidBlock[0];
 
        nextBlockCommand = new NextBlockCommand(this);
-        solidBlockController = new SolidBlockController(this,nextBlockCommand);
+        previousBlockCommand = new PreviousBlockCommand(this);
+        solidBlockController = new SolidBlockController(this,nextBlockCommand,previousBlockCommand);
         // TODO: use this.Content to load your game content here
     }
 
