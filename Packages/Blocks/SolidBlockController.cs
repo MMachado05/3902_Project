@@ -12,20 +12,21 @@ namespace Project.Blocks
         private PreviousBlockCommand PreviousBlock;
 
        // private KeyboardState input;
-        bool up;
         Game1 _game;
-         public SolidBlockController(Game1 game, NextBlockCommand nextBlock)
+         public SolidBlockController(Game1 game, NextBlockCommand nextBlock,PreviousBlockCommand previousBlock)
         {
-            this.up = false;
             NextBlock = nextBlock;
-            //PreviousBlock = previousBlock;
+            PreviousBlock = previousBlock;
             _game = game;
         }
 
         public void ProcessControls()
         {
-              if((_game.input.IsKeyDown(Keys.NumPad2)|| _game.input.IsKeyDown(Keys.D2))&& !_game.input.Equals(_game.previous)){
+              if((_game.input.IsKeyDown(Keys.T)|| _game.input.IsKeyDown(Keys.T))&& !_game.input.Equals(_game.previous)){
                NextBlock.Execute();
+                }
+                if((_game.input.IsKeyDown(Keys.Y)|| _game.input.IsKeyDown(Keys.Y))&& !_game.input.Equals(_game.previous)){
+               PreviousBlock.Execute();
                 }
         }
     }
