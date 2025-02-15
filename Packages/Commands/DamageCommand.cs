@@ -5,6 +5,7 @@ namespace Project
     public class DamageCommand : ICommand
     {
         private Player _player;
+        public SpriteType SpriteType { get; set; }
 
         public DamageCommand(Player player)
         {
@@ -51,20 +52,20 @@ namespace Project
                         break;
                 }
             }
-            else // Default to stopped (idle)
+            else // If the player is idle, apply the damaged stopped sprite
             {
-                switch (direction)
+                switch (SpriteType)
                 {
-                    case "Up":
+                    case SpriteType.Up:
                         _player.ChangeSprite(SpriteFactory.Instance.NewDamagedUpStoppedPlayer());
                         break;
-                    case "Right":
+                    case SpriteType.Right:
                         _player.ChangeSprite(SpriteFactory.Instance.NewDamagedRightStoppedPlayer());
                         break;
-                    case "Down":
+                    case SpriteType.Down:
                         _player.ChangeSprite(SpriteFactory.Instance.NewDamagedDownStoppedPlayer());
                         break;
-                    case "Left":
+                    case SpriteType.Left:
                         _player.ChangeSprite(SpriteFactory.Instance.NewDamagedLeftStoppedPlayer());
                         break;
                 }
