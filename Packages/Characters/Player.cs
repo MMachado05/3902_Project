@@ -11,7 +11,7 @@ namespace Project
         public Vector2 PositionVector { get; private set; }
         public Rectangle PositionRect { get; private set; }
         public string LastDirection { get; private set; }
-        public SpriteType SpriteType { get; set; }
+        public Direction SpriteType { get; set; }
 
         private float elapsedTime;
 
@@ -22,7 +22,7 @@ namespace Project
             PositionVector = new Vector2(100, 100);
             PositionRect    = new Rectangle(100, 100, 30, 30);
             LastDirection   = "Down";
-            SpriteType      = SpriteType.Down; // or whichever you like
+            SpriteType      = Direction.Down; // or whichever you like
 
             // Initially use a "stopped" sprite (down facing)
             Sprite          = SpriteFactory.Instance.NewDownStoppedPlayer();
@@ -43,26 +43,21 @@ namespace Project
         {
             Sprite = newSprite;
         }
-
         public void SetStaticSprite()
         {
             switch (LastDirection)
             {
                 case "Up":
                     ChangeSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
-                    SpriteType = SpriteType.Up;
                     break;
                 case "Down":
                     ChangeSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
-                    SpriteType = SpriteType.Down;
                     break;
                 case "Left":
                     ChangeSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
-                    SpriteType = SpriteType.Left;
                     break;
                 case "Right":
                     ChangeSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
-                    SpriteType = SpriteType.Right;
                     break;
             }
         }

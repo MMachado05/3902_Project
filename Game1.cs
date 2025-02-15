@@ -18,7 +18,7 @@ namespace Project
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
-        public SpriteType spriteType;
+        public Direction spriteType;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
         
