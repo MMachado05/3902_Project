@@ -1,11 +1,11 @@
 namespace Project
 {
-    // Primarily used in MoveCommand
+    // Primarily used in MoveCommand, player.cs, game1.cs
     public enum SpriteType
     {
-        WalkingLeft,
-        WalkingRight,
-        WalkingUp,
-        WalkingDown,
+        Left,
+        Right,
+        Up,
+        Down,
     }
 }
