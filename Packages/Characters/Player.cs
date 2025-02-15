@@ -12,9 +12,6 @@ namespace Project
         public Rectangle PositionRect { get; private set; }
         public string LastDirection { get; private set; }
         public SpriteType SpriteType { get; set; }
-        
-        // tracks if player is moving, or you can keep that logic in Update
-    //   private bool isMoving;    
 
         private float elapsedTime;
 
@@ -68,7 +65,7 @@ namespace Project
 
         public void Update(GameTime gameTime)
         {
-            // Example logic: check if we should animate sprite
+            // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
