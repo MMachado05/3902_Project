@@ -88,22 +88,22 @@ namespace Project
     public ISprite NewUpAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+          new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
     }
     public ISprite NewRightAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+          new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
     }
     public ISprite NewDownAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+          new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
     }
     public ISprite NewLeftAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+          new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
     }
 
     // ----------------- DAMAGED --------------------
