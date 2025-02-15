@@ -8,7 +8,7 @@ using Project;
 
 namespace Project.Blocks
 {
-    public class Obstacle:IBlock
+    public class SolidBlock:IBlock
     {
         private Rectangle Source;
         private Rectangle Destination;
@@ -16,7 +16,7 @@ namespace Project.Blocks
         SpriteBatch spriteBatch;
         
 
-        public Obstacle(SpriteBatch spriteBatch,Texture2D texture,Rectangle src, Rectangle dst)
+        public SolidBlock(SpriteBatch spriteBatch,Texture2D texture,Rectangle src, Rectangle dst)
         {
             this.texture= texture;
             this.spriteBatch = spriteBatch;
