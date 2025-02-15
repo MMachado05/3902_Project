@@ -2,11 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using Project.Enemies;
-using Project.Enemies.EnemyClasses;
-using Project.Controllers.ControllerClasses;
 using Project.Commands.CommandClasses;
+using Project.Controllers.ControllerClasses;
+using Project.Enemies;
 
 namespace Project
 {
@@ -62,28 +60,22 @@ namespace Project
             _keyboardController = new KeyboardController(player, this);
 
             // Kev adds:
-            enemyManager = new EnemyManager();
-            
             ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
             ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
-            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>();
-            enemyCommands.Add(Keys.O, previousEnemyCommand);
-            enemyCommands.Add(Keys.P, nextEnemyCommand);
+            enemyManager = new EnemyManager();
+            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            {
+                { Keys.O, previousEnemyCommand },
+                { Keys.P, nextEnemyCommand }
+            };
 
             enemyController = new EnemyController(enemyCommands);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             enemyManager = new EnemyManager();
 
-            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
-            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
-            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
-            {
-                { Keys.O, previousEnemyCommand },
-                { Keys.P, nextEnemyCommand }
-            };
 
             enemyController = new EnemyController(enemyCommands);
         }
@@ -127,15 +119,7 @@ namespace Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             player.Draw(_spriteBatch); // updated to player class
 
-            // Kev adds:
-            Enemy currentEnemy = enemyManager.GetCurrentEnemy();
-            if (currentEnemy is Goblin)
-                goblinTexture.Draw(_spriteBatch, currentEnemy.Position);
-            else if (currentEnemy is Skeleton)
-                _spriteBatch.Draw(skeletonTexture, currentEnemy.Position, Color.White);
-            else if (currentEnemy is Dragon)
-                _spriteBatch.Draw(dragonTexture, currentEnemy.Position, Color.White);
-            
+            // Kev adds:          
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
 
             _spriteBatch.End();
