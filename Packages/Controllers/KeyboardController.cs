@@ -22,7 +22,12 @@ namespace Project
             _commands.Add(Keys.A, new MoveCommand(_player, "Left"));
             _commands.Add(Keys.S, new MoveCommand(_player, "Down"));
             _commands.Add(Keys.D, new MoveCommand(_player, "Right"));
-            
+
+            _commands.Add(Keys.Up, new MoveCommand(_player, "Up"));
+            _commands.Add(Keys.Left, new MoveCommand(_player, "Left"));
+            _commands.Add(Keys.Down, new MoveCommand(_player, "Down"));
+            _commands.Add(Keys.Right, new MoveCommand(_player, "Right"));
+
             _commands.Add(Keys.Z, new AttackCommand(_player));
             _commands.Add(Keys.N, new AttackCommand(_player));
 
