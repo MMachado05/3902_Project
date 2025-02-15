@@ -60,8 +60,8 @@ namespace Project
             // Set initial sprite to static down
             playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
-            // Initialize KeyboardController with movement commands, pass in player
-            _keyboardController = new KeyboardController(player);
+            // Initialize KeyboardController with movement and quit commands, pass in player and game
+            _keyboardController = new KeyboardController(player, this);
 
             // Kev adds:
             enemyManager = new EnemyManager();

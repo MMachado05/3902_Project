@@ -8,12 +8,15 @@ namespace Project
     {
         private Dictionary<Keys, ICommand> _commands;
         private Player _player;
+        private Game1 _game;
 
 
-        public KeyboardController(Player player)
+        public KeyboardController(Player player, Game1 game1)
         {
             
             _player = player;
+            _game = game1;
+
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.W, new MoveCommand(_player, "Up"));
             _commands.Add(Keys.A, new MoveCommand(_player, "Left"));
@@ -24,7 +27,7 @@ namespace Project
             _commands.Add(Keys.N, new AttackCommand(_player));
 
 
-            //_commands.Add(Keys.D0, new QuitCommand(game));
+            _commands.Add(Keys.Q, new QuitCommand(_game));
         }
 
         public void Update()
