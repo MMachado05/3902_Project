@@ -1,51 +1,84 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using Project.Enemies;
+using Project.Enemies.EnemyClasses;
+using Project.Controllers.ControllerClasses;
+using Project.Commands.CommandClasses;
 
-namespace Project;
-
-public class Game1 : Game
+namespace Project
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
-
-    public Game1()
+    public class Game1 : Game
     {
-        _graphics = new GraphicsDeviceManager(this);
-        Content.RootDirectory = "Content";
-        IsMouseVisible = true;
-    }
+        private GraphicsDeviceManager _graphics;
+        private SpriteBatch _spriteBatch;
+        public SpriteType spriteType;
 
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
+        private EnemyManager enemyManager;
+        private EnemyController enemyController;
 
-        base.Initialize();
-    }
+        private float elapsedTime;
 
-    protected override void LoadContent()
-    {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        public Game1()
+        {
+            _graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+        }
 
-        // TODO: use this.Content to load your game content here
-    }
+        protected override void Initialize()
+        {
+            base.Initialize();
+        }
 
-    protected override void Update(GameTime gameTime)
-    {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // TODO: Add your update logic here
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
-        base.Update(gameTime);
-    }
+            enemyManager = new EnemyManager();
 
-    protected override void Draw(GameTime gameTime)
-    {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
+            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
-        // TODO: Add your drawing code here
+            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            {
+                { Keys.O, previousEnemyCommand },
+                { Keys.P, nextEnemyCommand }
+            };
 
-        base.Draw(gameTime);
+            enemyController = new EnemyController(enemyCommands);
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            enemyController.Update();
+
+
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime > 0.25)
+            {
+                enemyManager.GetCurrentEnemy().UpdateAnimation(gameTime);
+                elapsedTime = 0f;
+            }
+
+            enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+            enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+
+            _spriteBatch.End();
+            base.Draw(gameTime);
+        }
+
     }
 }

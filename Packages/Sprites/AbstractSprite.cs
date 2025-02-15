@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project;
+namespace Project
+{
+
 
 public abstract class AbstractSprite : ISprite
 {
@@ -69,4 +71,6 @@ public abstract class AbstractSprite : ISprite
         spriteBatch.Draw(this.texture, destRectangle, this.source, Color.White);
     }
     public abstract void Update();
+}
+
 }
