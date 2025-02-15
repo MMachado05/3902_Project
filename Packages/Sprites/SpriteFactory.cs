@@ -155,22 +155,22 @@ namespace Project
     public ISprite NewDamagedUpAttackingPlayer()
     {
       return new SingleAnimationSprite(this.playerSpriteSheet,
-          new Rectangle(128 + 0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+          new Rectangle(128 + 0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
     }                                                                                                                   
     public ISprite NewDamagedRightAttackingPlayer()                                                                     
     {                                                                                                                   
       return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
-          new Rectangle(128 + 64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+          new Rectangle(128 + 64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
     }                                                                                                                   
     public ISprite NewDamagedDownAttackingPlayer()                                                                      
     {                                                                                                                   
       return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
-          new Rectangle(128 + 32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+          new Rectangle(128 + 32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
     }                                                                                                                   
     public ISprite NewDamagedLeftAttackingPlayer()                                                                      
     {                                                                                                                   
       return new SingleAnimationSprite(this.playerSpriteSheet,                                                          
-          new Rectangle(128 + 64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+          new Rectangle(128 + 64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
     }
 }
 
