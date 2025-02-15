@@ -31,6 +31,7 @@ namespace Project
             _commands.Add(Keys.Z, new AttackCommand(_player));
             _commands.Add(Keys.N, new AttackCommand(_player));
 
+            _commands.Add(Keys.E, new DamageCommand(_player));
 
             _commands.Add(Keys.Q, new QuitCommand(_game));
         }
