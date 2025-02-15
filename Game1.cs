@@ -42,7 +42,7 @@ namespace Project
 
             player = new Player();
 
-            base.Initialize(); // Does this go first or last????
+            base.Initialize();
         }
 
         protected override void LoadContent()
