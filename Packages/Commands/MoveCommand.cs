@@ -29,38 +29,40 @@ namespace Project
             break;
             }
 
-            _player.Move(dx, dy, _direction);
+            if (_player.Sprite.State != SpriteState.Attacking){
+              _player.Move(dx, dy, _direction);
 
-            switch (_direction)
-            {
+              switch (_direction)
+              {
                 case "Up":
-                    if (_player.SpriteType != SpriteType.WalkingUp)
-                    {
-                        _player.SpriteType = SpriteType.WalkingUp;
-                        _player.ChangeSprite(SpriteFactory.Instance.NewUpWalkingPlayer());
-                    }
-                    break;
+                  if (_player.SpriteType != SpriteType.WalkingUp)
+                  {
+                    _player.SpriteType = SpriteType.WalkingUp;
+                    _player.ChangeSprite(SpriteFactory.Instance.NewUpWalkingPlayer());
+                  }
+                  break;
                 case "Down":
-                    if (_player.SpriteType != SpriteType.WalkingDown)
-                    {
-                        _player.SpriteType = SpriteType.WalkingDown;
-                        _player.ChangeSprite(SpriteFactory.Instance.NewDownWalkingPlayer());
-                    }
-                    break;
+                  if (_player.SpriteType != SpriteType.WalkingDown)
+                  {
+                    _player.SpriteType = SpriteType.WalkingDown;
+                    _player.ChangeSprite(SpriteFactory.Instance.NewDownWalkingPlayer());
+                  }
+                  break;
                 case "Left":
-                    if (_player.SpriteType != SpriteType.WalkingLeft)
-                    {
-                        _player.SpriteType = SpriteType.WalkingLeft;
-                        _player.ChangeSprite(SpriteFactory.Instance.NewLeftWalkingPlayer());
-                    }
-                    break;
+                  if (_player.SpriteType != SpriteType.WalkingLeft)
+                  {
+                    _player.SpriteType = SpriteType.WalkingLeft;
+                    _player.ChangeSprite(SpriteFactory.Instance.NewLeftWalkingPlayer());
+                  }
+                  break;
                 case "Right":
-                    if (_player.SpriteType != SpriteType.WalkingRight)
-                    {
-                        _player.SpriteType = SpriteType.WalkingRight;
-                        _player.ChangeSprite(SpriteFactory.Instance.NewRightWalkingPlayer());
-                    }
-                    break;
+                  if (_player.SpriteType != SpriteType.WalkingRight)
+                  {
+                    _player.SpriteType = SpriteType.WalkingRight;
+                    _player.ChangeSprite(SpriteFactory.Instance.NewRightWalkingPlayer());
+                  }
+                  break;
+              }
             }
         }
     }
