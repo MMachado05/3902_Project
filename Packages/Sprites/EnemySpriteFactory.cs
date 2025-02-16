@@ -6,9 +6,10 @@ namespace Project
 {
     public class EnemySpriteFactory
     {
-        private Texture2D goblinSpriteSheet;
-        private Texture2D skeletonSpriteSheet;
-        private Texture2D dragonSpriteSheet;
+        private Texture2D redGoriyaSpriteSheet;
+        private Texture2D stalfosSpriteSheet;
+        private Texture2D aquamentusSpriteSheet;
+        private Texture2D fireball;
 
         private int scale = 2;
 
@@ -20,57 +21,62 @@ namespace Project
 
         public void LoadAllTextures(ContentManager content)
         {
-            goblinSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateGreen");
-            skeletonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateBlack");
-            dragonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplatePink");
+            redGoriyaSpriteSheet = content.Load<Texture2D>("RedGoriya");
+            stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
+            aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
+            fireball = content.Load<Texture2D>("fireball");
         }
 
-        // ----------------- GOBLIN SPRITES -----------------
-        public ISprite NewGoblinIdleUp() => new StationarySprite(goblinSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewGoblinIdleRight() => new StationarySprite(goblinSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewGoblinIdleDown() => new StationarySprite(goblinSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewGoblinIdleLeft() => new StationarySprite(goblinSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
+        // ----------------- RED GORIYA SPRITES -----------------
+        public ISprite NewRedGoriyaIdleUp() => new StationarySprite(redGoriyaSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewRedGoriyaIdleRight() => new StationarySprite(redGoriyaSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewRedGoriyaIdleDown() => new StationarySprite(redGoriyaSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewRedGoriyaIdleLeft() => new StationarySprite(redGoriyaSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
 
-        public ISprite NewGoblinWalkingUp() => new AnimatedLoopSprite(goblinSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewGoblinWalkingRight() => new AnimatedLoopSprite(goblinSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewGoblinWalkingDown() => new AnimatedLoopSprite(goblinSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewGoblinWalkingLeft() => new AnimatedLoopSprite(goblinSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewRedGoriyaWalkingUp() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewRedGoriyaWalkingRight() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewRedGoriyaWalkingDown() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewRedGoriyaWalkingLeft() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
 
-        public ISprite NewGoblinAttackingUp() => new SingleAnimationSprite(goblinSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
-        public ISprite NewGoblinAttackingRight() => new SingleAnimationSprite(goblinSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
-        public ISprite NewGoblinAttackingDown() => new SingleAnimationSprite(goblinSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
-        public ISprite NewGoblinAttackingLeft() => new SingleAnimationSprite(goblinSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+        public ISprite NewRedGoriyaAttackingUp() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+        public ISprite NewRedGoriyaAttackingRight() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+        public ISprite NewRedGoriyaAttackingDown() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+        public ISprite NewRedGoriyaAttackingLeft() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
 
-        // ----------------- SKELETON SPRITES -----------------
-        public ISprite NewSkeletonIdleUp() => new StationarySprite(skeletonSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewSkeletonIdleRight() => new StationarySprite(skeletonSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewSkeletonIdleDown() => new StationarySprite(skeletonSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewSkeletonIdleLeft() => new StationarySprite(skeletonSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
+        // ----------------- STALFOS SPRITES -----------------
+        public ISprite NewStalfosIdleUp() => new StationarySprite(stalfosSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewStalfosIdleRight() => new StationarySprite(stalfosSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewStalfosIdleDown() => new StationarySprite(stalfosSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewStalfosIdleLeft() => new StationarySprite(stalfosSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
 
-        public ISprite NewSkeletonWalkingUp() => new AnimatedLoopSprite(skeletonSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewSkeletonWalkingRight() => new AnimatedLoopSprite(skeletonSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewSkeletonWalkingDown() => new AnimatedLoopSprite(skeletonSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewSkeletonWalkingLeft() => new AnimatedLoopSprite(skeletonSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewStalfosWalkingUp() => new AnimatedLoopSprite(stalfosSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewStalfosWalkingRight() => new AnimatedLoopSprite(stalfosSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewStalfosWalkingDown() => new AnimatedLoopSprite(stalfosSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewStalfosWalkingLeft() => new AnimatedLoopSprite(stalfosSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
 
-        public ISprite NewSkeletonAttackingUp() => new SingleAnimationSprite(skeletonSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
-        public ISprite NewSkeletonAttackingRight() => new SingleAnimationSprite(skeletonSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
-        public ISprite NewSkeletonAttackingDown() => new SingleAnimationSprite(skeletonSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
-        public ISprite NewSkeletonAttackingLeft() => new SingleAnimationSprite(skeletonSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+        public ISprite NewStalfosAttackingUp() => new SingleAnimationSprite(stalfosSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+        public ISprite NewStalfosAttackingRight() => new SingleAnimationSprite(stalfosSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+        public ISprite NewStalfosAttackingDown() => new SingleAnimationSprite(stalfosSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+        public ISprite NewStalfosAttackingLeft() => new SingleAnimationSprite(stalfosSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
 
-        // ----------------- DRAGON SPRITES -----------------
-        public ISprite NewDragonIdleUp() => new StationarySprite(dragonSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewDragonIdleRight() => new StationarySprite(dragonSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewDragonIdleDown() => new StationarySprite(dragonSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
-        public ISprite NewDragonIdleLeft() => new StationarySprite(dragonSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
+        // ----------------- AQUAMENTUS SPRITES -----------------
+        public ISprite NewAquamentusIdleUp() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewAquamentusIdleRight() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewAquamentusIdleDown() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
+        public ISprite NewAquamentusIdleLeft() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
 
-        public ISprite NewDragonWalkingUp() => new AnimatedLoopSprite(dragonSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewDragonWalkingRight() => new AnimatedLoopSprite(dragonSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewDragonWalkingDown() => new AnimatedLoopSprite(dragonSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
-        public ISprite NewDragonWalkingLeft() => new AnimatedLoopSprite(dragonSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewAquamentusWalkingUp() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewAquamentusWalkingRight() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewAquamentusWalkingDown() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
+        public ISprite NewAquamentusWalkingLeft() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(96, 32, 32, 32), scale, 4, SpriteState.Walking);
 
-        public ISprite NewDragonAttackingUp() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
-        public ISprite NewDragonAttackingRight() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
-        public ISprite NewDragonAttackingDown() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
-        public ISprite NewDragonAttackingLeft() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+        public ISprite NewAquamentusAttackingUp() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
+        public ISprite NewAquamentusAttackingRight() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
+        public ISprite NewAquamentusAttackingDown() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
+        public ISprite NewAquamentusAttackingLeft() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+
+        // ----------------- PROJECTILE SPRITES -----------------
+        public ISprite NewFireball() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), scale, SpriteState.Stopped);
+
     }
 }

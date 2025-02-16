@@ -9,7 +9,7 @@ namespace Project.Enemies.EnemyClasses
         public Vector2 Position { get; private set; }
         public float Speed { get; set; }
         private IEnemyState CurrentState { get; set; }
-        private string lastDirection = "Down";
+        protected string lastDirection = "Left";
 
         public ISprite idleUp, idleDown, idleLeft, idleRight;
         public ISprite walkUp, walkDown, walkLeft, walkRight;
@@ -62,7 +62,7 @@ namespace Project.Enemies.EnemyClasses
             }
         }
 
-        public void SetAttackAnimation()
+        public virtual void SetAttackAnimation()
         {
             switch (lastDirection)
             {
@@ -78,12 +78,12 @@ namespace Project.Enemies.EnemyClasses
             CurrentState.Update(this);
         }
 
-        public void UpdateAnimation(GameTime gameTime)
+        public virtual void UpdateAnimation(GameTime gameTime)
         {
             currentAnimation.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             currentAnimation.Draw(spriteBatch, Position);
         }
