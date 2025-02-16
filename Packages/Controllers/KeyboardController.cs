@@ -42,8 +42,6 @@ namespace Project
             KeyboardState state = Keyboard.GetState();
             Keys[] currentlyPressed = state.GetPressedKeys();
 
-            Console.WriteLine("currentlyPressed" + currentlyPressed);
-
             foreach (var key in currentlyPressed)
             {
                 if (_commands.ContainsKey(key))
