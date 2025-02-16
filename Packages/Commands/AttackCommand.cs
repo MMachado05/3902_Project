@@ -19,16 +19,28 @@
                 switch (direction)
                 {
                     case "Up":
+                        if (_player.isDamaged)
+                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedUpAttackingPlayer());
+                        else
                         _player.ChangeSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
                         break;
                     case "Down":
-                        _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
+                        if (_player.isDamaged)
+                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedDownAttackingPlayer());
+                        else
+                            _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
                         break;
                     case "Left":
-                        _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
+                        if (_player.isDamaged)
+                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedLeftAttackingPlayer());
+                        else
+                            _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
                         break;
                     case "Right":
-                        _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
+                        if (_player.isDamaged)
+                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedRightAttackingPlayer());
+                        else
+                            _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
                         break;
                 }
 

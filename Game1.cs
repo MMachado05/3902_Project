@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -83,8 +84,9 @@ namespace Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // Kev adds
-            enemyController.Update();
+
+                // Kev adds
+                enemyController.Update();
 
             _keyboardController.Update();
 
@@ -93,9 +95,9 @@ namespace Project
             if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite; moved to player function
-            }
+            }                
 
-            player.Update(gameTime);
+                player.Update(gameTime);
 
 
 

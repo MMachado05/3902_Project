@@ -45,6 +45,9 @@ namespace Project
         }
         public void SetStaticSprite()
         {
+
+            System.Diagnostics.Debug.WriteLine("isDamaged: " + isDamaged);
+
             switch (LastDirection)
             {
                 case "Up":
