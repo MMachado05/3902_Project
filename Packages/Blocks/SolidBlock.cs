@@ -8,27 +8,27 @@ using Project;
 
 namespace Project.Blocks
 {
-    public class SolidBlock:IBlock
+    public class SolidBlock : IBlock
     {
         private Rectangle Source;
         private Rectangle Destination;
         Texture2D texture;
         SpriteBatch spriteBatch;
-        
 
-        public SolidBlock(SpriteBatch spriteBatch,Texture2D texture,Rectangle src, Rectangle dst)
+
+        public SolidBlock(SpriteBatch spriteBatch, Texture2D texture, Rectangle src, Rectangle dst)
         {
-            this.texture= texture;
+            this.texture = texture;
             this.spriteBatch = spriteBatch;
-            Source=src;
-            Destination=dst;
+            Source = src;
+            Destination = dst;
         }
-         public void Draw()
+        public void Draw()
         {
-         spriteBatch.Draw(texture,Source,Destination,Color.White);
-         
-            
-         
+            spriteBatch.Draw(texture, Destination, Source, Color.White);
+
+
+
         }
 
     }
