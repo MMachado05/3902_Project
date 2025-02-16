@@ -5,26 +5,26 @@ using System;
 
 namespace Project.Enemies.EnemyClasses
 {
-    public class Dragon : Enemy
+    public class Aquamentus : Enemy
     {
-        public Dragon(Vector2 startPosition) : base(startPosition) { }
+        public Aquamentus(Vector2 startPosition) : base(startPosition) { }
 
         protected override void LoadAnimations()
         {
-            idleUp = EnemySpriteFactory.Instance.NewDragonIdleUp();
-            idleDown = EnemySpriteFactory.Instance.NewDragonIdleDown();
-            idleLeft = EnemySpriteFactory.Instance.NewDragonIdleLeft();
-            idleRight = EnemySpriteFactory.Instance.NewDragonIdleRight();
+            idleUp = EnemySpriteFactory.Instance.NewAquamentusIdleUp();
+            idleDown = EnemySpriteFactory.Instance.NewAquamentusIdleDown();
+            idleLeft = EnemySpriteFactory.Instance.NewAquamentusIdleLeft();
+            idleRight = EnemySpriteFactory.Instance.NewAquamentusIdleRight();
 
-            walkUp = EnemySpriteFactory.Instance.NewDragonWalkingUp();
-            walkDown = EnemySpriteFactory.Instance.NewDragonWalkingDown();
-            walkLeft = EnemySpriteFactory.Instance.NewDragonWalkingLeft();
-            walkRight = EnemySpriteFactory.Instance.NewDragonWalkingRight();
+            walkUp = EnemySpriteFactory.Instance.NewAquamentusWalkingUp();
+            walkDown = EnemySpriteFactory.Instance.NewAquamentusWalkingDown();
+            walkLeft = EnemySpriteFactory.Instance.NewAquamentusWalkingLeft();
+            walkRight = EnemySpriteFactory.Instance.NewAquamentusWalkingRight();
 
-            attackUp = EnemySpriteFactory.Instance.NewDragonAttackingUp();
-            attackDown = EnemySpriteFactory.Instance.NewDragonAttackingDown();
-            attackLeft = EnemySpriteFactory.Instance.NewDragonAttackingLeft();
-            attackRight = EnemySpriteFactory.Instance.NewDragonAttackingRight();
+            attackUp = EnemySpriteFactory.Instance.NewAquamentusAttackingUp();
+            attackDown = EnemySpriteFactory.Instance.NewAquamentusAttackingDown();
+            attackLeft = EnemySpriteFactory.Instance.NewAquamentusAttackingLeft();
+            attackRight = EnemySpriteFactory.Instance.NewAquamentusAttackingRight();
         }
 
         private List<Projectile> projectiles = new List<Projectile>();

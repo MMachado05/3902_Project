@@ -22,7 +22,7 @@ namespace Project.Enemies.EnemyStateClasses
 
             moveDuration = random.Next(2, 13);
 
-            if (enemy is Dragon)
+            if (enemy is Aquamentus)
             {
                 direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0);
             }

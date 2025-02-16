@@ -17,9 +17,9 @@ namespace Project.Enemies.EnemyStateClasses
             {
                 // e.SetAttackAnimation(); // will use this when using sprite sheets with attack sequences
 
-                if (!hasAttacked && enemy is Dragon dragon)
+                if (!hasAttacked && enemy is Aquamentus aquamentus)
                 {
-                    dragon.ShootProjectiles();
+                    aquamentus.ShootProjectiles();
                     hasAttacked = true;
                 }
             }
@@ -29,9 +29,9 @@ namespace Project.Enemies.EnemyStateClasses
                 attackDuration = 0;
                 hasAttacked = false;
 
-                if (enemy is Dragon dragonReset)
+                if (enemy is Aquamentus aquamentusReset)
                 {
-                    dragonReset.hasShot = false;
+                    aquamentusReset.hasShot = false;
                 }
 
                 enemy.SetState(new IdleState());
