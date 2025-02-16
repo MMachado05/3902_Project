@@ -9,6 +9,7 @@ namespace Project
         private Texture2D goblinSpriteSheet;
         private Texture2D skeletonSpriteSheet;
         private Texture2D dragonSpriteSheet;
+        private Texture2D fireball;
 
         private int scale = 2;
 
@@ -20,9 +21,10 @@ namespace Project
 
         public void LoadAllTextures(ContentManager content)
         {
-            goblinSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateGreen");
-            skeletonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateBlack");
-            dragonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplatePink");
+            goblinSpriteSheet = content.Load<Texture2D>("RedGoriya");
+            skeletonSpriteSheet = content.Load<Texture2D>("Stalfos");
+            dragonSpriteSheet = content.Load<Texture2D>("Aquamentus");
+            fireball = content.Load<Texture2D>("fireball");
         }
 
         // ----------------- GOBLIN SPRITES -----------------
@@ -72,5 +74,9 @@ namespace Project
         public ISprite NewDragonAttackingRight() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
         public ISprite NewDragonAttackingDown() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
         public ISprite NewDragonAttackingLeft() => new SingleAnimationSprite(dragonSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
+
+        // ----------------- PROJECTILE SPRITES -----------------
+        public ISprite NewFireball() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), scale, SpriteState.Stopped);
+
     }
 }

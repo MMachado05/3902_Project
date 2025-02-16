@@ -12,12 +12,11 @@ namespace Project.Enemies
 
         public EnemyManager()
         {
-            enemies = new List<Enemy>
-            {
+            enemies = [
                 new Goblin(new Vector2(384, 224)),
                 new Skeleton(new Vector2(384, 224)),
                 new Dragon(new Vector2(384, 224))
-            };
+            ];
             currentEnemyIndex = 0;
         }
 
