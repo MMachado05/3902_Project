@@ -28,7 +28,7 @@ namespace Project.Blocks
         private SolidBlockSpriteFactory()
         {
             this.scale = 2;
-            Destination = new Rectangle(0, 0, scale * 32, scale * 32);
+            Destination = new Rectangle(400, 250, scale * 32, scale * 32);
         }
 
 
