@@ -22,11 +22,11 @@ namespace Project.Blocks
 
         public void Update()
         {
-            if ((_game.input.IsKeyDown(Keys.T) || _game.input.IsKeyDown(Keys.T)) && !_game.input.Equals(_game.previous))
+            if (_game.input.IsKeyDown(Keys.T) && !_game.input.Equals(_game.previous))
             {
                 NextBlock.Execute();
             }
-            if ((_game.input.IsKeyDown(Keys.Y) || _game.input.IsKeyDown(Keys.Y)) && !_game.input.Equals(_game.previous))
+            if (_game.input.IsKeyDown(Keys.Y) && !_game.input.Equals(_game.previous))
             {
                 PreviousBlock.Execute();
             }

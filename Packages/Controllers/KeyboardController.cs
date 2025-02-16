@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Project.Blocks;
 
 namespace Project
 {
@@ -14,6 +15,7 @@ namespace Project
         // ---- test ---- //
 
         private Dictionary<Keys, ICommand> _commands;
+
         private Player _player;
         private Game1 _game;
 
@@ -42,6 +44,8 @@ namespace Project
 
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
+          
+
 
 
         }
