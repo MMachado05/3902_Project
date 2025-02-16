@@ -7,15 +7,14 @@ namespace Project.Blocks
 {
     public class NextBlockCommand : ICommand
     {
-        private Game1 game1;
-         public NextBlockCommand(Game1 game)
+        private SolidBlockManager Manager;
+        public NextBlockCommand(SolidBlockManager manager)
         {
-            this.game1 = game;
-           
+            Manager = manager;
         }
         public void Execute()
         {
-            game1.nextBlock();
+            Manager.SwitchToNextBlock();
         }
     }
 }
