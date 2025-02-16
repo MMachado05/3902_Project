@@ -38,8 +38,11 @@ namespace Project
 
         public void Update()
         {
+
             KeyboardState state = Keyboard.GetState();
             Keys[] currentlyPressed = state.GetPressedKeys();
+
+            Console.WriteLine("currentlyPressed" + currentlyPressed);
 
             foreach (var key in currentlyPressed)
             {

@@ -59,11 +59,14 @@ namespace Project
             // Initialize KeyboardController with movement and quit commands, pass in player and game
             _keyboardController = new KeyboardController(player, this);
 
-            // Kev adds:
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            enemyManager = new EnemyManager();
+
             ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
             ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
-            enemyManager = new EnemyManager();
+
             Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
             {
                 { Keys.O, previousEnemyCommand },
@@ -71,7 +74,7 @@ namespace Project
             };
 
             enemyController = new EnemyController(enemyCommands);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
         }
 
 
@@ -79,6 +82,9 @@ namespace Project
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            // Kev adds
+            enemyController.Update();
 
             _keyboardController.Update();
 
@@ -91,8 +97,7 @@ namespace Project
 
             player.Update(gameTime);
 
-            // Kev adds
-            enemyController.Update();
+
 
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -24,7 +24,7 @@ namespace Project
             SpriteType = Direction.Down; // or whichever you like
 
             // Initially use a "stopped" sprite (down facing)
-            Sprite          = SpriteFactory.Instance.NewDownStoppedPlayer();
+            Sprite = SpriteFactory.Instance.NewDownStoppedPlayer();
         }
 
         public void Move(int dx, int dy, string direction)

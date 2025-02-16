@@ -52,7 +52,7 @@ namespace Project
                 }
             }
             // If the player is idle, apply the damaged stopped sprite
-            else
+            else if (_player.Sprite.State == SpriteState.Stopped)
             {
                 switch (direction)
                 {
