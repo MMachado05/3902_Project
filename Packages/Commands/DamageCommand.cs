@@ -51,7 +51,8 @@ namespace Project
                         break;
                 }
             }
-            else // If the player is idle, apply the damaged stopped sprite
+            // If the player is idle, apply the damaged stopped sprite
+            else
             {
                 switch (direction)
                 {

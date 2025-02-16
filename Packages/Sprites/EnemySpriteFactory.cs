@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Project
 {
@@ -23,6 +24,8 @@ namespace Project
             goblinSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateGreen");
             skeletonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplateBlack");
             dragonSpriteSheet = content.Load<Texture2D>("Character32x32TextureTemplatePink");
+
+            Console.WriteLine("------" + goblinSpriteSheet is null);
         }
 
         // ----------------- GOBLIN SPRITES -----------------

@@ -18,11 +18,10 @@ namespace Project
         public Player()
         {
             // Set initial default states
-            // (Optionally move these from Game1.Initialize to here)
             PositionVector = new Vector2(100, 100);
-            PositionRect    = new Rectangle(100, 100, 30, 30);
-            LastDirection   = "Down";
-            SpriteType      = Direction.Down; // or whichever you like
+            PositionRect = new Rectangle(100, 100, 30, 30);
+            LastDirection = "Down";
+            SpriteType = Direction.Down; // or whichever you like
 
             // Initially use a "stopped" sprite (down facing)
             Sprite          = SpriteFactory.Instance.NewDownStoppedPlayer();
@@ -49,17 +48,26 @@ namespace Project
             {
                 case "Up":
                     ChangeSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
+                    SpriteType = Direction.Up;
+                    Sprite.State = SpriteState.Stopped;
                     break;
                 case "Down":
                     ChangeSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
+                    SpriteType = Direction.Down;
+                    Sprite.State = SpriteState.Stopped;
                     break;
                 case "Left":
                     ChangeSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
+                    SpriteType = Direction.Left;
+                    Sprite.State = SpriteState.Stopped;
                     break;
                 case "Right":
                     ChangeSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
+                    SpriteType = Direction.Right;
+                    Sprite.State = SpriteState.Stopped;
                     break;
             }
+
         }
 
         public void Update(GameTime gameTime)
