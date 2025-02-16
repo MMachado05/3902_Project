@@ -1,10 +1,10 @@
-namespace Project; // TODO: Namespace
-
-public interface IController
+﻿
+namespace Project
 {
-    /// <summary>
-    /// Check input states for this controller's device. Requires accessing
-    /// device states directly (i.e. no State structs are passed as parameters)
-    /// </summary>
-    void Update();
+
+    public interface IController
+
+    {
+        void Update();
+    }
 }

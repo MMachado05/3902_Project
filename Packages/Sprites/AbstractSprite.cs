@@ -60,8 +60,8 @@ public abstract class AbstractSprite : ISprite
         int xOffset = this.widthPixels / 2 * this.scaleFactor;
         int yOffset = this.heightPixels / 2 * this.scaleFactor;
 
-        if (originX >= 0) xOffset += xOffset - originX;
-        if (originY >= 0) yOffset += yOffset - originY;
+        if (originX >= 0) xOffset += xOffset - (this.scaleFactor * originX);
+        if (originY >= 0) yOffset += yOffset - (this.scaleFactor * originY);
 
         destRectangle.X = (int)(position.X - xOffset);
         destRectangle.Y = (int)(position.Y - yOffset);

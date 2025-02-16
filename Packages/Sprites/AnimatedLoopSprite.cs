@@ -1,14 +1,18 @@
+using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project;
-
-public class AnimatedLoopSprite : AbstractSprite
+namespace Project
 {
-  private int maxFrames;
-  private int currFrame;
-  private int topLeftXInitial;
-  private int topLeftYInitial;
+
+
+    public class AnimatedLoopSprite : AbstractSprite
+    {
+        private int maxFrames;
+        private int currFrame;
+        private int topLeftXInitial;
+        private int topLeftYInitial;
 
   /// <summary>
   /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
@@ -23,15 +27,15 @@ public class AnimatedLoopSprite : AbstractSprite
     this.topLeftYInitial = sourceInitial.Y;
   }
 
-  public override void Update()
-  {
-    //this.currFrame++;
-    if (this.currFrame == this.maxFrames)
-      this.currFrame = 0;
-    else
-      this.currFrame++;
-
-    // All sprites are animated downwards
-    base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
-  }
+    public override void Update()
+    {
+      //Console.WriteLine("currFrame: " + this.currFrame);
+      if (this.currFrame == this.maxFrames)
+        this.currFrame = 0;
+      else
+        this.currFrame++;
+            // All sprites are animated downwards
+            base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
+        }
+    }
 }

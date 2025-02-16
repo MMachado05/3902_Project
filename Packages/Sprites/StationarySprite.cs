@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project;
+namespace Project
+{
 
 public class StationarySprite : AbstractSprite
 {
@@ -10,8 +11,9 @@ public class StationarySprite : AbstractSprite
     {
     }
 
-    public override void Update()
-    {
-        // Empty method, stationary sprite
+        public override void Update()
+        {
+            // Empty method, stationary sprite
+        }
     }
 }
