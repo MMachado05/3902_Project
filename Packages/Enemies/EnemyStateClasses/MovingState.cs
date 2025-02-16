@@ -12,38 +12,42 @@ namespace Project.Enemies.EnemyStateClasses
 
         private float moveDuration;
 
-        public MovingState()
+        public MovingState(IEnemy enemy)
         {
-            SetNewMovement();
+            SetNewMovement(enemy);
         }
 
-        private void SetNewMovement()
+        private void SetNewMovement(IEnemy enemy)
         {
-            // Set a new random movement duration between 2 and 12 seconds
-            moveDuration = random.Next(2, 13); // 2 to 12 inclusive
 
-            // Choose between horizontal (X) or vertical (Y) movement
-            bool moveHorizontally = random.Next(2) == 0;
+            moveDuration = random.Next(2, 13);
 
-            if (moveHorizontally)
+            if (enemy is Aquamentus)
             {
-                direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0); // Left or Right
+                direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0);
             }
             else
             {
-                direction = new Vector2(0, random.Next(2) == 0 ? -1 : 1); // Up or Down
-            }
-        }
+                bool moveHorizontally = random.Next(2) == 0;
 
+                if (moveHorizontally)
+                {
+                    direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0);
+                }
+                else
+                {
+                    direction = new Vector2(0, random.Next(2) == 0 ? -1 : 1);
+                }
+            }
+            Console.WriteLine($"Enemy: {enemy.GetType().Name}, Direction: {direction}");
+        }
 
         public void Update(IEnemy enemy)
         {
             moveTimer += 0.1f;
             if (enemy is Enemy e)
             {
-
                 string moveDir = GetMoveDirection(direction);
-
                 e.MoveInDirection(moveDir);
             }
 
@@ -53,11 +57,11 @@ namespace Project.Enemies.EnemyStateClasses
             {
                 enemy.SetState(new IdleState());
                 moveTimer = 0;
-                SetNewMovement();
+                SetNewMovement(enemy);
             }
         }
 
-        private string GetMoveDirection(Vector2 dir)
+        private static string GetMoveDirection(Vector2 dir)
         {
             if (dir.Y < 0) return "Up";
             if (dir.Y > 0) return "Down";

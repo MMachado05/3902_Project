@@ -14,18 +14,18 @@ namespace Project
         private int topLeftXInitial;
         private int topLeftYInitial;
 
-    /// <summary>
-    /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
-    /// the constructor argument.
-    /// </summary>
-    public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-        int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
-    {
-        this.maxFrames = maxFrames - 1;
-        this.currFrame = 0;
-        this.topLeftXInitial = sourceInitial.X;
-        this.topLeftYInitial = sourceInitial.Y;
-    }
+  /// <summary>
+  /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
+  /// the constructor argument.
+  /// </summary>
+  public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
+      int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
+  {
+    this.maxFrames = maxFrames - 1;
+    this.currFrame = 0;
+    this.topLeftXInitial = sourceInitial.X;
+    this.topLeftYInitial = sourceInitial.Y;
+  }
 
     public override void Update()
     {

@@ -18,7 +18,7 @@ namespace Project.Enemies.EnemyStateClasses
                 e.SetIdleAnimation();
             }
 
-            if (timer > 6)
+            if (timer > 1)
             {
                 timer = 0;
                 if (random.Next(0, 5) == 0)
@@ -27,7 +27,7 @@ namespace Project.Enemies.EnemyStateClasses
                 }
                 else
                 {
-                    enemy.SetState(new MovingState());
+                    enemy.SetState(new MovingState(enemy));
                 }
             }
         }
