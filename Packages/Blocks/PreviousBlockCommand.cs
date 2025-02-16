@@ -7,15 +7,15 @@ namespace Project.Blocks
 {
     public class PreviousBlockCommand : ICommand
     {
-         private Game1 game1;
-         public PreviousBlockCommand(Game1 game)
+        private SolidBlockManager Manager;
+        public PreviousBlockCommand(SolidBlockManager manager)
         {
-            this.game1 = game;
-           
+            Manager = manager;
+
         }
         public void Execute()
         {
-            game1.previousBlock();
+            Manager.SwitchToPreviousBlock();
         }
     }
 }
