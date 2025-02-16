@@ -41,28 +41,32 @@ namespace Project
                 switch (_direction)
                 {
                     case "Up":
-                        if (_player.SpriteType != Direction.Up)
+                        if (_player.SpriteType != Direction.Up
+                            || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Up;
                             _player.ChangeSprite(SpriteFactory.Instance.NewUpWalkingPlayer());
                         }
                         break;
                     case "Down":
-                        if (_player.SpriteType != Direction.Down)
+                        if (_player.SpriteType != Direction.Down
+                            || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Down;
                             _player.ChangeSprite(SpriteFactory.Instance.NewDownWalkingPlayer());
                         }
                         break;
                     case "Left":
-                        if (_player.SpriteType != Direction.Left)
+                        if (_player.SpriteType != Direction.Left
+                            || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Left;
                             _player.ChangeSprite(SpriteFactory.Instance.NewLeftWalkingPlayer());
                         }
                         break;
                     case "Right":
-                        if (_player.SpriteType != Direction.Right)
+                        if (_player.SpriteType != Direction.Right
+                            || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Right;
                             _player.ChangeSprite(SpriteFactory.Instance.NewRightWalkingPlayer());
