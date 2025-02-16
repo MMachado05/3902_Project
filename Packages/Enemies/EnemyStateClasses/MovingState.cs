@@ -39,7 +39,6 @@ namespace Project.Enemies.EnemyStateClasses
                     direction = new Vector2(0, random.Next(2) == 0 ? -1 : 1);
                 }
             }
-            Console.WriteLine($"Enemy: {enemy.GetType().Name}, Direction: {direction}");
         }
 
         public void Update(IEnemy enemy)

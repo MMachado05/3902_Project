@@ -20,7 +20,7 @@ namespace Project.Blocks
             _game = game;
         }
 
-        public void ProcessControls()
+        public void Update()
         {
             if ((_game.input.IsKeyDown(Keys.T) || _game.input.IsKeyDown(Keys.T)) && !_game.input.Equals(_game.previous))
             {
