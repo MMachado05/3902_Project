@@ -15,7 +15,7 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
-        private Player player;
+        public Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -25,7 +25,7 @@ namespace Project
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
         // Kev adds:
-        private EnemyManager enemyManager;
+        public EnemyManager enemyManager;
         private EnemyController enemyController;
 
         private float elapsedTime;
@@ -38,7 +38,7 @@ namespace Project
         public KeyboardState previous;
         SolidBlockController solidBlockController;
 
-        SolidBlockManager manager;
+        public SolidBlockManager manager;
 
         public Game1()
         {
