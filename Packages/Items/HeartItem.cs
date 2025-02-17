@@ -10,7 +10,7 @@ namespace Project.Packages.Items
 {
     public class HeartItem : Item
     {
-        public HeartItem()
+        public HeartItem(ISprite isprite) : base(isprite)
         {
             Position = new Vector2(50, 50);
             Speed = 0;

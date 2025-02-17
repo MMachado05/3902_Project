@@ -13,7 +13,13 @@ namespace Project.Packages.Items
     {
         public Vector2 Position { get; set; }
         public float Speed { get; set; }
+
+        public ISprite isprite;
         
+        public Item(ISprite isprite)
+        {
+            this.isprite = isprite;
+        }
         public void Update()
         {
             Position = new Vector2(Position.X + Speed, Position.Y);
@@ -21,17 +27,18 @@ namespace Project.Packages.Items
             {
                 bounceOffWall();
             }
+        }
 
-        
+    void bounceOffWall()
+    {
+        Speed = -Speed;
     }
 
-void bounceOffWall()
-{
-    Speed = -Speed;
-}
 
-
-public void Draw(ISprite isprite, SpriteBatch spriteBatch) { }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            isprite.Draw(spriteBatch, Position);
+        }
 
     }
 }

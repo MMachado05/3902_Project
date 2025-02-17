@@ -7,6 +7,6 @@ namespace Project
     {
         Vector2 Position { get; set; }
         float Speed { get; set; }
-        void Draw(ISprite isprite, SpriteBatch spriteBatch);
+        void Draw(SpriteBatch spriteBatch);
     }
 }

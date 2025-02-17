@@ -10,10 +10,12 @@ namespace Project.Packages.Items
 {
     public class Arrow : Item
     {
-        public Arrow()
+        public Arrow(ISprite isprite) : base(isprite)
         {
             Position = new Vector2(100, 10);
             Speed = 3;
+            //ItemFactory itemFactory = new ItemFactory();
+            //isprite = itemFactory.arrowSprite;
         }
         
         public void Draw(ISprite isprite, SpriteBatch spriteBatch)

@@ -11,15 +11,9 @@ public class Game1 : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private Texture2D heartTexture;
-    private Texture2D arrowTexture;
+    ItemManager itemManager;
 
-    ISprite heartSprite;
-    ISprite arrowSprite;
-
-    Arrow arrowObject = new Arrow();
-    HeartItem heartObject = new HeartItem();
-    
+    KeyboardState previousState;
 
     public Game1()
     {
@@ -31,7 +25,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
+        itemManager = new ItemManager();
         base.Initialize();
     }
 
@@ -40,11 +34,7 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         // TODO: use this.Content to load your game content here
-        Texture2D heartTexture = Content.Load<Texture2D>("test_item");
-        Texture2D arrowTexture = Content.Load<Texture2D>("arrow");
-        heartSprite = new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 64, 64), 3, 4, new SpriteState());
-        arrowSprite = new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
-
+        ItemFactory.Instance.LoadContent(Content);
     }
 
     protected override void Update(GameTime gameTime)
@@ -52,9 +42,17 @@ public class Game1 : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
-        heartObject.Update();
-        arrowObject.Update();
+        KeyboardState currentState = Keyboard.GetState();
+
+        // Check if the space key was just pressed
+        if (currentState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space))
+        {
+            itemManager.SwitchItem();
+        }
+
+        itemManager.getCurrentItem().Update();
+        previousState = currentState;
+
         base.Update(gameTime);
     }
 
@@ -65,8 +63,11 @@ public class Game1 : Game
         // TODO: Add your drawing code here
         _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
         
-        heartObject.Draw(heartSprite, _spriteBatch);
-        arrowObject.Draw(arrowSprite, _spriteBatch);
+        itemManager.getCurrentItem().Draw(_spriteBatch);
+
+        //heartObject.Draw(heartSprite, _spriteBatch);
+        //arrowObject.Draw(arrowSprite, _spriteBatch);
+
         _spriteBatch.End();
         base.Draw(gameTime);
     }
