@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Commands;
 using Project.Commands.CommandClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Enemies;
@@ -13,9 +15,9 @@ namespace Project
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
-        public Player player;
+        private Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -25,7 +27,7 @@ namespace Project
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
         // Kev adds:
-        public EnemyManager enemyManager;
+        private EnemyManager enemyManager;
         private EnemyController enemyController;
 
         private float elapsedTime;
@@ -38,7 +40,13 @@ namespace Project
         public KeyboardState previous;
         SolidBlockController solidBlockController;
 
-        public SolidBlockManager manager;
+        private SolidBlockManager manager;
+        Dictionary<Keys, ICommand> enemyCommands;
+        public void restart()
+        {
+            this.LoadContent();
+            this.Initialize();
+        }
 
         public Game1()
         {
@@ -82,7 +90,7 @@ namespace Project
             ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
 
-            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            enemyCommands = new Dictionary<Keys, ICommand>
             {
                 { Keys.O, previousEnemyCommand },
                 { Keys.P, nextEnemyCommand }
@@ -150,7 +158,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            activeBlock.Draw(); 
+            activeBlock.Draw();
 
             player.Draw(_spriteBatch); // updated to player class
 
