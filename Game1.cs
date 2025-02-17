@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project.Blocks;
 using Project.Commands.CommandClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Enemies;
@@ -14,7 +15,7 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
-        private Player player; 
+        private Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -22,12 +23,22 @@ namespace Project
         public Direction spriteType;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
-        
+
         // Kev adds:
         private EnemyManager enemyManager;
         private EnemyController enemyController;
 
         private float elapsedTime;
+        // Solid block variable
+
+        public SolidBlock activeBlock;
+        public NextBlockCommand nextBlockCommand;
+        public PreviousBlockCommand previousBlockCommand;
+        public KeyboardState input;
+        public KeyboardState previous;
+        SolidBlockController solidBlockController;
+
+        SolidBlockManager manager;
 
         public Game1()
         {
@@ -42,6 +53,9 @@ namespace Project
             playerPositionVector = new Vector2(100, 100);
 
             player = new Player();
+
+            input = Keyboard.GetState();
+            previous = Keyboard.GetState();
 
             base.Initialize();
         }
@@ -76,6 +90,14 @@ namespace Project
 
             enemyController = new EnemyController(enemyCommands);
 
+            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
+            manager = new SolidBlockManager(_spriteBatch);
+
+            nextBlockCommand = new NextBlockCommand(manager);
+            previousBlockCommand = new PreviousBlockCommand(manager);
+            solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
+            activeBlock = manager.GetCurrentBlock();
+
         }
 
 
@@ -85,19 +107,19 @@ namespace Project
                 Exit();
 
 
-                // Kev adds
-                enemyController.Update();
+            // Kev adds
+            enemyController.Update();
 
             _keyboardController.Update();
 
             // Check if player has stopped moving
-            KeyboardState state = Keyboard.GetState();
-            if (!(state.IsKeyDown(Keys.W) || state.IsKeyDown(Keys.A) || state.IsKeyDown(Keys.S) || state.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
+            input = Keyboard.GetState();
+            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite; moved to player function
-            }                
+            }
 
-                player.Update(gameTime);
+            player.Update(gameTime);
 
 
 
@@ -110,6 +132,16 @@ namespace Project
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+
+            // block 
+            // input = Keyboard.GetState();
+
+            solidBlockController.Update();
+            if (!(input.Equals(previous)))
+            {
+                previous = input;
+            }
+            activeBlock = manager.GetCurrentBlock();
             base.Update(gameTime);
         }
 
@@ -118,6 +150,8 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            activeBlock.Draw(); 
+
             player.Draw(_spriteBatch); // updated to player class
 
             // Kev adds:          
