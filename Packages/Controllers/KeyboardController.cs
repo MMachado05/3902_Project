@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Commands;
 
 namespace Project
 {
@@ -44,6 +45,7 @@ namespace Project
 
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
+            _commands.Add(Keys.R, new RestartGameCommand(_game,_game._spriteBatch));
           
 
 
