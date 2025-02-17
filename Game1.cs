@@ -7,6 +7,7 @@ using Project.Blocks;
 using Project.Commands.CommandClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Enemies;
+using Project.Packages.Items;
 
 namespace Project
 {
@@ -40,6 +41,10 @@ namespace Project
 
         SolidBlockManager manager;
 
+        ItemManager itemManager;
+        KeyboardState previousState = new KeyboardState();
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -57,14 +62,9 @@ namespace Project
             input = Keyboard.GetState();
             previous = Keyboard.GetState();
 
+
             base.Initialize();
         }
-    protected override void Initialize()
-    {
-        // TODO: Add your initialization logic here
-        itemManager = new ItemManager();
-        base.Initialize();
-    }
 
         protected override void LoadContent()
         {
@@ -104,14 +104,14 @@ namespace Project
             solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
             activeBlock = manager.GetCurrentBlock();
 
+            ItemFactory.Instance.LoadContent(Content);
+            itemManager = new ItemManager();
         }
-        // TODO: use this.Content to load your game content here
-        ItemFactory.Instance.LoadContent(Content);
-    }
 
 
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -132,19 +132,21 @@ namespace Project
 
 
 
-        KeyboardState currentState = Keyboard.GetState();
+            KeyboardState currentState = Keyboard.GetState();
 
-        // Check if the space key was just pressed
-        if (currentState.IsKeyDown(Keys.Space) && !previousState.IsKeyDown(Keys.Space))
-        {
-            itemManager.SwitchItem();
-        }
+            // Check if the space key was just pressed
+            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
+            {
+                itemManager.nextItem();
+            }
+            if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
+            {
+                itemManager.previousItem();
+            }
+            itemManager.getCurrentItem().Update();
+            previousState = currentState;
 
-        itemManager.getCurrentItem().Update();
-        previousState = currentState;
-
-        base.Update(gameTime);
-    }
+    
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
@@ -177,6 +179,7 @@ namespace Project
 
             // Kev adds:          
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+            itemManager.getCurrentItem().Draw(_spriteBatch);
 
             _spriteBatch.End();
 

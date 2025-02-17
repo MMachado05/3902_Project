@@ -8,12 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Packages.Items
 {
-    public class Arrow : Item
+    public class Bomb : Item
     {
-        public Arrow(ISprite isprite) : base(isprite)
+        public Bomb(ISprite isprite) : base(isprite)
         {
-            Position = new Vector2(100, 50);
-            Speed = 5;
+            Position = new Vector2(400, 100);
         }
-    }
+    }   
 }

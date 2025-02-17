@@ -8,16 +8,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Packages.Items
 {
-    public class HeartItem : Item
+    public class Heart : Item
     {
-        public HeartItem(ISprite isprite) : base(isprite)
+        public Heart(ISprite isprite) : base(isprite)
         {
             Position = new Vector2(50, 50);
             Speed = 0;
-        }
-        public void Draw(ISprite isprite, SpriteBatch spriteBatch)
-        {
-            isprite.Draw(spriteBatch, Position);
         }
     }
 }

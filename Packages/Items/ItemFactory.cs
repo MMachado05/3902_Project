@@ -16,8 +16,9 @@ namespace Project.Packages.Items
     {
         private Texture2D heartTexture;
         private Texture2D arrowTexture;
+        private Texture2D bombTexture;
 
-        public static ItemFactory instance = new ItemFactory();
+        private static ItemFactory instance = new ItemFactory();
 
         
         public static ItemFactory Instance
@@ -30,19 +31,23 @@ namespace Project.Packages.Items
 
         public void LoadContent(ContentManager content)
         {
-            this.heartTexture = content.Load<Texture2D>("test_item");
+            this.heartTexture = content.Load<Texture2D>("heart");
             this.arrowTexture = content.Load<Texture2D>("arrow");
-            Console.WriteLine("it loaded");
+            this.bombTexture = content.Load<Texture2D>("bomb");
         }
         public Arrow createArrow()
-        {
-            Console.WriteLine("it created arrow");
+        { 
             ISprite arrowSprite = new StationarySprite(this.arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
             return new Arrow(arrowSprite);
         }
-        public HeartItem createHeart() {
-            ISprite heartSprite = new AnimatedLoopSprite(this.heartTexture, new Rectangle(0, 0, 64, 64), 3, 4, new SpriteState());
-            return new HeartItem(heartSprite);
+        public Heart createHeart() {
+            ISprite heartSprite = new AnimatedLoopSprite(this.heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new SpriteState());
+            return new Heart(heartSprite);
+        }
+        public Bomb createBomb()
+        {
+            ISprite bombSprite = new StationarySprite(this.bombTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new Bomb(bombSprite);
         }
     }
 }

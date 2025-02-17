@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace Project.Packages.Items
 {
@@ -20,18 +22,22 @@ namespace Project.Packages.Items
 
         public ItemManager()
         {
-            itemList = new List<Item> { ItemFactory.Instance.createArrow(), ItemFactory.Instance.createHeart() };
+            itemList = new List<Item> { ItemFactory.Instance.createArrow(), ItemFactory.Instance.createHeart(), ItemFactory.Instance.createBomb()};
         }
-
-        void Update()
+        public void nextItem()
         {
-
+            currentItemIndex = (currentItemIndex + 1) % itemList.Count();
         }
-
-        public void SwitchItem()
+        public void previousItem()
         {
-            //switches between 1 and 0 for now
-            currentItemIndex = 1 - currentItemIndex;
+            if (currentItemIndex > 0)
+            {
+                currentItemIndex--;
+            }
+            else
+            {
+                currentItemIndex = itemList.Count() - 1;
+            }
         }
         public Item getCurrentItem()
         {
