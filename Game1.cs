@@ -139,7 +139,7 @@ namespace Project
 
             KeyboardState currentState = Keyboard.GetState();
 
-            // Check if the space key was just pressed
+            // Checking for keys pressed to switch items
             if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
             {
                 itemManager.nextItem();
@@ -147,6 +147,18 @@ namespace Project
             if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
             {
                 itemManager.previousItem();
+            }
+            if (currentState.IsKeyDown(Keys.D1) && !previousState.IsKeyDown(Keys.D1))
+            {
+                itemManager.currentItemIndex = 0;
+            }
+            if (currentState.IsKeyDown(Keys.D2) && !previousState.IsKeyDown(Keys.D2))
+            {
+                itemManager.currentItemIndex = 1;
+            }
+            if (currentState.IsKeyDown(Keys.D3) && !previousState.IsKeyDown(Keys.D3))
+            {
+                itemManager.currentItemIndex = 2;
             }
             itemManager.getCurrentItem().Update();
             previousState = currentState;

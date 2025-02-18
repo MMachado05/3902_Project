@@ -18,7 +18,7 @@ namespace Project.Packages.Items
     {
         //ItemFactory itemFactory = new ItemFactory();
         private List<Item> itemList;
-        int currentItemIndex = 0;
+        public int currentItemIndex = 0;
 
         public ItemManager()
         {
