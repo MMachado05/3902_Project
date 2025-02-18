@@ -90,7 +90,7 @@ Each Task should have an assigned priority at the beginning of every Sprint:
 
 - P3: **Relevant.** Relevant Tasks are those that are not crucial but must be completed.
 
-- P4: **Enhancments.** Enhancments are tasks not required for a Sprint, but if time allows can be implemented.
+- P4: **Enhancements.** Enhancements are tasks not required for a Sprint, but if time allows can be implemented.
 
 ## Communication
 
