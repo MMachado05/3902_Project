@@ -8,6 +8,41 @@ Team members in surname alphabetical order:
 - Marcial Machado
 - Kevin Ravakhah
 
+# State of the Project
+
+#### Last Updated: 2/17/2025
+
+The game largely functions as a proof-of-concept for various crucial functionalities
+that will be present throughout the game's development.
+The main player character, a red hooded sprite sourced from
+[Penzilla Design](https://penzilla.itch.io/hooded-protagonist), is controllable in the
+cardinal directions with the WASD or Arrow keys on a personal computer keyboard. 
+There are three enemies, selectable through the keys `o` and `p`. All move in a random
+way. The goblin and dragon enemies have a probability to attack; the goblin will throw
+a boomerang, and the dragon will shoot fireballs. A block sprite near the center of
+the game screen can be cycled through different available blocks with `t` and `y`.
+The currently active user item is visible near the top of the screen and can be cycled
+through different items with `u` and `i`.
+
+### Expected Improvements
+
+- Large-scale architectural refactoring.
+    - Managers for various objects.
+    - Dedicated renderer for drawing to the screen.
+- Expanded player functionality
+
+### Known limitations:
+
+- Equipped items currently do not meaningfully change player behavior.
+
+### Known bugs:
+
+- Going diagonally, that is, holding keys such as SD, WD, etc simultaneously, will cause
+the player sprite to freeze in one animation frame belonging to either of the two keys
+pressed.
+- Walking animations do not properly get rendered when using the arrow keys.
+- Enemies are capable of leaving the visible screen.
+
 
 # Guidelines & Best Practices
 
