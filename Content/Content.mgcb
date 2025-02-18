@@ -60,7 +60,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:bomb.png
->>>>>>> main
 
 #begin Character32x32TextureTemplate.png
 /importer:TextureImporter
