@@ -81,7 +81,7 @@ defined code comments are preferred.
 
 ## Task & Priorities
 
-Anecdotally called "Jira Boards", a template under the "3902" has been created and should be used for all Tasks. 
+Colloquially referred as the "Jira Board" within the team, a template under the "3902" has been created and should be used for all Tasks. 
 Each Task should have an assigned priority at the beginning of every Sprint:
 
 - P1: **Critical.** Critical issues should be addressed as soon as possible.
@@ -91,6 +91,9 @@ Each Task should have an assigned priority at the beginning of every Sprint:
 - P3: **Relevant.** Relevant Tasks are those that are not crucial but must be completed.
 
 - P4: **Enhancements.** Enhancements are tasks not required for a Sprint, but if time allows can be implemented.
+
+As issues are being worked on, estimates for the number of hours expected left before the
+issue is resolved should be tracked.
 
 ## Communication
 
