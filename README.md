@@ -1,4 +1,6 @@
-# 3902 Game Project (Name pending)
+# Gluckbusters Game
+
+#### Game name pending
 
 Team members in surname alphabetical order:
 
