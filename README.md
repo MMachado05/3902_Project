@@ -45,6 +45,22 @@ pressed.
 - Walking animations do not properly get rendered when using the arrow keys.
 - Enemies are capable of leaving the visible screen.
 
+## Current Code Analytics
+
+#### Last taken 2/17/2025
+
+| Hierarchy                             | Maintainability Index | Cyclomatic Complexity | Depth of Inheritance | Class Coupling | Lines of Source Code | Lines of Executable Code |
+|---------------------------------------|-----------------------|-----------------------|----------------------|----------------|----------------------|--------------------------|
+| Program                               | 79                    | 2                     | 1                    | 1              | 2                    | 4                        |
+| Project.Controllers.ControllerClasses | 74                    | 5                     | 1                    | 7              | 30                   | 8                        |
+| Project.Enemies.EnemyStateClasses     | 75                    | 22                    | 1                    | 8              | 131                  | 45                       |
+| Project.Enemies.EnemyClasses          | 77                    | 65                    | 2                    | 14             | 311                  | 100                      |
+| Project                               | 85                    | 208                   | 2                    | 68             | 1105                 | 264                      |
+| Project.Packages.Items                | 85                    | 23                    | 2                    | 18             | 141                  | 29                       |
+| Project.Blocks                        | 87                    | 28                    | 1                    | 18             | 189                  | 36                       |
+| Project.Commands.CommandClasses       | 95                    | 6                     | 2                    | 4              | 48                   | 5                        |
+| Project.Enemies                       | 95                    | 18                    | 1                    | 8              | 63                   | 7                        |
+| Project.Commands                      | 96                    | 2                     | 1                    | 2              | 20                   | 2                        |
 
 # Guidelines & Best Practices
 
