@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,13 +6,14 @@ using Project.Blocks;
 using Project.Commands.CommandClasses;
 using Project.Controllers.ControllerClasses;
 using Project.Enemies;
+using Project.Packages.Items;
 
 namespace Project
 {
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
         private Player player;
 
@@ -38,7 +38,17 @@ namespace Project
         public KeyboardState previous;
         SolidBlockController solidBlockController;
 
-        SolidBlockManager manager;
+        private SolidBlockManager manager;
+        Dictionary<Keys, ICommand> enemyCommands;
+        public void restart()
+        {
+            this.LoadContent();
+            this.Initialize();
+        }
+
+        ItemManager itemManager;
+        KeyboardState previousState = new KeyboardState();
+
 
         public Game1()
         {
@@ -56,6 +66,7 @@ namespace Project
 
             input = Keyboard.GetState();
             previous = Keyboard.GetState();
+
 
             base.Initialize();
         }
@@ -82,7 +93,7 @@ namespace Project
             ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
 
-            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            enemyCommands = new Dictionary<Keys, ICommand>
             {
                 { Keys.O, previousEnemyCommand },
                 { Keys.P, nextEnemyCommand }
@@ -98,11 +109,14 @@ namespace Project
             solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
             activeBlock = manager.GetCurrentBlock();
 
+            ItemFactory.Instance.LoadContent(Content);
+            itemManager = new ItemManager();
         }
 
 
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -123,7 +137,33 @@ namespace Project
 
 
 
+            KeyboardState currentState = Keyboard.GetState();
 
+            // Checking for keys pressed to switch items
+            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
+            {
+                itemManager.nextItem();
+            }
+            if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
+            {
+                itemManager.previousItem();
+            }
+            if (currentState.IsKeyDown(Keys.D1) && !previousState.IsKeyDown(Keys.D1))
+            {
+                itemManager.currentItemIndex = 0;
+            }
+            if (currentState.IsKeyDown(Keys.D2) && !previousState.IsKeyDown(Keys.D2))
+            {
+                itemManager.currentItemIndex = 1;
+            }
+            if (currentState.IsKeyDown(Keys.D3) && !previousState.IsKeyDown(Keys.D3))
+            {
+                itemManager.currentItemIndex = 2;
+            }
+            itemManager.getCurrentItem().Update();
+            previousState = currentState;
+
+    
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
@@ -150,12 +190,13 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            activeBlock.Draw(); 
+            activeBlock.Draw();
 
             player.Draw(_spriteBatch); // updated to player class
 
             // Kev adds:          
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+            itemManager.getCurrentItem().Draw(_spriteBatch);
 
             _spriteBatch.End();
 
