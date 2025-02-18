@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -13,7 +12,7 @@ namespace Project
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch;
         private KeyboardController _keyboardController;
         private Player player;
 
@@ -38,7 +37,13 @@ namespace Project
         public KeyboardState previous;
         SolidBlockController solidBlockController;
 
-        SolidBlockManager manager;
+        private SolidBlockManager manager;
+        Dictionary<Keys, ICommand> enemyCommands;
+        public void restart()
+        {
+            this.LoadContent();
+            this.Initialize();
+        }
 
         public Game1()
         {
@@ -82,7 +87,7 @@ namespace Project
             ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
 
 
-            Dictionary<Keys, ICommand> enemyCommands = new Dictionary<Keys, ICommand>
+            enemyCommands = new Dictionary<Keys, ICommand>
             {
                 { Keys.O, previousEnemyCommand },
                 { Keys.P, nextEnemyCommand }
@@ -150,7 +155,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            activeBlock.Draw(); 
+            activeBlock.Draw();
 
             player.Draw(_spriteBatch); // updated to player class
 
