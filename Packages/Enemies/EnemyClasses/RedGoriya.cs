@@ -1,9 +1,14 @@
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class RedGoriya : Enemy
     {
+        private List<Projectile> projectiles = new List<Projectile>();
+        private bool hasThrownBoomerang = false;
+
         public RedGoriya(Vector2 startPosition) : base(startPosition) { }
 
         protected override void LoadAnimations()
@@ -23,5 +28,52 @@ namespace Project.Enemies.EnemyClasses
             attackLeft = EnemySpriteFactory.Instance.NewRedGoriyaAttackingLeft();
             attackRight = EnemySpriteFactory.Instance.NewRedGoriyaAttackingRight();
         }
+
+        private Vector2 GetAttackDirection()
+        {
+            return lastDirection switch
+            {
+                "Up" => new Vector2(0, -1),
+                "Down" => new Vector2(0, 1),
+                "Left" => new Vector2(-1, 0),
+                "Right" => new Vector2(1, 0),
+                _ => new Vector2(0, -1)
+            };
+        }
+
+        public override void Attack()
+        {
+            if (hasThrownBoomerang) return;
+
+            hasThrownBoomerang = true;
+            Vector2 direction = GetAttackDirection();
+            projectiles.Add(new Projectile(Position, direction, EnemySpriteFactory.Instance.NewBoomerang(), 30.0f, 150.0f, Position));
+        }
+
+        public override void ResetAttackState()
+        {
+            hasThrownBoomerang = false;
+        }
+
+        public override void UpdateAnimation(GameTime gameTime)
+        {
+            base.UpdateAnimation(gameTime);
+            for (int i = projectiles.Count - 1; i >= 0; i--)
+            {
+                projectiles[i].Update();
+                if (projectiles[i].HasReturned())
+                {
+                    projectiles.RemoveAt(i);
+                    hasThrownBoomerang = false;
+                }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
+            projectiles.ForEach(p => p.Draw(spriteBatch));
+        }
+
     }
 }
