@@ -27,7 +27,7 @@ namespace Project
             stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
             aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
             fireball = content.Load<Texture2D>("fireball");
-            boomerang = content.Load<Texture2D>("boomerang");
+            boomerang = content.Load<Texture2D>("Boomerang");
         }
 
         // ----------------- RED GORIYA SPRITES -----------------
