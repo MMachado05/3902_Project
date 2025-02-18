@@ -44,6 +44,7 @@ the player sprite to freeze in one animation frame belonging to either of the tw
 pressed.
 - Walking animations do not properly get rendered when using the arrow keys.
 - Enemies are capable of leaving the visible screen.
+- The player is capable of leaving the visible screen.
 
 ## Current Code Analytics
 
