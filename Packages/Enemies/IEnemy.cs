@@ -8,5 +8,10 @@ namespace Project.Enemies
         float Speed { get; set; }
         void SetState(IEnemyState newState);
         void SetPosition(Vector2 newPosition);
+
+        void Attack();
+        void ResetAttackState();
+
+        float GetAttackDuration();
     }
 }

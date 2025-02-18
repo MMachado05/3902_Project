@@ -87,5 +87,9 @@ namespace Project.Enemies.EnemyClasses
         {
             currentAnimation.Draw(spriteBatch, Position);
         }
+
+        public virtual void Attack() { }
+        public virtual void ResetAttackState() { }
+        public virtual float GetAttackDuration() => 4f;
     }
 }

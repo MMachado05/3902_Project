@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace Project
 {
@@ -11,6 +10,8 @@ namespace Project
         private Texture2D stalfosSpriteSheet;
         private Texture2D aquamentusSpriteSheet;
         private Texture2D fireball;
+
+        private Texture2D boomerang;
 
         private int scale = 2;
 
@@ -26,6 +27,7 @@ namespace Project
             stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
             aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
             fireball = content.Load<Texture2D>("fireball");
+            boomerang = content.Load<Texture2D>("boomerang");
         }
 
         // ----------------- RED GORIYA SPRITES -----------------
@@ -78,6 +80,6 @@ namespace Project
 
         // ----------------- PROJECTILE SPRITES -----------------
         public ISprite NewFireball() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), scale, SpriteState.Stopped);
-
+        public ISprite NewBoomerang() => new AnimatedLoopSprite(boomerang, new Rectangle(0, 0, 8, 8), scale, 4, SpriteState.Walking);
     }
 }

@@ -6,37 +6,31 @@ namespace Project.Enemies.EnemyStateClasses
     public class AttackingState : IEnemyState
     {
         private float attackDuration = 0;
-        private float attackFrameTime = 1f;
-
+        private const float AttackFrameTime = 1f;
         private bool hasAttacked = false;
 
         public void Update(IEnemy enemy)
         {
             attackDuration += 0.1f;
-            if (enemy is Enemy e)
-            {
-                // e.SetAttackAnimation(); // will use this when using sprite sheets with attack sequences
 
-                if (!hasAttacked && enemy is Aquamentus aquamentus)
-                {
-                    aquamentus.ShootProjectiles();
-                    hasAttacked = true;
-                }
+            if (!hasAttacked)
+            {
+                enemy.Attack();
+                hasAttacked = true;
             }
 
-            if (attackDuration >= attackFrameTime * 4)
+            if (attackDuration >= enemy.GetAttackDuration() * 4)
             {
-                attackDuration = 0;
-                hasAttacked = false;
-
-                if (enemy is Aquamentus aquamentusReset)
-                {
-                    aquamentusReset.hasShot = false;
-                }
-
-                enemy.SetState(new IdleState());
+                ResetAttack(enemy);
             }
         }
 
+        private void ResetAttack(IEnemy enemy)
+        {
+            attackDuration = 0;
+            hasAttacked = false;
+            enemy.ResetAttackState();
+            enemy.SetState(new IdleState());
+        }
     }
 }
