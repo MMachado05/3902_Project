@@ -5,7 +5,7 @@
 Team members in surname alphabetical order:
 
 - Osama Abuhilal
-- Baqer Almaarwafi
+- Baqer Almaarfawi
 - AJ Berman
 - Marcial Machado
 - Kevin Ravakhah
