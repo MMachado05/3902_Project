@@ -42,6 +42,34 @@ namespace Project
             this.playerSpriteSheet = content.Load<Texture2D>("HoodedCharacterTextureTemplate");
         }
 
+        public ISprite NewStoppedPlayerSprite(Direction direction)
+        {
+          ISprite player;
+
+          switch (direction)
+          {
+            case Direction.Up:
+              player = new StationarySprite(this.playerSpriteSheet,
+                  new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
+              break;
+            case Direction.Right:
+              player = new StationarySprite(this.playerSpriteSheet,
+                  new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
+              break;
+            case Direction.Down:
+              player = new StationarySprite(this.playerSpriteSheet,
+                  new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
+              break;
+            case Direction.Left:
+            default: // Just use the left one
+              player = new StationarySprite(this.playerSpriteSheet,
+                  new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
+              break;
+          }
+
+          return player;
+        }
+
         // Stopped Player sprites
         public ISprite NewUpStoppedPlayer()
         {
