@@ -145,21 +145,25 @@ namespace Project
         }
 
         // Stopped Player sprites
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Up, false)")]
         public ISprite NewUpStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Right, false)")]
         public ISprite NewRightStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Down, false)")]
         public ISprite NewDownStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Left, false)")]
         public ISprite NewLeftStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
@@ -167,21 +171,25 @@ namespace Project
         }
 
         // Walking Player sprites
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Up, false)")]
         public ISprite NewUpWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(0, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Right, false)")]
         public ISprite NewRightWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(32, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Down, false)")]
         public ISprite NewDownWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(64, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Left, false)")]
         public ISprite NewLeftWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
@@ -189,21 +197,25 @@ namespace Project
         }
 
         // Attacking Player sprites - single use
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Up, false)")]
         public ISprite NewUpAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Right, false)")]
         public ISprite NewRightAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Down, false)")]
         public ISprite NewDownAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Left, false)")]
         public ISprite NewLeftAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
@@ -212,21 +224,25 @@ namespace Project
 
         // ----------------- DAMAGED --------------------
         // Stopped Player sprites
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Up, true)")]
         public ISprite NewDamagedUpStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(128 + 0, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Right, true)")]
         public ISprite NewDamagedRightStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(128 + 32, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Down, true)")]
         public ISprite NewDamagedDownStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
                 new Rectangle(128 + 64, 0, 32, 32), scale, SpriteState.Stopped);
         }
+        [System.Obsolete("Deprecated; call NewStoppedPlayerSprite(Direction.Left, true)")]
         public ISprite NewDamagedLeftStoppedPlayer()
         {
             return new StationarySprite(this.playerSpriteSheet,
