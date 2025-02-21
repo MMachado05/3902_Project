@@ -69,6 +69,31 @@ namespace Project
                 scale, SpriteState.Stopped);
         }
 
+        public ISprite NewWalkingPlayerSprite(Direction direction)
+        {
+            int xOrigin;
+            int yOrigin = 32;
+
+            switch (direction)
+            {
+                case Direction.Up:
+                    xOrigin = 0;
+                    break;
+                case Direction.Right:
+                    xOrigin = 32;
+                    break;
+                case Direction.Down:
+                    xOrigin = 64;
+                    break;
+                case Direction.Left:
+                default: // Just use the left one
+                    xOrigin = 96;
+                    break;
+            }
+
+            return new AnimatedLoopSprite(this.playerSpriteSheet,
+                new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
+                scale, 4, SpriteState.Stopped);
         }
         // Stopped Player sprites
         public ISprite NewUpStoppedPlayer()
