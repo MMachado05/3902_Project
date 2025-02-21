@@ -22,7 +22,7 @@
                         if (_player.isDamaged)
                             _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpAttackingPlayer());
                         else
-                        _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpAttackingPlayer());
                         break;
                     case "Down":
                         if (_player.isDamaged)

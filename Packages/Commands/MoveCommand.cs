@@ -46,7 +46,7 @@
                             if (_player.isDamaged)
                                 _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpWalkingPlayer());
                             else
-                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpWalkingPlayer());
+                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpWalkingPlayer());
                         }
                         break;
                     case "Down":
@@ -57,7 +57,7 @@
                             if (_player.isDamaged)
                                 _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownWalkingPlayer());
                             else
-                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDownWalkingPlayer());
+                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDownWalkingPlayer());
                         }
                         break;
                     case "Left":

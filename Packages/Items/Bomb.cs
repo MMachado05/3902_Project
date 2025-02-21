@@ -8,5 +8,5 @@ namespace Project.Packages.Items
         {
             Position = new Vector2(400, 100);
         }
-    }   
+    }
 }

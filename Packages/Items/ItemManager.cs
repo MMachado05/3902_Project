@@ -12,7 +12,7 @@ namespace Project.Packages.Items
 
         public ItemManager()
         {
-            itemList = new List<Item> { ItemFactory.Instance.createArrow(), ItemFactory.Instance.createHeart(), ItemFactory.Instance.createBomb()};
+            itemList = new List<Item> { ItemFactory.Instance.createArrow(), ItemFactory.Instance.createHeart(), ItemFactory.Instance.createBomb() };
         }
         public void nextItem()
         {

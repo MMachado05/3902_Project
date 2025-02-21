@@ -21,7 +21,7 @@ namespace Project
 
         public KeyboardController(Player player, Game1 game1)
         {
-            
+
             _player = player;
             _game = game1;
 
@@ -44,7 +44,7 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
-          
+
 
 
 

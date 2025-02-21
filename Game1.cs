@@ -186,7 +186,7 @@ namespace Project
             activeBlock.Draw();
 
             player.Draw(_spriteBatch);
-        
+
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);
 
