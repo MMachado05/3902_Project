@@ -82,8 +82,12 @@ namespace Project
             // Set initial sprite to static down
             playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
 
+            // Load item sprites and create item manager
+            ItemFactory.Instance.LoadContent(Content);
+            itemManager = new ItemManager();
+
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-            _keyboardController = new KeyboardController(player, this);
+            _keyboardController = new KeyboardController(player, this, itemManager);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
@@ -109,8 +113,7 @@ namespace Project
             solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
             activeBlock = manager.GetCurrentBlock();
 
-            ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager();
+            
         }
 
 
@@ -144,18 +147,7 @@ namespace Project
             {
                 itemManager.previousItem();
             }
-            if (currentState.IsKeyDown(Keys.D1) && !previousState.IsKeyDown(Keys.D1))
-            {
-                itemManager.currentItemIndex = 0;
-            }
-            if (currentState.IsKeyDown(Keys.D2) && !previousState.IsKeyDown(Keys.D2))
-            {
-                itemManager.currentItemIndex = 1;
-            }
-            if (currentState.IsKeyDown(Keys.D3) && !previousState.IsKeyDown(Keys.D3))
-            {
-                itemManager.currentItemIndex = 2;
-            }
+
             itemManager.getCurrentItem().Update();
             previousState = currentState;
 
