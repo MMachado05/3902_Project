@@ -18,6 +18,8 @@ namespace Project
         private Texture2D playerSpriteSheet;
 
         private int scale;
+        private int widthPixels;
+        private int heightPixels;
         // TODO: In the future, we'll want all drawing to be delegated to some external
         // "renderer" object. Scaling, destRectangles... all that stuff should be done
         // somewhere else.
@@ -35,6 +37,8 @@ namespace Project
         private PlayerSpriteFactory()
         {
             this.scale = 2;
+            this.widthPixels = 32;
+            this.heightPixels = 32;
         }
 
         public void LoadAllTextures(ContentManager content)
@@ -95,6 +99,7 @@ namespace Project
                 new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
                 scale, 4, SpriteState.Stopped);
         }
+
         public ISprite NewAttackingPlayerSprite(Direction direction)
         {
             int xOrigin;
@@ -135,6 +140,7 @@ namespace Project
                 new Rectangle(xOrigin, yOrigin, width, height), scale, 4, SpriteState.Attacking,
                 SpriteState.FinishedAttack, originX: xSpriteOrigin, originY: ySpriteOrigin);
         }
+
         // Stopped Player sprites
         public ISprite NewUpStoppedPlayer()
         {
