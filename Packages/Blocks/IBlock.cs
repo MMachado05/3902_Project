@@ -1,7 +1,8 @@
-namespace Project; // TODO: namespace
-
-public interface IBlock
+namespace Project
 {
-    public void Draw();
+    public interface IBlock
+    {
+        public void Draw();
 
+    }
 }

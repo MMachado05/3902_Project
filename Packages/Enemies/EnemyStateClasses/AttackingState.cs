@@ -1,6 +1,3 @@
-using Microsoft.Xna.Framework;
-using Project.Enemies.EnemyClasses;
-
 namespace Project.Enemies.EnemyStateClasses
 {
     public class AttackingState : IEnemyState

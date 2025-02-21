@@ -1,8 +1,8 @@
-namespace Project
-{  // TODO: Better namespace when project matures
-    using Microsoft.Xna.Framework;
-    using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
+namespace Project
+{  
     public interface IItem
     {
         Vector2 Position { get; set; }

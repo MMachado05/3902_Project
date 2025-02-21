@@ -1,13 +1,15 @@
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
 
-
     public class SpriteFactory
     {
+
+        // Osama: Put these in the Jira Board!!!
+
         // TODO: Might be good to have multiple factories for different sprite types (e.g.
         // enemies, characters, items, etc.)
         // TODO: Also I'm using way too many magic numbers, I should give these their own

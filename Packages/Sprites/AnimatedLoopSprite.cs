@@ -1,12 +1,8 @@
-using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
-
-
     public class AnimatedLoopSprite : AbstractSprite
     {
         private int maxFrames;
@@ -29,7 +25,6 @@ namespace Project
 
     public override void Update()
     {
-      //Console.WriteLine("currFrame: " + this.currFrame);
       if (this.currFrame == this.maxFrames)
         this.currFrame = 0;
       else

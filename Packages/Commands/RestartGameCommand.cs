@@ -1,7 +1,3 @@
-
-using Microsoft.Xna.Framework.Graphics;
-
-
 namespace Project.Commands
 {
     public class RestartGameCommand : ICommand

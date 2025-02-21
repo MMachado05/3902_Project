@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Project
+﻿namespace Project
 {
     public class DamageCommand : ICommand
     {

@@ -1,5 +1,3 @@
-
-
 namespace Project.Blocks
 {
     public class PreviousBlockCommand : ICommand
