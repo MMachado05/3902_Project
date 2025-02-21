@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Numerics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Project;
 
 namespace Project
 {

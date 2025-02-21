@@ -13,7 +13,7 @@ namespace Project
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
-        public SpriteBatch _spriteBatch;
+        public SpriteBatch _spriteBatch; // Not best practice
         private KeyboardController _keyboardController;
         private Player player;
 
@@ -24,13 +24,12 @@ namespace Project
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
-        // Kev adds:
         private EnemyManager enemyManager;
         private EnemyController enemyController;
 
         private float elapsedTime;
-        // Solid block variable
 
+        // Not best practice; should be moved out of game1
         public SolidBlock activeBlock;
         public NextBlockCommand nextBlockCommand;
         public PreviousBlockCommand previousBlockCommand;
@@ -46,6 +45,7 @@ namespace Project
             this.Initialize();
         }
 
+        // should be moved out of game1
         ItemManager itemManager;
         KeyboardState previousState = new KeyboardState();
 
@@ -120,8 +120,6 @@ namespace Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-
-            // Kev adds
             enemyController.Update();
 
             _keyboardController.Update();
@@ -130,16 +128,14 @@ namespace Project
             input = Keyboard.GetState();
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
-                player.SetStaticSprite(); // Set idle sprite; moved to player function
+                player.SetStaticSprite(); // Set idle sprite
             }
 
             player.Update(gameTime);
 
-
-
             KeyboardState currentState = Keyboard.GetState();
 
-            // Checking for keys pressed to switch items
+            // Checking for keys pressed to switch items; should be moved out of game1
             if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
             {
                 itemManager.nextItem();
@@ -163,7 +159,6 @@ namespace Project
             itemManager.getCurrentItem().Update();
             previousState = currentState;
 
-    
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
@@ -173,9 +168,7 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
 
-            // block 
-            // input = Keyboard.GetState();
-
+            // should be moved out of game1
             solidBlockController.Update();
             if (!(input.Equals(previous)))
             {
@@ -192,9 +185,8 @@ namespace Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             activeBlock.Draw();
 
-            player.Draw(_spriteBatch); // updated to player class
-
-            // Kev adds:          
+            player.Draw(_spriteBatch);
+        
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);
 

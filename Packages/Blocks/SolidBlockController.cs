@@ -1,4 +1,3 @@
-
 using Microsoft.Xna.Framework.Input;
 
 namespace Project.Blocks

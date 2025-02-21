@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-
-namespace Project
+﻿namespace Project
 {
     public class MoveCommand : ICommand
     {

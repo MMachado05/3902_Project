@@ -1,5 +1,4 @@
-﻿
-namespace Project
+﻿namespace Project
 {
 
     public interface IController
