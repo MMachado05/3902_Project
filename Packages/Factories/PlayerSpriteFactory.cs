@@ -46,10 +46,11 @@ namespace Project
             this.playerSpriteSheet = content.Load<Texture2D>("HoodedCharacterTextureTemplate");
         }
 
-        public ISprite NewStoppedPlayerSprite(Direction direction)
+        public ISprite NewStoppedPlayerSprite(Direction direction, bool damaged)
         {
             int xOrigin;
             int yOrigin = 0;
+            int damagedOffset = damaged ? 128 : 0;
 
             switch (direction)
             {
@@ -69,14 +70,15 @@ namespace Project
             }
 
             return new StationarySprite(this.playerSpriteSheet,
-                new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
+                new Rectangle(xOrigin + damagedOffset, yOrigin, this.widthPixels, this.heightPixels),
                 scale, SpriteState.Stopped);
         }
 
-        public ISprite NewWalkingPlayerSprite(Direction direction)
+        public ISprite NewWalkingPlayerSprite(Direction direction, bool damaged)
         {
             int xOrigin;
             int yOrigin = 32;
+            int damagedOffset = damaged ? 128 : 0;
 
             switch (direction)
             {
@@ -96,14 +98,15 @@ namespace Project
             }
 
             return new AnimatedLoopSprite(this.playerSpriteSheet,
-                new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
+                new Rectangle(xOrigin + damagedOffset, yOrigin, this.widthPixels, this.heightPixels),
                 scale, 4, SpriteState.Stopped);
         }
 
-        public ISprite NewAttackingPlayerSprite(Direction direction)
+        public ISprite NewAttackingPlayerSprite(Direction direction, bool damaged)
         {
             int xOrigin;
             int yOrigin;
+            int damagedOffset = damaged ? 128 : 0;
             int xSpriteOrigin = -1;
             int ySpriteOrigin = -1;
             int width = this.widthPixels;
@@ -137,7 +140,7 @@ namespace Project
             }
 
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(xOrigin, yOrigin, width, height), scale, 4, SpriteState.Attacking,
+                new Rectangle(xOrigin + damagedOffset, yOrigin, width, height), scale, 4, SpriteState.Attacking,
                 SpriteState.FinishedAttack, originX: xSpriteOrigin, originY: ySpriteOrigin);
         }
 
