@@ -234,21 +234,25 @@ namespace Project
         }
 
         // Walking Player sprites
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Up, true)")]
         public ISprite NewDamagedUpWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 0, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Right, true)")]
         public ISprite NewDamagedRightWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 32, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Down, true)")]
         public ISprite NewDamagedDownWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 64, 32, 32, 32), scale, 4, SpriteState.Walking);
         }
+        [System.Obsolete("Deprecated; call NewWalkingPlayerSprite(Direction.Left, true)")]
         public ISprite NewDamagedLeftWalkingPlayer()
         {
             return new AnimatedLoopSprite(this.playerSpriteSheet,
