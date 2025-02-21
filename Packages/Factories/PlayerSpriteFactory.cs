@@ -95,6 +95,46 @@ namespace Project
                 new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
                 scale, 4, SpriteState.Stopped);
         }
+        public ISprite NewAttackingPlayerSprite(Direction direction)
+        {
+            int xOrigin;
+            int yOrigin;
+            int xSpriteOrigin = -1;
+            int ySpriteOrigin = -1;
+            int width = this.widthPixels;
+            int height = this.heightPixels;
+
+            if (direction == Direction.Left) yOrigin = 288;
+            else yOrigin = 160;
+
+            if (direction == Direction.Left || direction == Direction.Right) width *= 2;
+            else height *= 2;
+
+            switch (direction)
+            {
+                case Direction.Up:
+                    xOrigin = 0;
+                    ySpriteOrigin = 16;
+                    break;
+                case Direction.Right:
+                    xOrigin = 64;
+                    xSpriteOrigin = 48;
+                    break;
+                case Direction.Down:
+                    xOrigin = 32;
+                    ySpriteOrigin = 48;
+                    break;
+                case Direction.Left:
+                default:
+                    xOrigin = 64;
+                    xSpriteOrigin = 16;
+                    break;
+            }
+
+            return new SingleAnimationSprite(this.playerSpriteSheet,
+                new Rectangle(xOrigin, yOrigin, width, height), scale, 4, SpriteState.Attacking,
+                SpriteState.FinishedAttack, originX: xSpriteOrigin, originY: ySpriteOrigin);
+        }
         // Stopped Player sprites
         public ISprite NewUpStoppedPlayer()
         {
