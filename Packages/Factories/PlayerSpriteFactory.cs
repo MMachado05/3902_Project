@@ -256,21 +256,25 @@ namespace Project
         }
 
         // Attacking Player sprites - single use
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Up, true)")]
         public ISprite NewDamagedUpAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 0, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Right, true)")]
         public ISprite NewDamagedRightAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Down, true)")]
         public ISprite NewDamagedDownAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
                 new Rectangle(128 + 32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 48);
         }
+        [System.Obsolete("Deprecated; call NewAttackingPlayerSprite(Direction.Left, true)")]
         public ISprite NewDamagedLeftAttackingPlayer()
         {
             return new SingleAnimationSprite(this.playerSpriteSheet,
