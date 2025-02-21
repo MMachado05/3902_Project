@@ -47,6 +47,7 @@ namespace Project
 
         // should be moved out of game1
         ItemManager itemManager;
+        private ItemController _itemController;
         KeyboardState previousState = new KeyboardState();
 
 
@@ -85,9 +86,10 @@ namespace Project
             // Load item sprites and create item manager
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
+            _itemController = new ItemController(itemManager, this);
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-            _keyboardController = new KeyboardController(player, this, itemManager);
+            _keyboardController = new KeyboardController(player, this);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
@@ -126,6 +128,7 @@ namespace Project
             enemyController.Update();
 
             _keyboardController.Update();
+            _itemController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();

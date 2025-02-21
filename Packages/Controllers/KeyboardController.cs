@@ -18,15 +18,13 @@ namespace Project
 
         private Player _player;
         private Game1 _game;
-        private ItemManager _itemManager;
 
 
-        public KeyboardController(Player player, Game1 game1, ItemManager itemManager)
+        public KeyboardController(Player player, Game1 game1)
         {
             
             _player = player;
             _game = game1;
-            _itemManager = itemManager;
 
             _movementCommands = new Dictionary<Keys, ICommand>();
             _movementCommands.Add(Keys.W, new MoveCommand(_player, "Up"));
@@ -47,10 +45,6 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
-
-            _commands.Add(Keys.D1, new InventoryCommand(_itemManager, 2));
-            _commands.Add(Keys.D2, new InventoryCommand(_itemManager, 3));
-            _commands.Add(Keys.D3, new InventoryCommand(_itemManager, 4));
 
         }
 
