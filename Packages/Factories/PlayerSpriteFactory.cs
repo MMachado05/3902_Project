@@ -44,30 +44,29 @@ namespace Project
 
         public ISprite NewStoppedPlayerSprite(Direction direction)
         {
-            ISprite player;
+            int xOrigin;
+            int yOrigin = 0;
 
             switch (direction)
             {
                 case Direction.Up:
-                    player = new StationarySprite(this.playerSpriteSheet,
-                        new Rectangle(0, 0, 32, 32), scale, SpriteState.Stopped);
+                    xOrigin = 0;
                     break;
                 case Direction.Right:
-                    player = new StationarySprite(this.playerSpriteSheet,
-                        new Rectangle(32, 0, 32, 32), scale, SpriteState.Stopped);
+                    xOrigin = 32;
                     break;
                 case Direction.Down:
-                    player = new StationarySprite(this.playerSpriteSheet,
-                        new Rectangle(64, 0, 32, 32), scale, SpriteState.Stopped);
+                    xOrigin = 64;
                     break;
                 case Direction.Left:
                 default: // Just use the left one
-                    player = new StationarySprite(this.playerSpriteSheet,
-                        new Rectangle(96, 0, 32, 32), scale, SpriteState.Stopped);
+                    xOrigin = 96;
                     break;
             }
 
-            return player;
+            return new StationarySprite(this.playerSpriteSheet,
+                new Rectangle(xOrigin, yOrigin, this.widthPixels, this.heightPixels),
+                scale, SpriteState.Stopped);
         }
 
         }
