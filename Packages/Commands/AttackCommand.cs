@@ -20,27 +20,27 @@
                 {
                     case "Up":
                         if (_player.isDamaged)
-                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedUpAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpAttackingPlayer());
                         else
-                        _player.ChangeSprite(SpriteFactory.Instance.NewUpAttackingPlayer());
+                        _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpAttackingPlayer());
                         break;
                     case "Down":
                         if (_player.isDamaged)
-                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedDownAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownAttackingPlayer());
                         else
-                            _player.ChangeSprite(SpriteFactory.Instance.NewDownAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDownAttackingPlayer());
                         break;
                     case "Left":
                         if (_player.isDamaged)
-                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedLeftAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftAttackingPlayer());
                         else
-                            _player.ChangeSprite(SpriteFactory.Instance.NewLeftAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewLeftAttackingPlayer());
                         break;
                     case "Right":
                         if (_player.isDamaged)
-                            _player.ChangeSprite(SpriteFactory.Instance.NewDamagedRightAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightAttackingPlayer());
                         else
-                            _player.ChangeSprite(SpriteFactory.Instance.NewRightAttackingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewRightAttackingPlayer());
                         break;
                 }
 

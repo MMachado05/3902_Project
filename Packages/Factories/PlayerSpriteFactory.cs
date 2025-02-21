@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Project
 {
 
-    public class SpriteFactory
+    public class PlayerSpriteFactory
     {
 
         // Osama: Put these in the Jira Board!!!
@@ -22,9 +22,9 @@ namespace Project
         // "renderer" object. Scaling, destRectangles... all that stuff should be done
         // somewhere else.
 
-        private static SpriteFactory instance = new SpriteFactory();
+        private static PlayerSpriteFactory instance = new PlayerSpriteFactory();
 
-        public static SpriteFactory Instance
+        public static PlayerSpriteFactory Instance
         {
             get
             {
@@ -32,7 +32,7 @@ namespace Project
             }
         }
 
-        private SpriteFactory()
+        private PlayerSpriteFactory()
         {
             this.scale = 2;
         }
