@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Project.Blocks;
 using Project.Commands;
 
 namespace Project
@@ -17,13 +18,14 @@ namespace Project
 
         private Player _player;
         private Game1 _game;
+        SolidBlockManager Manager;
 
-
-        public KeyboardController(Player player, Game1 game1)
+        public KeyboardController(Player player, Game1 game1,SolidBlockManager manager)
         {
 
             _player = player;
             _game = game1;
+            Manager = manager;
 
             _movementCommands = new Dictionary<Keys, ICommand>();
             _movementCommands.Add(Keys.W, new MoveCommand(_player, "Up"));
@@ -44,6 +46,9 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
+            _commands.Add(Keys.T,new NextBlockCommand(manager));
+            _commands.Add(Keys.Y,new PreviousBlockCommand(manager));
+
 
 
 
