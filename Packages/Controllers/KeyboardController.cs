@@ -22,10 +22,8 @@ namespace Project
         private Game1 _game;
         private KeyboardState previousKeyboardState;
 
-
         public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager, EnemyManager enemyManager)
         {
-
             _player = player;
             _game = game1;
 
@@ -83,14 +81,6 @@ namespace Project
                     _commands.GetValueOrDefault(key).Execute();
                 }
             }
-            foreach (Keys key in currentlyPressed)
-            {
-                if (_commands.ContainsKey(key) && previousKeyboardState.IsKeyUp(key))
-                {
-                    _commands[key].Execute();
-                }
-            }
-            previousKeyboardState = state;
 
             _previouslyPressed = currentlyPressed;
         }
