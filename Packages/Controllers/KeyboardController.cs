@@ -20,7 +20,7 @@ namespace Project
         private Game1 _game;
         SolidBlockManager Manager;
 
-        public KeyboardController(Player player, Game1 game1,SolidBlockManager manager)
+        public KeyboardController(Player player, Game1 game1, SolidBlockManager manager)
         {
 
             _player = player;
@@ -46,8 +46,8 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
-            _commands.Add(Keys.T,new NextBlockCommand(manager));
-            _commands.Add(Keys.Y,new PreviousBlockCommand(manager));
+            _commands.Add(Keys.T, new NextBlockCommand(manager));
+            _commands.Add(Keys.Y, new PreviousBlockCommand(manager));
 
 
 
