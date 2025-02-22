@@ -52,7 +52,12 @@ namespace Project
 
         public Game1()
         {
+            // Since we're in constructor, no need to call GraphicsDeviceManager.ApplyChanges()
+            // :)
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1600; // Set width
+            _graphics.PreferredBackBufferHeight = 900; // Set height
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
