@@ -25,7 +25,6 @@ namespace Project
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
         private EnemyManager enemyManager;
-        private EnemyController enemyController;
 
         private float elapsedTime;
 
@@ -36,7 +35,6 @@ namespace Project
         KeyboardState input;
 
         private SolidBlockManager manager;
-        Dictionary<Keys, ICommand> enemyCommands;
         public void restart()
         {
             this.LoadContent();
@@ -87,23 +85,12 @@ namespace Project
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-            _keyboardController = new KeyboardController(player, this, manager);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             enemyManager = new EnemyManager();
+            _keyboardController = new KeyboardController(player, this, manager, enemyManager);
 
-            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
-            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
-
-
-            enemyCommands = new Dictionary<Keys, ICommand>
-            {
-                { Keys.O, previousEnemyCommand },
-                { Keys.P, nextEnemyCommand }
-            };
-
-            enemyController = new EnemyController(enemyCommands);
 
 
 
@@ -118,7 +105,6 @@ namespace Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            enemyController.Update();
 
             _keyboardController.Update();
 

@@ -23,7 +23,7 @@ namespace Project
         private KeyboardState previousKeyboardState;
 
 
-        public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager,EnemyManager enemyManager)
+        public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager, EnemyManager enemyManager)
         {
 
             _player = player;
@@ -50,9 +50,9 @@ namespace Project
             _commands.Add(Keys.R, new RestartGameCommand(_game));
             _commands.Add(Keys.T, new NextBlockCommand(blockManager));
             _commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));
-            _commands.Add(Keys.O,new CommandPreviousEnemy(_game, enemyManager));
-            _commands.Add(Keys.P,new   CommandNextEnemy(_game, enemyManager));
-          
+            _commands.Add(Keys.O, new CommandPreviousEnemy(_game, enemyManager));
+            _commands.Add(Keys.P, new CommandNextEnemy(_game, enemyManager));
+
 
 
 
@@ -83,7 +83,7 @@ namespace Project
                     _commands.GetValueOrDefault(key).Execute();
                 }
             }
-               foreach (Keys key in currentlyPressed)
+            foreach (Keys key in currentlyPressed)
             {
                 if (_commands.ContainsKey(key) && previousKeyboardState.IsKeyUp(key))
                 {
