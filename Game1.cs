@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
-using Project.Commands.CommandClasses;
-using Project.Controllers.ControllerClasses;
 using Project.Enemies;
 using Project.Packages.Items;
 
@@ -25,20 +22,15 @@ namespace Project
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
         private EnemyManager enemyManager;
-        private EnemyController enemyController;
 
         private float elapsedTime;
 
         // Not best practice; should be moved out of game1
-        public SolidBlock activeBlock;
-        public NextBlockCommand nextBlockCommand;
-        public PreviousBlockCommand previousBlockCommand;
-        public KeyboardState input;
-        public KeyboardState previous;
-        SolidBlockController solidBlockController;
+        /// <summary>
+        /// </summary>
+        KeyboardState input;
 
-        private SolidBlockManager manager;
-        Dictionary<Keys, ICommand> enemyCommands;
+        private SolidBlockManager blockManager;
         public void restart()
         {
             this.LoadContent();
@@ -70,7 +62,6 @@ namespace Project
             player = new Player();
 
             input = Keyboard.GetState();
-            previous = Keyboard.GetState();
 
 
             base.Initialize();
@@ -83,36 +74,21 @@ namespace Project
 
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
+            blockManager = new SolidBlockManager(_spriteBatch);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-            _keyboardController = new KeyboardController(player, this);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             enemyManager = new EnemyManager();
-
-            ICommand previousEnemyCommand = new CommandPreviousEnemy(this, enemyManager);
-            ICommand nextEnemyCommand = new CommandNextEnemy(this, enemyManager);
+            _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
 
-            enemyCommands = new Dictionary<Keys, ICommand>
-            {
-                { Keys.O, previousEnemyCommand },
-                { Keys.P, nextEnemyCommand }
-            };
 
-            enemyController = new EnemyController(enemyCommands);
-
-            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            manager = new SolidBlockManager(_spriteBatch);
-
-            nextBlockCommand = new NextBlockCommand(manager);
-            previousBlockCommand = new PreviousBlockCommand(manager);
-            solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
-            activeBlock = manager.GetCurrentBlock();
 
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
@@ -125,7 +101,6 @@ namespace Project
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            enemyController.Update();
 
             _keyboardController.Update();
 
@@ -173,13 +148,6 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
 
-            // should be moved out of game1
-            solidBlockController.Update();
-            if (!(input.Equals(previous)))
-            {
-                previous = input;
-            }
-            activeBlock = manager.GetCurrentBlock();
             base.Update(gameTime);
         }
 
@@ -188,7 +156,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            activeBlock.Draw();
+            blockManager.GetCurrentBlock().Draw();
 
             player.Draw(_spriteBatch);
 
