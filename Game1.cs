@@ -77,10 +77,10 @@ namespace Project
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Load all textures
-            SpriteFactory.Instance.LoadAllTextures(Content);
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
 
             // Set initial sprite to static down
-            playerSprite = SpriteFactory.Instance.NewDownStoppedPlayer();
+            playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
             _keyboardController = new KeyboardController(player, this);
@@ -186,7 +186,7 @@ namespace Project
             activeBlock.Draw();
 
             player.Draw(_spriteBatch);
-        
+
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);
 

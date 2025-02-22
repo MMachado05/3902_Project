@@ -24,7 +24,7 @@ namespace Project
             isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
-            Sprite = SpriteFactory.Instance.NewDownStoppedPlayer();
+            Sprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
         }
 
         public void Move(int dx, int dy, string direction)
@@ -49,33 +49,33 @@ namespace Project
             {
                 case "Up":
                     if (isDamaged)
-                        ChangeSprite(SpriteFactory.Instance.NewDamagedUpStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpStoppedPlayer());
                     else
-                        ChangeSprite(SpriteFactory.Instance.NewUpStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewUpStoppedPlayer());
                     SpriteType = Direction.Up;
                     Sprite.State = SpriteState.Stopped;
                     break;
                 case "Down":
                     if (isDamaged)
-                        ChangeSprite(SpriteFactory.Instance.NewDamagedDownStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownStoppedPlayer());
                     else
-                        ChangeSprite(SpriteFactory.Instance.NewDownStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewDownStoppedPlayer());
                     SpriteType = Direction.Down;
                     Sprite.State = SpriteState.Stopped;
                     break;
                 case "Left":
                     if (isDamaged)
-                        ChangeSprite(SpriteFactory.Instance.NewDamagedLeftStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftStoppedPlayer());
                     else
-                        ChangeSprite(SpriteFactory.Instance.NewLeftStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewLeftStoppedPlayer());
                     SpriteType = Direction.Left;
                     Sprite.State = SpriteState.Stopped;
                     break;
                 case "Right":
                     if (isDamaged)
-                        ChangeSprite(SpriteFactory.Instance.NewDamagedRightStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightStoppedPlayer());
                     else
-                        ChangeSprite(SpriteFactory.Instance.NewRightStoppedPlayer());
+                        ChangeSprite(PlayerSpriteFactory.Instance.NewRightStoppedPlayer());
                     SpriteType = Direction.Right;
                     Sprite.State = SpriteState.Stopped;
                     break;

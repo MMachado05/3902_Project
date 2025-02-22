@@ -12,7 +12,7 @@ namespace Project.Packages.Items
 
         private static ItemFactory instance = new ItemFactory();
 
-        
+
         public static ItemFactory Instance
         {
             get
@@ -28,11 +28,12 @@ namespace Project.Packages.Items
             this.bombTexture = content.Load<Texture2D>("bomb");
         }
         public Arrow createArrow()
-        { 
+        {
             ISprite arrowSprite = new StationarySprite(this.arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
             return new Arrow(arrowSprite);
         }
-        public Heart createHeart() {
+        public Heart createHeart()
+        {
             ISprite heartSprite = new AnimatedLoopSprite(this.heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new SpriteState());
             return new Heart(heartSprite);
         }
