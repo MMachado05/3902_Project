@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
-using Project.Commands.CommandClasses;
-using Project.Controllers.ControllerClasses;
 using Project.Enemies;
 using Project.Packages.Items;
 
@@ -30,11 +27,10 @@ namespace Project
 
         // Not best practice; should be moved out of game1
         /// <summary>
-        //public SolidBlock activeBlock;
         /// </summary>
         KeyboardState input;
 
-        private SolidBlockManager manager;
+        private SolidBlockManager blockManager;
         public void restart()
         {
             this.LoadContent();
@@ -79,7 +75,7 @@ namespace Project
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            manager = new SolidBlockManager(_spriteBatch);
+            blockManager = new SolidBlockManager(_spriteBatch);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
@@ -89,7 +85,7 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             enemyManager = new EnemyManager();
-            _keyboardController = new KeyboardController(player, this, manager, enemyManager);
+            _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
 
 
@@ -160,7 +156,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            manager.GetCurrentBlock().Draw();
+            blockManager.GetCurrentBlock().Draw();
 
             player.Draw(_spriteBatch);
 
