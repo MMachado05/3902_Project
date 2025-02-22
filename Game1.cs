@@ -30,12 +30,10 @@ namespace Project
         private float elapsedTime;
 
         // Not best practice; should be moved out of game1
-        public SolidBlock activeBlock;
-        public NextBlockCommand nextBlockCommand;
-        public PreviousBlockCommand previousBlockCommand;
-        public KeyboardState input;
-        public KeyboardState previous;
-        SolidBlockController solidBlockController;
+        /// <summary>
+        //public SolidBlock activeBlock;
+        /// </summary>
+        KeyboardState input;
 
         private SolidBlockManager manager;
         Dictionary<Keys, ICommand> enemyCommands;
@@ -70,7 +68,6 @@ namespace Project
             player = new Player();
 
             input = Keyboard.GetState();
-            previous = Keyboard.GetState();
 
 
             base.Initialize();
@@ -83,12 +80,14 @@ namespace Project
 
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
+            manager = new SolidBlockManager(_spriteBatch);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-            _keyboardController = new KeyboardController(player, this);
+            _keyboardController = new KeyboardController(player, this, manager);
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
@@ -106,13 +105,7 @@ namespace Project
 
             enemyController = new EnemyController(enemyCommands);
 
-            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            manager = new SolidBlockManager(_spriteBatch);
 
-            nextBlockCommand = new NextBlockCommand(manager);
-            previousBlockCommand = new PreviousBlockCommand(manager);
-            solidBlockController = new SolidBlockController(this, nextBlockCommand, previousBlockCommand);
-            activeBlock = manager.GetCurrentBlock();
 
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
@@ -173,13 +166,6 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
 
-            // should be moved out of game1
-            solidBlockController.Update();
-            if (!(input.Equals(previous)))
-            {
-                previous = input;
-            }
-            activeBlock = manager.GetCurrentBlock();
             base.Update(gameTime);
         }
 
@@ -188,7 +174,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            activeBlock.Draw();
+            manager.GetCurrentBlock().Draw();
 
             player.Draw(_spriteBatch);
 
