@@ -20,7 +20,6 @@ namespace Project
 
         private Player _player;
         private Game1 _game;
-        private KeyboardState previousKeyboardState;
 
         public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager, EnemyManager enemyManager)
         {
