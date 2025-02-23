@@ -25,10 +25,11 @@ namespace Project
             _game = game1;
             _itemManager = itemManager;
             _commands = new Dictionary<Keys, ICommand>();
-            _commands.Add(Keys.D1, new InventoryCommand(_itemManager, 2));
-            _commands.Add(Keys.D2, new InventoryCommand(_itemManager, 3));
-            _commands.Add(Keys.D3, new InventoryCommand(_itemManager, 4));
-
+            _commands.Add(Keys.D1, new InventoryCommand(_itemManager, "1"));
+            _commands.Add(Keys.D2, new InventoryCommand(_itemManager, "2"));
+            _commands.Add(Keys.D3, new InventoryCommand(_itemManager, "3"));
+            _commands.Add(Keys.U, new InventoryCommand(_itemManager, "Next"));
+            _commands.Add(Keys.I, new InventoryCommand(_itemManager, "Previous"));
         }
 
         public void Update()

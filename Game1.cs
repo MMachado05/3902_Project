@@ -48,7 +48,6 @@ namespace Project
         // should be moved out of game1
         ItemManager itemManager;
         private ItemController _itemController;
-        KeyboardState previousState = new KeyboardState();
 
 
         public Game1()
@@ -86,6 +85,7 @@ namespace Project
             // Load item sprites and create item manager
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
+            // Initialize ItemController with commands for switching items
             _itemController = new ItemController(itemManager, this);
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
@@ -139,20 +139,8 @@ namespace Project
 
             player.Update(gameTime);
 
-            KeyboardState currentState = Keyboard.GetState();
-
-            // Checking for keys pressed to switch items; should be moved out of game1
-            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
-            {
-                itemManager.nextItem();
-            }
-            if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
-            {
-                itemManager.previousItem();
-            }
-
             itemManager.getCurrentItem().Update();
-            previousState = currentState;
+
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
