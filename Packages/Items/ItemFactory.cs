@@ -11,6 +11,8 @@ namespace Project.Packages.Items
         private Texture2D bombTexture;
         private Texture2D swordTexture;
         private Texture2D bowTexture;
+        private Texture2D coinTexture;
+        private Texture2D keyTexture;
 
         private static ItemFactory instance = new ItemFactory();
 
@@ -30,7 +32,8 @@ namespace Project.Packages.Items
             this.bombTexture = content.Load<Texture2D>("bomb");
             this.swordTexture = content.Load<Texture2D>("sword");
             this.bowTexture = content.Load<Texture2D>("bow");
-
+            this.coinTexture = content.Load<Texture2D>("GluckCoin");
+            this.keyTexture = content.Load<Texture2D>("key");
         }
         public Item createArrow()
         { 
@@ -73,6 +76,22 @@ namespace Project.Packages.Items
             //replace later with player position
             bow.Position = new Vector2(100, 100);
             return bow;
+        }
+        public Item createCoin()
+        {
+            ISprite coinSprite = new StationarySprite(this.coinTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            Item coin = new Item(coinSprite);
+            coin.Speed = 0;
+            coin.Position = new Vector2(450, 200);
+            return coin;
+        }
+        public Item createKey()
+        {
+            ISprite keySprite = new StationarySprite(this.keyTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            Item key = new Item(keySprite);
+            key.Speed = 0;
+            key.Position = new Vector2(700, 250);
+            return key;
         }
     }
 }

@@ -6,17 +6,20 @@ namespace Project.Packages.Items
 {
     public class ItemManager
     {
-        //ItemFactory itemFactory = new ItemFactory();
-        private List<Item> itemList;
+        public List<Item> itemList;
+        private List<Item> inventory;
         public int currentItemIndex = 0;
 
         public ItemManager()
         {
-            itemList = new List<Item> { ItemFactory.Instance.createArrow(), ItemFactory.Instance.createHeart(), ItemFactory.Instance.createBomb(), ItemFactory.Instance.createSword(), ItemFactory.Instance.createBow()};
+            
+            inventory = new List<Item> { ItemFactory.Instance.createSword(), ItemFactory.Instance.createBomb(),ItemFactory.Instance.createBow()};
+            //will replace with level maker
+            itemList = new List<Item> {ItemFactory.Instance.createHeart(), ItemFactory.Instance.createCoin(), ItemFactory.Instance.createKey()};
         }
         public void nextItem()
         {
-            currentItemIndex = (currentItemIndex + 1) % itemList.Count();
+            currentItemIndex = (currentItemIndex + 1) % inventory.Count();
         }
         public void previousItem()
         {
@@ -26,12 +29,12 @@ namespace Project.Packages.Items
             }
             else
             {
-                currentItemIndex = itemList.Count() - 1;
+                currentItemIndex = inventory.Count() - 1;
             }
         }
         public Item getCurrentItem()
         {
-            return itemList[currentItemIndex];
+            return inventory[currentItemIndex];
         }
         
     }

@@ -18,13 +18,13 @@ namespace Project
             switch (_command)
             {
                 case "1":
-                    _itemManager.currentItemIndex = 2;
+                    _itemManager.currentItemIndex = 0;
                     break;
                 case "2":
-                    _itemManager.currentItemIndex = 3;
+                    _itemManager.currentItemIndex = 1;
                     break;
                 case "3":
-                    _itemManager.currentItemIndex = 4;
+                    _itemManager.currentItemIndex = 2;
                     break;
                 //these might be removed if we don't need u and i for switching items
                 case "Next":

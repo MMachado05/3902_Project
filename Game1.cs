@@ -139,7 +139,15 @@ namespace Project
 
             player.Update(gameTime);
 
+            //should be replaced with level loader
+            foreach (Item item in itemManager.itemList)
+            {
+                item.Update();
+            }
+            //inventory
             itemManager.getCurrentItem().Update();
+            Vector2 heldItemPosition = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
+            itemManager.getCurrentItem().Position = heldItemPosition;
 
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -172,7 +180,11 @@ namespace Project
         
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);
-
+            //should be replaced with level loader
+            foreach (Item item in itemManager.itemList)
+            {
+                item.Draw(_spriteBatch);
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
