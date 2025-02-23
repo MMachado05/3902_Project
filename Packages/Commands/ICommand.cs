@@ -3,9 +3,9 @@ namespace Project
     public interface ICommand
     {
         /// <summary>
-        /// Each implementation of ICommand will ask for certain parameters in its constructor
-        /// so that it can appropriately execute its command (be it a Game object, Character
-        /// object, etc.)
+        /// Execute the contents of this Command. Exact execution behaviors will depend
+        /// on the implementation of this function, and the composited objects associated
+        /// with the Command object.
         /// </summary>
         void Execute();
     }
