@@ -9,7 +9,7 @@ namespace Project.Packages.Items
         public float Speed { get; set; }
 
         public ISprite isprite;
-        
+
         public Item(ISprite isprite)
         {
             this.isprite = isprite;
@@ -23,10 +23,10 @@ namespace Project.Packages.Items
             }
         }
 
-    void bounceOffWall()
-    {
-        Speed = -Speed;
-    }
+        void bounceOffWall()
+        {
+            Speed = -Speed;
+        }
 
 
         public void Draw(SpriteBatch spriteBatch)
