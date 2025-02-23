@@ -9,9 +9,19 @@ namespace Project.Enemies
         void SetState(IEnemyState newState);
         void SetPosition(Vector2 newPosition);
 
+        /// <summary>
+        /// Trigger this Enemy to perform their attack.
+        /// </summary>
         void Attack();
+
+        /// <summary>
+        /// Return Enemy's internal state to not attacking.
+        /// </summary>
         void ResetAttackState();
 
+        /// <summary>
+        /// Returns the length of this Enemy's attack animation in seconds.
+        /// </summary>
         float GetAttackDuration();
     }
 }
