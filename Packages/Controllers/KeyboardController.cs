@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Project.Blocks;
 using Project.Commands;
+using Project.Commands.CommandClasses;
+using Project.Enemies;
 
 namespace Project
 {
@@ -18,10 +21,8 @@ namespace Project
         private Player _player;
         private Game1 _game;
 
-
-        public KeyboardController(Player player, Game1 game1)
+        public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager, EnemyManager enemyManager)
         {
-
             _player = player;
             _game = game1;
 
@@ -44,6 +45,12 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
+            _commands.Add(Keys.T, new NextBlockCommand(blockManager));
+            _commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));
+            _commands.Add(Keys.O, new CommandPreviousEnemy(_game, enemyManager));
+            _commands.Add(Keys.P, new CommandNextEnemy(_game, enemyManager));
+
+
 
 
 
