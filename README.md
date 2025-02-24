@@ -49,6 +49,7 @@ pressed.
 ## Current Code Analytics
 
 Code Metrics are run weekly on Sunday across the entire Project, and are tracked in the below sheet:
+
 https://docs.google.com/spreadsheets/d/1jBsXMssNcBD1WS8oKJFyx0KgWlA-tytG65Kg3K-wn44/edit?usp=sharing
 
 # Guidelines & Best Practices
