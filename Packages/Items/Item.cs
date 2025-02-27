@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Packages.Items
 {
-    public abstract class Item : IItem
+    public class Item : IItem
     {
         public Vector2 Position { get; set; }
         public float Speed { get; set; }

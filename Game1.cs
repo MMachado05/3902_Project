@@ -42,7 +42,7 @@ namespace Project
 
         // should be moved out of game1
         ItemManager itemManager;
-        KeyboardState previousState = new KeyboardState();
+        private ItemController _itemController;
 
 
         public Game1()
@@ -83,6 +83,12 @@ namespace Project
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
 
+            // Load item sprites and create item manager
+            ItemFactory.Instance.LoadContent(Content);
+            itemManager = new ItemManager();
+            // Initialize ItemController with commands for switching items
+            _itemController = new ItemController(itemManager, this);
+
             // Initialize KeyboardController with movement and quit commands, pass in player and game
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
@@ -93,8 +99,7 @@ namespace Project
 
 
 
-            ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager();
+            
         }
 
 
@@ -106,6 +111,7 @@ namespace Project
 
 
             _keyboardController.Update();
+            _itemController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
@@ -116,31 +122,16 @@ namespace Project
 
             player.Update(gameTime);
 
-            KeyboardState currentState = Keyboard.GetState();
-
-            // Checking for keys pressed to switch items; should be moved out of game1
-            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
+            //should be replaced with level loader
+            foreach (Item item in itemManager.itemList)
             {
-                itemManager.nextItem();
+                item.Update();
             }
-            if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
-            {
-                itemManager.previousItem();
-            }
-            if (currentState.IsKeyDown(Keys.D1) && !previousState.IsKeyDown(Keys.D1))
-            {
-                itemManager.currentItemIndex = 0;
-            }
-            if (currentState.IsKeyDown(Keys.D2) && !previousState.IsKeyDown(Keys.D2))
-            {
-                itemManager.currentItemIndex = 1;
-            }
-            if (currentState.IsKeyDown(Keys.D3) && !previousState.IsKeyDown(Keys.D3))
-            {
-                itemManager.currentItemIndex = 2;
-            }
+            //inventory
             itemManager.getCurrentItem().Update();
-            previousState = currentState;
+            Vector2 heldItemPosition = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
+            itemManager.getCurrentItem().Position = heldItemPosition;
+
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
@@ -166,7 +157,11 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);
-
+            //should be replaced with level loader
+            foreach (Item item in itemManager.itemList)
+            {
+                item.Draw(_spriteBatch);
+            }
             _spriteBatch.End();
 
             base.Draw(gameTime);
