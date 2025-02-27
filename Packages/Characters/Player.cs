@@ -96,7 +96,7 @@ namespace Project
             PositionRect = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y,
                                          PositionRect.Width, PositionRect.Height);
 
-            // Can add reduce health logic here later
+            // Can add reduce health logic here later; trigger damage animation
         }
 
 
