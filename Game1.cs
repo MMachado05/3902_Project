@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Content;
 using Project.Enemies;
 using Project.Packages.Items;
 
@@ -29,6 +30,8 @@ namespace Project
         /// <summary>
         /// </summary>
         KeyboardState input;
+
+        public PlayerItemCollisionHandler playerItemCollisionHandler;
 
         private SolidBlockManager blockManager;
         public void restart()
@@ -148,6 +151,7 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
 
+            PlayerItemCollisionHandler.Hand
             base.Update(gameTime);
         }
 
