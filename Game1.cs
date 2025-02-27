@@ -31,8 +31,6 @@ namespace Project
         /// </summary>
         KeyboardState input;
 
-        public PlayerItemCollisionHandler playerItemCollisionHandler;
-
         private SolidBlockManager blockManager;
         public void restart()
         {
@@ -43,7 +41,7 @@ namespace Project
         // should be moved out of game1
         ItemManager itemManager;
         private ItemController _itemController;
-
+        PlayerItemCollisionHandler playerItemCollisionHandler;
 
         public Game1()
         {
@@ -96,10 +94,7 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
-
-
-
-            
+            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
 
@@ -142,7 +137,8 @@ namespace Project
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
 
-            PlayerItemCollisionHandler.Hand
+            playerItemCollisionHandler.HandlePlayerItemCollision();
+
             base.Update(gameTime);
         }
 

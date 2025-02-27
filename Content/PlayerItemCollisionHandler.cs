@@ -8,28 +8,31 @@ using Project.Packages.Items;
 
 namespace Project.Content
 {
-    internal class PlayerItemCollisionHandler
+    public class PlayerItemCollisionHandler
     {
-        private Game1 game;
         private ItemManager itemManager;
         private Player player;
-        public PlayerItemCollisionHandler(Game1 game, ItemManager _itemManager, Player _player)
+        public PlayerItemCollisionHandler(ItemManager _itemManager, Player _player)
         {
-            this.game = game;
             this.itemManager = _itemManager;
             this.player = _player;
         }
         public void HandlePlayerItemCollision()
         {
             Rectangle playerRectangle = new Rectangle((int)player.PositionVector.X, (int)player.PositionVector.Y, 30, 30);
-            foreach (Item item in itemManager.)
+            Item removedItem = null;
+            foreach (Item item in itemManager.itemList)
             {
-                Rectangle itemRectangle = new Rectangle();
-                if (playerRectangle.Intersect()
+                Rectangle itemRectangle = new Rectangle((int)item.Position.X, (int)item.Position.Y, 16, 16);
+                if (playerRectangle.IntersectsWith(itemRectangle))
                 {
-                    item.PickUp(game.player);
-                    game.itemManager.RemoveItem(item);
+                    removedItem = item;
                 }
+            }
+            //removes it only after the loop is done so it doesn't mess it up
+            if (removedItem != null)
+            {
+                itemManager.removeItem(removedItem);
             }
         }
     }

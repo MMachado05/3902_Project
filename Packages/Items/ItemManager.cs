@@ -37,5 +37,9 @@ namespace Project.Packages.Items
             return inventory[currentItemIndex];
         }
         
+        public void removeItem(Item item)
+        {
+            itemList.Remove(item);
+        }
     }
 }
