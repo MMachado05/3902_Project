@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Blocks;
 
 namespace Project
 {
@@ -14,6 +15,7 @@ namespace Project
         public Boolean isDamaged;
 
         private float elapsedTime;
+        private Vector2 _previousPosition;
 
         public Player()
         {
@@ -27,8 +29,12 @@ namespace Project
             Sprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
         }
 
+
         public void Move(int dx, int dy, string direction)
         {
+            // Store previous movement here to prevent moving upon collision.
+            _previousPosition = PositionVector;
+
             // Update position
             PositionVector = new Vector2(PositionVector.X + dx, PositionVector.Y + dy);
             PositionRect = new Rectangle(PositionRect.X + dx, PositionRect.Y + dy,
@@ -82,6 +88,17 @@ namespace Project
             }
 
         }
+
+        public void HandleBlockCollision(SolidBlock block)
+        {
+            // Simple approach: revert to last safe position
+            PositionVector = _previousPosition;
+            PositionRect = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y,
+                                         PositionRect.Width, PositionRect.Height);
+
+            // Can add reduce health logic here later
+        }
+
 
         public void Update(GameTime gameTime)
         {
