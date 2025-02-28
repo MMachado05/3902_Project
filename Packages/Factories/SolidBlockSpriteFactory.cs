@@ -31,34 +31,30 @@ namespace Project.Blocks
 
         public void LoadAllTextures(ContentManager content)
         {
-            this.SolidBlockSheet = content.Load<Texture2D>("SolidBlocks32x32");
+            this.SolidBlockSheet = content.Load<Texture2D>("blocks");
         }
 
         // Stopped Player sprites
-        public SolidBlock grayBrick(SpriteBatch spriteBatch)
+        public SolidBlock boardersBrick(SpriteBatch spriteBatch, Rectangle destination)
         {
+            this.Destination = destination;
             this.spriteBatch = spriteBatch;
             return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(0, 0, 32, 32), Destination);
+                new Rectangle(320, 256, 32, 32), Destination);
         }
-        public SolidBlock grayGrassBrick(SpriteBatch spriteBatch)
+        public SolidBlock doorBlock(SpriteBatch spriteBatch, Rectangle destination)
         {
+            this.Destination = destination;
             this.spriteBatch = spriteBatch;
             return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(32, 0, 32, 32), Destination);
+                new Rectangle(384, 256, 64, 64), Destination);
         }
-        public SolidBlock whiteBrick(SpriteBatch spriteBatch)
+        public SolidBlock obstacle(SpriteBatch spriteBatch, Rectangle destination)
         {
+            this.Destination = destination;
             this.spriteBatch = spriteBatch;
             return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(64, 0, 32, 32), Destination);
-        }
-        public SolidBlock orangeBrick(SpriteBatch spriteBatch)
-        {
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(96, 0, 32, 32), Destination);
-        }
+                new Rectangle(384, 384, 64, 64), Destination);}
 
     }
 }
