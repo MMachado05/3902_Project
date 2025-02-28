@@ -160,7 +160,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            room1.borderDraw();
+            room1.Draw();
 
             player.Draw(_spriteBatch);
 
