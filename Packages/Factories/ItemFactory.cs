@@ -14,84 +14,61 @@ namespace Project.Packages.Items
         private Texture2D coinTexture;
         private Texture2D keyTexture;
 
-        private static ItemFactory instance = new ItemFactory();
+        private static readonly ItemFactory instance = new ItemFactory();
 
-        
-        public static ItemFactory Instance
-        {
-            get
-            {
-                return instance;
-            }
-        }
+        public static ItemFactory Instance => instance;
 
         public void LoadContent(ContentManager content)
         {
-            this.heartTexture = content.Load<Texture2D>("heart");
-            this.arrowTexture = content.Load<Texture2D>("arrow");
-            this.bombTexture = content.Load<Texture2D>("bomb");
-            this.swordTexture = content.Load<Texture2D>("sword");
-            this.bowTexture = content.Load<Texture2D>("bow");
-            this.coinTexture = content.Load<Texture2D>("GluckCoin");
-            this.keyTexture = content.Load<Texture2D>("key");
+            heartTexture = content.Load<Texture2D>("heart");
+            arrowTexture = content.Load<Texture2D>("arrow");
+            bombTexture = content.Load<Texture2D>("bomb");
+            swordTexture = content.Load<Texture2D>("sword");
+            bowTexture = content.Load<Texture2D>("bow");
+            coinTexture = content.Load<Texture2D>("GluckCoin");
+            keyTexture = content.Load<Texture2D>("key");
         }
-        public Item createArrow()
-        { 
-            ISprite arrowSprite = new StationarySprite(this.arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
-            Item arrow = new Item(arrowSprite);
-            arrow.Speed = 5;
-            arrow.Position = new Vector2(500, 50);
-            return arrow;
-        }
-        public Item createHeart() {
-            ISprite heartSprite = new AnimatedLoopSprite(this.heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new SpriteState());
-            Item heart = new Item(heartSprite);
-            heart.Speed = 0;
-            heart.Position = new Vector2(200, 300);
-            return heart;
-        }
-        public Item createBomb()
+
+        public IItem CreateArrow(Vector2 position)
         {
-            ISprite bombSprite = new StationarySprite(this.bombTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-            Item bomb = new Item(bombSprite);
-            bomb.Speed = 0;
-            //replace later with player position
-            bomb.Position = new Vector2(100, 100);
-            return bomb;
+            ISprite arrowSprite = new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
+            return new ProjectileItem(position, new Vector2(1, 0), arrowSprite, 5, 500);
         }
-        public Item createSword()
+
+        public IItem CreateHeart(Vector2 position)
         {
-            ISprite swordSprite = new StationarySprite(this.swordTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-            Item sword = new Item(swordSprite);
-            sword.Speed = 0;
-            //replace later with player position
-            sword.Position = new Vector2(100, 100);
-            return sword;
+            ISprite heartSprite = new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new SpriteState());
+            return new StationaryItem(position, 0, heartSprite);
         }
-        public Item createBow()
+
+        public IItem CreateBomb(Vector2 position)
         {
-            ISprite bowSprite = new StationarySprite(this.bowTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-            Item bow = new Item(bowSprite);
-            bow.Speed = 0;
-            //replace later with player position
-            bow.Position = new Vector2(100, 100);
-            return bow;
+            ISprite bombSprite = new StationarySprite(bombTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new StationaryItem(position, 0, bombSprite);
         }
-        public Item createCoin()
+
+        public IItem CreateSword(Vector2 position)
         {
-            ISprite coinSprite = new StationarySprite(this.coinTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-            Item coin = new Item(coinSprite);
-            coin.Speed = 0;
-            coin.Position = new Vector2(450, 200);
-            return coin;
+            ISprite swordSprite = new StationarySprite(swordTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new StationaryItem(position, 0, swordSprite);
         }
-        public Item createKey()
+
+        public IItem CreateBow(Vector2 position)
         {
-            ISprite keySprite = new StationarySprite(this.keyTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-            Item key = new Item(keySprite);
-            key.Speed = 0;
-            key.Position = new Vector2(700, 250);
-            return key;
+            ISprite bowSprite = new StationarySprite(bowTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new StationaryItem(position, 0, bowSprite);
+        }
+
+        public IItem CreateCoin(Vector2 position)
+        {
+            ISprite coinSprite = new StationarySprite(coinTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new StationaryItem(position, 0, coinSprite);
+        }
+
+        public IItem CreateKey(Vector2 position)
+        {
+            ISprite keySprite = new StationarySprite(keyTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new StationaryItem(position, 0, keySprite);
         }
     }
 }

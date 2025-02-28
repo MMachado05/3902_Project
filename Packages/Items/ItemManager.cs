@@ -1,41 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Project.Packages.Items
 {
     public class ItemManager
     {
-        public List<Item> itemList;
-        private List<Item> inventory;
-        public int currentItemIndex = 0;
+        private readonly List<IItem> inventory;
+        private readonly List<IItem> worldItems;
+        private int currentItemIndex = 0;
 
         public ItemManager()
         {
-            
-            inventory = new List<Item> { ItemFactory.Instance.createSword(), ItemFactory.Instance.createBomb(),ItemFactory.Instance.createBow()};
-            //will replace with level maker
-            itemList = new List<Item> {ItemFactory.Instance.createHeart(), ItemFactory.Instance.createCoin(), ItemFactory.Instance.createKey()};
-        }
-        public void nextItem()
-        {
-            currentItemIndex = (currentItemIndex + 1) % inventory.Count();
-        }
-        public void previousItem()
-        {
-            if (currentItemIndex > 0)
+            inventory = new List<IItem>
             {
-                currentItemIndex--;
-            }
-            else
+                ItemFactory.Instance.CreateSword(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateBomb(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateBow(new Vector2(100, 100))
+            };
+
+            worldItems = new List<IItem>
             {
-                currentItemIndex = inventory.Count() - 1;
-            }
+                ItemFactory.Instance.CreateHeart(new Vector2(200, 300)),
+                ItemFactory.Instance.CreateCoin(new Vector2(450, 200)),
+                ItemFactory.Instance.CreateKey(new Vector2(700, 250))
+            };
         }
-        public Item getCurrentItem()
+
+        public void NextItem()
+        {
+            currentItemIndex = (currentItemIndex + 1) % inventory.Count;
+        }
+
+        public void PreviousItem()
+        {
+            currentItemIndex = (currentItemIndex - 1 + inventory.Count) % inventory.Count;
+        }
+
+        public IItem GetCurrentItem()
         {
             return inventory[currentItemIndex];
         }
-        
+
+        public List<IItem> GetWorldItems()
+        {
+            return worldItems;
+        }
+
+        public void SelectItem(int index)
+        {
+            if (index >= 0 && index < inventory.Count)
+            {
+                currentItemIndex = index;
+            }
+        }
+
     }
 }

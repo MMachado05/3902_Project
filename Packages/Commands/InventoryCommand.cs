@@ -18,23 +18,21 @@ namespace Project
             switch (_command)
             {
                 case "1":
-                    _itemManager.currentItemIndex = 0;
+                    _itemManager.SelectItem(0);
                     break;
                 case "2":
-                    _itemManager.currentItemIndex = 1;
+                    _itemManager.SelectItem(1);
                     break;
                 case "3":
-                    _itemManager.currentItemIndex = 2;
+                    _itemManager.SelectItem(2);
                     break;
-                //these might be removed if we don't need u and i for switching items
                 case "Next":
-                    _itemManager.nextItem();
+                    _itemManager.NextItem();
                     break;
                 case "Previous":
-                    _itemManager.previousItem();
+                    _itemManager.PreviousItem();
                     break;
             }
-            
         }
     }
 }

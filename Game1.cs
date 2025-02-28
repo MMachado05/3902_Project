@@ -93,12 +93,7 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
-
-
-
-            
         }
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -120,15 +115,23 @@ namespace Project
             player.Update(gameTime);
 
             //should be replaced with level loader
-            foreach (Item item in itemManager.itemList)
+            _itemController.Update();
+
+            // Update world items
+            foreach (IItem item in itemManager.GetWorldItems())
             {
                 item.Update();
             }
-            //inventory
-            itemManager.getCurrentItem().Update();
-            Vector2 heldItemPosition = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
-            itemManager.getCurrentItem().Position = heldItemPosition;
 
+            // Update inventory item
+            IItem currentItem = itemManager.GetCurrentItem();
+            currentItem.Update();
+
+            // only update items with position
+            if (currentItem is Item itemWithPosition)
+            {
+                itemWithPosition.Position = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
+            }
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
@@ -152,12 +155,17 @@ namespace Project
             player.Draw(_spriteBatch);
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
-            itemManager.getCurrentItem().Draw(_spriteBatch);
-            //should be replaced with level loader
-            foreach (Item item in itemManager.itemList)
+
+            // Draw inventory item
+            IItem currentItem = itemManager.GetCurrentItem();
+            currentItem.Draw(_spriteBatch);
+
+            // Draw world items
+            foreach (IItem item in itemManager.GetWorldItems())
             {
                 item.Draw(_spriteBatch);
             }
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

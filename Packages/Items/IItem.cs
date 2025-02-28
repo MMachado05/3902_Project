@@ -7,9 +7,7 @@ namespace Project
     {
         Vector2 Position { get; set; }
         float Speed { get; set; }
-        /// <summary>
-        /// Draw this item to the game window.
-        /// </summary>
+        void Update();
         void Draw(SpriteBatch spriteBatch);
     }
 }

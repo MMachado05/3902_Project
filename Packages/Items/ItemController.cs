@@ -21,7 +21,7 @@ namespace Project
 
         public ItemController(ItemManager itemManager, Game1 game1)
         {
-            
+
             _game = game1;
             _itemManager = itemManager;
             _commands = new Dictionary<Keys, ICommand>();
