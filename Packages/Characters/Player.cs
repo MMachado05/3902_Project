@@ -21,7 +21,9 @@ namespace Project
         {
             // Set initial default states
             PositionVector = new Vector2(100, 100);
-            PositionRect = new Rectangle(100, 100, 30, 30);
+            PositionRect = new Rectangle(36, 36, 64, 64);
+            // Because the vector is the origin, we need to offset the top-left corner of
+            //  the rect in order to have the rect properly surround the sprite.
             LastDirection = "Down";
             isDamaged = false;
 
@@ -93,7 +95,7 @@ namespace Project
         {
             // Simple approach: revert to last safe position
             PositionVector = _previousPosition;
-            PositionRect = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y,
+            PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
                                          PositionRect.Width, PositionRect.Height);
 
             // Can add reduce health logic here later; trigger damage animation
