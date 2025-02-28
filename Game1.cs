@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
+using Project.Packages;
 using Project.Packages.Items;
 
 namespace Project
@@ -31,6 +32,7 @@ namespace Project
         KeyboardState input;
 
         private SolidBlockManager blockManager;
+        LevelOneRoom room1;
         public void restart()
         {
             this.LoadContent();
@@ -47,8 +49,9 @@ namespace Project
             // Since we're in constructor, no need to call GraphicsDeviceManager.ApplyChanges()
             // :)
             _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1600; // Set width
-            _graphics.PreferredBackBufferHeight = 900; // Set height
+            _graphics.PreferredBackBufferWidth = 960; // Set width
+            _graphics.PreferredBackBufferHeight = 672; // Set height
+            
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -75,7 +78,8 @@ namespace Project
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            blockManager = new SolidBlockManager(_spriteBatch);
+            blockManager = new SolidBlockManager(_spriteBatch,this);
+            room1 = new LevelOneRoom(blockManager);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
@@ -156,7 +160,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            blockManager.GetCurrentBlock().Draw();
+            room1.borderDraw();
 
             player.Draw(_spriteBatch);
 
