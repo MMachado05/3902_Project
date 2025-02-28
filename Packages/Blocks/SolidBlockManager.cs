@@ -1,38 +1,138 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Blocks
 {
     public class SolidBlockManager
     {
-        private List<SolidBlock> Blocks;
-        private int currentBlockIndex;
+        private List<SolidBlock> topBoarder;
+        private List<SolidBlock> bottomBoarder;
+        private List<SolidBlock> leftBoarder;
+        private List<SolidBlock> rightBoarder;
+        private List<SolidBlock> obstacleList;
 
-        public SolidBlockManager(SpriteBatch spriteBatch)
+
+
+
+        private int currentBlockIndex;
+        SpriteBatch _SpriteBatch;
+        Game1 _game;
+
+        public SolidBlockManager(SpriteBatch spriteBatch,Game1 game)
         {
-            Blocks = new List<SolidBlock>
-            {
-             SolidBlockSpriteFactory.Instance.grayBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.grayGrassBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.orangeBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.whiteBrick(spriteBatch)
-            };
+            _SpriteBatch = spriteBatch;
             currentBlockIndex = 0;
+            topBoarder = new List<SolidBlock>();
+            bottomBoarder = new List<SolidBlock>();
+            leftBoarder = new List<SolidBlock>();
+            rightBoarder = new List<SolidBlock>();
+            this.obstacleList = new List<SolidBlock>();
+
+            _game = game;
+
+
+        }
+        public List<SolidBlock> topBoarders(){
+            for(int i=0;i<960;i+=32){
+                SolidBlock holder = SolidBlockSpriteFactory.Instance.boardersBrick(_SpriteBatch,new Rectangle(i,0,32,32));
+                topBoarder.Add(holder);
+            }
+            return topBoarder;
+        }
+         public List<SolidBlock> bottomBoarders(){
+            for(int i=0;i<960;i+=32){
+                SolidBlock holder = SolidBlockSpriteFactory.Instance.boardersBrick(_SpriteBatch,new Rectangle(i,_game.GraphicsDevice.Viewport.Height-32,32,32));
+                bottomBoarder.Add(holder);
+            }
+            return bottomBoarder;
+        }
+          public List<SolidBlock> leftBoarders(){
+            for(int i=0;i<960;i+=32){
+                SolidBlock holder = SolidBlockSpriteFactory.Instance.boardersBrick(_SpriteBatch,new Rectangle(0,i,32,32));
+                if(i == _game.GraphicsDevice.Viewport.Width/3){
+                    holder = SolidBlockSpriteFactory.Instance.doorBlock(_SpriteBatch,new Rectangle(-32,i,64,64));
+                    i+=32;
+                }
+                leftBoarder.Add(holder);
+            }
+            return leftBoarder;
+        }
+          public List<SolidBlock> rightBoarders(){
+            for(int i=0;i<960;i+=32){
+                SolidBlock holder = SolidBlockSpriteFactory.Instance.boardersBrick(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width-32,i,32,32));
+                  if(i == _game.GraphicsDevice.Viewport.Width/3){
+                    holder = SolidBlockSpriteFactory.Instance.doorBlock(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width-32,i,64,64));
+                    i+=32;
+                }
+                rightBoarder.Add(holder);
+            }
+            return rightBoarder;
+        }
+        public List<SolidBlock> obstacles(){
+            SolidBlock holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3,_game.GraphicsDevice.Viewport.Height/3,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+32,_game.GraphicsDevice.Viewport.Height/3,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+64,_game.GraphicsDevice.Viewport.Height/3,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+96,_game.GraphicsDevice.Viewport.Height/3,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-32,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-64,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-96,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-128,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-160,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3-192,32,32));
+            obstacleList.Add(holder);
+
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3,_game.GraphicsDevice.Viewport.Height/3+32,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+32,_game.GraphicsDevice.Viewport.Height/3+64,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+64,_game.GraphicsDevice.Viewport.Height/3+96,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+96,_game.GraphicsDevice.Viewport.Height/3+128,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3+160,32,32));
+            obstacleList.Add(holder);
+
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+128,_game.GraphicsDevice.Viewport.Height/3+192,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+96,_game.GraphicsDevice.Viewport.Height/3+224,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+64,_game.GraphicsDevice.Viewport.Height/3+256,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3+32,_game.GraphicsDevice.Viewport.Height/3+288,32,32));
+            obstacleList.Add(holder);
+            holder = SolidBlockSpriteFactory.Instance.obstacle(_SpriteBatch,new Rectangle(_game.GraphicsDevice.Viewport.Width/3,_game.GraphicsDevice.Viewport.Height/3+320,32,32));
+            obstacleList.Add(holder);
+            
+           
+            return obstacleList;
+
         }
 
         public void SwitchToPreviousBlock()
         {
-            if (Blocks.Count == 0) return;
+            if (bottomBoarder.Count == 0) return;
             if (currentBlockIndex <= 0)
-                currentBlockIndex = Blocks.Count - 1;
+                currentBlockIndex = bottomBoarder.Count - 1;
             else
                 currentBlockIndex--;
         }
 
         public void SwitchToNextBlock()
         {
-            if (Blocks.Count == 0) return;
-            if (currentBlockIndex >= Blocks.Count - 1)
+            if (bottomBoarder.Count == 0) return;
+            if (currentBlockIndex >= bottomBoarder.Count - 1)
                 currentBlockIndex = 0;
             else
                 currentBlockIndex++;
@@ -40,7 +140,10 @@ namespace Project.Blocks
 
         public SolidBlock GetCurrentBlock()
         {
-            return Blocks.Count > 0 ? Blocks[currentBlockIndex] : null;
+            return bottomBoarder.Count > 0 ? bottomBoarder[currentBlockIndex] : null;
         }
+
+
     }
+    
 }
