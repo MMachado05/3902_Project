@@ -26,9 +26,34 @@ namespace Project.Packages
             List<object> result = new List<object>();
             foreach (var item in room)
             {
-                Rectangle dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                SolidBlock block = blocks.boardersBrick(dest);
-                result.Add(block);
+                Rectangle dest;
+                SolidBlock block;
+
+                switch (item.Value)
+                {
+                    case "bl":
+                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
+                        block = blocks.boardersBrick(dest);
+                        result.Add(block);
+                        break;
+                    case "ob":
+                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
+                        block = blocks.obstacleBlock(dest);
+                        result.Add(block);
+
+
+                        break;
+                    case "dr":
+                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
+                        block = blocks.doorBlock(dest);
+                        result.Add(block);
+                        break;
+                    case "en":
+                        break;
+                    case "pl":
+                        break;
+                }
+
             }
             return result;
         }
