@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
+using Project.Packages.Characters;
 using Project.Packages.Items;
 
 namespace Project
@@ -20,6 +21,8 @@ namespace Project
         public Direction spriteType;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
+        private CollisionManager collisionManager;
+
 
         private EnemyManager enemyManager;
 
@@ -52,6 +55,8 @@ namespace Project
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            collisionManager = new CollisionManager();
         }
 
         protected override void Initialize()
@@ -114,6 +119,9 @@ namespace Project
             player.Update(gameTime);
 
             KeyboardState currentState = Keyboard.GetState();
+
+            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
 
             // Checking for keys pressed to switch items; should be moved out of game1
             if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
