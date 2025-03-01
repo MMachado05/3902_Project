@@ -82,7 +82,7 @@ namespace Project
 
             // Load item sprites and create item manager
             ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager();
+            itemManager = new ItemManager(this);
             // Initialize ItemController with commands for switching items
             _itemController = new ItemController(itemManager, this);
 
@@ -112,6 +112,12 @@ namespace Project
                 player.SetStaticSprite(); // Set idle sprite
             }
 
+            // Update lastDirection based on movement input (def need to change this approach)
+            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
+            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
+            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
+            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
+
             player.Update(gameTime);
 
             //should be replaced with level loader
@@ -121,16 +127,6 @@ namespace Project
             foreach (IItem item in itemManager.GetWorldItems())
             {
                 item.Update();
-            }
-
-            // Update inventory item
-            IItem currentItem = itemManager.GetCurrentItem();
-            currentItem.Update();
-
-            // only update items with position
-            if (currentItem is Item itemWithPosition)
-            {
-                itemWithPosition.Position = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
             }
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
