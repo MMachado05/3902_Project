@@ -22,6 +22,12 @@ namespace Project.rooms
                         case "bl":
                         result[new Vector2(x,y)] = items[x];
                         break;
+                        case "ob":
+                        result[new Vector2(x,y)] = items[x];
+                        break;
+                        case "dr":
+                        result[new Vector2(x,y)] = items[x];
+                        break;
                         default:
                         break;
                     }
