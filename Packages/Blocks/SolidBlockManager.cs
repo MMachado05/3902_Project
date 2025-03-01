@@ -30,14 +30,19 @@ namespace Project.Blocks
         {
             _SpriteBatch = spriteBatch;
              this.test =SolidBlockSpriteFactory.Instance.getSolidBlockSheet();
-             this.src = SolidBlockSpriteFactory.Instance.boardersBrick();
        
 
 
 
         }
         public SolidBlock boardersBrick(Rectangle destination){
-            return new SolidBlock(_SpriteBatch,test,src,destination);
+            return new SolidBlock(_SpriteBatch,test,SolidBlockSpriteFactory.Instance.boardersBrick(),destination);
+        }
+         public SolidBlock obstacleBlock(Rectangle destination){
+            return new SolidBlock(_SpriteBatch,test,SolidBlockSpriteFactory.Instance.obstacle(),destination);
+        }
+         public SolidBlock doorBlock(Rectangle destination){
+            return new SolidBlock(_SpriteBatch,test,SolidBlockSpriteFactory.Instance.doorBlock(),destination);
         }
 
 
