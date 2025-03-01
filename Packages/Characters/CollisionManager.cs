@@ -11,8 +11,8 @@ namespace Project.Packages.Characters
             {
                 if (player.PositionRect.Intersects(block.BoundingBox))
                 {
-                    var collisionCmd = new PlayerBlockCollisionCommand(player, block);
-                    collisionCmd.Execute();
+                    ICommand collisionCommand = new PlayerBlockCollisionCommand(player, block);
+                    collisionCommand.Execute();
                 }
             }
         }
