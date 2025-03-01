@@ -94,6 +94,8 @@ namespace Project
         public void HandleBlockCollision(SolidBlock block)
         {
             // Revertint player to last safe position when colliding
+            // NOTE: Because the sprite is not actually drawn exactly where the bounding box is, we have to do these weird offsets.
+            // This can be fixed by fixing the sprite textures for the blocks at some point
             PositionVector = _previousPosition;
             PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
                                          PositionRect.Width, PositionRect.Height);
