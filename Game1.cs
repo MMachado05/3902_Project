@@ -168,7 +168,6 @@ namespace Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             room1.Draw();
-            //room1.Draw();
 
             player.Draw(_spriteBatch);
 

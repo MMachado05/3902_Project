@@ -21,9 +21,6 @@ namespace Project.Blocks
         public void Draw()
         {
             spriteBatch.Draw(texture, Destination, Source, Color.White);
-
-
-
         }
 
     }
