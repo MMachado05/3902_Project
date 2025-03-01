@@ -93,9 +93,9 @@ namespace Project
 
         public void HandleBlockCollision(SolidBlock block)
         {
-            // Simple approach: revert to last safe position
+            // Revertint player to last safe position when colliding
             PositionVector = _previousPosition;
-            PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
+            PositionRect = new Rectangle((int)_previousPosition.X, (int)_previousPosition.Y,
                                          PositionRect.Width, PositionRect.Height);
 
             // Can add reduce health logic here later; trigger damage animation
