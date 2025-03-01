@@ -20,7 +20,7 @@ namespace Project
         public Player()
         {
             // Set initial default states
-            PositionVector = new Vector2(100, 100);
+            PositionVector = new Vector2(36, 36);
             PositionRect = new Rectangle(36, 36, 64, 64);
             // Because the vector is the origin, we need to offset the top-left corner of
             //  the rect in order to have the rect properly surround the sprite.
