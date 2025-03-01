@@ -35,26 +35,22 @@ namespace Project.Blocks
         }
 
         // Stopped Player sprites
-        public SolidBlock boardersBrick(SpriteBatch spriteBatch, Rectangle destination)
+        public Rectangle boardersBrick()
         {
-            this.Destination = destination;
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(320, 256, 32, 32), Destination);
+            return new Rectangle(320, 256, 32, 32);
         }
-        public SolidBlock doorBlock(SpriteBatch spriteBatch, Rectangle destination)
+        public Rectangle doorBlock()
         {
-            this.Destination = destination;
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(384, 256, 64, 64), Destination);
+            return new Rectangle(384, 256, 64, 64);
         }
-        public SolidBlock obstacle(SpriteBatch spriteBatch, Rectangle destination)
+        public Rectangle obstacle()
         {
-            this.Destination = destination;
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(384, 384, 64, 64), Destination);}
+            return new Rectangle(384, 384, 64, 64);
+        }
+        public Texture2D getSolidBlockSheet(){
+            
+            return this.SolidBlockSheet;
+        }
 
     }
 }

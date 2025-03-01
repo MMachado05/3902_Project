@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Net.Mime;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Blocks
@@ -18,22 +20,37 @@ namespace Project.Blocks
         private int currentBlockIndex;
         SpriteBatch _SpriteBatch;
         Game1 _game;
+        ContentManager content;
+        Texture2D test;
+        Rectangle src;
+        
+        
 
-        public SolidBlockManager(SpriteBatch spriteBatch,Game1 game)
+        public SolidBlockManager(SpriteBatch spriteBatch)
         {
             _SpriteBatch = spriteBatch;
-            currentBlockIndex = 0;
+             //_game = game;
+             this.test =SolidBlockSpriteFactory.Instance.getSolidBlockSheet();
+             this.src = SolidBlockSpriteFactory.Instance.boardersBrick();
+           /* currentBlockIndex = 0;
             topBoarder = new List<SolidBlock>();
             bottomBoarder = new List<SolidBlock>();
             leftBoarder = new List<SolidBlock>();
             rightBoarder = new List<SolidBlock>();
-            this.obstacleList = new List<SolidBlock>();
+            this.obstacleList = new List<SolidBlock>();*/
 
-            _game = game;
 
 
         }
-        public List<SolidBlock> topBoarders(){
+        public SolidBlock boardersBrick(Rectangle destination){
+            return new SolidBlock(_SpriteBatch,test,src,destination);
+        }
+
+
+
+
+
+       /* public List<SolidBlock> topBoarders(){
             for(int i=0;i<960;i+=32){
                 SolidBlock holder = SolidBlockSpriteFactory.Instance.boardersBrick(_SpriteBatch,new Rectangle(i,0,32,32));
                 topBoarder.Add(holder);
@@ -118,7 +135,7 @@ namespace Project.Blocks
            
             return obstacleList;
 
-        }
+        }*/
 
         public void SwitchToPreviousBlock()
         {
