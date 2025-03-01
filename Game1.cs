@@ -1,4 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
@@ -42,7 +46,9 @@ namespace Project
         // should be moved out of game1
         ItemManager itemManager;
         KeyboardState previousState = new KeyboardState();
-
+        SolidBlock tmep;
+    
+        
 
         public Game1()
         {
@@ -50,13 +56,13 @@ namespace Project
             // :)
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
-            _graphics.PreferredBackBufferHeight = 672; // Set height
+            _graphics.PreferredBackBufferHeight = 704; // Set height
             
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            
         }
-
         protected override void Initialize()
         {
             playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
@@ -78,7 +84,7 @@ namespace Project
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            blockManager = new SolidBlockManager(_spriteBatch,this);
+            blockManager = new SolidBlockManager(_spriteBatch);
             room1 = new LevelOneRoom(blockManager);
 
             // Set initial sprite to static down
@@ -96,6 +102,7 @@ namespace Project
 
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
+            
         }
 
 
@@ -161,6 +168,7 @@ namespace Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             room1.Draw();
+            //room1.Draw();
 
             player.Draw(_spriteBatch);
 
