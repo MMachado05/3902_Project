@@ -7,7 +7,7 @@ namespace Project.Packages.Items
     {
         public abstract Vector2 Position { get; set; }
         public abstract float Speed { get; set; }
-        protected ISprite Sprite { get; }
+        public ISprite Sprite { get; }
 
         protected Item(ISprite sprite)
         {

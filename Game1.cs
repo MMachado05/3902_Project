@@ -12,7 +12,7 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // Not best practice
         private KeyboardController _keyboardController;
-        private Player player;
+        public Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -155,10 +155,6 @@ namespace Project
             player.Draw(_spriteBatch);
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
-
-            // Draw inventory item
-            IItem currentItem = itemManager.GetCurrentItem();
-            currentItem.Draw(_spriteBatch);
 
             // Draw world items
             foreach (IItem item in itemManager.GetWorldItems())

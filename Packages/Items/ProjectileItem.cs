@@ -7,11 +7,11 @@ namespace Project.Packages.Items
     {
         public override Vector2 Position { get; set; }
         public override float Speed { get; set; }
-        private Vector2 Direction { get; }
+        public Vector2 Direction { get; }
         private readonly Vector2 initialPosition;
         private readonly float maxDistance;
         private bool returning;
-        private readonly Vector2? returnTarget;
+        public readonly Vector2? returnTarget;
 
         public ProjectileItem(Vector2 position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
             : base(sprite)

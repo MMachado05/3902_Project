@@ -15,7 +15,8 @@ namespace Project.Packages.Items
             {
                 ItemFactory.Instance.CreateSword(new Vector2(100, 100)),
                 ItemFactory.Instance.CreateBomb(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateBow(new Vector2(100, 100))
+                ItemFactory.Instance.CreateBow(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateArrow(new Vector2(100, 100))
             };
 
             worldItems = new List<IItem>
@@ -46,11 +47,19 @@ namespace Project.Packages.Items
             return worldItems;
         }
 
-        public void SelectItem(int index)
+        public void PlaceItem(int index, Vector2 position)
         {
-            if (index >= 0 && index < inventory.Count)
+            if (index < 0 || index >= inventory.Count) return; // Prevent out-of-bounds errors
+
+            IItem itemToPlace = inventory[index];
+
+            if (itemToPlace is ProjectileItem proj)
             {
-                currentItemIndex = index;
+                worldItems.Add(new ProjectileItem(position, proj.Direction, proj.Sprite, proj.Speed, 100));
+            }
+            else if (itemToPlace is StationaryItem stat)
+            {
+                worldItems.Add(new StationaryItem(position, stat.Speed, stat.Sprite));
             }
         }
 
