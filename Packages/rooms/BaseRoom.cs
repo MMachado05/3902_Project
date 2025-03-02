@@ -1,23 +1,20 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
-using Project.Blocks;
 using Project.Enemies;
-using Project.Packages.Items;
 using Project.rooms;
+using Project.Blocks;
 namespace Project.Packages
 {
     public abstract class BaseRoom : IRoom
     {
-        private SolidBlockManager blocks;
+        private SolidBlockManager manager;
 
         public Dictionary<Vector2, String> room;
         public RoomParser parser;
-        public BaseRoom(SolidBlockManager blocks)
+        public BaseRoom(SolidBlockManager manager)
         {
-            this.blocks = blocks;
+            this.manager = manager;
             parser = new RoomParser();
             room = parser.loadRoom("../../../Data/room1.csv");
 
@@ -34,19 +31,19 @@ namespace Project.Packages
                 {
                     case "bl":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = blocks.boardersBrick(dest);
+                        block = manager.boardersBrick(dest);
                         result.Add(block);
                         break;
                     case "ob":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = blocks.obstacleBlock(dest);
+                        block = manager.obstacleBlock(dest);
                         result.Add(block);
 
 
                         break;
                     case "dr":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = blocks.doorBlock(dest);
+                        block = manager.doorBlock(dest);
                         result.Add(block);
                         break;
                     case "en":

@@ -9,6 +9,7 @@ using Project.Blocks;
 using Project.Enemies;
 using Project.Packages;
 using Project.Packages.Items;
+using Project.rooms;
 
 namespace Project
 {
@@ -36,7 +37,9 @@ namespace Project
         KeyboardState input;
 
         private SolidBlockManager blockManager;
-        LevelOneRoom room1;
+        IRoom room1;
+        RoomsManager roomManager;
+        MouseController mouseController;
         public void restart()
         {
             this.LoadContent();
@@ -85,6 +88,10 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
             blockManager = new SolidBlockManager(_spriteBatch);
+            roomManager =new RoomsManager(blockManager);
+            mouseController = new MouseController(this,_graphics,roomManager);
+            room1 = roomManager.GetCurrentRoom();
+
             room1 = new LevelOneRoom(blockManager);
 
             // Set initial sprite to static down
@@ -114,6 +121,7 @@ namespace Project
 
 
             _keyboardController.Update();
+            mouseController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
@@ -167,7 +175,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            room1.Draw();
+            roomManager.GetCurrentRoom().Draw();
 
             player.Draw(_spriteBatch);
 
