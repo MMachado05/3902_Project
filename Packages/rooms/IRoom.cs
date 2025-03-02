@@ -7,7 +7,6 @@ namespace Project.rooms
 {
     public interface IRoom
     {
-        public void Draw();
-        
+    public List<Object> roomMap();        
     }
 }
