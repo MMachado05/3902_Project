@@ -9,6 +9,7 @@ using Project.Blocks;
 using Project.Enemies;
 using Project.Packages;
 using Project.Packages.Items;
+using Project.renderer;
 using Project.rooms;
 
 namespace Project
@@ -38,6 +39,7 @@ namespace Project
 
         private SolidBlockManager blockManager;
         IRoom room1;
+        Renderer renderer;
         RoomsManager roomManager;
         MouseController mouseController;
         public void restart()
@@ -88,11 +90,8 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
             blockManager = new SolidBlockManager(_spriteBatch);
-            roomManager =new RoomsManager(blockManager);
-            mouseController = new MouseController(this,_graphics,roomManager);
-            room1 = roomManager.GetCurrentRoom();
+        
 
-            room1 = new LevelOneRoom(blockManager);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
@@ -104,9 +103,9 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
-
-
-
+            roomManager =new RoomsManager(blockManager,enemyManager,this);
+            mouseController = new MouseController(this,_graphics,roomManager);
+            renderer = new Renderer(roomManager);
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
             
@@ -175,7 +174,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            roomManager.GetCurrentRoom().Draw();
+            renderer.Draw(_spriteBatch);
 
             player.Draw(_spriteBatch);
 
