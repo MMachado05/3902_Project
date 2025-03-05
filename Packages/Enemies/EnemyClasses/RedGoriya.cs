@@ -48,7 +48,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Position, direction, EnemySpriteFactory.Instance.NewBoomerang(), 30.0f, 150.0f, Position));
+            projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f, Position));
         }
 
         public override void ResetAttackState()

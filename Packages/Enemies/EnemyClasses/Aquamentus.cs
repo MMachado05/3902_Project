@@ -50,7 +50,7 @@ namespace Project.Enemies.EnemyClasses
 
             foreach (var direction in GetAttackDirections())
             {
-                projectiles.Add(new ProjectileItem(Position, direction, EnemySpriteFactory.Instance.NewFireball(), 30.0f, 600f));
+                projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));
             }
         }
 

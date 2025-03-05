@@ -9,9 +9,6 @@ namespace Project
         private Texture2D redGoriyaSpriteSheet;
         private Texture2D stalfosSpriteSheet;
         private Texture2D aquamentusSpriteSheet;
-        private Texture2D fireball;
-
-        private Texture2D boomerang;
 
         private int scale = 2;
 
@@ -26,8 +23,6 @@ namespace Project
             redGoriyaSpriteSheet = content.Load<Texture2D>("RedGoriya");
             stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
             aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
-            fireball = content.Load<Texture2D>("fireball");
-            boomerang = content.Load<Texture2D>("Boomerang");
         }
 
         // ----------------- RED GORIYA SPRITES -----------------
@@ -77,9 +72,5 @@ namespace Project
         public ISprite NewAquamentusAttackingRight() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 160, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 16);
         public ISprite NewAquamentusAttackingDown() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(32, 160, 32, 64), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originY: 16);
         public ISprite NewAquamentusAttackingLeft() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 288, 64, 32), scale, 4, SpriteState.Attacking, SpriteState.FinishedAttack, originX: 48);
-
-        // ----------------- PROJECTILE SPRITES -----------------
-        public ISprite NewFireball() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), scale, SpriteState.Stopped);
-        public ISprite NewBoomerang() => new AnimatedLoopSprite(boomerang, new Rectangle(0, 0, 8, 8), scale, 4, SpriteState.Walking);
     }
 }

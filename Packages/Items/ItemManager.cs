@@ -7,7 +7,6 @@ namespace Project.Packages.Items
     {
         private readonly List<IItem> inventory;
         private readonly List<IItem> worldItems;
-        private int currentItemIndex = 0;
         private Game1 _game;
 
         public ItemManager(Game1 game)
@@ -16,33 +15,19 @@ namespace Project.Packages.Items
 
             inventory = new List<IItem>
             {
-                ItemFactory.Instance.CreateSword(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateBomb(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateBow(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateArrow(new Vector2(100, 100))
+                new ProjectileItem(new Vector2(100, 100), new Vector2(0, 1), ItemFactory.Instance.CreateArrowSprite(), 5, 500),
+                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateSwordSprite()),
+                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateBombSprite()),
+                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateBowSprite()),
+                new ProjectileItem(new Vector2(100, 100), new Vector2(0, 1), ItemFactory.Instance.CreateArrowSprite(), 5, 500)
             };
 
             worldItems = new List<IItem>
             {
-                ItemFactory.Instance.CreateHeart(new Vector2(200, 300)),
-                ItemFactory.Instance.CreateCoin(new Vector2(450, 200)),
-                ItemFactory.Instance.CreateKey(new Vector2(700, 250))
+                new StationaryItem(new Vector2(200, 300), 0, ItemFactory.Instance.CreateHeartSprite()),
+                new StationaryItem(new Vector2(450, 200), 0, ItemFactory.Instance.CreateCoinSprite()),
+                new StationaryItem(new Vector2(700, 250), 0, ItemFactory.Instance.CreateKeySprite())
             };
-        }
-
-        public void NextItem()
-        {
-            currentItemIndex = (currentItemIndex + 1) % inventory.Count;
-        }
-
-        public void PreviousItem()
-        {
-            currentItemIndex = (currentItemIndex - 1 + inventory.Count) % inventory.Count;
-        }
-
-        public IItem GetCurrentItem()
-        {
-            return inventory[currentItemIndex];
         }
 
         public List<IItem> GetWorldItems()
@@ -56,7 +41,6 @@ namespace Project.Packages.Items
 
             Vector2 position = GetPlacementPosition();
             Vector2 direction = GetItemDirection();
-
             IItem itemToPlace = inventory[index];
 
             if (itemToPlace is ProjectileItem proj)
@@ -93,6 +77,5 @@ namespace Project.Packages.Items
                 _ => new Vector2(1, 0) // Default: Right
             };
         }
-
     }
 }
