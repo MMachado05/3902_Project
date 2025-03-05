@@ -129,6 +129,11 @@ namespace Project
                 item.Update();
             }
 
+            //Placing and updating inventory items
+            itemManager.GetCurrentItem().Update();
+            itemManager.PlaceInventoryItem();
+
+
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
@@ -157,6 +162,8 @@ namespace Project
             {
                 item.Draw(_spriteBatch);
             }
+            // Draw inventory items
+            itemManager.GetCurrentItem().Draw(_spriteBatch);
 
             _spriteBatch.End();
 

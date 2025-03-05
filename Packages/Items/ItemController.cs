@@ -29,7 +29,7 @@ namespace Project
                 { Keys.D1, new InventoryCommand(_itemManager, 0) },
                 { Keys.D2, new InventoryCommand(_itemManager, 1) },
                 { Keys.D3, new InventoryCommand(_itemManager, 2) },
-                { Keys.D4, new InventoryCommand(_itemManager, 3) }
+                { Keys.Z, new ProjectileCommand(_itemManager, 0) }
             };
         }
 

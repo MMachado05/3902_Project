@@ -7,6 +7,7 @@ namespace Project.Packages.Items
     {
         private readonly List<IItem> inventory;
         private readonly List<IItem> worldItems;
+        private readonly List<IItem> projectiles;
         private int currentItemIndex = 0;
         private Game1 _game;
 
@@ -18,7 +19,13 @@ namespace Project.Packages.Items
             {
                 ItemFactory.Instance.CreateSword(new Vector2(100, 100)),
                 ItemFactory.Instance.CreateBomb(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateBow(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateBow(new Vector2(100, 100))
+            };
+            //replace with other projectiles
+            projectiles = new List<IItem>
+            {
+                ItemFactory.Instance.CreateArrow(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateArrow(new Vector2(100, 100)),
                 ItemFactory.Instance.CreateArrow(new Vector2(100, 100))
             };
 
@@ -30,14 +37,9 @@ namespace Project.Packages.Items
             };
         }
 
-        public void NextItem()
+        public void SetCurrentItem(int index)
         {
-            currentItemIndex = (currentItemIndex + 1) % inventory.Count;
-        }
-
-        public void PreviousItem()
-        {
-            currentItemIndex = (currentItemIndex - 1 + inventory.Count) % inventory.Count;
+            currentItemIndex = index;
         }
 
         public IItem GetCurrentItem()
@@ -50,22 +52,22 @@ namespace Project.Packages.Items
             return worldItems;
         }
 
-        public void PlaceItem(int index)
+        public void PlaceInventoryItem()
         {
-            if (index < 0 || index >= inventory.Count) return;
+            GetCurrentItem().Position = GetPlacementPosition();
+        }
+        public void PlaceProjectile(int index)
+        {
+            if (index < 0 || index >= projectiles.Count) return;
 
             Vector2 position = GetPlacementPosition();
             Vector2 direction = GetItemDirection();
 
-            IItem itemToPlace = inventory[index];
+            IItem itemToPlace = projectiles[index];
 
             if (itemToPlace is ProjectileItem proj)
             {
                 worldItems.Add(new ProjectileItem(position, direction, proj.Sprite, proj.Speed, 100));
-            }
-            else if (itemToPlace is StationaryItem stat)
-            {
-                worldItems.Add(new StationaryItem(position, stat.Speed, stat.Sprite));
             }
         }
 
