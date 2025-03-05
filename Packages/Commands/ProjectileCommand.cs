@@ -2,20 +2,19 @@
 
 namespace Project
 {
-    public class InventoryCommand : ICommand
+    public class ProjectileCommand : ICommand
     {
         private ItemManager _itemManager;
         private int _itemIndex;
 
-        public InventoryCommand(ItemManager itemManager, int itemIndex)
+        public ProjectileCommand(ItemManager itemManager)
         {
             _itemManager = itemManager;
-            _itemIndex = itemIndex;
         }
 
         public void Execute()
         {
-            _itemManager.SetCurrentIndex(_itemIndex);
+            _itemManager.PlaceProjectile(_itemManager.GetCurrentIndex());
         }
     }
 }

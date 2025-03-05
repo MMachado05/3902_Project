@@ -7,6 +7,8 @@ namespace Project.Packages.Items
     {
         private readonly List<IItem> inventory;
         private readonly List<IItem> worldItems;
+        private readonly List<IItem> projectiles;
+        private int currentItemIndex = 0;
         private Game1 _game;
 
         public ItemManager(Game1 game)
@@ -15,41 +17,53 @@ namespace Project.Packages.Items
 
             inventory = new List<IItem>
             {
-                new ProjectileItem(new Vector2(100, 100), new Vector2(0, 1), ItemFactory.Instance.CreateArrowSprite(), 5, 500),
-                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateSwordSprite()),
-                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateBombSprite()),
-                new StationaryItem(new Vector2(100, 100), 0, ItemFactory.Instance.CreateBowSprite()),
-                new ProjectileItem(new Vector2(100, 100), new Vector2(0, 1), ItemFactory.Instance.CreateArrowSprite(), 5, 500)
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateSwordSprite()),
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBombSprite()),
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBowSprite()),
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateHeartSprite()),
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateCoinSprite()),
+                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateKeySprite())
             };
 
-            worldItems = new List<IItem>
+            projectiles = new List<IItem>
             {
-                new StationaryItem(new Vector2(200, 300), 0, ItemFactory.Instance.CreateHeartSprite()),
-                new StationaryItem(new Vector2(450, 200), 0, ItemFactory.Instance.CreateCoinSprite()),
-                new StationaryItem(new Vector2(700, 250), 0, ItemFactory.Instance.CreateKeySprite())
+                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateSlashSprite(), 0, 500),
+                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateExplosionSprite(), 0, 500),
+                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateArrowSprite(), 5, 500)
             };
+
+            worldItems = new List<IItem>(); // Initially empty
         }
 
-        public List<IItem> GetWorldItems()
+        public void SetCurrentIndex(int index)
         {
-            return worldItems;
+            if (index >= 0 && index < inventory.Count)
+                currentItemIndex = index;
         }
 
-        public void PlaceItem(int index)
+        public int GetCurrentIndex() => currentItemIndex;
+
+        public IItem GetCurrentItem() => inventory[currentItemIndex];
+
+        public List<IItem> GetWorldItems() => worldItems;
+
+        public void PlaceInventoryItem()
         {
-            if (index < 0 || index >= inventory.Count) return;
+            GetCurrentItem().Position = GetPlacementPosition();
+        }
+
+        public void PlaceProjectile(int index)
+        {
+            if (index < 0 || index >= projectiles.Count) return;
 
             Vector2 position = GetPlacementPosition();
             Vector2 direction = GetItemDirection();
-            IItem itemToPlace = inventory[index];
+
+            IItem itemToPlace = projectiles[index];
 
             if (itemToPlace is ProjectileItem proj)
             {
                 worldItems.Add(new ProjectileItem(position, direction, proj.Sprite, proj.Speed, 100));
-            }
-            else if (itemToPlace is StationaryItem stat)
-            {
-                worldItems.Add(new StationaryItem(position, stat.Speed, stat.Sprite));
             }
         }
 

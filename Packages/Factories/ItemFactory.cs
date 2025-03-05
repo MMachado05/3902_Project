@@ -15,6 +15,8 @@ namespace Project.Packages.Items
         private Texture2D keyTexture;
         private Texture2D fireball;
         private Texture2D Boomerang;
+        private Texture2D slashTexture;
+        private Texture2D explosionTexture;
 
         private static readonly ItemFactory instance = new ItemFactory();
 
@@ -31,7 +33,8 @@ namespace Project.Packages.Items
             keyTexture = content.Load<Texture2D>("key");
             fireball = content.Load<Texture2D>("fireball");
             Boomerang = content.Load<Texture2D>("Boomerang");
-
+            slashTexture = content.Load<Texture2D>("swordSlash");
+            explosionTexture = content.Load<Texture2D>("explosion");
         }
 
         // public IItem CreateArrow(Vector2 position)
@@ -86,6 +89,18 @@ namespace Project.Packages.Items
         //     return new AnimatedLoopSprite(Boomerang, new Rectangle(0, 0, 8, 8), 3, 4, SpriteState.Walking);
         // }
 
+        // public IItem CreateSlash(Vector2 position)
+        // {
+        //     ISprite slashSprite = new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        //     return new ProjectileItem(position, new Vector2(1, 0), slashSprite, 0, 500);
+        // }
+
+        // public IItem CreateExplosion(Vector2 position)
+        // {
+        //     ISprite explosionSprite = new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        //     return new ProjectileItem(position, new Vector2(1, 0), explosionSprite, 0, 500);
+        // }
+
 
         public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
 
@@ -104,6 +119,9 @@ namespace Project.Packages.Items
         public ISprite CreateFireballSprite() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), 3, SpriteState.Stopped);
 
         public ISprite CreateBoomerangSprite() => new AnimatedLoopSprite(Boomerang, new Rectangle(0, 0, 8, 8), 3, 4, SpriteState.Walking);
+
+        public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
 
     }
 }
