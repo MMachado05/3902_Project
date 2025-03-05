@@ -19,9 +19,10 @@ namespace Project.renderer
         float elapsedTime;
         EnemyManager enemyManager;
 
-        public Renderer(RoomsManager roomsManager)
+        public Renderer(RoomsManager roomsManager,EnemyManager enemyManager)
         {
             itemList = roomsManager.GetCurrentRoom().roomMap();
+            this.enemyManager = enemyManager;
 
 
         }
@@ -57,6 +58,14 @@ namespace Project.renderer
 
         public void Update(GameTime gameTime)
         {
+              elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime > 0.25)
+            {
+                enemyManager.GetCurrentEnemy().UpdateAnimation(gameTime);
+                elapsedTime = 0f;
+            }
+
+            enemyManager.GetCurrentEnemy().UpdateState(gameTime);
         }
     }
 }

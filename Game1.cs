@@ -105,7 +105,7 @@ namespace Project
 
             roomManager =new RoomsManager(blockManager,enemyManager,this);
             mouseController = new MouseController(this,_graphics,roomManager);
-            renderer = new Renderer(roomManager);
+            renderer = new Renderer(roomManager,enemyManager);
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
             
@@ -156,15 +156,7 @@ namespace Project
             }
             itemManager.getCurrentItem().Update();
             previousState = currentState;
-
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (elapsedTime > 0.25)
-            {
-                enemyManager.GetCurrentEnemy().UpdateAnimation(gameTime);
-                elapsedTime = 0f;
-            }
-
-            enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+            renderer.Update(gameTime);
 
             base.Update(gameTime);
         }
