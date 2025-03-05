@@ -15,7 +15,7 @@ namespace Project
 
         public void Execute()
         {
-            _itemManager.SetCurrentItem(_itemIndex);
+            _itemManager.SetCurrentIndex(_itemIndex);
         }
     }
 }

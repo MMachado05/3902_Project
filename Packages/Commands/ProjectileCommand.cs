@@ -7,15 +7,14 @@ namespace Project
         private ItemManager _itemManager;
         private int _itemIndex;
 
-        public ProjectileCommand(ItemManager itemManager, int itemIndex)
+        public ProjectileCommand(ItemManager itemManager)
         {
             _itemManager = itemManager;
-            _itemIndex = itemIndex;
         }
 
         public void Execute()
         {
-            _itemManager.PlaceProjectile(_itemIndex);
+            _itemManager.PlaceProjectile(_itemManager.GetCurrentIndex());
         }
     }
 }

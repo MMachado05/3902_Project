@@ -21,11 +21,10 @@ namespace Project.Packages.Items
                 ItemFactory.Instance.CreateBomb(new Vector2(100, 100)),
                 ItemFactory.Instance.CreateBow(new Vector2(100, 100))
             };
-            //replace with other projectiles
             projectiles = new List<IItem>
             {
-                ItemFactory.Instance.CreateArrow(new Vector2(100, 100)),
-                ItemFactory.Instance.CreateArrow(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateSlash(new Vector2(100, 100)),
+                ItemFactory.Instance.CreateExplosion(new Vector2(100, 100)),
                 ItemFactory.Instance.CreateArrow(new Vector2(100, 100))
             };
 
@@ -37,9 +36,14 @@ namespace Project.Packages.Items
             };
         }
 
-        public void SetCurrentItem(int index)
+        public void SetCurrentIndex(int index)
         {
             currentItemIndex = index;
+        }
+
+        public int GetCurrentIndex()
+        {
+            return currentItemIndex;
         }
 
         public IItem GetCurrentItem()

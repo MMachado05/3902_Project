@@ -13,6 +13,8 @@ namespace Project.Packages.Items
         private Texture2D bowTexture;
         private Texture2D coinTexture;
         private Texture2D keyTexture;
+        private Texture2D slashTexture;
+        private Texture2D explosionTexture;
 
         private static readonly ItemFactory instance = new ItemFactory();
 
@@ -27,6 +29,8 @@ namespace Project.Packages.Items
             bowTexture = content.Load<Texture2D>("bow");
             coinTexture = content.Load<Texture2D>("GluckCoin");
             keyTexture = content.Load<Texture2D>("key");
+            slashTexture = content.Load<Texture2D>("swordSlash");
+            explosionTexture = content.Load<Texture2D>("explosion");
         }
 
         public IItem CreateArrow(Vector2 position)
@@ -69,6 +73,18 @@ namespace Project.Packages.Items
         {
             ISprite keySprite = new StationarySprite(keyTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
             return new StationaryItem(position, 0, keySprite);
+        }
+
+        public IItem CreateSlash(Vector2 position)
+        {
+            ISprite slashSprite = new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new ProjectileItem(position, new Vector2(1, 0), slashSprite, 0, 500);
+        }
+
+        public IItem CreateExplosion(Vector2 position)
+        {
+            ISprite explosionSprite = new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+            return new ProjectileItem(position, new Vector2(1, 0), explosionSprite, 0, 500);
         }
     }
 }
