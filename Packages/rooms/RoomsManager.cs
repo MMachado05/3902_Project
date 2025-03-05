@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Project.Blocks;
+using Project.Enemies;
+using Project.Enemies.EnemyClasses;
 using Project.Packages;
 
 namespace Project.rooms
@@ -12,10 +15,11 @@ namespace Project.rooms
         private List<IRoom> RoomsList;
         private int currentRoomIndex;
 
-        public RoomsManager(SolidBlockManager manager)
+        public RoomsManager(SolidBlockManager manager,EnemyManager enemyManager, Game1 game)
         {
+            
             RoomsList = new List<IRoom>
-            {new LevelOneRoom(manager),new LevelTwoRoom(manager)
+            {new LevelOneRoom(manager,enemyManager,game),new LevelTwoRoom(manager,enemyManager,game)
             };
             currentRoomIndex = 0;
         }
@@ -42,5 +46,6 @@ namespace Project.rooms
         {
             return RoomsList.Count > 0 ? RoomsList[currentRoomIndex] : null;
         }
+      
     }
 }

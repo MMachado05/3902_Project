@@ -28,6 +28,13 @@ namespace Project.rooms
                         case "dr":
                         result[new Vector2(x,y)] = items[x];
                         break;
+                        case "pl":
+                        result[new Vector2(x,y)] = items[x];
+                        break;
+                        case "en":
+                        result[new Vector2(x,y)] = items[x];
+                        break;
+
                         default:
                         break;
                     }

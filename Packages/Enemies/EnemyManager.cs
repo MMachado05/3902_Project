@@ -6,17 +6,16 @@ namespace Project.Enemies
 {
     public class EnemyManager
     {
-        private List<Enemy> enemies;
+        public List<Enemy> enemies;
         private int currentEnemyIndex;
 
         public EnemyManager()
         {
-            enemies = [
-                new RedGoriya(new Vector2(384, 224)),
-                new Stalfos(new Vector2(384, 224)),
-                new Aquamentus(new Vector2(384, 224))
-            ];
+            enemies = new List<Enemy>();
             currentEnemyIndex = 0;
+        }
+        public void addEnemy(Enemy enemy){
+            enemies.Add(enemy);
         }
 
         public void SwitchToPreviousEnemy()
@@ -27,6 +26,7 @@ namespace Project.Enemies
             else
                 currentEnemyIndex--;
         }
+
 
         public void SwitchToNextEnemy()
         {
@@ -41,6 +41,7 @@ namespace Project.Enemies
         {
             return enemies.Count > 0 ? enemies[currentEnemyIndex] : null;
         }
+      
     }
 }
 
