@@ -32,7 +32,13 @@ namespace Project.Packages.Items
                 new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateArrowSprite(), 5, 500)
             };
 
-            worldItems = new List<IItem>(); // Initially empty
+            worldItems = new List<IItem>
+            {
+                //temporary random positions for collectible Items
+                new StationaryItem(new Vector2(100,200), 0, ItemFactory.Instance.CreateHeartSprite()),
+                new StationaryItem(new Vector2(500,100), 0, ItemFactory.Instance.CreateCoinSprite()),
+                new StationaryItem(new Vector2(300,300), 0, ItemFactory.Instance.CreateKeySprite())
+            }; 
         }
 
         public void SetCurrentIndex(int index)
@@ -72,8 +78,8 @@ namespace Project.Packages.Items
             Vector2 playerPos = _game.player.PositionVector;
             return _game.lastDirection switch
             {
-                "Up" => playerPos + new Vector2(0, -30),
-                "Down" => playerPos + new Vector2(0, 30),
+                "Up" => playerPos + new Vector2(0, -50),
+                "Down" => playerPos + new Vector2(0, 50),
                 "Left" => playerPos + new Vector2(-30, 0),
                 "Right" => playerPos + new Vector2(30, 0),
                 _ => playerPos
@@ -90,6 +96,11 @@ namespace Project.Packages.Items
                 "Right" => new Vector2(1, 0),
                 _ => new Vector2(1, 0) // Default: Right
             };
+        }
+
+        public void removeItem(Item item)
+        {
+            worldItems.Remove(item);
         }
     }
 }

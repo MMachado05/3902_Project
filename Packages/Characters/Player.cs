@@ -8,8 +8,8 @@ namespace Project
     public class Player
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get; private set; }
-        public Rectangle PositionRect { get; private set; }
+        public Vector2 PositionVector { get; set; }
+        public Rectangle PositionRect { get; set; }
         public string LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
@@ -17,6 +17,8 @@ namespace Project
         private float elapsedTime;
         private Vector2 _previousPosition;
 
+        // Add public property to expose _previousPosition
+        public Vector2 PreviousPosition => _previousPosition;
         public Player()
         {
             // Set initial default states
