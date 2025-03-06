@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Blocks;
 
 namespace Project
 {
@@ -10,9 +10,10 @@ namespace Project
         public ISprite Sprite { get; private set; }
         public Vector2 PositionVector { get;  set; }
         public Rectangle PositionRect { get;  set; }
-        public string LastDirection { get; private set; }
+        public String LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
+        private Dictionary<String, Direction> stringDirToEnum;
 
         private float elapsedTime;
         private Vector2 _previousPosition;
@@ -22,6 +23,13 @@ namespace Project
 
         public Player()
         {
+            // TODO: This is a hotfix because other methods expect to pass in strings.
+            // Eventually, everything should be using the enums.
+            stringDirToEnum = new Dictionary<string, Direction>();
+            stringDirToEnum.Add("Up", Direction.Up);
+            stringDirToEnum.Add("Down", Direction.Down);
+            stringDirToEnum.Add("Left", Direction.Left);
+            stringDirToEnum.Add("Right", Direction.Right);
             // Set initial default states
             PositionVector = new Vector2(36, 36);
             PositionRect = new Rectangle(36, 36, 64, 64);
@@ -31,7 +39,7 @@ namespace Project
             isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
-            Sprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
+            Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
         }
 
 
@@ -55,43 +63,9 @@ namespace Project
         }
         public void SetStaticSprite()
         {
-
-            switch (LastDirection)
-            {
-                case "Up":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewUpStoppedPlayer());
-                    SpriteType = Direction.Up;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Down":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDownStoppedPlayer());
-                    SpriteType = Direction.Down;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Left":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewLeftStoppedPlayer());
-                    SpriteType = Direction.Left;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Right":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewRightStoppedPlayer());
-                    SpriteType = Direction.Right;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-            }
-
+            SpriteType = this.stringDirToEnum[LastDirection];
+            Sprite.State = SpriteState.Stopped;
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
 
 
