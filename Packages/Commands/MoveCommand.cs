@@ -43,10 +43,7 @@
                             || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Up;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpWalkingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(Direction.Up, _player.isDamaged));
                         }
                         break;
                     case "Down":
@@ -54,10 +51,7 @@
                             || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Down;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDownWalkingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(Direction.Down, _player.isDamaged));
                         }
                         break;
                     case "Left":
@@ -65,10 +59,7 @@
                             || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Left;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewLeftWalkingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(Direction.Left, _player.isDamaged));
                         }
                         break;
                     case "Right":
@@ -76,10 +67,7 @@
                             || _player.Sprite.State == SpriteState.FinishedAttack)
                         {
                             _player.SpriteType = Direction.Right;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewRightWalkingPlayer());
+                            _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(Direction.Right, _player.isDamaged));
                         }
                         break;
                 }
