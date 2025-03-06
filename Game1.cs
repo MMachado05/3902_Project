@@ -14,7 +14,7 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // Not best practice
         private KeyboardController _keyboardController;
-        private Player player;
+        public Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -88,7 +88,7 @@ namespace Project
 
             // Load item sprites and create item manager
             ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager();
+            itemManager = new ItemManager(this);
             // Initialize ItemController with commands for switching items
             _itemController = new ItemController(itemManager, this);
 
@@ -101,7 +101,6 @@ namespace Project
 
             playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -123,17 +122,26 @@ namespace Project
                 player.SetStaticSprite(); // Set idle sprite
             }
 
+            // Update lastDirection based on movement input (def need to change this approach)
+            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
+            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
+            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
+            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
+
             player.Update(gameTime);
 
             //should be replaced with level loader
-            foreach (Item item in itemManager.itemList)
+            _itemController.Update();
+
+            // Update world items
+            foreach (IItem item in itemManager.GetWorldItems())
             {
                 item.Update();
             }
-            //inventory
-            itemManager.getCurrentItem().Update();
-            Vector2 heldItemPosition = new Vector2(player.PositionVector.X + 25, player.PositionVector.Y);
-            itemManager.getCurrentItem().Position = heldItemPosition;
+
+            //Placing and updating inventory items
+            itemManager.GetCurrentItem().Update();
+            itemManager.PlaceInventoryItem();
 
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -160,12 +168,15 @@ namespace Project
             player.Draw(_spriteBatch);
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
-            itemManager.getCurrentItem().Draw(_spriteBatch);
-            //should be replaced with level loader
-            foreach (Item item in itemManager.itemList)
+
+            // Draw world items
+            foreach (IItem item in itemManager.GetWorldItems())
             {
                 item.Draw(_spriteBatch);
             }
+            // Draw inventory items
+            itemManager.GetCurrentItem().Draw(_spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);

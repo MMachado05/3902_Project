@@ -8,17 +8,14 @@ namespace Project
     public class Player
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get;  set; }
-        public Rectangle PositionRect { get;  set; }
+        public Vector2 PositionVector { get; private set; }
+        public Rectangle PositionRect { get; private set; }
         public string LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
 
         private float elapsedTime;
         private Vector2 _previousPosition;
-
-        // Add public property to expose _previousPosition
-        public Vector2 PreviousPosition => _previousPosition;
 
         public Player()
         {
@@ -92,6 +89,18 @@ namespace Project
                     break;
             }
 
+        }
+
+        public void HandleBlockCollision(SolidBlock block)
+        {
+            // Revertint player to last safe position when colliding
+            // NOTE: Because the sprite is not actually drawn exactly where the bounding box is, we have to do these weird offsets.
+            // This can be fixed by fixing the sprite textures for the blocks at some point. Then the offsets can be removed.
+            PositionVector = _previousPosition;
+            PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
+                                         PositionRect.Width, PositionRect.Height);
+
+            // Can add reduce health logic here later; trigger damage animation
         }
 
 

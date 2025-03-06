@@ -1,24 +1,23 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project.Enemies.EnemyClasses
+namespace Project.Packages.Items
 {
-    public class Projectile
+    public class ProjectileItem : Item
     {
-        public Vector2 Position { get; private set; }
-        private Vector2 Direction;
-        private float Speed;
-        private ISprite sprite;
-        private Vector2 initialPosition;
-        private float maxDistance;
+        public override Vector2 Position { get; set; }
+        public override float Speed { get; set; }
+        public Vector2 Direction { get; }
+        private readonly Vector2 initialPosition;
+        private readonly float maxDistance;
         private bool returning;
-        private Vector2? returnTarget;
+        public readonly Vector2? returnTarget;
 
-        public Projectile(Vector2 position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
+        public ProjectileItem(Vector2 position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
+            : base(sprite)
         {
             Position = position;
             Direction = direction;
-            this.sprite = sprite;
             Speed = speed;
             this.maxDistance = maxDistance;
             this.returnTarget = returnTarget;
@@ -26,25 +25,24 @@ namespace Project.Enemies.EnemyClasses
             returning = false;
         }
 
-        public void Update()
+        public override void Update()
         {
             if (!returning && Vector2.Distance(initialPosition, Position) >= maxDistance)
             {
                 returning = returnTarget.HasValue;
             }
 
-            // Move forward or return
             Vector2 moveDirection = returning && returnTarget.HasValue
                 ? Vector2.Normalize(returnTarget.Value - Position)
                 : Direction;
 
             Position += moveDirection * Speed;
-            sprite.Update();
+            Sprite.Update();
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            sprite.Draw(spriteBatch, Position);
+            base.Draw(spriteBatch);
         }
 
         public bool HasReturned() => returning && returnTarget.HasValue && Vector2.Distance(Position, returnTarget.Value) < 5.0f;

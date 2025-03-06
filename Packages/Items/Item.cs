@@ -3,36 +3,22 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Packages.Items
 {
-    public class Item : IItem
+    public abstract class Item : IItem
     {
-        public Vector2 Position { get; set; }
-        public float Speed { get; set; }
+        public abstract Vector2 Position { get; set; }
+        public abstract float Speed { get; set; }
+        public ISprite Sprite { get; }
 
-        public ISprite isprite;
-
-        public Item(ISprite isprite)
+        protected Item(ISprite sprite)
         {
-            this.isprite = isprite;
-        }
-        public void Update()
-        {
-            Position = new Vector2(Position.X + Speed, Position.Y);
-            if (Position.X > 800 || Position.X < 0)
-            {
-                bounceOffWall();
-            }
+            Sprite = sprite;
         }
 
-        void bounceOffWall()
+        public abstract void Update();
+
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Speed = -Speed;
+            Sprite.Draw(spriteBatch, Position);
         }
-
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            isprite.Draw(spriteBatch, Position);
-        }
-
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Packages.Items;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class RedGoriya : Enemy
     {
-        private List<Projectile> projectiles = new List<Projectile>();
+        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private bool hasThrownBoomerang = false;
 
         public RedGoriya(Vector2 startPosition) : base(startPosition) { }
@@ -47,7 +48,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new Projectile(Position, direction, EnemySpriteFactory.Instance.NewBoomerang(), 30.0f, 150.0f, Position));
+            projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f, Position));
         }
 
         public override void ResetAttackState()
