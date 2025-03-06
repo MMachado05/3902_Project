@@ -12,16 +12,16 @@ namespace Project.Packages
     public abstract class BaseRoom : IRoom
     {
         private SolidBlockManager manager;
-        EnemyManager _enemyManager ;
+        EnemyManager _enemyManager;
 
         public Dictionary<Vector2, String> room;
         public RoomParser parser;
         Game1 game;
-         List<object> result;
-         int playerIndex;
+        List<object> result;
+        int playerIndex;
         int counter = 0;
 
-        public BaseRoom(SolidBlockManager manager,EnemyManager enemyManager,Game1 game)
+        public BaseRoom(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
         {
             _enemyManager = enemyManager;
             this.game = game;
@@ -57,14 +57,14 @@ namespace Project.Packages
                         break;
                     case "en":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        _enemyManager.addEnemy(new Aquamentus(new Vector2(dest.X,dest.Y)));
-                        _enemyManager.addEnemy(new RedGoriya(new Vector2(dest.X,dest.Y)));
-                        _enemyManager.addEnemy(new Stalfos(new Vector2(dest.X,dest.Y)));
+                        List < Enemy > enemyList = new List<Enemy> { new Aquamentus(new Vector2(dest.X, dest.Y)), new RedGoriya(new Vector2(dest.X, dest.Y)), new Stalfos(new Vector2(dest.X, dest.Y)) };
+                        _enemyManager.addEnemy(enemyList);
+                        result.Add(enemyList);
                         break;
                     case "pl":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
                         game.player.PositionRect = dest;
-                        game.player.PositionVector = new Vector2(dest.X,dest.Y);
+                        game.player.PositionVector = new Vector2(dest.X, dest.Y);
                         result.Add(game.player);
                         playerIndex = counter;
                         break;
@@ -74,10 +74,11 @@ namespace Project.Packages
             }
             return result;
         }
-        public int getPlayerIndex(){
+        public int getPlayerIndex()
+        {
             return playerIndex;
-             }
-      
-      
+        }
+
+
     }
 }

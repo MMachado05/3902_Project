@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Project.Enemies.EnemyClasses;
 
@@ -14,8 +15,8 @@ namespace Project.Enemies
             enemies = new List<Enemy>();
             currentEnemyIndex = 0;
         }
-        public void addEnemy(Enemy enemy){
-            enemies.Add(enemy);
+        public void addEnemy(List<Enemy> enemyList){
+            enemies = enemyList;
         }
 
         public void SwitchToPreviousEnemy()

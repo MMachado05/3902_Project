@@ -58,7 +58,7 @@ namespace Project.renderer
 
                         // nothing 
                         break;
-                    case Enemy enemy:
+                    case List<Enemy> enemy:
                         //nothing for now, draw enemey in here in future
                     
                         break;
