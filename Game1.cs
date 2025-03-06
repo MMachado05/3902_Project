@@ -115,6 +115,9 @@ namespace Project
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
+
+            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite
