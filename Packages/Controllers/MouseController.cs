@@ -20,43 +20,42 @@ namespace Project
         private ICommand nextRoom;
         private RoomsManager roomManager;
         SolidBlockManager solidBlockManager;
-         private ButtonState _previouslyPressed;
+        private ButtonState _previouslyPressed;
+        private bool isDuplicate;
 
 
-        public MouseController(Game1 game, GraphicsDeviceManager graphics,RoomsManager roomManager)
+        public MouseController(Game1 game, GraphicsDeviceManager graphics, RoomsManager roomManager)
         {
             this.roomManager = roomManager;
             nextRoom = new NextRoomCommand(roomManager);
             _graphics = graphics;
-            //staticSprite = new SetSpritesCommand(_game, Game1.LuigiSpriteNames.Static);
-            //animatedSprite = new SetSpritesCommand(_game, Game1.LuigiSpriteNames.Animated);
-            //movingStaticSprite = new SetSpritesCommand(_game, Game1.LuigiSpriteNames.MovingStatic);
-            //movingAnimatedSprite = new SetSpritesCommand(_game, Game1.LuigiSpriteNames.MovingAnimated);
-
+            this.isDuplicate = false;
         }
 
         public void Update()
         {
-            
+
 
             MouseState state = Mouse.GetState();
-            ButtonState  currentlyPressed = state.LeftButton;
+            ButtonState currentlyPressed = state.LeftButton;
 
 
             if (state.LeftButton == ButtonState.Pressed)
             {
                 // Quad 1
-                if (state.X < (_graphics.PreferredBackBufferWidth / 2) && state.Y < (_graphics.PreferredBackBufferHeight / 2)&& currentlyPressed != _previouslyPressed)
+                if (state.X < (_graphics.PreferredBackBufferWidth / 2) && state.Y < (_graphics.PreferredBackBufferHeight / 2) && !isDuplicate)
                 {
-                   nextRoom.Execute();
-                   Console.WriteLine("pressed");
-                    _previouslyPressed = currentlyPressed;
+                    nextRoom.Execute();
+                    Console.WriteLine("pressed");
+                    isDuplicate = true;
 
-                } 
-             
+                }
+
             }
+            else if (state.LeftButton == ButtonState.Released)
+                isDuplicate = false;
 
-           
+
         }
     }
 }

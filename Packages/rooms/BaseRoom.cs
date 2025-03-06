@@ -16,13 +16,11 @@ namespace Project.Packages
 
         public Dictionary<Vector2, String> room;
         public RoomParser parser;
-        Player Player;
         Game1 game;
-        Enemy enemy;
-        float  elapsedTime;
-         List<object> itemList;
          List<object> result;
-         Enemy enemies;
+         int playerIndex;
+        int counter = 0;
+
         public BaseRoom(SolidBlockManager manager,EnemyManager enemyManager,Game1 game)
         {
             _enemyManager = enemyManager;
@@ -65,50 +63,20 @@ namespace Project.Packages
                         break;
                     case "pl":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                       // Player = new Player(new Vector2(dest.X,dest.Y));
-                        result.Add(Player);
+                        game.player.PositionRect = dest;
+                        game.player.PositionVector = new Vector2(dest.X,dest.Y);
+                        result.Add(game.player);
+                        playerIndex = counter;
                         break;
                 }
+                counter++;
 
             }
             return result;
         }
-        /*
-        public void Draw()
-        {
-             itemList = roomMap();
-
-            foreach (var items in itemList)
-            {
-                switch (items)
-                {
-                    case SolidBlock solidBlock:
-                        solidBlock.Draw();
-                        break;
-                    case Player player:
-                        player.Draw(game._spriteBatch);
-                        break;
-                    case IItem item:
-                        Console.WriteLine("I");
-
-                        // nothing 
-                        break;
-                    case EnemyManager enemy:
-                        enemy.GetCurrentEnemy().Draw(game._spriteBatch);
-                        
-                        Console.WriteLine("E");
-
-                        // nothing
-                        break;
-                    default:
-
-                        break;
-                }
-
-            }
-
-        }*/
-        
+        public int getPlayerIndex(){
+            return playerIndex;
+             }
       
       
     }

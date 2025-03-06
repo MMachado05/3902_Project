@@ -10,5 +10,6 @@ namespace Project.rooms
     public interface IRoom
     {
     public List<Object> roomMap();
+     public int getPlayerIndex();
     }
 }

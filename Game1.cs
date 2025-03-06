@@ -19,26 +19,21 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // Not best practice
         private KeyboardController _keyboardController;
-        private Player player;
+        public Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
-        private Rectangle playerPosition;
-        private Vector2 playerPositionVector;
         public Direction spriteType;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
 
         private EnemyManager enemyManager;
 
-        private float elapsedTime;
 
         // Not best practice; should be moved out of game1
         /// <summary>
         /// </summary>
-        KeyboardState input;
 
         private SolidBlockManager blockManager;
-        IRoom room1;
         Renderer renderer;
         RoomsManager roomManager;
         MouseController mouseController;
@@ -51,7 +46,6 @@ namespace Project
         // should be moved out of game1
         ItemManager itemManager;
         KeyboardState previousState = new KeyboardState();
-        SolidBlock tmep;
     
         
 
@@ -70,12 +64,8 @@ namespace Project
         }
         protected override void Initialize()
         {
-            playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
-            playerPositionVector = new Vector2(100, 100);
 
-            player = new Player();
 
-            input = Keyboard.GetState();
 
 
             base.Initialize();
@@ -85,6 +75,8 @@ namespace Project
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            player = new Player();
+
 
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
@@ -103,9 +95,10 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
-            roomManager =new RoomsManager(blockManager,enemyManager,this);
-            mouseController = new MouseController(this,_graphics,roomManager);
+            roomManager = new RoomsManager(blockManager,enemyManager,this);
             renderer = new Renderer(roomManager,enemyManager);
+            mouseController = new MouseController(this,_graphics,roomManager);
+
             ItemFactory.Instance.LoadContent(Content);
             itemManager = new ItemManager();
             
@@ -121,15 +114,6 @@ namespace Project
 
             _keyboardController.Update();
             mouseController.Update();
-
-            // Check if player has stopped moving
-            input = Keyboard.GetState();
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
-            {
-                player.SetStaticSprite(); // Set idle sprite
-            }
-
-            player.Update(gameTime);
 
             KeyboardState currentState = Keyboard.GetState();
 
@@ -168,7 +152,6 @@ namespace Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             renderer.Draw(_spriteBatch);
 
-            player.Draw(_spriteBatch);
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             itemManager.getCurrentItem().Draw(_spriteBatch);

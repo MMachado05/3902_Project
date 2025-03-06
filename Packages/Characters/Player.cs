@@ -7,8 +7,8 @@ namespace Project
     public class Player
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get; private set; }
-        public Rectangle PositionRect { get; private set; }
+        public Vector2 PositionVector { get;  set; }
+        public Rectangle PositionRect { get;  set; }
         public string LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
@@ -18,8 +18,8 @@ namespace Project
         public Player()
         {
             // Set initial default states
-            PositionVector = new Vector2(100, 100);
-            PositionRect = new Rectangle(100, 100, 30, 30);
+           // PositionVector = new Vector2(36, 36);
+           // PositionRect = new Rectangle(36, 36, 64, 64);// hit box 
             LastDirection = "Down";
             isDamaged = false;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
 using Project.Enemies.EnemyClasses;
@@ -14,16 +15,27 @@ namespace Project.renderer
 {
     public class Renderer : IRenderer
     {
-        RoomsManager roomsManager;
         List<object> itemList;
+        int currentRoomIndex;
+        int prevRoomIndex;
+
+        
         float elapsedTime;
         EnemyManager enemyManager;
+        RoomsManager roomsManager;
 
+        Player Player1;
+        KeyboardState input;
+         int playerIndex;
         public Renderer(RoomsManager roomsManager,EnemyManager enemyManager)
         {
             itemList = roomsManager.GetCurrentRoom().roomMap();
+            playerIndex = roomsManager.GetCurrentRoom().getPlayerIndex();
+            Player1 =(Player) itemList[playerIndex];
+            this.roomsManager = roomsManager;
+            currentRoomIndex = roomsManager.currentRoomIndex;
+            prevRoomIndex = currentRoomIndex;
             this.enemyManager = enemyManager;
-
 
         }
 
@@ -38,6 +50,7 @@ namespace Project.renderer
                         solidBlock.Draw();
                         break;
                     case Player player:
+
                         player.Draw(spriteBatch);
                         break;
                     case IItem item:
@@ -46,7 +59,8 @@ namespace Project.renderer
                         // nothing 
                         break;
                     case Enemy enemy:
-                        // nothing 
+                        //nothing for now, draw enemey in here in future
+                    
                         break;
                     default:
 
@@ -58,6 +72,14 @@ namespace Project.renderer
 
         public void Update(GameTime gameTime)
         {
+            input = Keyboard.GetState();
+            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && Player1.Sprite.State != SpriteState.Attacking)
+            {
+                Player1.SetStaticSprite(); // Set idle sprite
+            }
+
+            Player1.Update(gameTime);
+            
               elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
@@ -66,6 +88,12 @@ namespace Project.renderer
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+            currentRoomIndex =roomsManager.currentRoomIndex;
+
+            if(currentRoomIndex!=prevRoomIndex){
+                itemList =roomsManager.GetCurrentRoom().roomMap();
+                prevRoomIndex = currentRoomIndex;
+            }
         }
     }
 }
