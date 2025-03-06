@@ -9,6 +9,14 @@ namespace Project.Blocks
         private Rectangle Destination;
         Texture2D texture;
         SpriteBatch spriteBatch;
+        public Rectangle BoundingBox
+        {
+            get
+            {
+                return Destination;
+            }
+        }
+
 
 
         public SolidBlock(SpriteBatch spriteBatch, Texture2D texture, Rectangle src, Rectangle dst)
