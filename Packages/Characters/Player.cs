@@ -19,6 +19,7 @@ namespace Project
 
         // Add public property to expose _previousPosition
         public Vector2 PreviousPosition => _previousPosition;
+
         public Player()
         {
             // Set initial default states
@@ -90,9 +91,6 @@ namespace Project
                     Sprite.State = SpriteState.Stopped;
                     break;
             }
-
-        }
-
         public void HandleBlockCollision(SolidBlock block)
         {
             // Revertint player to last safe position when colliding
@@ -102,6 +100,7 @@ namespace Project
             PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
                                          PositionRect.Width, PositionRect.Height);
 
+            // Can add reduce health logic here later; trigger damage animation
             // Can add reduce health logic here later; trigger damage animation
         }
 

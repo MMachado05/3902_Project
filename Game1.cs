@@ -122,6 +122,8 @@ namespace Project
                 player.SetStaticSprite(); // Set idle sprite
             }
 
+            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
             // Update lastDirection based on movement input (def need to change this approach)
             if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
             else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
