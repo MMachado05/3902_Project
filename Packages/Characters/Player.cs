@@ -14,6 +14,7 @@ namespace Project
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
         private Dictionary<String, Direction> stringDirToEnum;
+        public Vector2 velocity;
 
         private float elapsedTime;
         private Vector2 _previousPosition;
@@ -33,6 +34,7 @@ namespace Project
             // Set initial default states
             PositionVector = new Vector2(36, 36);
             PositionRect = new Rectangle(36, 36, 64, 64);
+            velocity = new Vector2(0, 0);
             // Because the vector is the origin, we need to offset the top-left corner of
             //  the rect in order to have the rect properly surround the sprite.
             LastDirection = "Down";
@@ -45,16 +47,9 @@ namespace Project
 
         public void Move(int dx, int dy, string direction)
         {
-            // Store previous movement here to prevent moving upon collision.
-            _previousPosition = PositionVector;
-
-            // Update position
-            PositionVector = new Vector2(PositionVector.X + dx, PositionVector.Y + dy);
-            PositionRect = new Rectangle(PositionRect.X + dx, PositionRect.Y + dy,
-                                         PositionRect.Width, PositionRect.Height);
-
-            // Keep track of last direction
-            LastDirection = direction;
+            this.velocity.X = dx;
+            this.velocity.Y = dy;
+            this.LastDirection = direction;
         }
 
         public void ChangeSprite(ISprite newSprite)
@@ -63,6 +58,8 @@ namespace Project
         }
         public void SetStaticSprite()
         {
+            this.velocity.X = 0;
+            this.velocity.Y = 0;
             SpriteType = this.stringDirToEnum[LastDirection];
             Sprite.State = SpriteState.Stopped;
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
@@ -71,6 +68,17 @@ namespace Project
 
         public void Update(GameTime gameTime)
         {
+            // Move correctly
+            // Store previous movement here to prevent moving upon collision.
+            _previousPosition = PositionVector;
+
+            // Update position
+            PositionVector = new Vector2(PositionVector.X + this.velocity.X,
+                PositionVector.Y + this.velocity.Y);
+            PositionRect = new Rectangle(PositionRect.X + (int)this.velocity.X,
+                PositionRect.Y + (int)this.velocity.Y,
+                                         PositionRect.Width, PositionRect.Height);
+            
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
