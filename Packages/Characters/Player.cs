@@ -91,6 +91,7 @@ namespace Project
                     Sprite.State = SpriteState.Stopped;
                     break;
             }
+        }
         public void HandleBlockCollision(SolidBlock block)
         {
             // Revertint player to last safe position when colliding
