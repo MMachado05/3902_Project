@@ -12,7 +12,7 @@ namespace Project.rooms
 {
     public class RoomsManager
     {
-        private List<IRoom> RoomsList;
+        public List<IRoom> RoomsList{get;set;}
         public int currentRoomIndex{get;set;}
 
         public RoomsManager(SolidBlockManager manager,EnemyManager enemyManager, Game1 game)

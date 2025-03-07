@@ -18,6 +18,7 @@ namespace Project.Packages
         public RoomParser parser;
         Game1 game;
         List<object> result;
+        public List<object> BlocksList{get;set;}
         int playerIndex;
         int counter = 0;
 
@@ -33,6 +34,7 @@ namespace Project.Packages
         public List<Object> roomMap()
         {
             result = new List<object>();
+            BlocksList = new List<object>();
             foreach (var item in room)
             {
                 Rectangle dest;
@@ -44,16 +46,21 @@ namespace Project.Packages
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
                         block = manager.boardersBrick(dest);
                         result.Add(block);
+                        BlocksList.Add(block);
                         break;
                     case "ob":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
                         block = manager.obstacleBlock(dest);
                         result.Add(block);
+                        BlocksList.Add(block);
+
                         break;
                     case "dr":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
                         block = manager.doorBlock(dest);
                         result.Add(block);
+                        BlocksList.Add(block);
+
                         break;
                     case "en":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);

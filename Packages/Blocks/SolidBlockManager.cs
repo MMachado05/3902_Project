@@ -36,5 +36,11 @@ namespace Project.Blocks
             return new SolidBlock(_SpriteBatch, test, SolidBlockSpriteFactory.Instance.doorBlock(), destination);
         }
 
+        // Added in order to allow game1.cs to iterate over all blocks, rather than just the current one.
+       /* public List<SolidBlock> GetAllBlocks()
+        {
+            return Blocks;
+        }*/
+
     }
 }

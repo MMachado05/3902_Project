@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
-using Project.Packages;
+using Project.Packages.Characters;
 using Project.Packages.Items;
 using Project.renderer;
 using Project.rooms;
@@ -25,6 +25,8 @@ namespace Project
         public Direction spriteType;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
+        private CollisionManager collisionManager;
+
 
         private EnemyManager enemyManager;
 
@@ -60,7 +62,7 @@ namespace Project
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            
+
         }
         protected override void Initialize()
         {
@@ -76,6 +78,8 @@ namespace Project
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player();
+            collisionManager = new CollisionManager();
+
 
 
             // Load all textures
@@ -96,7 +100,7 @@ namespace Project
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
             roomManager = new RoomsManager(blockManager,enemyManager,this);
-            renderer = new Renderer(roomManager,enemyManager);
+            renderer = new Renderer(roomManager,enemyManager,collisionManager);
             mouseController = new MouseController(this,_graphics,roomManager);
 
             ItemFactory.Instance.LoadContent(Content);
@@ -116,6 +120,9 @@ namespace Project
             mouseController.Update();
 
             KeyboardState currentState = Keyboard.GetState();
+
+            //collisionManager.UpdateCollisions(player, roomManager);
+
 
             // Checking for keys pressed to switch items; should be moved out of game1
             if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))

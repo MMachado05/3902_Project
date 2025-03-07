@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Blocks;
 
 namespace Project
 {
@@ -14,12 +15,18 @@ namespace Project
         public Boolean isDamaged;
 
         private float elapsedTime;
+        private Vector2 _previousPosition;
+
+        // Add public property to expose _previousPosition
+        public Vector2 PreviousPosition => _previousPosition;
 
         public Player()
         {
             // Set initial default states
-           // PositionVector = new Vector2(36, 36);
-           // PositionRect = new Rectangle(36, 36, 64, 64);// hit box 
+            PositionVector = new Vector2(36, 36);
+            PositionRect = new Rectangle(36, 36, 64, 64);
+            // Because the vector is the origin, we need to offset the top-left corner of
+            //  the rect in order to have the rect properly surround the sprite.
             LastDirection = "Down";
             isDamaged = false;
 
@@ -27,8 +34,12 @@ namespace Project
             Sprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
         }
 
+
         public void Move(int dx, int dy, string direction)
         {
+            // Store previous movement here to prevent moving upon collision.
+            _previousPosition = PositionVector;
+
             // Update position
             PositionVector = new Vector2(PositionVector.X + dx, PositionVector.Y + dy);
             PositionRect = new Rectangle(PositionRect.X + dx, PositionRect.Y + dy,
@@ -82,6 +93,7 @@ namespace Project
             }
 
         }
+
 
         public void Update(GameTime gameTime)
         {

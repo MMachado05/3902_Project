@@ -11,5 +11,7 @@ namespace Project.rooms
     {
     public List<Object> roomMap();
      public int getPlayerIndex();
+    public List<object> BlocksList{get;set;}
+
     }
 }

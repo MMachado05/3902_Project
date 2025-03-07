@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
 using Project.Enemies.EnemyClasses;
+using Project.Packages.Characters;
 using Project.renderer;
 using Project.rooms;
 
@@ -23,11 +24,12 @@ namespace Project.renderer
         float elapsedTime;
         EnemyManager enemyManager;
         RoomsManager roomsManager;
+        CollisionManager CollisionManager;
 
         Player Player1;
         KeyboardState input;
          int playerIndex;
-        public Renderer(RoomsManager roomsManager,EnemyManager enemyManager)
+        public Renderer(RoomsManager roomsManager,EnemyManager enemyManager,CollisionManager collisionManager)
         {
             itemList = roomsManager.GetCurrentRoom().roomMap();
             playerIndex = roomsManager.GetCurrentRoom().getPlayerIndex();
@@ -36,6 +38,7 @@ namespace Project.renderer
             currentRoomIndex = roomsManager.currentRoomIndex;
             prevRoomIndex = currentRoomIndex;
             this.enemyManager = enemyManager;
+            this.CollisionManager = collisionManager;
 
         }
 
@@ -72,6 +75,8 @@ namespace Project.renderer
 
         public void Update(GameTime gameTime)
         {
+           // CollisionManager.UpdateCollisions(Player1, roomsManager);
+
             input = Keyboard.GetState();
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && Player1.Sprite.State != SpriteState.Attacking)
             {
@@ -92,8 +97,11 @@ namespace Project.renderer
 
             if(currentRoomIndex!=prevRoomIndex){
                 itemList =roomsManager.GetCurrentRoom().roomMap();
+
                 prevRoomIndex = currentRoomIndex;
             }
+            CollisionManager.UpdateCollisions(Player1, roomsManager.GetCurrentRoom().BlocksList);
+
         }
     }
 }
