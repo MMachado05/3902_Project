@@ -128,16 +128,8 @@ namespace Project
             //should be replaced with level loader
             _itemController.Update();
 
-<<<<<<< HEAD
             // Update world items
             foreach (IItem item in itemManager.GetWorldItems())
-=======
-            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
-
-
-            // Checking for keys pressed to switch items; should be moved out of game1
-            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
->>>>>>> origin/main
             {
                 item.Update();
             }
