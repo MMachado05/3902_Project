@@ -23,6 +23,8 @@ namespace Project
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
         MouseController mouseController;
+        // NOTE: From Boggus: The Controllers all implement IController, so we should
+        // use that abstraction
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         public Direction spriteType;
@@ -31,6 +33,8 @@ namespace Project
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
         private CollisionManager collisionManager;
 
+        // NOTE: From Boggus: enemyManager, etc. should all be hidden behind a room manager.
+        // Remove dependencies here once they've been moved into their appropriate classes
 
         private EnemyManager enemyManager;
         private float elapsedTime;
@@ -132,6 +136,7 @@ namespace Project
             else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
             else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
             else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
+            // NOTE: From Boggus: Move to KeyboardController class
 
 
             //should be replaced with level loader
