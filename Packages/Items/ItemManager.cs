@@ -15,6 +15,11 @@ namespace Project.Packages.Items
         {
             _game = game;
 
+            // NOTE: From Boggus: Separate these into three different classes.
+            // Recommendation: items in the world and *maybe* the ones in the inventory
+            // can be IItems. Projectiles should be IProjectiles, due to the collision
+            // logic differing (inventory items don't collide, so we could just reuse
+            // some other type). Always ensure we have sprites to actually draw them.
             inventory = new List<IItem>
             {
                 new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateSwordSprite()),
