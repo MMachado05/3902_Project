@@ -78,6 +78,9 @@ namespace Project.Packages
                 }
                 counter++;
 
+                // NOTE: From Boggus, we need magic strings and lots of loops in order
+                // to pull off parsers, so while it does have code smells, we won't
+                // concern ourselves too much
             }
             return result;
         }

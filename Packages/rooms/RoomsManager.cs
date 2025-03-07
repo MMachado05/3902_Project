@@ -12,6 +12,8 @@ namespace Project.rooms
 {
     public class RoomsManager
     {
+        // NOTE: From Boggus: consider using 2D Array or Graph data structure
+        // to store rooms,  so as to have built-in adjacency
         public List<IRoom> RoomsList{get;set;}
         public int currentRoomIndex{get;set;}
 

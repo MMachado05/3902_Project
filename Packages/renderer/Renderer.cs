@@ -39,8 +39,13 @@ namespace Project.renderer
             prevRoomIndex = currentRoomIndex;
             this.enemyManager = enemyManager;
             this.CollisionManager = collisionManager;
+            // Boggus notes: IOn draw, just call Draw() in everything in the item list
+            // If you *don't* want to draw something, just have an empty implementation
+            // of Draw()
 
         }
+        // NOTE: From Boggus: consider using 2D Array or Graph data structure
+        // to store rooms,  so as to have built-in adjacency
 
         public void Draw(SpriteBatch spriteBatch)
         {

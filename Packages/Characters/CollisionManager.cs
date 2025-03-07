@@ -22,7 +22,12 @@ namespace Project.Packages.Characters
 
         public void UpdateCollisions(Player player, List<object>solidBlocks)
         {
-           
+          // NOTE: From Boggus: One optimization; take adjacent blocks and "consolidate"
+          // them when calculating collisions, so as to reducce the number of "objects"
+          // we need to compare for intersections. E.g. A single wall would be one, long
+          // rectangle, rather than various individual blocks all next to one another.
+          // In that vein, create an object class (similar to blocks) that is just
+          // a rectangular "block"
             
             foreach (var block in solidBlocks)
             {
@@ -39,3 +44,7 @@ namespace Project.Packages.Characters
     }
 
 }
+
+// NOTE: From Boggus: If you have a dictionary, you *could* have a single Collision Manager
+// class, but otherwise, it's not a bad idea to have individual collision managers for each
+// type of collision
