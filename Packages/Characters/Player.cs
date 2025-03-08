@@ -8,9 +8,9 @@ namespace Project
     public class Player
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get;  set; }
-        public Rectangle PositionRect { get;  set; }
-        public String LastDirection { get; private set; }
+        public Vector2 PositionVector { get; set; }
+        public Rectangle PositionRect { get; set; }
+        public string LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
         private Dictionary<String, Direction> stringDirToEnum;

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Packages.Items;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class Aquamentus : Enemy
     {
-        private List<Projectile> projectiles = new List<Projectile>();
+        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
         public Aquamentus(Vector2 startPosition) : base(startPosition) { }
@@ -49,7 +50,7 @@ namespace Project.Enemies.EnemyClasses
 
             foreach (var direction in GetAttackDirections())
             {
-                projectiles.Add(new Projectile(Position, direction, EnemySpriteFactory.Instance.NewFireball(), 30.0f, 600f));
+                projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));
             }
         }
 

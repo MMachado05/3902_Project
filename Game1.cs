@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Content;
 using Project.Enemies;
 using Project.Packages.Characters;
 using Project.Packages.Items;
@@ -13,7 +14,7 @@ namespace Project
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // Not best practice
         private KeyboardController _keyboardController;
-        private Player player;
+        public Player player;
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         private Rectangle playerPosition;
@@ -42,8 +43,8 @@ namespace Project
 
         // should be moved out of game1
         ItemManager itemManager;
-        KeyboardState previousState = new KeyboardState();
-
+        private ItemController _itemController;
+        PlayerItemCollisionHandler playerItemCollisionHandler;
 
         public Game1()
         {
@@ -85,6 +86,12 @@ namespace Project
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
 
+            // Load item sprites and create item manager
+            ItemFactory.Instance.LoadContent(Content);
+            itemManager = new ItemManager(this);
+            // Initialize ItemController with commands for switching items
+            _itemController = new ItemController(itemManager, this);
+
             // Initialize KeyboardController with movement and quit commands, pass in player and game
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
@@ -92,13 +99,8 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
-
-
-
-            ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager();
+            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
-
 
         protected override void Update(GameTime gameTime)
         {
@@ -108,44 +110,41 @@ namespace Project
 
 
             _keyboardController.Update();
+            _itemController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
+
+            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite
             }
 
-            player.Update(gameTime);
-
-            KeyboardState currentState = Keyboard.GetState();
-
             collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
 
+            // Update lastDirection based on movement input (def need to change this approach)
+            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
+            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
+            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
+            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
 
-            // Checking for keys pressed to switch items; should be moved out of game1
-            if (currentState.IsKeyDown(Keys.I) && !previousState.IsKeyDown(Keys.I))
+            player.Update(gameTime);
+
+            //should be replaced with level loader
+            _itemController.Update();
+
+            // Update world items
+            foreach (IItem item in itemManager.GetWorldItems())
             {
-                itemManager.nextItem();
+                item.Update();
             }
-            if (currentState.IsKeyDown(Keys.U) && !previousState.IsKeyDown(Keys.U))
-            {
-                itemManager.previousItem();
-            }
-            if (currentState.IsKeyDown(Keys.D1) && !previousState.IsKeyDown(Keys.D1))
-            {
-                itemManager.currentItemIndex = 0;
-            }
-            if (currentState.IsKeyDown(Keys.D2) && !previousState.IsKeyDown(Keys.D2))
-            {
-                itemManager.currentItemIndex = 1;
-            }
-            if (currentState.IsKeyDown(Keys.D3) && !previousState.IsKeyDown(Keys.D3))
-            {
-                itemManager.currentItemIndex = 2;
-            }
-            itemManager.getCurrentItem().Update();
-            previousState = currentState;
+
+            //Placing and updating inventory items
+            itemManager.GetCurrentItem().Update();
+            itemManager.PlaceInventoryItem();
+
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
@@ -155,6 +154,8 @@ namespace Project
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+
+            playerItemCollisionHandler.HandlePlayerItemCollision();
 
             base.Update(gameTime);
         }
@@ -169,7 +170,14 @@ namespace Project
             player.Draw(_spriteBatch);
 
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
-            itemManager.getCurrentItem().Draw(_spriteBatch);
+
+            // Draw world items
+            foreach (IItem item in itemManager.GetWorldItems())
+            {
+                item.Draw(_spriteBatch);
+            }
+            // Draw inventory items
+            itemManager.GetCurrentItem().Draw(_spriteBatch);
 
             _spriteBatch.End();
 
