@@ -31,33 +31,25 @@ namespace Project.Blocks
 
         public void LoadAllTextures(ContentManager content)
         {
-            this.SolidBlockSheet = content.Load<Texture2D>("SolidBlocks32x32");
+            this.SolidBlockSheet = content.Load<Texture2D>("blocks");
         }
 
         // Stopped Player sprites
-        public SolidBlock grayBrick(SpriteBatch spriteBatch)
+        public Rectangle boardersBrick()
         {
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(0, 0, 32, 32), Destination);
+            return new Rectangle(320, 256, 32, 32);
         }
-        public SolidBlock grayGrassBrick(SpriteBatch spriteBatch)
+        public Rectangle doorBlock()
         {
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(32, 0, 32, 32), Destination);
+            return new Rectangle(384, 256, 64, 64);
         }
-        public SolidBlock whiteBrick(SpriteBatch spriteBatch)
+        public Rectangle obstacle()
         {
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(64, 0, 32, 32), Destination);
+            return new Rectangle(384, 384, 64, 64);
         }
-        public SolidBlock orangeBrick(SpriteBatch spriteBatch)
-        {
-            this.spriteBatch = spriteBatch;
-            return new SolidBlock(spriteBatch, this.SolidBlockSheet,
-                new Rectangle(96, 0, 32, 32), Destination);
+        public Texture2D getSolidBlockSheet(){
+            
+            return this.SolidBlockSheet;
         }
 
     }

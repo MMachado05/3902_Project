@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Blocks;
+using Project.rooms;
 
 namespace Project.Packages.Characters
 {
@@ -26,13 +27,22 @@ namespace Project.Packages.Characters
             // Can prob add reduce health logic here later; trigger damage animation
         }
 
-        public void UpdateCollisions(Player player, List<SolidBlock> blocks)
+        public void UpdateCollisions(Player player, List<object>solidBlocks)
         {
-            foreach (var block in blocks)
+          // NOTE: From Boggus: One optimization; take adjacent blocks and "consolidate"
+          // them when calculating collisions, so as to reducce the number of "objects"
+          // we need to compare for intersections. E.g. A single wall would be one, long
+          // rectangle, rather than various individual blocks all next to one another.
+          // In that vein, create an object class (similar to blocks) that is just
+          // a rectangular "block"
+            
+            foreach (var block in solidBlocks)
             {
-                if (player.PositionRect.Intersects(block.BoundingBox))
+                
+                SolidBlock blockHolder = (SolidBlock)block;
+                if (player.PositionRect.Intersects(blockHolder.BoundingBox))
                 {
-                    ICommand collisionCommand = new PlayerBlockCollisionCommand(player, block, this);
+                    ICommand collisionCommand = new PlayerBlockCollisionCommand(player, blockHolder, this);
                     collisionCommand.Execute();
                 }
             }
@@ -41,3 +51,7 @@ namespace Project.Packages.Characters
     }
 
 }
+
+// NOTE: From Boggus: If you have a dictionary, you *could* have a single Collision Manager
+// class, but otherwise, it's not a bad idea to have individual collision managers for each
+// type of collision

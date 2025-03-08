@@ -9,7 +9,7 @@ namespace Project.Blocks
         }
         public void Execute()
         {
-            Manager.SwitchToNextBlock();
+            //Manager.SwitchToNextBlock();
         }
     }
 }
