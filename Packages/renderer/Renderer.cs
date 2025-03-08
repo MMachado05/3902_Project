@@ -20,7 +20,7 @@ namespace Project.renderer
         int currentRoomIndex;
         int prevRoomIndex;
 
-        
+
         float elapsedTime;
         EnemyManager enemyManager;
         RoomsManager roomsManager;
@@ -28,12 +28,14 @@ namespace Project.renderer
 
         Player Player1;
         KeyboardState input;
-         int playerIndex;
-        public Renderer(RoomsManager roomsManager,EnemyManager enemyManager,CollisionManager collisionManager)
+        int playerIndex;
+
+        private EnemyCollisionManager enemyCollisionManager;
+        public Renderer(RoomsManager roomsManager, EnemyManager enemyManager, CollisionManager collisionManager)
         {
             itemList = roomsManager.GetCurrentRoom().roomMap();
             playerIndex = roomsManager.GetCurrentRoom().getPlayerIndex();
-            Player1 =(Player) itemList[playerIndex];
+            Player1 = (Player)itemList[playerIndex];
             this.roomsManager = roomsManager;
             currentRoomIndex = roomsManager.currentRoomIndex;
             prevRoomIndex = currentRoomIndex;
@@ -42,7 +44,7 @@ namespace Project.renderer
             // Boggus notes: IOn draw, just call Draw() in everything in the item list
             // If you *don't* want to draw something, just have an empty implementation
             // of Draw()
-
+            enemyCollisionManager = new EnemyCollisionManager();
         }
         // NOTE: From Boggus: consider using 2D Array or Graph data structure
         // to store rooms,  so as to have built-in adjacency
@@ -68,7 +70,7 @@ namespace Project.renderer
                         break;
                     case List<Enemy> enemy:
                         //nothing for now, draw enemey in here in future
-                    
+
                         break;
                     default:
 
@@ -80,7 +82,7 @@ namespace Project.renderer
 
         public void Update(GameTime gameTime)
         {
-           // CollisionManager.UpdateCollisions(Player1, roomsManager);
+            // CollisionManager.UpdateCollisions(Player1, roomsManager);
 
             input = Keyboard.GetState();
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && Player1.Sprite.State != SpriteState.Attacking)
@@ -89,8 +91,8 @@ namespace Project.renderer
             }
 
             Player1.Update(gameTime);
-            
-              elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25)
             {
                 enemyManager.GetCurrentEnemy().UpdateAnimation(gameTime);
@@ -98,14 +100,17 @@ namespace Project.renderer
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
-            currentRoomIndex =roomsManager.currentRoomIndex;
+            currentRoomIndex = roomsManager.currentRoomIndex;
 
-            if(currentRoomIndex!=prevRoomIndex){
-                itemList =roomsManager.GetCurrentRoom().roomMap();
+            if (currentRoomIndex != prevRoomIndex)
+            {
+                itemList = roomsManager.GetCurrentRoom().roomMap();
 
                 prevRoomIndex = currentRoomIndex;
             }
             CollisionManager.UpdateCollisions(Player1, roomsManager.GetCurrentRoom().BlocksList);
+
+            enemyCollisionManager.UpdateEnemyCollisions(enemyManager.GetCurrentEnemy(), roomsManager.GetCurrentRoom().BlocksList); // Handle enemy collisions
 
         }
     }
