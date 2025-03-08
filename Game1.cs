@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Content;
 using Project.Enemies;
 using Project.Packages.Characters;
 using Project.Packages.Items;
@@ -59,7 +60,7 @@ namespace Project
 
 
         private ItemController _itemController;
-
+        PlayerItemCollisionHandler playerItemCollisionHandler;
 
         public Game1()
         {
@@ -115,6 +116,7 @@ namespace Project
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
             mouseController = new MouseController(this, _graphics, roomManager);
 
+            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -128,7 +130,13 @@ namespace Project
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
-          
+
+            //collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
+            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
+            {
+                player.SetStaticSprite(); // Set idle sprite
+            }
 
 
             // Update lastDirection based on movement input (def need to change this approach)
@@ -154,6 +162,8 @@ namespace Project
 
 
             renderer.Update(gameTime);
+
+            playerItemCollisionHandler.HandlePlayerItemCollision();
 
             base.Update(gameTime);
         }
