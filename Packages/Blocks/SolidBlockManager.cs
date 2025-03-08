@@ -1,53 +1,46 @@
 using System.Collections.Generic;
+using System.Net.Mime;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Blocks
 {
     public class SolidBlockManager
     {
-        private List<SolidBlock> Blocks;
-        private int currentBlockIndex;
+
+        SpriteBatch _SpriteBatch;
+        Texture2D test;
+
+
 
         public SolidBlockManager(SpriteBatch spriteBatch)
         {
-            Blocks = new List<SolidBlock>
-            {
-             SolidBlockSpriteFactory.Instance.grayBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.grayGrassBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.orangeBrick(spriteBatch),
-             SolidBlockSpriteFactory.Instance.whiteBrick(spriteBatch)
-            };
-            currentBlockIndex = 0;
-        }
+            _SpriteBatch = spriteBatch;
+            this.test = SolidBlockSpriteFactory.Instance.getSolidBlockSheet();
 
-        public void SwitchToPreviousBlock()
-        {
-            if (Blocks.Count == 0) return;
-            if (currentBlockIndex <= 0)
-                currentBlockIndex = Blocks.Count - 1;
-            else
-                currentBlockIndex--;
-        }
 
-        public void SwitchToNextBlock()
-        {
-            if (Blocks.Count == 0) return;
-            if (currentBlockIndex >= Blocks.Count - 1)
-                currentBlockIndex = 0;
-            else
-                currentBlockIndex++;
-        }
 
-        public SolidBlock GetCurrentBlock()
+
+        }
+        public SolidBlock boardersBrick(Rectangle destination)
         {
-            return Blocks.Count > 0 ? Blocks[currentBlockIndex] : null;
+            return new SolidBlock(_SpriteBatch, test, SolidBlockSpriteFactory.Instance.boardersBrick(), destination);
+        }
+        public SolidBlock obstacleBlock(Rectangle destination)
+        {
+            return new SolidBlock(_SpriteBatch, test, SolidBlockSpriteFactory.Instance.obstacle(), destination);
+        }
+        public SolidBlock doorBlock(Rectangle destination)
+        {
+            return new SolidBlock(_SpriteBatch, test, SolidBlockSpriteFactory.Instance.doorBlock(), destination);
         }
 
         // Added in order to allow game1.cs to iterate over all blocks, rather than just the current one.
-        public List<SolidBlock> GetAllBlocks()
-        {
-            return Blocks;
-        }
+        /* public List<SolidBlock> GetAllBlocks()
+         {
+             return Blocks;
+         }*/
 
     }
 }
