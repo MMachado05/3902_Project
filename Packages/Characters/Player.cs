@@ -92,6 +92,8 @@ namespace Project
                     break;
             }
 
+            // Can add reduce health logic here later; trigger damage animation
+            // Can add reduce health logic here later; trigger damage animation
         }
 
 
