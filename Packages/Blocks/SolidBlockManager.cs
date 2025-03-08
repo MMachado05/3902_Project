@@ -37,10 +37,10 @@ namespace Project.Blocks
         }
 
         // Added in order to allow game1.cs to iterate over all blocks, rather than just the current one.
-       /* public List<SolidBlock> GetAllBlocks()
-        {
-            return Blocks;
-        }*/
+        /* public List<SolidBlock> GetAllBlocks()
+         {
+             return Blocks;
+         }*/
 
     }
 }
