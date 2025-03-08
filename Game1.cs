@@ -98,7 +98,7 @@ namespace Project
             blockManager = new SolidBlockManager(_spriteBatch);
 
             // Set initial sprite to static down
-            playerSprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
+            playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
 
             // Load item sprites and create item manager
             ItemFactory.Instance.LoadContent(Content);

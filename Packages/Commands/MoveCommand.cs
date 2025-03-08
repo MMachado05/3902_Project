@@ -1,14 +1,22 @@
-﻿namespace Project
+﻿using System.Collections.Generic;
+
+namespace Project
 {
     public class MoveCommand : ICommand
     {
         private Player _player;
         private string _direction;
+        private Dictionary<string, Direction> stringToEnum;
 
         public MoveCommand(Player player, string direction)
         {
             _direction = direction;
             _player = player;
+            stringToEnum = new Dictionary<string, Direction>();
+            stringToEnum.Add("Up", Direction.Up);
+            stringToEnum.Add("Down", Direction.Down);
+            stringToEnum.Add("Right", Direction.Right);
+            stringToEnum.Add("Left", Direction.Left);
         }
 
         public void Execute()
@@ -36,52 +44,11 @@
             {
                 _player.Move(dx, dy, _direction);
 
-                switch (_direction)
+                if (_player.SpriteType != stringToEnum[_direction]
+                    || _player.Sprite.State == SpriteState.FinishedAttack)
                 {
-                    case "Up":
-                        if (_player.SpriteType != Direction.Up
-                            || _player.Sprite.State == SpriteState.FinishedAttack)
-                        {
-                            _player.SpriteType = Direction.Up;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewUpWalkingPlayer());
-                        }
-                        break;
-                    case "Down":
-                        if (_player.SpriteType != Direction.Down
-                            || _player.Sprite.State == SpriteState.FinishedAttack)
-                        {
-                            _player.SpriteType = Direction.Down;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDownWalkingPlayer());
-                        }
-                        break;
-                    case "Left":
-                        if (_player.SpriteType != Direction.Left
-                            || _player.Sprite.State == SpriteState.FinishedAttack)
-                        {
-                            _player.SpriteType = Direction.Left;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewLeftWalkingPlayer());
-                        }
-                        break;
-                    case "Right":
-                        if (_player.SpriteType != Direction.Right
-                            || _player.Sprite.State == SpriteState.FinishedAttack)
-                        {
-                            _player.SpriteType = Direction.Right;
-                            if (_player.isDamaged)
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightWalkingPlayer());
-                            else
-                                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewRightWalkingPlayer());
-                        }
-                        break;
+                  _player.SpriteType = stringToEnum[_direction];
+                  _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(stringToEnum[_direction], _player.isDamaged));
                 }
             }
         }

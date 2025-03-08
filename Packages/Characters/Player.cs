@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Blocks;
 
 namespace Project
 {
@@ -13,6 +13,8 @@ namespace Project
         public string LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
+        private Dictionary<String, Direction> stringDirToEnum;
+        public Vector2 velocity;
 
         private float elapsedTime;
         private Vector2 _previousPosition;
@@ -22,31 +24,32 @@ namespace Project
 
         public Player()
         {
+            // TODO: This is a hotfix because other methods expect to pass in strings.
+            // Eventually, everything should be using the enums.
+            stringDirToEnum = new Dictionary<string, Direction>();
+            stringDirToEnum.Add("Up", Direction.Up);
+            stringDirToEnum.Add("Down", Direction.Down);
+            stringDirToEnum.Add("Left", Direction.Left);
+            stringDirToEnum.Add("Right", Direction.Right);
             // Set initial default states
             PositionVector = new Vector2(36, 36);
-            PositionRect = new Rectangle(36, 36, 64, 64);
+            PositionRect = new Rectangle(36, 36, 20, 44);
+            velocity = new Vector2(0, 0);
             // Because the vector is the origin, we need to offset the top-left corner of
             //  the rect in order to have the rect properly surround the sprite.
             LastDirection = "Down";
             isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
-            Sprite = PlayerSpriteFactory.Instance.NewDownStoppedPlayer();
+            Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
         }
 
 
         public void Move(int dx, int dy, string direction)
         {
-            // Store previous movement here to prevent moving upon collision.
-            _previousPosition = PositionVector;
-
-            // Update position
-            PositionVector = new Vector2(PositionVector.X + dx, PositionVector.Y + dy);
-            PositionRect = new Rectangle(PositionRect.X + dx, PositionRect.Y + dy,
-                                         PositionRect.Width, PositionRect.Height);
-
-            // Keep track of last direction
-            LastDirection = direction;
+            this.velocity.X = dx;
+            this.velocity.Y = dy;
+            this.LastDirection = direction;
         }
 
         public void ChangeSprite(ISprite newSprite)
@@ -55,59 +58,27 @@ namespace Project
         }
         public void SetStaticSprite()
         {
-
-            switch (LastDirection)
-            {
-                case "Up":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedUpStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewUpStoppedPlayer());
-                    SpriteType = Direction.Up;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Down":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedDownStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDownStoppedPlayer());
-                    SpriteType = Direction.Down;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Left":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedLeftStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewLeftStoppedPlayer());
-                    SpriteType = Direction.Left;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-                case "Right":
-                    if (isDamaged)
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewDamagedRightStoppedPlayer());
-                    else
-                        ChangeSprite(PlayerSpriteFactory.Instance.NewRightStoppedPlayer());
-                    SpriteType = Direction.Right;
-                    Sprite.State = SpriteState.Stopped;
-                    break;
-            }
-        }
-        public void HandleBlockCollision(SolidBlock block)
-        {
-            // Revertint player to last safe position when colliding
-            // NOTE: Because the sprite is not actually drawn exactly where the bounding box is, we have to do these weird offsets.
-            // This can be fixed by fixing the sprite textures for the blocks at some point. Then the offsets can be removed.
-            PositionVector = _previousPosition;
-            PositionRect = new Rectangle((int)_previousPosition.X - 32, (int)_previousPosition.Y - 32,
-                                         PositionRect.Width, PositionRect.Height);
-
-            // Can add reduce health logic here later; trigger damage animation
-            // Can add reduce health logic here later; trigger damage animation
+            this.velocity.X = 0;
+            this.velocity.Y = 0;
+            SpriteType = this.stringDirToEnum[LastDirection];
+            Sprite.State = SpriteState.Stopped;
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
 
 
         public void Update(GameTime gameTime)
         {
+            // Move correctly
+            // Store previous movement here to prevent moving upon collision.
+            _previousPosition = PositionVector;
+
+            // Update position
+            PositionVector = new Vector2(PositionVector.X + this.velocity.X,
+                PositionVector.Y + this.velocity.Y);
+            PositionRect = new Rectangle(PositionRect.X + (int)this.velocity.X,
+                PositionRect.Y + (int)this.velocity.Y,
+                                         PositionRect.Width, PositionRect.Height);
+            
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
