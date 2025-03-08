@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Content;
 using Project.Enemies;
 using Project.Packages.Characters;
 using Project.Packages.Items;
@@ -43,7 +44,7 @@ namespace Project
         // should be moved out of game1
         ItemManager itemManager;
         private ItemController _itemController;
-
+        PlayerItemCollisionHandler playerItemCollisionHandler;
 
         public Game1()
         {
@@ -98,6 +99,7 @@ namespace Project
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
 
+            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -112,6 +114,9 @@ namespace Project
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
+
+            collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
+
             if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite
@@ -149,6 +154,8 @@ namespace Project
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
+
+            playerItemCollisionHandler.HandlePlayerItemCollision();
 
             base.Update(gameTime);
         }
