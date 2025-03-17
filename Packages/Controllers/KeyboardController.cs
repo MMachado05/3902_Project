@@ -27,15 +27,15 @@ namespace Project
             _game = game1;
 
             _movementCommands = new Dictionary<Keys, ICommand>();
-            _movementCommands.Add(Keys.W, new MoveCommand(_player, "Up"));
-            _movementCommands.Add(Keys.A, new MoveCommand(_player, "Left"));
-            _movementCommands.Add(Keys.S, new MoveCommand(_player, "Down"));
-            _movementCommands.Add(Keys.D, new MoveCommand(_player, "Right"));
+            _movementCommands.Add(Keys.W, new MoveCommand(_player, Direction.Up));
+            _movementCommands.Add(Keys.A, new MoveCommand(_player, Direction.Left));
+            _movementCommands.Add(Keys.S, new MoveCommand(_player, Direction.Down));
+            _movementCommands.Add(Keys.D, new MoveCommand(_player, Direction.Right));
 
-            _movementCommands.Add(Keys.Up, new MoveCommand(_player, "Up"));
-            _movementCommands.Add(Keys.Left, new MoveCommand(_player, "Left"));
-            _movementCommands.Add(Keys.Down, new MoveCommand(_player, "Down"));
-            _movementCommands.Add(Keys.Right, new MoveCommand(_player, "Right"));
+            _movementCommands.Add(Keys.Up, new MoveCommand(_player, Direction.Up));
+            _movementCommands.Add(Keys.Left, new MoveCommand(_player, Direction.Left));
+            _movementCommands.Add(Keys.Down, new MoveCommand(_player, Direction.Down));
+            _movementCommands.Add(Keys.Right, new MoveCommand(_player, Direction.Right));
 
             _movementCommands.Add(Keys.Z, new AttackCommand(_player));
             _movementCommands.Add(Keys.N, new AttackCommand(_player));
@@ -45,8 +45,8 @@ namespace Project
             _commands = new Dictionary<Keys, ICommand>();
             _commands.Add(Keys.E, new DamageCommand(_player));
             _commands.Add(Keys.R, new RestartGameCommand(_game));
-            _commands.Add(Keys.T, new NextBlockCommand(blockManager));
-            _commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));
+            /*_commands.Add(Keys.T, new NextBlockCommand(blockManager));*/
+            /*_commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));*/
             _commands.Add(Keys.O, new CommandPreviousEnemy(_game, enemyManager));
             _commands.Add(Keys.P, new CommandNextEnemy(_game, enemyManager));
 
