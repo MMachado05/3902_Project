@@ -41,7 +41,7 @@ namespace Project.rooms
             string roomListPath = pathPrefix + "rooms.csv";
             if (!File.Exists(roomListPath))
             {
-              // TODO: Add other options 
+                // TODO: Add other options 
             }
             StreamReader roomListReader = new StreamReader(roomListPath);
 
@@ -86,11 +86,11 @@ namespace Project.rooms
             do
             {
                 this.currentRoomX++;
-                if (this.currentRoomX > this.Map.GetLength(COLS))
+                if (this.currentRoomX > this.Map.GetLength(ROWS))
                 {
                     this.currentRoomX = 0;
                     this.currentRoomY++;
-                    if (this.currentRoomY > this.Map.GetLength(ROWS))
+                    if (this.currentRoomY > this.Map.GetLength(COLS))
                         this.currentRoomY = 0;
                 }
             } while (this.Map[currentRoomX, currentRoomY] == null);
@@ -110,10 +110,10 @@ namespace Project.rooms
                 this.currentRoomX--;
                 if (this.currentRoomX < 0)
                 {
-                    this.currentRoomX = this.Map.GetLength(COLS) - 1;
+                    this.currentRoomX = this.Map.GetLength(ROWS) - 1;
                     this.currentRoomY--;
                     if (this.currentRoomY < 0)
-                        this.currentRoomY = this.Map.GetLength(ROWS) - 1;
+                        this.currentRoomY = this.Map.GetLength(COLS) - 1;
                 }
             } while (this.Map[currentRoomX, currentRoomY] == null);
 

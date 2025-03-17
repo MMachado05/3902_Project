@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,13 +15,11 @@ namespace Project.renderer
     public class Renderer : IRenderer
     {
         List<object> itemList;
-        int currentRoomIndex;
         int prevRoomIndex;
-
 
         float elapsedTime;
         EnemyManager enemyManager;
-        RoomsManager roomsManager;
+        RoomManager roomsManager;
         CollisionManager CollisionManager;
 
         Player Player1;
@@ -28,14 +27,12 @@ namespace Project.renderer
         int playerIndex;
 
         private EnemyCollisionManager enemyCollisionManager;
-        public Renderer(RoomsManager roomsManager, EnemyManager enemyManager, CollisionManager collisionManager)
+        public Renderer(RoomManager roomsManager, EnemyManager enemyManager, CollisionManager collisionManager)
         {
             itemList = roomsManager.GetCurrentRoom().roomMap();
             playerIndex = roomsManager.GetCurrentRoom().getPlayerIndex();
             Player1 = (Player)itemList[playerIndex];
             this.roomsManager = roomsManager;
-            currentRoomIndex = roomsManager.currentRoomIndex;
-            prevRoomIndex = currentRoomIndex;
             this.enemyManager = enemyManager;
             this.CollisionManager = collisionManager;
             // Boggus notes: IOn draw, just call Draw() in everything in the item list
@@ -97,14 +94,7 @@ namespace Project.renderer
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
-            currentRoomIndex = roomsManager.currentRoomIndex;
-
-            if (currentRoomIndex != prevRoomIndex)
-            {
-                itemList = roomsManager.GetCurrentRoom().roomMap();
-
-                prevRoomIndex = currentRoomIndex;
-            }
+            itemList = roomsManager.GetCurrentRoom().roomMap();
             CollisionManager.UpdateCollisions(Player1, roomsManager.GetCurrentRoom().BlocksList);
 
             enemyCollisionManager.UpdateEnemyCollisions(enemyManager.GetCurrentEnemy(), roomsManager.GetCurrentRoom().BlocksList); // Handle enemy collisions

@@ -4,9 +4,9 @@ namespace Project.Commands
 {
     public class NextRoomCommand : ICommand
     {
-    
-        private  RoomsManager Manager;
-        public NextRoomCommand(RoomsManager manager)
+
+        private RoomManager Manager;
+        public NextRoomCommand(RoomManager manager)
         {
             Manager = manager;
         }
@@ -15,5 +15,5 @@ namespace Project.Commands
             Manager.SwitchToNextRoom();
         }
     }
-        
-    }
+
+}
