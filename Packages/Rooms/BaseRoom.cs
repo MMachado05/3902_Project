@@ -4,9 +4,7 @@ using Microsoft.Xna.Framework;
 using Project.Enemies;
 using Project.rooms;
 using Project.Blocks;
-using System.Diagnostics;
 using Project.Enemies.EnemyClasses;
-using System.ComponentModel.DataAnnotations;
 namespace Project.Packages
 {
     public abstract class BaseRoom : IRoom

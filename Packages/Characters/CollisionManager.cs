@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Blocks;
-using Project.rooms;
 
 namespace Project.Packages.Characters
 {
