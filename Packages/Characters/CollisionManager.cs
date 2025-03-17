@@ -14,8 +14,15 @@ namespace Project.Packages.Characters
             // NOTE: Because the sprite is not actually drawn exactly where the bounding box is, we have to do these weird offsets.
             // This can be fixed by fixing the sprite textures for the blocks at some point. Then the offsets can be removed.
             player.PositionVector = player.PreviousPosition;
-            player.PositionRect = new Rectangle((int)player.PreviousPosition.X - 32, (int)player.PreviousPosition.Y - 32,
+            player.PositionRect = new Rectangle((int)player.PreviousPosition.X, (int)player.PreviousPosition.Y,
                                          player.PositionRect.Width, player.PositionRect.Height);
+            // NOTE: From Boggus: this is safer than setting V to 0, since it's
+            // safer. Otherwise, there's a potential risk that you "stick" into a block,
+            // and then the collision manager thinks you're *always* colliding, and thus
+            // you're stuck forever. :(
+            // Another option: Monogame Intersect method will return a "collision" rectangle
+            // that we can use to precisely displace the player; that way, you don't need
+            // to keep track of previous positions.
 
             // Can prob add reduce health logic here later; trigger damage animation
         }
