@@ -17,6 +17,7 @@ namespace Project
         // ---- test ---- //
 
         private Dictionary<Keys, ICommand> _commands;
+        private KeyboardState prevKeyboardState;
 
         private Player _player;
         private Game1 _game;
@@ -49,17 +50,10 @@ namespace Project
             /*_commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));*/
             _commands.Add(Keys.O, new CommandPreviousEnemy(_game, enemyManager));
             _commands.Add(Keys.P, new CommandNextEnemy(_game, enemyManager));
-
-
-
-
-
-
         }
 
         public void Update()
         {
-
             KeyboardState state = Keyboard.GetState();
             Keys[] currentlyPressed = state.GetPressedKeys();
 
@@ -69,7 +63,6 @@ namespace Project
                 {
                     _movementCommands[key].Execute(); // Was: _commands.GetValueOrDefault(key).Execute()
                 }
-
             }
 
             // For _commands
