@@ -1,22 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace Project
+﻿namespace Project
 {
     public class MoveCommand : ICommand
     {
         private Player _player;
-        private string _direction;
-        private Dictionary<string, Direction> stringToEnum;
+        private Direction _direction;
 
-        public MoveCommand(Player player, string direction)
+        public MoveCommand(Player player, Direction direction)
         {
             _direction = direction;
             _player = player;
-            stringToEnum = new Dictionary<string, Direction>();
-            stringToEnum.Add("Up", Direction.Up);
-            stringToEnum.Add("Down", Direction.Down);
-            stringToEnum.Add("Right", Direction.Right);
-            stringToEnum.Add("Left", Direction.Left);
         }
 
         public void Execute()
@@ -26,16 +18,16 @@ namespace Project
 
             switch (_direction)
             {
-                case "Up":
+                case Direction.Up:
                     dy = -2;
                     break;
-                case "Down":
+                case Direction.Down:
                     dy = 2;
                     break;
-                case "Left":
+                case Direction.Left:
                     dx = -2;
                     break;
-                case "Right":
+                case Direction.Right:
                     dx = 2;
                     break;
             }
@@ -44,11 +36,11 @@ namespace Project
             {
                 _player.Move(dx, dy, _direction);
 
-                if (_player.SpriteType != stringToEnum[_direction]
+                if (_player.SpriteType != _direction
                     || _player.Sprite.State == SpriteState.FinishedAttack)
                 {
-                  _player.SpriteType = stringToEnum[_direction];
-                  _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(stringToEnum[_direction], _player.isDamaged));
+                  _player.SpriteType = _direction;
+                  _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));
                 }
             }
         }

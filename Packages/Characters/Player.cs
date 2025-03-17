@@ -10,7 +10,7 @@ namespace Project
         public ISprite Sprite { get; private set; }
         public Vector2 PositionVector { get; set; }
         public Rectangle PositionRect { get; set; }
-        public string LastDirection { get; private set; }
+        public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
         private Dictionary<String, Direction> stringDirToEnum;
@@ -37,7 +37,7 @@ namespace Project
             velocity = new Vector2(0, 0);
             // Because the vector is the origin, we need to offset the top-left corner of
             //  the rect in order to have the rect properly surround the sprite.
-            LastDirection = "Down";
+            LastDirection = Direction.Down;
             isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
@@ -45,7 +45,7 @@ namespace Project
         }
 
 
-        public void Move(int dx, int dy, string direction)
+        public void Move(int dx, int dy, Direction direction)
         {
             this.velocity.X = dx;
             this.velocity.Y = dy;
@@ -60,7 +60,7 @@ namespace Project
         {
             this.velocity.X = 0;
             this.velocity.Y = 0;
-            SpriteType = this.stringDirToEnum[LastDirection];
+            SpriteType = LastDirection;
             Sprite.State = SpriteState.Stopped;
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
