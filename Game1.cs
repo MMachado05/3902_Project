@@ -43,7 +43,7 @@ namespace Project
 
         private SolidBlockManager blockManager;
         Renderer renderer;
-        RoomsManager roomManager;
+        RoomManager roomManager;
         public void restart()
         {
             this.LoadContent();
@@ -108,7 +108,8 @@ namespace Project
             collisionManager = new CollisionManager();
             enemyManager = new EnemyManager();
             _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
-            roomManager = new RoomsManager(blockManager, enemyManager, this);
+            roomManager = new RoomManager(blockManager, enemyManager, this);
+            roomManager.LoadRoomsFromContent(Content);
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
             mouseController = new MouseController(this, _graphics, roomManager);
 
