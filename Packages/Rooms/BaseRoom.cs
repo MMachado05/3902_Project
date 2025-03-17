@@ -7,33 +7,33 @@ using Project.Blocks;
 using Project.Enemies.EnemyClasses;
 namespace Project.Packages
 {
-    public abstract class BaseRoom : IRoom
+    public class BaseRoom : IRoom
     {
+        // Per-room entity managers
         private SolidBlockManager manager;
-        EnemyManager _enemyManager;
+        private EnemyManager _enemyManager;
 
-        public Dictionary<Vector2, String> room;
-        public RoomParser parser;
+        // Logistic fields
+        private Dictionary<Vector2, String> internalRep;
         Game1 game;
         List<object> result;
-        public List<object> BlocksList{get;set;}
+        public List<object> BlocksList { get; set; }
         int playerIndex;
         int counter = 0;
 
-        public BaseRoom(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
+        public BaseRoom(SolidBlockManager manager, EnemyManager enemyManager, Game1 game,
+            Dictionary<Vector2, String> internalRep)
         {
             _enemyManager = enemyManager;
             this.game = game;
             this.manager = manager;
-            parser = new RoomParser();
-            room = parser.loadRoom("../../../Data/room1.csv");
-
+            this.internalRep = internalRep;
         }
         public List<Object> roomMap()
         {
             result = new List<object>();
             BlocksList = new List<object>();
-            foreach (var item in room)
+            foreach (var item in internalRep)
             {
                 Rectangle dest;
                 SolidBlock block;
@@ -62,7 +62,7 @@ namespace Project.Packages
                         break;
                     case "en":
                         dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        List < Enemy > enemyList = new List<Enemy> { new Aquamentus(new Vector2(dest.X, dest.Y)), new RedGoriya(new Vector2(dest.X, dest.Y)), new Stalfos(new Vector2(dest.X, dest.Y)) };
+                        List<Enemy> enemyList = new List<Enemy> { new Aquamentus(new Vector2(dest.X, dest.Y)), new RedGoriya(new Vector2(dest.X, dest.Y)), new Stalfos(new Vector2(dest.X, dest.Y)) };
                         _enemyManager.addEnemy(enemyList);
                         result.Add(enemyList);
                         break;
