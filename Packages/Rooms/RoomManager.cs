@@ -1,14 +1,20 @@
 using System;
+using System.Diagnostics;
 using System.IO;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Project.Blocks;
 using Project.Enemies;
+using Project.Packages;
 
 namespace Project.rooms
 {
     public class RoomManager
     {
+        // Temp variables before I complete the refactor
+        private Game1 game;
+        private SolidBlockManager blockManager;
+        private EnemyManager enemyManager;
+
         private RoomParser roomParser;
 
         private IRoom[,] Map;
@@ -21,14 +27,23 @@ namespace Project.rooms
         public RoomManager(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
         {
             currentRoomX = currentRoomY = 0;
+
+            this.game = game;
+            this.blockManager = manager;
+            this.enemyManager = enemyManager;
+            this.roomParser = new RoomParser();
         }
 
         public void LoadRoomsFromContent(ContentManager Content)
         {
             // Create reader for the list of all rooms
-            string roomListPath = Content.RootDirectory + "rooms.csv";
-            Stream roomListFile = TitleContainer.OpenStream(roomListPath);
-            StreamReader roomListReader = new StreamReader(roomListFile);
+            string pathPrefix = Environment.CurrentDirectory + "/Rooms/";
+            string roomListPath = pathPrefix + "rooms.csv";
+            if (!File.Exists(roomListPath))
+            {
+              // TODO: Add other options 
+            }
+            StreamReader roomListReader = new StreamReader(roomListPath);
 
             // Get "dimensions" of CSV map to create room array
             string roomLine;
@@ -40,6 +55,7 @@ namespace Project.rooms
                 mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length);
             }
             roomListReader.DiscardBufferedData();
+            roomListReader.BaseStream.Seek(0, SeekOrigin.Begin);
 
             // Add rooms to map from CSV
             this.Map = new IRoom[mapWidth, mapHeight];
@@ -54,7 +70,9 @@ namespace Project.rooms
                 {
                     if (roomRow[i] != "") // Ignore "rooms" that don't exist
                     {
-                        this.Map[mapRoomX, mapRoomY] = null;
+                        this.Map[mapRoomX, mapRoomY] =
+                          new BaseRoom(blockManager, enemyManager, game,
+                              roomParser.loadRoom(pathPrefix + roomRow[i]));
                     }
                     mapRoomX++;
                 }
