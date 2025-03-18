@@ -84,11 +84,23 @@ namespace Project
             this.enemyManager = new EnemyManager();
 
             // Set up controllers
+            this._controllers = new List<IController>();
+
             this.SetUpKeyboardController();
+
+            this._controllers.Add(this._keyboardController);
+            /*this._controllers.Add(this._mouseController);*/
 
             input = Keyboard.GetState();
             base.Initialize();
         }
+
+        /*private void SetUpMouseController()*/
+        /*{*/
+        /*  MouseController mc = new MouseController();*/
+        /**/
+        /*  this._mouseController = mc;*/
+        /*}*/
 
         private void SetUpKeyboardController()
         {
@@ -99,15 +111,17 @@ namespace Project
             kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
             kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
             kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            kbc.DefaultCommand = new StopPlayerCommand(player);
 
             // Attacking
             kbc.RegisterKey(Keys.Z, new AttackCommand(player));
             kbc.RegisterKey(Keys.N, new AttackCommand(player));
 
-            // TODO: Arrow keys to change current room
+            // TODO: Arrow keys to change current room; currently in LoadContent
 
             // Game logic
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
+            kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
 
             // Debugging commands
@@ -121,7 +135,6 @@ namespace Project
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Load all textures
@@ -146,36 +159,24 @@ namespace Project
             roomManager.LoadRoomsFromContent(Content);
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
             _mouseController = new MouseController(this, _graphics, roomManager);
+            this._controllers.Add(_mouseController);
+
+            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
+            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
+            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
+            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
 
             playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
         protected override void Update(GameTime gameTime)
         {
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            _keyboardController.Update();
-            _mouseController.Update();
+            foreach (IController controller in this._controllers)
+                controller.Update();
             _itemController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
-
-            //collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
-
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != CharacterState.Attacking)
-            {
-                player.SetStaticSprite(); // Set idle sprite
-            }
-
-
-            // Update lastDirection based on movement input (def need to change this approach)
-            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
-            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
-            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
-            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
-
 
             //should be replaced with level loader
             _itemController.Update();

@@ -24,6 +24,9 @@ namespace Project.rooms
         private int currentRoomX;
         private int currentRoomY;
 
+        /// <summary>
+        /// Be sure to run LoadRoomsFromContent before calling any other methods.
+        /// </summary>
         public RoomManager(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
         {
             currentRoomX = currentRoomY = 0;
@@ -87,7 +90,7 @@ namespace Project.rooms
         public void GotoRoomBelow()
         {
             this.currentRoomY++;
-            if (this.currentRoomY > this.Map.GetLength(COLS))
+            if (this.currentRoomY >= this.Map.GetLength(COLS))
                 this.currentRoomY = 0;
         }
         public void GotoRoomAbove()
@@ -99,7 +102,7 @@ namespace Project.rooms
         public void GotoRoomToRight()
         {
             this.currentRoomX++;
-            if (this.currentRoomX > this.Map.GetLength(ROWS))
+            if (this.currentRoomX >= this.Map.GetLength(ROWS))
                 this.currentRoomX = 0;
         }
         public void GotoRoomToLeft()

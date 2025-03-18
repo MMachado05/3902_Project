@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Enemies;
 using Project.Enemies.EnemyClasses;
@@ -33,7 +32,7 @@ namespace Project.renderer
             this.roomManager = roomsManager;
             this.enemyManager = enemyManager;
             this.CollisionManager = collisionManager;
-            // Boggus notes: IOn draw, just call Draw() in everything in the item list
+            // NOTE: Boggus notes: In draw, just call Draw() in everything in the item list
             // If you *don't* want to draw something, just have an empty implementation
             // of Draw()
             enemyCollisionManager = new EnemyCollisionManager();
@@ -72,8 +71,6 @@ namespace Project.renderer
 
         public void Update(GameTime gameTime)
         {
-            // CollisionManager.UpdateCollisions(Player1, roomsManager);
-
             Player1.Update(gameTime);
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
