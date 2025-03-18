@@ -1,79 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using Project.Commands;
-using Project.Commands.CommandClasses;
-using Project.Enemies;
 
 namespace Project
 {
     public class KeyboardController : IController
     {
-        // ---- test ---- //
-        private Dictionary<Keys, ICommand> _movementCommands;
-        private Keys[] _previouslyPressed = new Keys[0];
-        // ---- test ---- //
-
         private Dictionary<Keys, ICommand> _commands;
-        private KeyboardState prevKeyboardState;
+        private IEnumerable<Keys> stillPressed;
 
-        private Player _player;
-        private Game1 _game;
-
-        public KeyboardController(Player player, Game1 game1, EnemyManager enemyManager)
+        public KeyboardController()
         {
-            _player = player;
-            _game = game1;
+            this._commands = new Dictionary<Keys, ICommand>();
+        }
 
-            _movementCommands = new Dictionary<Keys, ICommand>();
-            _movementCommands.Add(Keys.W, new MoveCommand(_player, Direction.Up));
-            _movementCommands.Add(Keys.A, new MoveCommand(_player, Direction.Left));
-            _movementCommands.Add(Keys.S, new MoveCommand(_player, Direction.Down));
-            _movementCommands.Add(Keys.D, new MoveCommand(_player, Direction.Right));
-
-            _movementCommands.Add(Keys.Up, new MoveCommand(_player, Direction.Up));
-            _movementCommands.Add(Keys.Left, new MoveCommand(_player, Direction.Left));
-            _movementCommands.Add(Keys.Down, new MoveCommand(_player, Direction.Down));
-            _movementCommands.Add(Keys.Right, new MoveCommand(_player, Direction.Right));
-
-            _movementCommands.Add(Keys.Z, new AttackCommand(_player));
-            _movementCommands.Add(Keys.N, new AttackCommand(_player));
-
-            _movementCommands.Add(Keys.Q, new QuitCommand(_game));
-
-            _commands = new Dictionary<Keys, ICommand>();
-            _commands.Add(Keys.E, new DamageCommand(_player));
-            _commands.Add(Keys.R, new RestartGameCommand(_game));
-            /*_commands.Add(Keys.T, new NextBlockCommand(blockManager));*/
-            /*_commands.Add(Keys.Y, new PreviousBlockCommand(blockManager));*/
-            _commands.Add(Keys.O, new CommandPreviousEnemy(_game, enemyManager));
-            _commands.Add(Keys.P, new CommandNextEnemy(_game, enemyManager));
+        public void RegisterKey(Keys key, ICommand command)
+        {
+            this._commands.Add(key, command);
         }
 
         public void Update()
         {
             KeyboardState state = Keyboard.GetState();
+            stillPressed = stillPressed.Intersect(state.GetPressedKeys());
+
             Keys[] currentlyPressed = state.GetPressedKeys();
 
             foreach (var key in currentlyPressed)
             {
-                if (_movementCommands.ContainsKey(key))
+                if (_commands.ContainsKey(key) && !stillPressed.Contains<Keys>(key))
                 {
-                    _movementCommands[key].Execute(); // Was: _commands.GetValueOrDefault(key).Execute()
+                    _commands[key].Execute(); // Was: _commands.GetValueOrDefault(key).Execute()
                 }
             }
-
-            // For _commands
-            foreach (var key in currentlyPressed)
-            {
-                if (_commands.ContainsKey(key) && !(_previouslyPressed.Contains(key)))
-                {
-                    _commands.GetValueOrDefault(key).Execute();
-                }
-            }
-
-            _previouslyPressed = currentlyPressed;
         }
     }
 }
