@@ -8,6 +8,7 @@ namespace Project
     {
         private Dictionary<Keys, ICommand> _commands;
         private IEnumerable<Keys> _stillPressed;
+        private ICommand _defaultCommand;
 
         public KeyboardController()
         {
@@ -20,9 +21,17 @@ namespace Project
             this._commands.Add(key, command);
         }
 
+        public ICommand DefaultCommand
+        {
+            set { this._defaultCommand = value; }
+        }
+
         public void Update()
         {
             Keys[] currentlyPressed = Keyboard.GetState().GetPressedKeys();
+
+            if (currentlyPressed.Length == 0)
+                this._defaultCommand.Execute();
 
             foreach (Keys key in currentlyPressed)
             {
@@ -33,6 +42,8 @@ namespace Project
                 }
             }
 
+            // Keep an active log of currently pressed keys so that "holding down" a key
+            //  is ignored.
             _stillPressed = currentlyPressed.Union<Keys>(_stillPressed);
             _stillPressed = currentlyPressed.Intersect<Keys>(_stillPressed);
         }
