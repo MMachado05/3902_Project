@@ -13,6 +13,10 @@
 
         public void Execute()
         {
+            // Early escape for mid-attack
+            if (_player.Sprite.State == CharacterState.Attacking)
+                return;
+
             // Maybe avoid hardcoding speed
             int dx = 0, dy = 0;
 
@@ -32,17 +36,13 @@
                     break;
             }
 
-            if (_player.Sprite.State != CharacterState.Attacking)
-            {
-                _player.Move(dx, dy, _direction);
+            if (_player.Sprite.State != CharacterState.Walking)
+                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));
 
-                if (_player.SpriteType != _direction
-                    || _player.Sprite.State == CharacterState.FinishedAttack)
-                {
-                  _player.SpriteType = _direction;
-                  _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));
-                }
-            }
+            _player.SpriteType = _direction;
+            _player.Sprite.State = CharacterState.Walking;
+
+            _player.Move(dx, dy, _direction);
         }
     }
 }
