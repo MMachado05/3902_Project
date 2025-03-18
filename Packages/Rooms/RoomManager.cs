@@ -1,7 +1,7 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Project.Blocks;
 using Project.Enemies;
 using Project.Packages;
@@ -10,6 +10,9 @@ namespace Project.rooms
 {
     public class RoomManager
     {
+        private const int ROWS = 0;
+        private const int COLS = 1;
+
         // Temp variables before I complete the refactor
         private Game1 game;
         private SolidBlockManager blockManager;
@@ -20,9 +23,6 @@ namespace Project.rooms
         private IRoom[,] Map;
         private int currentRoomX;
         private int currentRoomY;
-
-        private const int ROWS = 0;
-        private const int COLS = 1;
 
         public RoomManager(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
         {
@@ -41,7 +41,7 @@ namespace Project.rooms
             string roomListPath = pathPrefix + "rooms.csv";
             if (!File.Exists(roomListPath))
             {
-                pathPrefix = Environment.CurrentDirectory + "/../../../../Rooms";
+                pathPrefix = Environment.CurrentDirectory + "../../../../Rooms";
                 roomListPath = pathPrefix + "rooms.csv";
             }
             StreamReader roomListReader = new StreamReader(roomListPath);
@@ -81,6 +81,34 @@ namespace Project.rooms
             }
         }
 
+        // TODO: Implement this; to be called by Renderer
+        public void Draw(SpriteBatch sb) { }
+
+        public void GotoRoomBelow()
+        {
+            this.currentRoomY++;
+            if (this.currentRoomY > this.Map.GetLength(COLS))
+                this.currentRoomY = 0;
+        }
+        public void GotoRoomAbove()
+        {
+            this.currentRoomY--;
+            if (this.currentRoomY < 0)
+                this.currentRoomY = this.Map.GetLength(COLS) - 1;
+        }
+        public void GotoRoomToRight()
+        {
+            this.currentRoomX++;
+            if (this.currentRoomX > this.Map.GetLength(ROWS))
+                this.currentRoomX = 0;
+        }
+        public void GotoRoomToLeft()
+        {
+            this.currentRoomX--;
+            if (this.currentRoomX < 0)
+                this.currentRoomX = this.Map.GetLength(ROWS) - 1;
+        }
+
         [System.Obsolete("2D array being used; need to refactor")]
         public void SwitchToPreviousRoom()
         {
@@ -95,12 +123,6 @@ namespace Project.rooms
                         this.currentRoomY = 0;
                 }
             } while (this.Map[currentRoomX, currentRoomY] == null);
-
-            /*if (RoomsList.Count == 0) return;*/
-            /*if (currentRoomIndex <= 0)*/
-            /*    currentRoomIndex = RoomsList.Count - 1;*/
-            /*else*/
-            /*    currentRoomIndex--;*/
         }
 
         [System.Obsolete("2D array being used; need to refactor")]
@@ -117,12 +139,6 @@ namespace Project.rooms
                         this.currentRoomY = this.Map.GetLength(COLS) - 1;
                 }
             } while (this.Map[currentRoomX, currentRoomY] == null);
-
-            /*if (RoomsList.Count == 0) return;*/
-            /*if (currentRoomIndex >= RoomsList.Count - 1)*/
-            /*    currentRoomIndex = 0;*/
-            /*else*/
-            /*    currentRoomIndex++;*/
         }
 
         public IRoom GetCurrentRoom()
