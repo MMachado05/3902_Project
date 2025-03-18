@@ -41,7 +41,8 @@ namespace Project.rooms
             string roomListPath = pathPrefix + "rooms.csv";
             if (!File.Exists(roomListPath))
             {
-                // TODO: Add other options 
+                pathPrefix = Environment.CurrentDirectory + "/../../../../Rooms";
+                roomListPath = pathPrefix + "rooms.csv";
             }
             StreamReader roomListReader = new StreamReader(roomListPath);
 
