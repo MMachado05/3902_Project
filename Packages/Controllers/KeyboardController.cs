@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using Project.Blocks;
 using Project.Commands;
 using Project.Commands.CommandClasses;
 using Project.Enemies;
@@ -22,7 +21,7 @@ namespace Project
         private Player _player;
         private Game1 _game;
 
-        public KeyboardController(Player player, Game1 game1, SolidBlockManager blockManager, EnemyManager enemyManager)
+        public KeyboardController(Player player, Game1 game1, EnemyManager enemyManager)
         {
             _player = player;
             _game = game1;

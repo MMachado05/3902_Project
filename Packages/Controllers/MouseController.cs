@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Project.Blocks;
 using Project.Commands;
 using Project.rooms;
 
@@ -18,7 +17,6 @@ namespace Project
         private ICommand movingAnimatedSprite;
         private ICommand nextRoom;
         private RoomManager roomManager;
-        SolidBlockManager solidBlockManager;
         private ButtonState _previouslyPressed;
         private bool isDuplicate;
 
