@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
@@ -20,6 +21,7 @@ namespace Project
         public SpriteBatch _spriteBatch; // Not best practice
 
         // Controllers
+        private List<IController> _controllers;
         private IController _keyboardController;
         private IController _mouseController;
 
@@ -90,31 +92,31 @@ namespace Project
 
         private void SetUpKeyboardController()
         {
-          KeyboardController kbc = new KeyboardController();
+            KeyboardController kbc = new KeyboardController();
 
-          // Player movement
-          kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
-          kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
-          kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
-          kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            // Player movement
+            kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
+            kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
+            kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
+            kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
 
-          // Attacking
-          kbc.RegisterKey(Keys.Z, new AttackCommand(player));
-          kbc.RegisterKey(Keys.N, new AttackCommand(player));
-          
-          // TODO: Arrow keys to change current room
-          
-          // Game logic
-          kbc.RegisterKey(Keys.Q, new QuitCommand(this));
-          kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+            // Attacking
+            kbc.RegisterKey(Keys.Z, new AttackCommand(player));
+            kbc.RegisterKey(Keys.N, new AttackCommand(player));
 
-          // Debugging commands
-          kbc.RegisterKey(Keys.E, new DamageCommand(player));
+            // TODO: Arrow keys to change current room
 
-          kbc.RegisterKey(Keys.O, new CommandPreviousEnemy(this, this.enemyManager));
-          kbc.RegisterKey(Keys.P, new CommandNextEnemy(this, this.enemyManager));
+            // Game logic
+            kbc.RegisterKey(Keys.Q, new QuitCommand(this));
+            kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
 
-          this._keyboardController = kbc;
+            // Debugging commands
+            kbc.RegisterKey(Keys.E, new DamageCommand(player));
+
+            kbc.RegisterKey(Keys.O, new CommandPreviousEnemy(this, this.enemyManager));
+            kbc.RegisterKey(Keys.P, new CommandNextEnemy(this, this.enemyManager));
+
+            this._keyboardController = kbc;
         }
 
         protected override void LoadContent()
