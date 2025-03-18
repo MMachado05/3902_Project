@@ -107,7 +107,7 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             collisionManager = new CollisionManager();
             enemyManager = new EnemyManager();
-            _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
+            _keyboardController = new KeyboardController(player, this, enemyManager);
             roomManager = new RoomManager(blockManager, enemyManager, this);
             roomManager.LoadRoomsFromContent(Content);
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
