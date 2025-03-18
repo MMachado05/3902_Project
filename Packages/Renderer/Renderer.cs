@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -40,8 +39,6 @@ namespace Project.renderer
             // of Draw()
             enemyCollisionManager = new EnemyCollisionManager();
         }
-        // NOTE: From Boggus: consider using 2D Array or Graph data structure
-        // to store rooms,  so as to have built-in adjacency
 
         public void Draw(SpriteBatch spriteBatch)
         {
