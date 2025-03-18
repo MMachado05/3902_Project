@@ -61,7 +61,7 @@ namespace Project
             this.velocity.X = 0;
             this.velocity.Y = 0;
             SpriteType = LastDirection;
-            Sprite.State = SpriteState.Stopped;
+            Sprite.State = CharacterState.Stopped;
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
 

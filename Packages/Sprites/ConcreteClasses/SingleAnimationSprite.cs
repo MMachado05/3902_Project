@@ -9,14 +9,14 @@ namespace Project
         private int currFrame;
         private int topLeftXInitial;
         private int topLeftYInitial;
-        private SpriteState complete;
+        private CharacterState complete;
 
         /// <summary>
         /// maxFrames is literal; if there are four frames of anmimation, pass in 4 as
         /// the constructor argument.
         /// </summary>
         public SingleAnimationSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, SpriteState active, SpriteState complete,
+            int scaleFactor, int maxFrames, CharacterState active, CharacterState complete,
             int originX = -1, int originY = -1) : base(texture, sourceInitial, scaleFactor, active, originX, originY)
         {
             this.maxFrames = maxFrames - 1;

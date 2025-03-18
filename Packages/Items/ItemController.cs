@@ -17,6 +17,8 @@ namespace Project
         private Game1 _game;
         private ItemManager _itemManager;
 
+        // TODO: Get rid of this class entirely; it should all be taken care of by the
+        //  KeyboardController, based on this current implementation, anyways.
 
         public ItemController(ItemManager itemManager, Game1 game1)
         {

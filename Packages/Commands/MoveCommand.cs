@@ -32,12 +32,12 @@
                     break;
             }
 
-            if (_player.Sprite.State != SpriteState.Attacking)
+            if (_player.Sprite.State != CharacterState.Attacking)
             {
                 _player.Move(dx, dy, _direction);
 
                 if (_player.SpriteType != _direction
-                    || _player.Sprite.State == SpriteState.FinishedAttack)
+                    || _player.Sprite.State == CharacterState.FinishedAttack)
                 {
                   _player.SpriteType = _direction;
                   _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));

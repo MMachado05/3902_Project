@@ -130,7 +130,7 @@ namespace Project
 
             //collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
 
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
+            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != CharacterState.Attacking)
             {
                 player.SetStaticSprite(); // Set idle sprite
             }

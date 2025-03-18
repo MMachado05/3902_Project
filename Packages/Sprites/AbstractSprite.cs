@@ -7,7 +7,7 @@ namespace Project
     {
         protected Texture2D texture;
         protected Rectangle source;
-        protected SpriteState state;
+        protected CharacterState state;
         protected int widthPixels;
         protected int heightPixels;
         protected int scaleFactor;
@@ -15,7 +15,7 @@ namespace Project
         protected int originY;
 
         public AbstractSprite(Texture2D texture, Rectangle source, int scaleFactor,
-            SpriteState state, int originX = -1, int originY = -1)
+            CharacterState state, int originX = -1, int originY = -1)
         {
             this.texture = texture;
             this.source = source;
@@ -27,7 +27,7 @@ namespace Project
             this.originY = originY;
         }
 
-        public SpriteState State
+        public CharacterState State
         {
             get
             {

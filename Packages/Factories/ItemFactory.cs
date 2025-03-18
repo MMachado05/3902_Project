@@ -102,26 +102,26 @@ namespace Project.Packages.Items
         // }
 
 
-        public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3, new SpriteState());
+        public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), 3, new CharacterState());
 
-        public ISprite CreateHeartSprite() => new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new SpriteState());
+        public ISprite CreateHeartSprite() => new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 13, 13), 3, 1, new CharacterState());
 
-        public ISprite CreateBombSprite() => new StationarySprite(bombTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateBombSprite() => new StationarySprite(bombTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
-        public ISprite CreateSwordSprite() => new StationarySprite(swordTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateSwordSprite() => new StationarySprite(swordTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
-        public ISprite CreateBowSprite() => new StationarySprite(bowTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateBowSprite() => new StationarySprite(bowTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
-        public ISprite CreateCoinSprite() => new StationarySprite(coinTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateCoinSprite() => new StationarySprite(coinTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
-        public ISprite CreateKeySprite() => new StationarySprite(keyTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateKeySprite() => new StationarySprite(keyTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
-        public ISprite CreateFireballSprite() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), 3, SpriteState.Stopped);
+        public ISprite CreateFireballSprite() => new StationarySprite(fireball, new Rectangle(0, 0, 8, 8), 3, CharacterState.Stopped);
 
-        public ISprite CreateBoomerangSprite() => new AnimatedLoopSprite(Boomerang, new Rectangle(0, 0, 8, 8), 3, 4, SpriteState.Walking);
+        public ISprite CreateBoomerangSprite() => new AnimatedLoopSprite(Boomerang, new Rectangle(0, 0, 8, 8), 3, 4, CharacterState.Walking);
 
-        public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
-        public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), 3, new SpriteState());
+        public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
+        public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), 3, new CharacterState());
 
     }
 }

@@ -12,7 +12,7 @@
         public void Execute()
         {
 
-            if (_player.Sprite.State != SpriteState.Attacking)
+            if (_player.Sprite.State != CharacterState.Attacking)
               _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.isDamaged));
 
         }

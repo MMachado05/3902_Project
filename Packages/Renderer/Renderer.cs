@@ -76,7 +76,7 @@ namespace Project.renderer
             // CollisionManager.UpdateCollisions(Player1, roomsManager);
 
             input = Keyboard.GetState();
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && Player1.Sprite.State != SpriteState.Attacking)
+            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && Player1.Sprite.State != CharacterState.Attacking)
             {
                 Player1.SetStaticSprite(); // Set idle sprite
             }
