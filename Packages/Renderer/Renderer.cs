@@ -92,7 +92,6 @@ namespace Project.renderer
                 Array.Copy(currentRoomCoordinates, previousRoomCoordinates, 2);
             }
 
-            /*itemList = roomManager.GetCurrentRoom().roomMap();*/
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
             CollisionManager.UpdateCollisions(Player1, roomManager.GetCurrentRoom().BlocksList);
 

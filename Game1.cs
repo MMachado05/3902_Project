@@ -79,14 +79,6 @@ namespace Project
             this.player = new Player();
             this.enemyManager = new EnemyManager();
 
-            // Set up controllers
-            this._controllers = new List<IController>();
-
-            this.SetUpKeyboardController();
-
-            this._controllers.Add(this._keyboardController);
-            /*this._controllers.Add(this._mouseController);*/
-
             input = Keyboard.GetState();
             base.Initialize();
         }
@@ -159,7 +151,16 @@ namespace Project
             roomManager.LoadRoomsFromContent(Content);
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
             _mouseController = new MouseController(this, _graphics, roomManager);
+
+            // Set up controllers
+            this._controllers = new List<IController>();
             this._controllers.Add(_mouseController);
+
+            this.SetUpKeyboardController();
+
+            this._controllers.Add(this._keyboardController);
+            /*this._controllers.Add(this._mouseController);*/
+
 
 
             playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
