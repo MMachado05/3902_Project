@@ -28,8 +28,6 @@ namespace Project
         public Player player;
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
-        // NOTE: From Boggus: The Controllers all implement IController, so we should
-        // use that abstraction
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         public Direction spriteType;
@@ -68,8 +66,6 @@ namespace Project
 
         public Game1()
         {
-            // Since we're in constructor, no need to call GraphicsDeviceManager.ApplyChanges()
-            // :)
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
             _graphics.PreferredBackBufferHeight = 704; // Set height
@@ -95,12 +91,12 @@ namespace Project
             base.Initialize();
         }
 
-        /*private void SetUpMouseController()*/
-        /*{*/
-        /*  MouseController mc = new MouseController();*/
-        /**/
-        /*  this._mouseController = mc;*/
-        /*}*/
+        private void SetUpMouseController()
+        {
+            /*MouseController mc = new MouseController();*/
+            /**/
+            /*this._mouseController = mc;*/
+        }
 
         private void SetUpKeyboardController()
         {
@@ -117,7 +113,11 @@ namespace Project
             kbc.RegisterKey(Keys.Z, new AttackCommand(player));
             kbc.RegisterKey(Keys.N, new AttackCommand(player));
 
-            // TODO: Arrow keys to change current room; currently in LoadContent
+            // Arrow keys to change current room
+            kbc.RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
+            kbc.RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
+            kbc.RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
+            kbc.RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
 
             // Game logic
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
@@ -161,10 +161,6 @@ namespace Project
             _mouseController = new MouseController(this, _graphics, roomManager);
             this._controllers.Add(_mouseController);
 
-            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
-            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
-            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
-            ((KeyboardController)this._keyboardController).RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
 
             playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
