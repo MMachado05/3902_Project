@@ -7,7 +7,7 @@ namespace Project.rooms
 {
     public class RoomParser
     {
-        public Dictionary<Vector2, String> loadRoom(string filepath)
+        public Dictionary<Vector2, String> LoadRoom(string filepath)
         {
             Dictionary<Vector2, String> result = new();
             StreamReader reader = new(filepath);

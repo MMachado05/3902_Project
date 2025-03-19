@@ -79,7 +79,7 @@ namespace Project.rooms
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           new BaseRoom(blockManager, enemyManager, game,
-                              roomParser.loadRoom(pathPrefix + roomRow[i]));
+                              roomParser.LoadRoom(pathPrefix + roomRow[i]));
                     }
                     mapRoomX++;
                 }
