@@ -13,12 +13,14 @@ namespace Project.renderer
     public class Renderer : IRenderer
     {
         List<object> itemList;
-        int prevRoomIndex;
 
         float elapsedTime;
         EnemyManager enemyManager;
         RoomManager roomManager;
         CollisionManager CollisionManager;
+
+        private int[] currentRoomCoordinates;
+        private int[] previousRoomCoordinates;
 
         Player Player1;
         int playerIndex;
@@ -36,6 +38,8 @@ namespace Project.renderer
             // If you *don't* want to draw something, just have an empty implementation
             // of Draw()
             enemyCollisionManager = new EnemyCollisionManager();
+            this.currentRoomCoordinates = new int[2] { 0, 0 };
+            this.previousRoomCoordinates = new int[2] { 0, 0 };
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -65,12 +69,14 @@ namespace Project.renderer
 
                         break;
                 }
-
             }
         }
 
         public void Update(GameTime gameTime)
         {
+            this.currentRoomCoordinates[0] = roomManager.CurrentRoomColumn;
+            this.currentRoomCoordinates[1] = roomManager.CurrentRoomRow;
+
             Player1.Update(gameTime);
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -80,8 +86,14 @@ namespace Project.renderer
                 elapsedTime = 0f;
             }
 
+            if (!this.currentRoomCoordinates.Equals(this.previousRoomCoordinates))
+            {
+                itemList = roomManager.GetCurrentRoom().roomMap();
+                Array.Copy(currentRoomCoordinates, previousRoomCoordinates, 2);
+            }
+
+            /*itemList = roomManager.GetCurrentRoom().roomMap();*/
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
-            itemList = roomManager.GetCurrentRoom().roomMap();
             CollisionManager.UpdateCollisions(Player1, roomManager.GetCurrentRoom().BlocksList);
 
             enemyCollisionManager.UpdateEnemyCollisions(enemyManager.GetCurrentEnemy(), roomManager.GetCurrentRoom().BlocksList); // Handle enemy collisions

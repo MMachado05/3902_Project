@@ -24,6 +24,9 @@ namespace Project.rooms
         private int currentRoomX;
         private int currentRoomY;
 
+        public int CurrentRoomRow { get { return currentRoomX; } }
+        public int CurrentRoomColumn { get { return currentRoomY; } }
+
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
         /// </summary>
@@ -112,6 +115,11 @@ namespace Project.rooms
                 this.currentRoomX = this.Map.GetLength(ROWS) - 1;
         }
 
+        public IRoom GetCurrentRoom()
+        {
+            return this.Map[this.currentRoomX, this.currentRoomY];
+        }
+
         [System.Obsolete("2D array being used; need to refactor")]
         public void SwitchToPreviousRoom()
         {
@@ -143,11 +151,5 @@ namespace Project.rooms
                 }
             } while (this.Map[currentRoomX, currentRoomY] == null);
         }
-
-        public IRoom GetCurrentRoom()
-        {
-            return this.Map[this.currentRoomX, this.currentRoomY];
-        }
-
     }
 }
