@@ -11,7 +11,8 @@ namespace Project
 
         public void Execute()
         {
-            this._player.SetStaticSprite();
+            if (this._player.Sprite.State != CharacterState.Attacking)
+                this._player.SetStaticSprite();
         }
     }
 }
