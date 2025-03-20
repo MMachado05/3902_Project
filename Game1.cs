@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
+using Project.Commands;
+using Project.Commands.CommandClasses;
 using Project.Content;
 using Project.Enemies;
 using Project.Packages.Characters;
@@ -17,15 +16,18 @@ namespace Project
 {
     public class Game1 : Game
     {
+        // Basic Game fields
         private GraphicsDeviceManager _graphics;
         public SpriteBatch _spriteBatch; // Not best practice
-        private KeyboardController _keyboardController;
+
+        // Controllers
+        private List<IController> _controllers;
+        private IController _keyboardController;
+        private IController _mouseController;
+
         public Player player;
         private Rectangle playerPosition;
         private Vector2 playerPositionVector;
-        MouseController mouseController;
-        // NOTE: From Boggus: The Controllers all implement IController, so we should
-        // use that abstraction
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         public Direction spriteType;
@@ -47,7 +49,7 @@ namespace Project
 
         private SolidBlockManager blockManager;
         Renderer renderer;
-        RoomsManager roomManager;
+        RoomManager roomManager;
         public void restart()
         {
             this.LoadContent();
@@ -64,32 +66,67 @@ namespace Project
 
         public Game1()
         {
-            // Since we're in constructor, no need to call GraphicsDeviceManager.ApplyChanges()
-            // :)
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
             _graphics.PreferredBackBufferHeight = 704; // Set height
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-
         }
+
         protected override void Initialize()
         {
-
-            //playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
-            //playerPositionVector = new Vector2(100, 100);
-
-            player = new Player();
+            this.player = new Player();
+            this.enemyManager = new EnemyManager();
 
             input = Keyboard.GetState();
             base.Initialize();
         }
 
+        private void SetUpMouseController()
+        {
+            /*MouseController mc = new MouseController();*/
+            /**/
+            /*this._mouseController = mc;*/
+        }
+
+        private void SetUpKeyboardController()
+        {
+            KeyboardController kbc = new KeyboardController();
+
+            // Player movement
+            kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
+            kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
+            kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
+            kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            kbc.DefaultCommand = new StopPlayerCommand(player);
+
+            // Attacking
+            kbc.RegisterKey(Keys.Z, new AttackCommand(player));
+            kbc.RegisterKey(Keys.N, new AttackCommand(player));
+
+            // Arrow keys to change current room
+            kbc.RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
+            kbc.RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
+            kbc.RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
+            kbc.RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
+
+            // Game logic
+            kbc.RegisterKey(Keys.Q, new QuitCommand(this));
+            kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
+            kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+
+            // Debugging commands
+            kbc.RegisterKey(Keys.E, new DamageCommand(player));
+
+            kbc.RegisterKey(Keys.O, new CommandPreviousEnemy(this, this.enemyManager));
+            kbc.RegisterKey(Keys.P, new CommandNextEnemy(this, this.enemyManager));
+
+            this._keyboardController = kbc;
+        }
+
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Load all textures
@@ -110,42 +147,33 @@ namespace Project
 
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             collisionManager = new CollisionManager();
-            enemyManager = new EnemyManager();
-            _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
-            roomManager = new RoomsManager(blockManager, enemyManager, this);
+            roomManager = new RoomManager(blockManager, enemyManager, this);
+            roomManager.LoadRoomsFromContent(Content);
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
-            mouseController = new MouseController(this, _graphics, roomManager);
+            _mouseController = new MouseController(this, _graphics, roomManager);
+
+            // Set up controllers
+            this._controllers = new List<IController>();
+            this._controllers.Add(_mouseController);
+
+            this.SetUpKeyboardController();
+
+            this._controllers.Add(this._keyboardController);
+            /*this._controllers.Add(this._mouseController);*/
+
+
 
             playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
         protected override void Update(GameTime gameTime)
         {
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            _keyboardController.Update();
-            mouseController.Update();
+            foreach (IController controller in this._controllers)
+                controller.Update();
             _itemController.Update();
 
             // Check if player has stopped moving
             input = Keyboard.GetState();
-
-            //collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
-
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
-            {
-                player.SetStaticSprite(); // Set idle sprite
-            }
-
-
-            // Update lastDirection based on movement input (def need to change this approach)
-            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
-            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
-            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
-            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
-            // NOTE: From Boggus: Move to KeyboardController class
-
 
             //should be replaced with level loader
             _itemController.Update();
@@ -173,7 +201,7 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-           renderer.Draw(_spriteBatch);
+            renderer.Draw(_spriteBatch);
             // Draw world items
             foreach (IItem item in itemManager.GetWorldItems())
             {
@@ -181,7 +209,7 @@ namespace Project
             }
             // Draw inventory items
             itemManager.GetCurrentItem().Draw(_spriteBatch);
-           enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+            enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);

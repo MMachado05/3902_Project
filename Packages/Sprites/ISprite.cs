@@ -5,7 +5,7 @@ namespace Project
 {
     public interface ISprite
     {
-        SpriteState State
+        CharacterState State
         {
             get; set;
         }

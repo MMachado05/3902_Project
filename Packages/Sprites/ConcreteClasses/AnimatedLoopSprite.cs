@@ -15,7 +15,7 @@ namespace Project
         /// the constructor argument.
         /// </summary>
         public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
+            int scaleFactor, int maxFrames, CharacterState state) : base(texture, sourceInitial, scaleFactor, state)
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;

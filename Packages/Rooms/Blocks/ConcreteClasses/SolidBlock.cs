@@ -30,6 +30,10 @@ namespace Project.Blocks
         {
             spriteBatch.Draw(texture, Destination, Source, Color.White);
         }
+        public void Draw(Rectangle dest)
+        {
+            throw new System.NotImplementedException();
+        }
 
     }
 }
