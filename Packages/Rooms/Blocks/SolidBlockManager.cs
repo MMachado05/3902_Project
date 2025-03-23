@@ -3,12 +3,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Blocks
 {
-    public class SolidBlockManager
+    public class SolidBlockFactory
     {
         SpriteBatch _SpriteBatch;
         Texture2D test;
 
-        public SolidBlockManager(SpriteBatch spriteBatch)
+        public SolidBlockFactory(SpriteBatch spriteBatch)
         {
             _SpriteBatch = spriteBatch;
             this.test = SolidBlockSpriteFactory.Instance.getSolidBlockSheet();

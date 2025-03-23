@@ -17,8 +17,6 @@ namespace Project.Blocks
             }
         }
 
-
-
         public SolidBlock(SpriteBatch spriteBatch, Texture2D texture, Rectangle src, Rectangle dst)
         {
             this.texture = texture;

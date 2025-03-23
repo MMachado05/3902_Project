@@ -15,7 +15,7 @@ namespace Project.rooms
 
         // Temp variables before I complete the refactor
         private Game1 game;
-        private SolidBlockManager blockManager;
+        private SolidBlockFactory blockManager;
         private EnemyManager enemyManager;
 
         private RoomParser roomParser;
@@ -30,7 +30,7 @@ namespace Project.rooms
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
         /// </summary>
-        public RoomManager(SolidBlockManager manager, EnemyManager enemyManager, Game1 game)
+        public RoomManager(SolidBlockFactory manager, EnemyManager enemyManager, Game1 game)
         {
             currentRoomX = currentRoomY = 0;
 

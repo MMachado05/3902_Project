@@ -47,7 +47,7 @@ namespace Project
         /// <summary>
         /// </summary>
 
-        private SolidBlockManager blockManager;
+        private SolidBlockFactory blockManager;
         Renderer renderer;
         RoomManager roomManager;
         public void restart()
@@ -132,7 +132,7 @@ namespace Project
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            blockManager = new SolidBlockManager(_spriteBatch);
+            blockManager = new SolidBlockFactory(_spriteBatch);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
