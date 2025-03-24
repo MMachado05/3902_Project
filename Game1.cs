@@ -196,13 +196,11 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            renderer.Draw(_spriteBatch);
+            gameRenderer.Draw(_spriteBatch);
+
             // Draw world items
-            foreach (IItem item in itemManager.GetWorldItems())
-            {
-                item.Draw(_spriteBatch);
-            }
-            // Draw inventory items
+            // TODO: This will be removed once the GameRenderer class has implementations
+            // for drawing items to the screen properly
             itemManager.GetCurrentItem().Draw(_spriteBatch);
             enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             _spriteBatch.End();
