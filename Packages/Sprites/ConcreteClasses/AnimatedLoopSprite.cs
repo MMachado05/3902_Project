@@ -15,12 +15,10 @@ namespace Project
         /// the constructor argument.
         /// </summary>
         public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, CharacterState state) : base(texture, sourceInitial, scaleFactor, state)
+            int maxFrames, CharacterState state) : base(texture, sourceInitial, state)
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;
-            this.topLeftXInitial = sourceInitial.X;
-            this.topLeftYInitial = sourceInitial.Y;
         }
 
         public override void Update()

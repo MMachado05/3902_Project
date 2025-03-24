@@ -5,8 +5,8 @@ namespace Project
 {
     public class StationarySprite : AbstractSprite
     {
-        public StationarySprite(Texture2D texture, Rectangle source, int scaleFactor, CharacterState state)
-          : base(texture, source, scaleFactor, state)
+        public StationarySprite(Texture2D texture, Rectangle source, CharacterState state)
+          : base(texture, source, state)
         {
         }
 

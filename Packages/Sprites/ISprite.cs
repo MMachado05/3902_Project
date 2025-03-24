@@ -17,7 +17,6 @@ namespace Project
         /// <summary>
         /// Draw this sprite to the game window.
         /// </summary>
-        void Draw(SpriteBatch spriteBatch, Vector2 position);
+        void Draw(SpriteBatch spriteBatch, Rectangle destination);
     }
-
 }

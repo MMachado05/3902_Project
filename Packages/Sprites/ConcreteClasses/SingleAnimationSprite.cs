@@ -7,8 +7,6 @@ namespace Project
     {
         private int maxFrames;
         private int currFrame;
-        private int topLeftXInitial;
-        private int topLeftYInitial;
         private CharacterState complete;
 
         /// <summary>
@@ -16,13 +14,11 @@ namespace Project
         /// the constructor argument.
         /// </summary>
         public SingleAnimationSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, CharacterState active, CharacterState complete,
-            int originX = -1, int originY = -1) : base(texture, sourceInitial, scaleFactor, active, originX, originY)
+            int maxFrames, CharacterState active, CharacterState complete) :
+          base(texture, sourceInitial, active)
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;
-            this.topLeftXInitial = sourceInitial.X;
-            this.topLeftYInitial = sourceInitial.Y;
             this.complete = complete;
         }
 
@@ -32,7 +28,6 @@ namespace Project
             if (this.currFrame < this.maxFrames)
             {
                 this.currFrame++;
-                base.source.Y = this.topLeftYInitial + (base.heightPixels * this.currFrame);
             }
             else
             {
