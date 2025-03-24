@@ -1,15 +1,9 @@
-using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
     public interface IBlock
     {
-        /// <summary>
-        /// Draws the Block object to the game screen.
-        /// </summary>
-        [System.Obsolete("Should be providing destination as an argument here.")]
-        public void Draw();
-
-        public void Draw(Rectangle dest);
+        public void Draw(SpriteBatch sb);
     }
 }
