@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.rooms
 {
     public interface IRoom
     {
-    public List<Object> roomMap();
-     public int getPlayerIndex();
-    public List<object> BlocksList{get;set;}
-
+        public void Draw(SpriteBatch sb);
+        public int getPlayerIndex();
     }
 }

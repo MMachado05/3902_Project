@@ -1,92 +1,49 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Enemies;
 using Project.rooms;
-using Project.Blocks;
-using Project.Enemies.EnemyClasses;
+using Project.Packages.Items;
+using Microsoft.Xna.Framework.Graphics;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
     {
+        private IBlock[,] internalMap;
+
         // Per-room entity managers
-        private SolidBlockManager manager;
         private EnemyManager _enemyManager;
+        private ItemManager _itemManager;
+
+        // Internal logic
+        private Rectangle _defaultPlayerLocation;
+        private bool _active;
+
+        public bool IsOnScreen { get => this._active; set => this._active = value; }
 
         // Logistic fields
-        private Dictionary<Vector2, String> internalRep;
-        Game1 game;
-        List<object> result;
-        public List<object> BlocksList { get; set; }
         int playerIndex;
-        int counter = 0;
 
-        public BaseRoom(SolidBlockManager manager, EnemyManager enemyManager, Game1 game,
-            Dictionary<Vector2, String> internalRep)
+        public BaseRoom(EnemyManager enemyManager, Rectangle defaultPlayerLocation,
+            IBlock[,] internalMap)
         {
             _enemyManager = enemyManager;
-            this.game = game;
-            this.manager = manager;
-            this.internalRep = internalRep;
+            /*this.manager = manager;*/
+            this.internalMap = internalMap;
+            this._defaultPlayerLocation = defaultPlayerLocation;
+            this._active = false;
         }
-        public List<Object> roomMap()
+
+        public void Draw(SpriteBatch sb)
         {
-            result = new List<object>();
-            BlocksList = new List<object>();
-            foreach (var item in internalRep)
+            for (int x = 0; x < this.internalMap.GetLength(0); x++)
             {
-                Rectangle dest;
-                SolidBlock block;
-
-                switch (item.Value)
-                {
-                    case "bl":
-                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = manager.boardersBrick(dest);
-                        result.Add(block);
-                        BlocksList.Add(block);
-                        break;
-                    case "ob":
-                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = manager.obstacleBlock(dest);
-                        result.Add(block);
-                        BlocksList.Add(block);
-
-                        break;
-                    case "dr":
-                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        block = manager.doorBlock(dest);
-                        result.Add(block);
-                        BlocksList.Add(block);
-
-                        break;
-                    case "en":
-                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        List<Enemy> enemyList = new List<Enemy> { new Aquamentus(new Vector2(dest.X, dest.Y)), new RedGoriya(new Vector2(dest.X, dest.Y)), new Stalfos(new Vector2(dest.X, dest.Y)) };
-                        _enemyManager.addEnemy(enemyList);
-                        result.Add(enemyList);
-                        break;
-                    case "pl":
-                        dest = new((int)item.Key.X * 64, (int)item.Key.Y * 64, 64, 64);
-                        game.player.PositionRect = dest;
-                        game.player.PositionVector = new Vector2(dest.X, dest.Y);
-                        result.Add(game.player);
-                        playerIndex = counter;
-                        break;
-                }
-                counter++;
-
-                // NOTE: From Boggus, we need magic strings and lots of loops in order
-                // to pull off parsers, so while it does have code smells, we won't
-                // concern ourselves too much
+                for (int y = 0; y < this.internalMap.GetLength(1); y++)
+                    this.internalMap[x, y].Draw(sb);
             }
-            return result;
         }
+
         public int getPlayerIndex()
         {
             return playerIndex;
         }
-
-
     }
 }

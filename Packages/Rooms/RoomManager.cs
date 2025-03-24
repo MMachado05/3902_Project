@@ -1,10 +1,10 @@
 using System;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Blocks;
 using Project.Enemies;
-using Project.Packages;
+using Project.renderer;
 
 namespace Project.rooms
 {
@@ -14,9 +14,9 @@ namespace Project.rooms
         private const int COLS = 1;
 
         // Temp variables before I complete the refactor
-        private Game1 game;
-        private SolidBlockFactory blockManager;
         private EnemyManager enemyManager;
+
+        // TODO: We'll want collision handlers in each room for enemies, and items
 
         private RoomParser roomParser;
 
@@ -30,17 +30,15 @@ namespace Project.rooms
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
         /// </summary>
-        public RoomManager(SolidBlockFactory manager, EnemyManager enemyManager, Game1 game)
+        public RoomManager(EnemyManager enemyManager)
         {
             currentRoomX = currentRoomY = 0;
 
-            this.game = game;
-            this.blockManager = manager;
             this.enemyManager = enemyManager;
             this.roomParser = new RoomParser();
         }
 
-        public void LoadRoomsFromContent(ContentManager Content)
+        public void LoadRoomsFromContent(ContentManager content, GameRenderer gr)
         {
             // Create reader for the list of all rooms
             string pathPrefix = Environment.CurrentDirectory + "/Rooms/";
@@ -61,6 +59,8 @@ namespace Project.rooms
                 mapHeight++;
                 mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length);
             }
+
+            // Restart reader
             roomListReader.DiscardBufferedData();
             roomListReader.BaseStream.Seek(0, SeekOrigin.Begin);
 
@@ -78,8 +78,8 @@ namespace Project.rooms
                     if (roomRow[i] != "") // Ignore "rooms" that don't exist
                     {
                         this.Map[mapRoomX, mapRoomY] =
-                          new BaseRoom(blockManager, enemyManager, game,
-                              roomParser.LoadRoom(pathPrefix + roomRow[i]));
+                          roomParser.LoadRoom(pathPrefix + roomRow[i],
+                              gr, enemyManager, content);
                     }
                     mapRoomX++;
                 }
@@ -88,31 +88,49 @@ namespace Project.rooms
         }
 
         // TODO: Implement this; to be called by Renderer
-        public void Draw(SpriteBatch sb) { }
+        public void DrawCurrentRoom(SpriteBatch sb)
+        {
+            this.GetCurrentRoom().Draw(sb);
+            // TODO: Draw enemies
+            // TODO: Draw items
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            // TODO: Implement this
+        }
 
         public void GotoRoomBelow()
         {
             this.currentRoomY++;
             if (this.currentRoomY >= this.Map.GetLength(COLS))
                 this.currentRoomY = 0;
+            // TODO: Save the current player location to the "default player location"
+            // attribute in the room.
         }
         public void GotoRoomAbove()
         {
             this.currentRoomY--;
             if (this.currentRoomY < 0)
                 this.currentRoomY = this.Map.GetLength(COLS) - 1;
+            // TODO: Save the current player location to the "default player location"
+            // attribute in the room.
         }
         public void GotoRoomToRight()
         {
             this.currentRoomX++;
             if (this.currentRoomX >= this.Map.GetLength(ROWS))
                 this.currentRoomX = 0;
+            // TODO: Save the current player location to the "default player location"
+            // attribute in the room.
         }
         public void GotoRoomToLeft()
         {
             this.currentRoomX--;
             if (this.currentRoomX < 0)
                 this.currentRoomX = this.Map.GetLength(ROWS) - 1;
+            // TODO: Save the current player location to the "default player location"
+            // attribute in the room.
         }
 
         public IRoom GetCurrentRoom()

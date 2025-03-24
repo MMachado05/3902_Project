@@ -1,18 +1,41 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Project.Blocks;
+using Project.Enemies;
+using Project.Packages;
+using Project.renderer;
 
 namespace Project.rooms
 {
     public class RoomParser
     {
-        public Dictionary<Vector2, String> LoadRoom(string filepath)
+        public IRoom LoadRoom(string filePath, GameRenderer gr,
+            EnemyManager enemyManager, ContentManager content)
         {
-            Dictionary<Vector2, String> result = new();
-            StreamReader reader = new(filepath);
+            StreamReader reader = new(filePath);
             string line;
+            int roomWidth = 0;
+            int roomHeight = 0;
+
+            // Create dimensions for loaded room
+            while ((line = reader.ReadLine()) != null)
+            {
+                roomWidth = Math.Max(roomWidth, line.Split(",").Length);
+                roomHeight++;
+            }
+            IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
+
+            // Restart reader
+            reader.DiscardBufferedData();
+            reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+            // Create block objects for room
             int y = 0;
+
+            Rectangle playerSpriteLocation = new Rectangle();
+
             while ((line = reader.ReadLine()) != null)
             {
                 string[] items = line.Split(',');
@@ -21,33 +44,40 @@ namespace Project.rooms
                     switch (items[x])
                     {
                         case "bl":
-                            result[new Vector2(x, y)] = items[x];
+                            internalMap[x, y] =
+                              SolidBlockFactory.Instance.CreateBricks(1, 1,
+                                  new Rectangle(x * gr.TileWidth,
+                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                             break;
                         case "ob":
-                            result[new Vector2(x, y)] = items[x];
+                            internalMap[x, y] =
+                              SolidBlockFactory.Instance.CreateWoodPlanks(1, 1,
+                                  new Rectangle(x * gr.TileWidth,
+                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                             break;
                         case "dr":
-                            result[new Vector2(x, y)] = items[x];
+                            internalMap[x, y] =
+                              SolidBlockFactory.Instance.CreateDoor(
+                                  new Rectangle(x * gr.TileWidth,
+                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                             break;
                         case "pl":
-                            result[new Vector2(x, y)] = items[x];
+                            playerSpriteLocation.X = x * gr.TileWidth;
+                            playerSpriteLocation.Y = y * gr.TileHeight;
                             break;
                         case "en":
-                            result[new Vector2(x, y)] = items[x];
+                            // TODO: We should change the convention here to explicitly
+                            // express *which* enemy is being spawned. We'll add it to 
+                            // the enemy manager that'll get passed into the room.
                             break;
-
                         default:
                             break;
                     }
                 }
                 y++;
-
             }
 
-
-            return result;
+            return new BaseRoom(enemyManager, playerSpriteLocation, internalMap);
         }
-
-
     }
 }
