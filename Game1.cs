@@ -31,7 +31,6 @@ namespace Project
 
         public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
         public Direction spriteType;
-        KeyboardState input;
 
         public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
         private CollisionManager collisionManager;
@@ -47,8 +46,8 @@ namespace Project
         /// <summary>
         /// </summary>
 
-        private SolidBlockFactory blockManager;
         Renderer renderer;
+        GameRenderer gameRenderer;
         RoomManager roomManager;
         public void restart()
         {
@@ -58,8 +57,6 @@ namespace Project
 
         // should be moved out of game1
         ItemManager itemManager;
-        KeyboardState previousState = new KeyboardState();
-
 
         private ItemController _itemController;
         PlayerItemCollisionHandler playerItemCollisionHandler;
@@ -79,7 +76,6 @@ namespace Project
             this.player = new Player();
             this.enemyManager = new EnemyManager();
 
-            input = Keyboard.GetState();
             base.Initialize();
         }
 
@@ -131,8 +127,7 @@ namespace Project
 
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            blockManager = new SolidBlockFactory(_spriteBatch);
+            SolidBlockFactory.Instance.LoadAllTextures(Content);
 
             // Set initial sprite to static down
             playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
@@ -171,9 +166,6 @@ namespace Project
             foreach (IController controller in this._controllers)
                 controller.Update();
             _itemController.Update();
-
-            // Check if player has stopped moving
-            input = Keyboard.GetState();
 
             //should be replaced with level loader
             _itemController.Update();
