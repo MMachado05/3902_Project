@@ -139,11 +139,14 @@ namespace Project
             _itemController = new ItemController(itemManager, this);
 
             // Initialize KeyboardController with movement and quit commands, pass in player and game
-
+            GameRenderer gameRenderer = new GameRenderer(32, 32);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             collisionManager = new CollisionManager();
-            roomManager = new RoomManager(blockManager, enemyManager, this);
-            roomManager.LoadRoomsFromContent(Content);
+            roomManager = new RoomManager(enemyManager);
+            gameRenderer.RoomManager = roomManager;
+            roomManager.LoadRoomsFromContent(Content, gameRenderer);
+            gameRenderer.PlayerCharacter = this.player;
+
             renderer = new Renderer(roomManager, enemyManager, collisionManager);
             _mouseController = new MouseController(this, _graphics, roomManager);
 
