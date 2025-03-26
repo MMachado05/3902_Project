@@ -12,7 +12,7 @@ namespace Project.Packages.Characters
             // Reverting player to last safe position when colliding
             // NOTE: Because the sprite is not actually drawn exactly where the bounding box is, we have to do these weird offsets.
             // This can be fixed by fixing the sprite textures for the blocks at some point. Then the offsets can be removed.
-            player.PositionVector = player.PreviousPosition;
+            /*player.PositionVector = player.PreviousPosition;*/
             player.PositionRect = new Rectangle((int)player.PreviousPosition.X, (int)player.PreviousPosition.Y,
                                          player.PositionRect.Width, player.PositionRect.Height);
             // NOTE: From Boggus: this is safer than setting V to 0, since it's
@@ -26,24 +26,24 @@ namespace Project.Packages.Characters
             // Can prob add reduce health logic here later; trigger damage animation
         }
 
-        public void UpdateCollisions(Player player, List<object>solidBlocks)
+        public void UpdateCollisions(Player player, List<object> solidBlocks)
         {
-          // NOTE: From Boggus: One optimization; take adjacent blocks and "consolidate"
-          // them when calculating collisions, so as to reducce the number of "objects"
-          // we need to compare for intersections. E.g. A single wall would be one, long
-          // rectangle, rather than various individual blocks all next to one another.
-          // In that vein, create an object class (similar to blocks) that is just
-          // a rectangular "block"
-            
+            // NOTE: From Boggus: One optimization; take adjacent blocks and "consolidate"
+            // them when calculating collisions, so as to reducce the number of "objects"
+            // we need to compare for intersections. E.g. A single wall would be one, long
+            // rectangle, rather than various individual blocks all next to one another.
+            // In that vein, create an object class (similar to blocks) that is just
+            // a rectangular "block"
+
             foreach (var block in solidBlocks)
             {
-                
+
                 SolidBlock blockHolder = (SolidBlock)block;
-                if (player.PositionRect.Intersects(blockHolder.BoundingBox))
-                {
-                    ICommand collisionCommand = new PlayerBlockCollisionCommand(player, blockHolder, this);
-                    collisionCommand.Execute();
-                }
+                /*if (player.PositionRect.Intersects(blockHolder.BoundingBox))*/
+                /*{*/
+                /*    ICommand collisionCommand = new PlayerBlockCollisionCommand(player, blockHolder, this);*/
+                /*    collisionCommand.Execute();*/
+                /*}*/
             }
         }
 
