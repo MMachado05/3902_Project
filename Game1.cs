@@ -46,7 +46,6 @@ namespace Project
         /// <summary>
         /// </summary>
 
-        Renderer renderer;
         GameRenderer gameRenderer;
         RoomManager roomManager;
         public void restart()
@@ -147,7 +146,6 @@ namespace Project
             roomManager.LoadRoomsFromContent(Content, gameRenderer);
             gameRenderer.PlayerCharacter = this.player;
 
-            renderer = new Renderer(roomManager, enemyManager, collisionManager);
             _mouseController = new MouseController(this, _graphics, roomManager);
 
             // Set up controllers
@@ -182,9 +180,6 @@ namespace Project
             //Placing and updating inventory items
             itemManager.GetCurrentItem().Update();
             itemManager.PlaceInventoryItem();
-
-
-            renderer.Update(gameTime);
 
             playerItemCollisionHandler.HandlePlayerItemCollision();
 

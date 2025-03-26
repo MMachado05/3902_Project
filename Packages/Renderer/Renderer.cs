@@ -10,6 +10,7 @@ using Project.rooms;
 
 namespace Project.renderer
 {
+    [System.Obsolete("Using GameRenderer; this class is not functional")]
     public class Renderer : IRenderer
     {
         List<object> itemList;
@@ -28,7 +29,7 @@ namespace Project.renderer
         private EnemyCollisionManager enemyCollisionManager;
         public Renderer(RoomManager roomsManager, EnemyManager enemyManager, CollisionManager collisionManager)
         {
-            itemList = roomsManager.GetCurrentRoom().roomMap();
+            /*itemList = roomsManager.GetCurrentRoom().roomMap();*/
             playerIndex = roomsManager.GetCurrentRoom().getPlayerIndex();
             Player1 = (Player)itemList[playerIndex];
             this.roomManager = roomsManager;
@@ -50,7 +51,7 @@ namespace Project.renderer
                 switch (items)
                 {
                     case SolidBlock solidBlock:
-                        solidBlock.Draw();
+                        /*solidBlock.Draw();*/
                         break;
                     case Player player:
 
@@ -88,14 +89,14 @@ namespace Project.renderer
 
             if (!this.currentRoomCoordinates.Equals(this.previousRoomCoordinates))
             {
-                itemList = roomManager.GetCurrentRoom().roomMap();
+                /*itemList = roomManager.GetCurrentRoom().roomMap();*/
                 Array.Copy(currentRoomCoordinates, previousRoomCoordinates, 2);
             }
 
             enemyManager.GetCurrentEnemy().UpdateState(gameTime);
-            CollisionManager.UpdateCollisions(Player1, roomManager.GetCurrentRoom().BlocksList);
+            /*CollisionManager.UpdateCollisions(Player1, roomManager.GetCurrentRoom().BlocksList);*/
 
-            enemyCollisionManager.UpdateEnemyCollisions(enemyManager.GetCurrentEnemy(), roomManager.GetCurrentRoom().BlocksList); // Handle enemy collisions
+            /*enemyCollisionManager.UpdateEnemyCollisions(enemyManager.GetCurrentEnemy(), roomManager.GetCurrentRoom().BlocksList); // Handle enemy collisions*/
         }
     }
 }
