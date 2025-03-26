@@ -88,6 +88,11 @@ namespace Project.Enemies.EnemyClasses
             currentAnimation.Draw(spriteBatch, Position);
         }
 
+        public void CollideWith(IGameObject collider)
+        {
+            // TODO: Implement, need to check what the collision is with
+        }
+
         public virtual void Attack() { }
         public virtual void ResetAttackState() { }
         public virtual float GetAttackDuration() => 4f;

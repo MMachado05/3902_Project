@@ -5,10 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
-    public class Player
+    public class Player : IGameObject
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get; set; }
         public Rectangle PositionRect { get; set; }
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
@@ -32,7 +31,6 @@ namespace Project
             stringDirToEnum.Add("Left", Direction.Left);
             stringDirToEnum.Add("Right", Direction.Right);
             // Set initial default states
-            PositionVector = new Vector2(36, 36);
             PositionRect = new Rectangle(36, 36, 20, 44);
             velocity = new Vector2(0, 0);
             // Because the vector is the origin, we need to offset the top-left corner of
@@ -68,17 +66,11 @@ namespace Project
 
         public void Update(GameTime gameTime)
         {
-            // Move correctly
-            // Store previous movement here to prevent moving upon collision.
-            _previousPosition = PositionVector;
-
             // Update position
-            PositionVector = new Vector2(PositionVector.X + this.velocity.X,
-                PositionVector.Y + this.velocity.Y);
             PositionRect = new Rectangle(PositionRect.X + (int)this.velocity.X,
                 PositionRect.Y + (int)this.velocity.Y,
                                          PositionRect.Width, PositionRect.Height);
-            
+
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
@@ -91,7 +83,12 @@ namespace Project
         public void Draw(SpriteBatch spriteBatch)
         {
             // Draw the sprite at the current position
-            Sprite.Draw(spriteBatch, PositionVector);
+            Sprite.Draw(spriteBatch, PositionRect);
+        }
+
+        public void CollideWith(IGameObject collider)
+        {
+            // TODO:Implement, include a check for what *kind* of game object it is
         }
     }
 }

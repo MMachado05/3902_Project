@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Project
 {
-    public interface IItem
+    public interface IItem : IGameObject
     {
         float Speed { get; set; }
         void Update();

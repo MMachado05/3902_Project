@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace Project.Enemies
 {
-    public interface IEnemy
+    public interface IEnemy : IGameObject
     {
         Vector2 Position { get; }
         float Speed { get; set; }
