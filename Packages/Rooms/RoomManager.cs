@@ -137,37 +137,5 @@ namespace Project.rooms
         {
             return this.Map[this.currentRoomX, this.currentRoomY];
         }
-
-        [System.Obsolete("2D array being used; need to refactor")]
-        public void SwitchToPreviousRoom()
-        {
-            do
-            {
-                this.currentRoomX++;
-                if (this.currentRoomX > this.Map.GetLength(ROWS))
-                {
-                    this.currentRoomX = 0;
-                    this.currentRoomY++;
-                    if (this.currentRoomY > this.Map.GetLength(COLS))
-                        this.currentRoomY = 0;
-                }
-            } while (this.Map[currentRoomX, currentRoomY] == null);
-        }
-
-        [System.Obsolete("2D array being used; need to refactor")]
-        public void SwitchToNextRoom()
-        {
-            do
-            {
-                this.currentRoomX--;
-                if (this.currentRoomX < 0)
-                {
-                    this.currentRoomX = this.Map.GetLength(ROWS) - 1;
-                    this.currentRoomY--;
-                    if (this.currentRoomY < 0)
-                        this.currentRoomY = this.Map.GetLength(COLS) - 1;
-                }
-            } while (this.Map[currentRoomX, currentRoomY] == null);
-        }
     }
 }
