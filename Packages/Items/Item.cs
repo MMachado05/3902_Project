@@ -5,7 +5,6 @@ namespace Project.Packages.Items
 {
     public abstract class Item : IItem
     {
-        public abstract Vector2 Position { get; set; }
         public abstract float Speed { get; set; }
         public ISprite Sprite { get; }
 
@@ -16,9 +15,9 @@ namespace Project.Packages.Items
 
         public abstract void Update();
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Rectangle dest)
         {
-            Sprite.Draw(spriteBatch, Position);
+            Sprite.Draw(spriteBatch, dest);
         }
     }
 }
