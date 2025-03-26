@@ -46,5 +46,10 @@ namespace Project.Blocks
             sb.Draw(this._texture, this._renderedLocation,
                 this._textureSource, Color.White);
         }
+
+        public void CollideWith(IGameObject collider)
+        {
+            // NOTE: Empty method, since blocks won't respond to collisions
+        }
     }
 }

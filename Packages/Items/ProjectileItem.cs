@@ -5,18 +5,18 @@ namespace Project.Packages.Items
 {
     public class ProjectileItem : Item
     {
-        public override Vector2 Position { get; set; }
+        public override Rectangle PositionRect { get; set; }
         public override float Speed { get; set; }
         public Vector2 Direction { get; }
-        private readonly Vector2 initialPosition;
+        private readonly Rectangle initialPosition;
         private readonly float maxDistance;
         private bool returning;
         public readonly Vector2? returnTarget;
 
-        public ProjectileItem(Vector2 position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
+        public ProjectileItem(Rectangle position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
             : base(sprite)
         {
-            Position = position;
+            PositionRect = position;
             Direction = direction;
             Speed = speed;
             this.maxDistance = maxDistance;
@@ -27,24 +27,26 @@ namespace Project.Packages.Items
 
         public override void Update()
         {
-            if (!returning && Vector2.Distance(initialPosition, Position) >= maxDistance)
-            {
-                returning = returnTarget.HasValue;
-            }
+            // TODO: Use rectangles here
+            /*if (!returning && Vector2.Distance(initialPosition, Position) >= maxDistance)*/
+            /*{*/
+            /*    returning = returnTarget.HasValue;*/
+            /*}*/
 
-            Vector2 moveDirection = returning && returnTarget.HasValue
-                ? Vector2.Normalize(returnTarget.Value - Position)
-                : Direction;
-
-            Position += moveDirection * Speed;
-            Sprite.Update();
+            /*Vector2 moveDirection = returning && returnTarget.HasValue*/
+            /*    ? Vector2.Normalize(returnTarget.Value - Position)*/
+            /*    : Direction;*/
+            /**/
+            /*Position += moveDirection * Speed;*/
+            /*Sprite.Update();*/
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Rectangle dest)
         {
-            base.Draw(spriteBatch);
+            base.Draw(spriteBatch, dest);
         }
 
-        public bool HasReturned() => returning && returnTarget.HasValue && Vector2.Distance(Position, returnTarget.Value) < 5.0f;
+        // TODO: Use rectangles
+        /*public bool HasReturned() => returning && returnTarget.HasValue && Vector2.Distance(Position, returnTarget.Value) < 5.0f;*/
     }
 }

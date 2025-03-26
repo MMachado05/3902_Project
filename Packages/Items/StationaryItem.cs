@@ -5,20 +5,20 @@ namespace Project.Packages.Items
 {
     public class StationaryItem : Item
     {
-        public override Vector2 Position { get; set; }
+        public override Rectangle PositionRect { get; set; }
         public override float Speed { get; set; }
 
-        public StationaryItem(Vector2 position, float speed, ISprite sprite) : base(sprite)
+        public StationaryItem(Rectangle position, float speed, ISprite sprite) : base(sprite)
         {
-            Position = position;
+            PositionRect = position;
             Speed = speed;
         }
 
         public override void Update() { }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, Rectangle position)
         {
-            base.Draw(spriteBatch);
+            base.Draw(spriteBatch, this.PositionRect);
         }
     }
 }

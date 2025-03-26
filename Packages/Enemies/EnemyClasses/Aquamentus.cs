@@ -50,7 +50,7 @@ namespace Project.Enemies.EnemyClasses
 
             foreach (var direction in GetAttackDirections())
             {
-                projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));
+                /*projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));*/
             }
         }
 
@@ -68,7 +68,7 @@ namespace Project.Enemies.EnemyClasses
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            projectiles.ForEach(p => p.Draw(spriteBatch));
+            /*projectiles.ForEach(p => p.Draw(spriteBatch));*/
         }
 
         public override float GetAttackDuration() => 2f;

@@ -23,7 +23,6 @@ namespace Project
         public MouseController(Game1 game, GraphicsDeviceManager graphics, RoomManager roomManager)
         {
             this.roomManager = roomManager;
-            nextRoom = new NextRoomCommand(roomManager);
             _graphics = graphics;
             this.isDuplicate = false;
         }
