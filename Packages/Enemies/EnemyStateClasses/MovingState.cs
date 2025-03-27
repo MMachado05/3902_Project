@@ -46,11 +46,12 @@ namespace Project.Enemies.EnemyStateClasses
             moveTimer += 0.1f;
             if (enemy is Enemy e)
             {
-                string moveDir = GetMoveDirection(direction);
+                Direction moveDir = GetMoveDirection(direction);
                 e.MoveInDirection(moveDir);
             }
 
-            enemy.SetPosition(enemy.Position + direction * enemy.Speed);
+            // TODO: Refactor and such
+            /*enemy.SetPosition(enemy.Position + direction * enemy.Speed);*/
 
             if (moveTimer > moveDuration)
             {
@@ -60,12 +61,12 @@ namespace Project.Enemies.EnemyStateClasses
             }
         }
 
-        private static string GetMoveDirection(Vector2 dir)
+        private static Direction GetMoveDirection(Vector2 dir)
         {
-            if (dir.Y < 0) return "Up";
-            if (dir.Y > 0) return "Down";
-            if (dir.X < 0) return "Left";
-            return "Right";
+            if (dir.Y < 0) return Direction.Up;
+            if (dir.Y > 0) return Direction.Down;
+            if (dir.X < 0) return Direction.Left;
+            return Direction.Right;
         }
     }
 }

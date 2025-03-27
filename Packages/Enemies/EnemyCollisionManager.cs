@@ -9,10 +9,10 @@ public class EnemyCollisionManager
     public void HandleBlockCollision(Enemy enemy, SolidBlock block)
     {
         Rectangle enemyBounds = new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 64, 64);
-        Rectangle blockBounds = block.BoundingBox;
+        Rectangle blockBounds = block.Location;
 
-        Vector2 previousPosition = enemy.Position;
-        Vector2 newPosition = previousPosition;
+        Rectangle previousPosition = enemy.Position;
+        Rectangle newPosition = previousPosition;
 
         if (enemyBounds.Right > blockBounds.Left && previousPosition.X < blockBounds.Left)
         {
@@ -32,7 +32,8 @@ public class EnemyCollisionManager
             newPosition.Y = blockBounds.Bottom; // Push down
         }
 
-        enemy.SetPosition(newPosition);
+        // TODO: Refactor and such
+        /*enemy.SetPosition(newPosition);*/
     }
 
     public void UpdateEnemyCollisions(Enemy enemy, List<object> blocks)
@@ -40,7 +41,7 @@ public class EnemyCollisionManager
         foreach (var block in blocks)
         {
             SolidBlock blockHolder = (SolidBlock)block;
-            if (new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 64, 64).Intersects(blockHolder.BoundingBox))
+            if (new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 64, 64).Intersects(blockHolder.Location))
             {
                 ICommand collisionCommand = new EnemyBlockCollisionCommand(enemy, blockHolder, this);
                 collisionCommand.Execute();

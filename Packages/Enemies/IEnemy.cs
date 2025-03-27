@@ -4,10 +4,10 @@ namespace Project.Enemies
 {
     public interface IEnemy : IGameObject
     {
-        Vector2 Position { get; }
+        Rectangle Position { get; }
         float Speed { get; set; }
         void SetState(IEnemyState newState);
-        void SetPosition(Vector2 newPosition);
+        /*void SetPosition(Vector2 newPosition);*/
 
         /// <summary>
         /// Trigger this Enemy to perform their attack.

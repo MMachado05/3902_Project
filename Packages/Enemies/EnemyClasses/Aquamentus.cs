@@ -10,7 +10,7 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
-        public Aquamentus(Vector2 startPosition) : base(startPosition) { }
+        public Aquamentus(Rectangle initialPosition) : base(initialPosition) { }
 
         protected override void LoadAnimations()
         {
@@ -34,13 +34,12 @@ namespace Project.Enemies.EnemyClasses
         {
             return lastDirection switch
             {
-                "Up" => [new Vector2(0, -1), new Vector2(-0.7f, -0.7f), new Vector2(0.7f, -0.7f)],
-                "Down" => [new Vector2(0, 1), new Vector2(-0.7f, 0.7f), new Vector2(0.7f, 0.7f)],
-                "Left" => [new Vector2(-1, 0), new Vector2(-0.7f, -0.7f), new Vector2(-0.7f, 0.7f)],
-                "Right" => [new Vector2(1, 0), new Vector2(0.7f, -0.7f), new Vector2(0.7f, 0.7f)],
+                Direction.Up => [new Vector2(0, -1), new Vector2(-0.7f, -0.7f), new Vector2(0.7f, -0.7f)],
+                Direction.Down => [new Vector2(0, 1), new Vector2(-0.7f, 0.7f), new Vector2(0.7f, 0.7f)],
+                Direction.Left => [new Vector2(-1, 0), new Vector2(-0.7f, -0.7f), new Vector2(-0.7f, 0.7f)],
+                Direction.Right => [new Vector2(1, 0), new Vector2(0.7f, -0.7f), new Vector2(0.7f, 0.7f)],
                 _ => [new Vector2(0, -1)]
             };
-
         }
 
         public override void Attack()
