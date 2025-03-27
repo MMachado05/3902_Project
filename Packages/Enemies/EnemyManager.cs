@@ -51,6 +51,7 @@ namespace Project.Enemies
         {
             foreach (Enemy enemy in enemies)
             {
+                System.Console.WriteLine("Drawig");
                 enemy.Draw(spriteBatch);
             }
         }

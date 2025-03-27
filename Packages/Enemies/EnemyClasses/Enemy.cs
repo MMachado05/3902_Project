@@ -87,6 +87,10 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            System.Console.WriteLine(this.Position.X);
+            System.Console.WriteLine(this.Position.Y);
+            System.Console.WriteLine(this.Position.Width);
+            System.Console.WriteLine(this.Position.Height);
             currentAnimation.Draw(spriteBatch, Position);
         }
 
