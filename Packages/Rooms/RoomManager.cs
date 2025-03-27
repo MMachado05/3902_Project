@@ -102,6 +102,9 @@ namespace Project.rooms
 
         public void GotoRoomBelow()
         {
+            this.GetCurrentRoom().IsOnScreen = false;
+            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+
             this.currentRoomY++;
             if (this.currentRoomY >= this.Map.GetLength(COLS))
                 this.currentRoomY = 0;
@@ -110,6 +113,9 @@ namespace Project.rooms
         }
         public void GotoRoomAbove()
         {
+            this.GetCurrentRoom().IsOnScreen = false;
+            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+
             this.currentRoomY--;
             if (this.currentRoomY < 0)
                 this.currentRoomY = this.Map.GetLength(COLS) - 1;
@@ -118,6 +124,9 @@ namespace Project.rooms
         }
         public void GotoRoomToRight()
         {
+            this.GetCurrentRoom().IsOnScreen = false;
+            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+
             this.currentRoomX++;
             if (this.currentRoomX >= this.Map.GetLength(ROWS))
                 this.currentRoomX = 0;
@@ -126,6 +135,9 @@ namespace Project.rooms
         }
         public void GotoRoomToLeft()
         {
+            this.GetCurrentRoom().IsOnScreen = false;
+            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+
             this.currentRoomX--;
             if (this.currentRoomX < 0)
                 this.currentRoomX = this.Map.GetLength(ROWS) - 1;
