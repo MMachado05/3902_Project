@@ -13,9 +13,6 @@ namespace Project.rooms
         private const int ROWS = 0;
         private const int COLS = 1;
 
-        // Temp variables before I complete the refactor
-        private EnemyManager enemyManager;
-
         // TODO: We'll want collision handlers in each room for enemies, and items
 
         private RoomParser roomParser;
@@ -34,7 +31,6 @@ namespace Project.rooms
         {
             currentRoomX = currentRoomY = 0;
 
-            this.enemyManager = enemyManager;
             this.roomParser = new RoomParser();
         }
 
@@ -79,7 +75,7 @@ namespace Project.rooms
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           roomParser.LoadRoom(pathPrefix + roomRow[i],
-                              gr, enemyManager, content);
+                              gr, content);
                     }
                     mapRoomX++;
                 }

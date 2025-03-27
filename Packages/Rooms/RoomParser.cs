@@ -12,7 +12,7 @@ namespace Project.rooms
     public class RoomParser
     {
         public IRoom LoadRoom(string filePath, GameRenderer gr,
-            EnemyManager enemyManager, ContentManager content)
+            ContentManager content)
         {
             StreamReader reader = new(filePath);
             string line;
