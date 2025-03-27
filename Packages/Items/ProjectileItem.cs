@@ -13,14 +13,15 @@ namespace Project.Packages.Items
         private bool returning;
         public readonly Vector2? returnTarget;
 
-        public ProjectileItem(Rectangle position, Vector2 direction, ISprite sprite, float speed, float maxDistance, Vector2? returnTarget = null)
+        public ProjectileItem(Rectangle position, Vector2 direction, ISprite sprite, float speed, float maxDistance)
             : base(sprite)
         {
             PositionRect = position;
             Direction = direction;
             Speed = speed;
             this.maxDistance = maxDistance;
-            this.returnTarget = returnTarget;
+            /*this.returnTarget = returnTarget;*/
+            // TODO: Reimplement return targets with rectangles
             initialPosition = position;
             returning = false;
         }

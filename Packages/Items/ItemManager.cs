@@ -95,14 +95,17 @@ namespace Project.Packages.Items
 
         private Vector2 GetItemDirection()
         {
-            return _game.lastDirection switch
-            {
-                "Up" => new Vector2(0, -1),
-                "Down" => new Vector2(0, 1),
-                "Left" => new Vector2(-1, 0),
-                "Right" => new Vector2(1, 0),
-                _ => new Vector2(1, 0) // Default: Right
-            };
+            // TODO: Needa refactor
+
+            /*return _game.lastDirection switch*/
+            /*{*/
+            /*    "Up" => new Vector2(0, -1),*/
+            /*    "Down" => new Vector2(0, 1),*/
+            /*    "Left" => new Vector2(-1, 0),*/
+            /*    "Right" => new Vector2(1, 0),*/
+            /*    _ => new Vector2(1, 0) // Default: Right*/
+            /*};*/
+            return new Vector2();
         }
 
         public void removeItem(Item item)
