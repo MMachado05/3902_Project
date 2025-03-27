@@ -6,7 +6,6 @@ using Project.Blocks;
 using Project.Commands;
 using Project.Commands.CommandClasses;
 using Project.Enemies;
-using Project.Packages.Characters;
 using Project.renderer;
 using Project.rooms;
 
@@ -24,9 +23,6 @@ namespace Project
         private IController _mouseController;
 
         public Player player;
-        private Rectangle playerPosition;
-
-        private CollisionManager collisionManager;
 
         // NOTE: From Boggus: enemyManager, etc. should all be hidden behind a room manager.
         // Remove dependencies here once they've been moved into their appropriate classes
@@ -112,10 +108,10 @@ namespace Project
             SolidBlockFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer = new GameRenderer(64, 64);
-            collisionManager = new CollisionManager();
             roomManager = new RoomManager(enemyManager);
             gameRenderer.RoomManager = roomManager;
             roomManager.LoadRoomsFromContent(Content, gameRenderer);
+            roomManager.AssignPlayer(this.player);
             gameRenderer.PlayerCharacter = this.player;
 
             _mouseController = new MouseController(this, _graphics, roomManager);

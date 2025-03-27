@@ -87,6 +87,15 @@ namespace Project.rooms
             }
         }
 
+        public void AssignPlayer(Player player)
+        {
+            for (int i = 0; i < this.Map.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.Map.GetLength(1); j++)
+                    this.Map[i, j].AssignPlayer(player);
+            }
+        }
+
         // TODO: Implement this; to be called by Renderer
         public void DrawCurrentRoom(SpriteBatch sb)
         {
