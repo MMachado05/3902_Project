@@ -31,7 +31,7 @@ namespace Project.Packages
         public BaseRoom(EnemyManager enemyManager, Rectangle defaultPlayerLocation,
             IBlock[,] internalMap)
         {
-            _enemyManager = enemyManager;
+            this._enemyManager = enemyManager;
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
 
@@ -62,6 +62,8 @@ namespace Project.Packages
             }
 
             this._player.Draw(sb);
+            this._enemyManager.Draw(sb);
+            System.Console.WriteLine(this._enemyManager.enemies.Count);
         }
     }
 }
