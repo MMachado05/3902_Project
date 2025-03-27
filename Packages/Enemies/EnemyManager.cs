@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Project.Enemies.EnemyClasses;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.Enemies
 {
@@ -44,6 +45,14 @@ namespace Project.Enemies
         public Enemy GetCurrentEnemy()
         {
             return enemies.Count > 0 ? enemies[currentEnemyIndex] : null;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Draw(spriteBatch);
+            }
         }
 
     }

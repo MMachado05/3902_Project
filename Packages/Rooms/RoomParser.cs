@@ -6,13 +6,14 @@ using Project.Blocks;
 using Project.Enemies;
 using Project.Packages;
 using Project.renderer;
+using Project.Enemies.EnemyClasses;
 
 namespace Project.rooms
 {
     public class RoomParser
     {
         public IRoom LoadRoom(string filePath, GameRenderer gr,
-            EnemyManager enemyManager, ContentManager content, int tileWidth, int tileHeight)
+             ContentManager content, int tileWidth, int tileHeight)
         {
             StreamReader reader = new(filePath);
             string line;
@@ -33,6 +34,8 @@ namespace Project.rooms
 
             // Create block objects for room
             int y = 0;
+
+            EnemyManager enemyManager = new EnemyManager();
 
             Rectangle playerSpriteLocation = new Rectangle();
             playerSpriteLocation.Width = tileWidth;
@@ -71,6 +74,7 @@ namespace Project.rooms
                             // TODO: We should change the convention here to explicitly
                             // express *which* enemy is being spawned. We'll add it to 
                             // the enemy manager that'll get passed into the room.
+                            enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         default:
                             break;
