@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -25,8 +24,7 @@ namespace Project
             // Set initial default states
             PositionRect = new Rectangle(36, 36, 20, 44);
             velocity = new Vector2(0, 0);
-            // Because the vector is the origin, we need to offset the top-left corner of
-            //  the rect in order to have the rect properly surround the sprite.
+
             LastDirection = Direction.Down;
             isDamaged = false;
 
@@ -46,15 +44,17 @@ namespace Project
         {
             Sprite = newSprite;
         }
+
         public void SetStaticSprite()
         {
             this.velocity.X = 0;
             this.velocity.Y = 0;
+
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
+
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
-
 
         public void Update(GameTime gameTime)
         {
@@ -72,10 +72,9 @@ namespace Project
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
-            // Draw the sprite at the current position
-            Sprite.Draw(spriteBatch, PositionRect);
+            Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.PositionRect);
         }
 
         public void CollideWith(IGameObject collider)
