@@ -7,6 +7,10 @@ namespace Project.Packages
 {
     public class BaseRoom : IRoom
     {
+        // Player reference
+        private Player _player;
+        public Rectangle PlayerLocation { get => this._player.PositionRect; }
+
         private IBlock[,] internalMap;
 
         // Per-room entity managers
@@ -15,6 +19,8 @@ namespace Project.Packages
 
         // Internal logic
         private Rectangle _defaultPlayerLocation;
+        public Rectangle SavedPlayerLocation { set => this._defaultPlayerLocation = value; }
+
         private bool _active;
 
         public bool IsOnScreen { get => this._active; set => this._active = value; }
@@ -32,6 +38,11 @@ namespace Project.Packages
             this._active = false;
         }
 
+        public void AssignPlayer(Player player)
+        {
+            this._player = player;
+        }
+
         public void Draw(SpriteBatch sb)
         {
             for (int x = 0; x < this.internalMap.GetLength(0); x++)
@@ -42,11 +53,15 @@ namespace Project.Packages
                         this.internalMap[x, y].Draw(sb);
                 }
             }
-        }
 
-        public int getPlayerIndex()
-        {
-            return playerIndex;
+            // Draw player in default location if this room was just activated
+            if (!this._active)
+            {
+                this._active = true;
+                this._player.PositionRect = this._defaultPlayerLocation;
+            }
+
+            this._player.Draw(sb);
         }
     }
 }
