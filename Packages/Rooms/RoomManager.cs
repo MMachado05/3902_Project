@@ -75,7 +75,7 @@ namespace Project.rooms
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           roomParser.LoadRoom(pathPrefix + roomRow[i],
-                              gr, content);
+                              gr, content, gr.TileWidth, gr.TileHeight);
                     }
                     mapRoomX++;
                 }
