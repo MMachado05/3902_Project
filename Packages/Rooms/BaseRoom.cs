@@ -61,11 +61,6 @@ namespace Project.Packages
                 this._player.PositionRect = this._defaultPlayerLocation;
             }
 
-            System.Console.WriteLine("X: " + this._player.PositionRect.X);
-            System.Console.WriteLine("Y: " + this._player.PositionRect.Y);
-            System.Console.WriteLine("Width: " + this._player.PositionRect.Width);
-            System.Console.WriteLine("Height: " + this._player.PositionRect.Height);
-
             this._player.Draw(sb);
         }
     }
