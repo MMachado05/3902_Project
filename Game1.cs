@@ -5,10 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Commands;
 using Project.Commands.CommandClasses;
-using Project.Content;
 using Project.Enemies;
 using Project.Packages.Characters;
-using Project.Packages.Items;
 using Project.renderer;
 using Project.rooms;
 
@@ -27,12 +25,7 @@ namespace Project
 
         public Player player;
         private Rectangle playerPosition;
-        private Vector2 playerPositionVector;
 
-        public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
-        public Direction spriteType;
-
-        public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
         private CollisionManager collisionManager;
 
         // NOTE: From Boggus: enemyManager, etc. should all be hidden behind a room manager.
@@ -41,24 +34,14 @@ namespace Project
         private EnemyManager enemyManager;
         private float elapsedTime;
 
-
-        // Not best practice; should be moved out of game1
-        /// <summary>
-        /// </summary>
-
         GameRenderer gameRenderer;
         RoomManager roomManager;
+
         public void restart()
         {
             this.LoadContent();
             this.Initialize();
         }
-
-        // should be moved out of game1
-        ItemManager itemManager;
-
-        private ItemController _itemController;
-        PlayerItemCollisionHandler playerItemCollisionHandler;
 
         public Game1()
         {
@@ -128,18 +111,7 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content);
 
-            // Set initial sprite to static down
-            playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
-
-            // Load item sprites and create item manager
-            ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager(this);
-            // Initialize ItemController with commands for switching items
-            _itemController = new ItemController(itemManager, this);
-
-            // Initialize KeyboardController with movement and quit commands, pass in player and game
-            GameRenderer gameRenderer = new GameRenderer(32, 32);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            this.gameRenderer = new GameRenderer(64, 64);
             collisionManager = new CollisionManager();
             roomManager = new RoomManager(enemyManager);
             gameRenderer.RoomManager = roomManager;
@@ -155,33 +127,12 @@ namespace Project
             this.SetUpKeyboardController();
 
             this._controllers.Add(this._keyboardController);
-            /*this._controllers.Add(this._mouseController);*/
-
-
-
-            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
         }
 
         protected override void Update(GameTime gameTime)
         {
             foreach (IController controller in this._controllers)
                 controller.Update();
-            _itemController.Update();
-
-            //should be replaced with level loader
-            _itemController.Update();
-
-            // Update world items
-            foreach (IItem item in itemManager.GetWorldItems())
-            {
-                item.Update();
-            }
-
-            //Placing and updating inventory items
-            itemManager.GetCurrentItem().Update();
-            itemManager.PlaceInventoryItem();
-
-            playerItemCollisionHandler.HandlePlayerItemCollision();
 
             base.Update(gameTime);
         }
@@ -196,8 +147,6 @@ namespace Project
             // Draw world items
             // TODO: This will be removed once the GameRenderer class has implementations
             // for drawing items to the screen properly
-            itemManager.GetCurrentItem().Draw(_spriteBatch);
-            enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
             _spriteBatch.End();
 
             base.Draw(gameTime);
