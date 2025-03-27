@@ -13,8 +13,13 @@ namespace Project.Enemies
             enemies = new List<Enemy>();
             currentEnemyIndex = 0;
         }
-        public void addEnemy(List<Enemy> enemyList){
-            enemies = enemyList;
+
+        public void AddEnemy(Enemy enemy)
+        {
+            if (enemy != null)
+            {
+                enemies.Add(enemy);
+            }
         }
 
         public void SwitchToPreviousEnemy()
@@ -40,7 +45,7 @@ namespace Project.Enemies
         {
             return enemies.Count > 0 ? enemies[currentEnemyIndex] : null;
         }
-      
+
     }
 }
 
