@@ -106,6 +106,7 @@ namespace Project
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer = new GameRenderer(64, 64);
             roomManager = new RoomManager(enemyManager);
