@@ -12,7 +12,6 @@ namespace Project
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
-        private Dictionary<String, Direction> stringDirToEnum;
         public Vector2 velocity;
 
         private float elapsedTime;
@@ -23,13 +22,6 @@ namespace Project
 
         public Player()
         {
-            // TODO: This is a hotfix because other methods expect to pass in strings.
-            // Eventually, everything should be using the enums.
-            stringDirToEnum = new Dictionary<string, Direction>();
-            stringDirToEnum.Add("Up", Direction.Up);
-            stringDirToEnum.Add("Down", Direction.Down);
-            stringDirToEnum.Add("Left", Direction.Left);
-            stringDirToEnum.Add("Right", Direction.Right);
             // Set initial default states
             PositionRect = new Rectangle(36, 36, 20, 44);
             velocity = new Vector2(0, 0);
