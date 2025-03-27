@@ -26,9 +26,9 @@ namespace Project.Packages
             IBlock[,] internalMap)
         {
             _enemyManager = enemyManager;
-            /*this.manager = manager;*/
-            this.internalMap = internalMap;
             this._defaultPlayerLocation = defaultPlayerLocation;
+            this.internalMap = internalMap;
+
             this._active = false;
         }
 
@@ -37,7 +37,10 @@ namespace Project.Packages
             for (int x = 0; x < this.internalMap.GetLength(0); x++)
             {
                 for (int y = 0; y < this.internalMap.GetLength(1); y++)
-                    this.internalMap[x, y].Draw(sb);
+                {
+                    if (this.internalMap[x, y] != null)
+                        this.internalMap[x, y].Draw(sb);
+                }
             }
         }
 

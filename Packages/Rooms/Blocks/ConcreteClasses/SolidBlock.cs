@@ -12,6 +12,7 @@ namespace Project.Blocks
         private int _verticalBlockInstances;
 
         private Rectangle _renderedLocation;
+        public Rectangle Location { get => this._renderedLocation; }
         public int LeftXCoord { get { return this._renderedLocation.X; } }
         public int RightXCoord
         {
