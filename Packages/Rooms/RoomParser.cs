@@ -12,7 +12,7 @@ namespace Project.rooms
     public class RoomParser
     {
         public IRoom LoadRoom(string filePath, GameRenderer gr,
-            EnemyManager enemyManager, ContentManager content)
+            EnemyManager enemyManager, ContentManager content, int tileWidth, int tileHeight)
         {
             StreamReader reader = new(filePath);
             string line;
@@ -35,6 +35,8 @@ namespace Project.rooms
             int y = 0;
 
             Rectangle playerSpriteLocation = new Rectangle();
+            playerSpriteLocation.Width = tileWidth;
+            playerSpriteLocation.Height = tileHeight;
 
             while ((line = reader.ReadLine()) != null)
             {
