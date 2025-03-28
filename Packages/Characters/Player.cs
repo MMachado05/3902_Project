@@ -14,10 +14,6 @@ namespace Project
         public Vector2 velocity;
 
         private float elapsedTime;
-        private Vector2 _previousPosition;
-
-        // Add public property to expose _previousPosition
-        public Vector2 PreviousPosition => _previousPosition;
 
         public Player()
         {
