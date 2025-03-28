@@ -14,6 +14,7 @@ namespace Project.Enemies
             enemies = new List<Enemy>();
             currentEnemyIndex = 0;
         }
+        
 
         public void AddEnemy(Enemy enemy)
         {
@@ -40,7 +41,7 @@ namespace Project.Enemies
                 currentEnemyIndex = 0;
             else
                 currentEnemyIndex++;
-        }
+  }
 
         public Enemy GetCurrentEnemy()
         {
