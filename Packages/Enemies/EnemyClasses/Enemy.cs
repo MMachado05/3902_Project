@@ -6,7 +6,7 @@ namespace Project.Enemies.EnemyClasses
 {
     public abstract class Enemy : IEnemy
     {
-        public Rectangle Position { get; private set; }
+        public Rectangle Location { get; private set; }
         public float Speed { get; set; }
         private IEnemyState CurrentState { get; set; }
         protected Direction lastDirection = Direction.Left;
@@ -18,7 +18,7 @@ namespace Project.Enemies.EnemyClasses
 
         public Enemy(Rectangle initialPosition)
         {
-            Position = initialPosition;
+            Location = initialPosition;
             Speed = 0.5f;
             CurrentState = new IdleState();
 
@@ -88,7 +88,7 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            currentAnimation.Draw(spriteBatch, Position);
+            currentAnimation.Draw(spriteBatch, Location);
         }
 
         public void CollideWith(IGameObject collider)

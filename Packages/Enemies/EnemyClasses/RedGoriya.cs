@@ -48,7 +48,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
+            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
         }
 
         public override void ResetAttackState()
@@ -73,7 +73,7 @@ namespace Project.Enemies.EnemyClasses
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            projectiles.ForEach(p => p.Draw(spriteBatch, p.PositionRect));
+            projectiles.ForEach(p => p.Draw(spriteBatch, p.Location));
         }
 
     }

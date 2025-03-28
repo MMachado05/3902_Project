@@ -5,12 +5,12 @@ namespace Project.Packages.Items
 {
     public class StationaryItem : Item
     {
-        public override Rectangle PositionRect { get; set; }
+        public override Rectangle Location { get; set; }
         public override float Speed { get; set; }
 
         public StationaryItem(Rectangle position, float speed, ISprite sprite) : base(sprite)
         {
-            PositionRect = position;
+            Location = position;
             Speed = speed;
         }
 
@@ -18,7 +18,7 @@ namespace Project.Packages.Items
 
         public override void Draw(SpriteBatch spriteBatch, Rectangle position)
         {
-            base.Draw(spriteBatch, this.PositionRect);
+            base.Draw(spriteBatch, this.Location);
         }
     }
 }

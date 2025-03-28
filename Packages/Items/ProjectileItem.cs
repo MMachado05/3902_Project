@@ -5,7 +5,7 @@ namespace Project.Packages.Items
 {
     public class ProjectileItem : Item
     {
-        public override Rectangle PositionRect { get; set; }
+        public override Rectangle Location { get; set; }
         public override float Speed { get; set; }
         public Vector2 Direction { get; }
         private readonly Rectangle initialPosition;
@@ -16,7 +16,7 @@ namespace Project.Packages.Items
         public ProjectileItem(Rectangle position, Vector2 direction, ISprite sprite, float speed, float maxDistance)
             : base(sprite)
         {
-            PositionRect = position;
+            Location = position;
             Direction = direction;
             Speed = speed;
             this.maxDistance = maxDistance;
