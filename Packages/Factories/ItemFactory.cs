@@ -22,7 +22,7 @@ namespace Project.Packages.Items
 
         public static ItemFactory Instance => instance;
 
-        public void LoadContent(ContentManager content)
+        public void LoadAllTextures(ContentManager content)
         {
             heartTexture = content.Load<Texture2D>("heart");
             arrowTexture = content.Load<Texture2D>("arrow");

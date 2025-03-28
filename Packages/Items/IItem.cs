@@ -8,6 +8,6 @@ namespace Project
         Rectangle PositionRect { get; set; }
         float Speed { get; set; }
         void Update();
-        void Draw(SpriteBatch spriteBatch, Rectangle dest);
+        void Draw(SpriteBatch spriteBatch);
     }
 }

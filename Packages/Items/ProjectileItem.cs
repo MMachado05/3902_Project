@@ -42,9 +42,9 @@ namespace Project.Packages.Items
             /*Sprite.Update();*/
         }
 
-        public override void Draw(SpriteBatch spriteBatch, Rectangle dest)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch, dest);
+            base.Draw(spriteBatch);
         }
 
         // TODO: Use rectangles

@@ -6,6 +6,7 @@ using Project.Blocks;
 using Project.Commands;
 using Project.Commands.CommandClasses;
 using Project.Enemies;
+using Project.Packages.Items;
 using Project.renderer;
 using Project.rooms;
 
@@ -107,6 +108,7 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
+            ItemFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer = new GameRenderer(64, 64);
             roomManager = new RoomManager(enemyManager);

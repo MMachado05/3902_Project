@@ -9,11 +9,9 @@ namespace Project.Packages.Items
         private readonly List<IItem> worldItems;
         private readonly List<IItem> projectiles;
         private int currentItemIndex = 0;
-        private Game1 _game;
 
-        public ItemManager(Game1 game)
+        public ItemManager()
         {
-            _game = game;
 
             // NOTE: From Boggus: Separate these into three different classes.
             // Recommendation: items in the world and *maybe* the ones in the inventory
@@ -95,7 +93,7 @@ namespace Project.Packages.Items
 
         private Vector2 GetItemDirection()
         {
-            // TODO: Needa refactor
+            // TODO: Needa refactor, Kevin added game1
 
             /*return _game.lastDirection switch*/
             /*{*/
@@ -105,9 +103,12 @@ namespace Project.Packages.Items
             /*    "Right" => new Vector2(1, 0),*/
             /*    _ => new Vector2(1, 0) // Default: Right*/
             /*};*/
-            return new Vector2();
+            return new Vector2(); 
         }
-
+        public void addItem(Item item)
+        {
+            worldItems.Add(item);
+        }
         public void removeItem(Item item)
         {
             worldItems.Remove(item);

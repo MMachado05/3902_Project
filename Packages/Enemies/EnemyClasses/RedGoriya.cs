@@ -73,7 +73,7 @@ namespace Project.Enemies.EnemyClasses
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            projectiles.ForEach(p => p.Draw(spriteBatch, p.PositionRect));
+            projectiles.ForEach(p => p.Draw(spriteBatch));
         }
 
     }
