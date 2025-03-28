@@ -16,7 +16,7 @@ namespace Project.Packages.Items
 
         public override void Update() { }
 
-        public override void Draw(SpriteBatch spriteBatch, Rectangle position)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch, this.Location);
         }

@@ -28,10 +28,11 @@ namespace Project.Packages
         // Logistic fields
         int playerIndex;
 
-        public BaseRoom(EnemyManager enemyManager, Rectangle defaultPlayerLocation,
+        public BaseRoom(EnemyManager enemyManager, ItemManager itemManager, Rectangle defaultPlayerLocation,
             IBlock[,] internalMap)
         {
             this._enemyManager = enemyManager;
+            this._itemManager = itemManager;
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
 
@@ -63,6 +64,12 @@ namespace Project.Packages
 
             this._player.Draw(sb);
             this._enemyManager.Draw(sb);
+            foreach (IItem item in _itemManager.GetWorldItems())
+            {
+                item.Draw(sb);
+            }
+
+            System.Console.WriteLine(this._enemyManager.enemies.Count);
         }
 
         public void Update(GameTime gameTime)

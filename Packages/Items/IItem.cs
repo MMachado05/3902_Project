@@ -7,6 +7,6 @@ namespace Project
     {
         float Speed { get; set; }
         void Update();
-        void Draw(SpriteBatch spriteBatch, Rectangle dest);
+        void Draw(SpriteBatch spriteBatch);
     }
 }

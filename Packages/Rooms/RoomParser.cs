@@ -7,6 +7,9 @@ using Project.Enemies;
 using Project.Packages;
 using Project.renderer;
 using Project.Enemies.EnemyClasses;
+using Project.Packages.Items;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.rooms
 {
@@ -36,6 +39,7 @@ namespace Project.rooms
             int y = 0;
 
             EnemyManager enemyManager = new EnemyManager();
+            ItemManager itemManager = new ItemManager();
 
             Rectangle playerSpriteLocation = new Rectangle();
             playerSpriteLocation.Width = tileWidth;
@@ -76,6 +80,9 @@ namespace Project.rooms
                             // the enemy manager that'll get passed into the room.
                             enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
+                        case "it":
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateHeartSprite()));
+                            break;
                         default:
                             break;
                     }
@@ -84,7 +91,7 @@ namespace Project.rooms
             }
 
 
-            return new BaseRoom(enemyManager, playerSpriteLocation, internalMap);
+            return new BaseRoom(enemyManager, itemManager, playerSpriteLocation, internalMap);
         }
     }
 }

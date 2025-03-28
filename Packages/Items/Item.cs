@@ -17,9 +17,9 @@ namespace Project.Packages.Items
 
         public abstract void Update();
 
-        public virtual void Draw(SpriteBatch spriteBatch, Rectangle dest)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, dest);
+            Sprite.Draw(spriteBatch, PositionRect);
         }
 
         public virtual void CollideWith(IGameObject collider)
