@@ -63,7 +63,6 @@ namespace Project.Packages
 
             this._player.Draw(sb);
             this._enemyManager.Draw(sb);
-            System.Console.WriteLine(this._enemyManager.enemies.Count);
         }
     }
 }

@@ -37,7 +37,6 @@ namespace Project
                 if (state.X < (_graphics.PreferredBackBufferWidth / 2) && state.Y < (_graphics.PreferredBackBufferHeight / 2) && !isDuplicate)
                 {
                     nextRoom.Execute();
-                    Console.WriteLine("pressed");
                     isDuplicate = true;
 
                 }

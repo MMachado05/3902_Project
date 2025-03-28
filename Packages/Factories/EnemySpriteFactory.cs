@@ -32,7 +32,7 @@ namespace Project
         public ISprite NewRedGoriyaWalkingUp() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(0, 32, 32, 32), 4, CharacterState.Walking);
         public ISprite NewRedGoriyaWalkingRight() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(32, 32, 32, 32), 4, CharacterState.Walking);
         public ISprite NewRedGoriyaWalkingDown() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(64, 32, 32, 32), 4, CharacterState.Walking);
-        public ISprite NewRedGoriyaWalkingLeft() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(96, 32, 32, 32), 4, CharacterState.Walking);
+        public ISprite NewRedGoriyaWalkingLeft() => new AnimatedLoopSprite(redGoriyaSpriteSheet, new Rectangle(96, 32, 32, 32), 4, CharacterState.Walking)
 
         public ISprite NewRedGoriyaAttackingUp() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(0, 160, 32, 64), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
         public ISprite NewRedGoriyaAttackingRight() => new SingleAnimationSprite(redGoriyaSpriteSheet, new Rectangle(64, 160, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);

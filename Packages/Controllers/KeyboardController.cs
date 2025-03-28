@@ -35,7 +35,6 @@ namespace Project
 
             foreach (Keys key in currentlyPressed)
             {
-                /*System.Console.Write(key.ToString());*/
                 if (_commands.ContainsKey(key) && !_stillPressed.Contains<Keys>(key))
                 {
                     _commands[key].Execute();
@@ -46,14 +45,6 @@ namespace Project
             //  is ignored.
             _stillPressed = currentlyPressed.Union<Keys>(_stillPressed);
             _stillPressed = currentlyPressed.Intersect<Keys>(_stillPressed);
-        }
-
-        /// <summary>Used for debugging, leaving in just in case.</summary>
-        private void printKeys(IEnumerable<Keys> enumerable)
-        {
-            foreach (Keys key in enumerable)
-                System.Console.Write(key.ToString());
-            System.Console.WriteLine();
         }
     }
 }
