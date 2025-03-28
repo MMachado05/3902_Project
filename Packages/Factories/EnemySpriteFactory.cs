@@ -56,19 +56,13 @@ namespace Project
         public ISprite NewStalfosAttackingLeft() => new SingleAnimationSprite(stalfosSpriteSheet, new Rectangle(64, 288, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
 
         // ----------------- AQUAMENTUS SPRITES -----------------
-        public ISprite NewAquamentusIdleUp() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(0, 0, 32, 32), CharacterState.Stopped);
         public ISprite NewAquamentusIdleRight() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(32, 0, 32, 32), CharacterState.Stopped);
-        public ISprite NewAquamentusIdleDown() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(64, 0, 32, 32), CharacterState.Stopped);
         public ISprite NewAquamentusIdleLeft() => new StationarySprite(aquamentusSpriteSheet, new Rectangle(96, 0, 32, 32), CharacterState.Stopped);
 
-        public ISprite NewAquamentusWalkingUp() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(0, 32, 32, 32), 4, CharacterState.Walking);
         public ISprite NewAquamentusWalkingRight() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(32, 32, 32, 32), 4, CharacterState.Walking);
-        public ISprite NewAquamentusWalkingDown() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(64, 32, 32, 32), 4, CharacterState.Walking);
         public ISprite NewAquamentusWalkingLeft() => new AnimatedLoopSprite(aquamentusSpriteSheet, new Rectangle(96, 32, 32, 32), 4, CharacterState.Walking);
 
-        public ISprite NewAquamentusAttackingUp() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(0, 160, 32, 64), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
         public ISprite NewAquamentusAttackingRight() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 160, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
-        public ISprite NewAquamentusAttackingDown() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(32, 160, 32, 64), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
         public ISprite NewAquamentusAttackingLeft() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 288, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
     }
 }
