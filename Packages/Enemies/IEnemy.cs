@@ -1,10 +1,7 @@
-using Microsoft.Xna.Framework;
-
 namespace Project.Enemies
 {
     public interface IEnemy : IGameObject
     {
-        Rectangle Position { get; }
         float Speed { get; set; }
         void SetState(IEnemyState newState);
         /*void SetPosition(Vector2 newPosition);*/

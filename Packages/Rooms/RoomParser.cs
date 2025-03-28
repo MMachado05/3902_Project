@@ -7,16 +7,15 @@ using Project.Enemies;
 using Project.Packages;
 using Project.renderer;
 using Project.Enemies.EnemyClasses;
+using Project.Packages.Characters;
 using Project.Packages.Items;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Project.rooms
 {
     public class RoomParser
     {
         public IRoom LoadRoom(string filePath, GameRenderer gr,
-             ContentManager content, int tileWidth, int tileHeight)
+             ContentManager content, int tileWidth, int tileHeight, CollisionManager collisionManager)
         {
             StreamReader reader = new(filePath);
             string line;
@@ -91,7 +90,7 @@ namespace Project.rooms
             }
 
 
-            return new BaseRoom(enemyManager, itemManager, playerSpriteLocation, internalMap);
+            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap);
         }
     }
 }

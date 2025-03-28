@@ -1,13 +1,15 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Blocks;
 
 namespace Project
 {
     public class Player : IGameObject
     {
         public ISprite Sprite { get; private set; }
-        public Rectangle PositionRect { get; set; }
+        public Rectangle Location { get; set; }
+        private Rectangle _previousLocation;
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
@@ -18,7 +20,8 @@ namespace Project
         public Player()
         {
             // Set initial default states
-            PositionRect = new Rectangle(36, 36, 20, 44);
+            Location = new Rectangle(36, 36, 20, 44);
+            this._previousLocation = Location;
             velocity = new Vector2(0, 0);
 
             LastDirection = Direction.Down;
@@ -55,9 +58,10 @@ namespace Project
         public void Update(GameTime gameTime)
         {
             // Update position
-            PositionRect = new Rectangle(PositionRect.X + (int)this.velocity.X,
-                PositionRect.Y + (int)this.velocity.Y,
-                                         PositionRect.Width, PositionRect.Height);
+            this._previousLocation = Location;
+            Location = new Rectangle(Location.X + (int)this.velocity.X,
+                Location.Y + (int)this.velocity.Y,
+                                         Location.Width, Location.Height);
 
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -70,12 +74,16 @@ namespace Project
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
-            Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.PositionRect);
+            Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
         }
 
         public void CollideWith(IGameObject collider)
         {
             // TODO:Implement, include a check for what *kind* of game object it is
+            if (collider is SolidBlock)
+            {
+                this.Location = this._previousLocation;
+            }
         }
     }
 }

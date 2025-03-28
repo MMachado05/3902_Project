@@ -3,13 +3,15 @@ using Project.Enemies;
 using Project.rooms;
 using Project.Packages.Items;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Packages.Characters;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
     {
-        // Player reference
+        // Global references
+        private CollisionManager _collisionManager;
         private Player _player;
-        public Rectangle PlayerLocation { get => this._player.PositionRect; }
+        public Rectangle PlayerLocation { get => this._player.Location; }
 
         private IBlock[,] internalMap;
 
@@ -28,9 +30,10 @@ namespace Project.Packages
         // Logistic fields
         int playerIndex;
 
-        public BaseRoom(EnemyManager enemyManager, ItemManager itemManager, Rectangle defaultPlayerLocation,
+        public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
             IBlock[,] internalMap)
         {
+            this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
             this._itemManager = itemManager;
             this._defaultPlayerLocation = defaultPlayerLocation;
@@ -59,7 +62,7 @@ namespace Project.Packages
             if (!this._active)
             {
                 this._active = true;
-                this._player.PositionRect = this._defaultPlayerLocation;
+                this._player.Location = this._defaultPlayerLocation;
             }
 
             this._player.Draw(sb);
@@ -75,6 +78,17 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
+
+            for (int i = 0; i < this.internalMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.internalMap.GetLength(1); j++)
+                {
+                    if (this.internalMap[i, j] != null)
+                    {
+                        this._collisionManager.Collide(this._player, this.internalMap[i, j]);
+                    }
+                }
+            }
         }
     }
 }
