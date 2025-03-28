@@ -14,18 +14,12 @@ namespace Project.Enemies.EnemyClasses
 
         protected override void LoadAnimations()
         {
-            idleUp = EnemySpriteFactory.Instance.NewAquamentusIdleUp();
-            idleDown = EnemySpriteFactory.Instance.NewAquamentusIdleDown();
             idleLeft = EnemySpriteFactory.Instance.NewAquamentusIdleLeft();
             idleRight = EnemySpriteFactory.Instance.NewAquamentusIdleRight();
 
-            walkUp = EnemySpriteFactory.Instance.NewAquamentusWalkingUp();
-            walkDown = EnemySpriteFactory.Instance.NewAquamentusWalkingDown();
             walkLeft = EnemySpriteFactory.Instance.NewAquamentusWalkingLeft();
             walkRight = EnemySpriteFactory.Instance.NewAquamentusWalkingRight();
 
-            attackUp = EnemySpriteFactory.Instance.NewAquamentusAttackingUp();
-            attackDown = EnemySpriteFactory.Instance.NewAquamentusAttackingDown();
             attackLeft = EnemySpriteFactory.Instance.NewAquamentusAttackingLeft();
             attackRight = EnemySpriteFactory.Instance.NewAquamentusAttackingRight();
         }
@@ -34,8 +28,6 @@ namespace Project.Enemies.EnemyClasses
         {
             return lastDirection switch
             {
-                Direction.Up => [new Vector2(0, -1), new Vector2(-0.7f, -0.7f), new Vector2(0.7f, -0.7f)],
-                Direction.Down => [new Vector2(0, 1), new Vector2(-0.7f, 0.7f), new Vector2(0.7f, 0.7f)],
                 Direction.Left => [new Vector2(-1, 0), new Vector2(-0.7f, -0.7f), new Vector2(-0.7f, 0.7f)],
                 Direction.Right => [new Vector2(1, 0), new Vector2(0.7f, -0.7f), new Vector2(0.7f, 0.7f)],
                 _ => [new Vector2(0, -1)]

@@ -23,7 +23,8 @@ namespace Project.Enemies.EnemyClasses
             CurrentState = new IdleState();
 
             LoadAnimations();
-            currentAnimation = idleDown;
+            currentAnimation = idleRight;
+            // TODO: Each enemy should be able to decide this on its own
         }
 
         protected abstract void LoadAnimations();
