@@ -64,5 +64,10 @@ namespace Project.Packages
             this._player.Draw(sb);
             this._enemyManager.Draw(sb);
         }
+
+        public void Update(GameTime gameTime)
+        {
+            this._enemyManager.Update(gameTime);
+        }
     }
 }

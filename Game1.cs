@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Blocks;
 using Project.Commands;
-using Project.Commands.CommandClasses;
-using Project.Enemies;
 using Project.renderer;
 using Project.rooms;
 
@@ -15,22 +12,14 @@ namespace Project
     {
         // Basic Game fields
         private GraphicsDeviceManager _graphics;
-        public SpriteBatch _spriteBatch; // Not best practice
-
-        // Controllers
-        private List<IController> _controllers;
-        private IController _keyboardController;
-        private IController _mouseController;
+        public SpriteBatch _spriteBatch;
 
         public Player player;
 
-        // NOTE: From Boggus: enemyManager, etc. should all be hidden behind a room manager.
-        // Remove dependencies here once they've been moved into their appropriate classes
-
-        private EnemyManager enemyManager;
         private float elapsedTime;
 
         GameRenderer gameRenderer;
+        Updater updater;
         RoomManager roomManager;
 
         public void restart()
@@ -52,19 +41,58 @@ namespace Project
         protected override void Initialize()
         {
             this.player = new Player();
-            this.enemyManager = new EnemyManager();
 
             base.Initialize();
         }
 
-        private void SetUpMouseController()
+        private void CreateMouseController()
         {
             /*MouseController mc = new MouseController();*/
             /**/
             /*this._mouseController = mc;*/
         }
 
-        private void SetUpKeyboardController()
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // Load all textures
+            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
+            SolidBlockFactory.Instance.LoadAllTextures(Content);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
+
+            this.gameRenderer = new GameRenderer(64, 64);
+            this.roomManager = new RoomManager();
+            this.gameRenderer.RoomManager = roomManager;
+            this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
+            this.roomManager.AssignPlayer(this.player);
+            this.gameRenderer.PlayerCharacter = this.player;
+            this.updater = new Updater(this.roomManager, this.player);
+            this.updater.RegisterController(this.CreateKeyboardController());
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            this.updater.Update(gameTime);
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            gameRenderer.Draw(_spriteBatch);
+
+            _spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        // -------------------------- UTILITY METHODS -------------------------------
+
+        private IController CreateKeyboardController()
         {
             KeyboardController kbc = new KeyboardController();
 
@@ -93,60 +121,7 @@ namespace Project
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));
 
-            kbc.RegisterKey(Keys.O, new CommandPreviousEnemy(this, this.enemyManager));
-            kbc.RegisterKey(Keys.P, new CommandNextEnemy(this, this.enemyManager));
-
-            this._keyboardController = kbc;
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // Load all textures
-            PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            SolidBlockFactory.Instance.LoadAllTextures(Content);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
-
-            this.gameRenderer = new GameRenderer(64, 64);
-            roomManager = new RoomManager(enemyManager);
-            gameRenderer.RoomManager = roomManager;
-            roomManager.LoadRoomsFromContent(Content, gameRenderer);
-            roomManager.AssignPlayer(this.player);
-            gameRenderer.PlayerCharacter = this.player;
-
-            _mouseController = new MouseController(this, _graphics, roomManager);
-
-            // Set up controllers
-            this._controllers = new List<IController>();
-            this._controllers.Add(_mouseController);
-
-            this.SetUpKeyboardController();
-
-            this._controllers.Add(this._keyboardController);
-        }
-
-        protected override void Update(GameTime gameTime)
-        {
-            foreach (IController controller in this._controllers)
-                controller.Update();
-
-            base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            gameRenderer.Draw(_spriteBatch);
-
-            // Draw world items
-            // TODO: This will be removed once the GameRenderer class has implementations
-            // for drawing items to the screen properly
-            _spriteBatch.End();
-
-            base.Draw(gameTime);
+            return kbc;
         }
 
     }
