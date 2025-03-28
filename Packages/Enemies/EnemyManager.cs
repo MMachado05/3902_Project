@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Project.Enemies.EnemyClasses;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Project.Enemies
 {
@@ -14,7 +15,7 @@ namespace Project.Enemies
             enemies = new List<Enemy>();
             currentEnemyIndex = 0;
         }
-        
+
 
         public void AddEnemy(Enemy enemy)
         {
@@ -41,7 +42,7 @@ namespace Project.Enemies
                 currentEnemyIndex = 0;
             else
                 currentEnemyIndex++;
-  }
+        }
 
         public Enemy GetCurrentEnemy()
         {
@@ -54,6 +55,10 @@ namespace Project.Enemies
                 enemy.Draw(spriteBatch);
         }
 
+        public void Update(GameTime gameTime)
+        {
+            // TODO: Implement
+        }
     }
 }
 

@@ -36,7 +36,9 @@
                     break;
             }
 
-            if (_player.Sprite.State != CharacterState.Walking)
+            if (_player.Sprite.State != CharacterState.Walking
+                || (_player.Sprite.State == CharacterState.Walking
+                  && _direction != _player.LastDirection))
                 _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));
 
             _player.SpriteType = _direction;

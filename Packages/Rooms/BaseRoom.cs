@@ -71,5 +71,10 @@ namespace Project.Packages
 
             System.Console.WriteLine(this._enemyManager.enemies.Count);
         }
+
+        public void Update(GameTime gameTime)
+        {
+            this._enemyManager.Update(gameTime);
+        }
     }
 }

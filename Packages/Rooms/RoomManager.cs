@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Enemies;
 using Project.renderer;
 
 namespace Project.rooms
@@ -12,8 +11,6 @@ namespace Project.rooms
     {
         private const int ROWS = 0;
         private const int COLS = 1;
-
-        // TODO: We'll want collision handlers in each room for enemies, and items
 
         private RoomParser roomParser;
 
@@ -27,7 +24,7 @@ namespace Project.rooms
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
         /// </summary>
-        public RoomManager(EnemyManager enemyManager)
+        public RoomManager()
         {
             currentRoomX = currentRoomY = 0;
 
@@ -102,7 +99,7 @@ namespace Project.rooms
 
         public void Update(GameTime gameTime)
         {
-            // TODO: Implement this
+            this.GetCurrentRoom().Update(gameTime);
         }
 
         public void GotoRoomBelow()
