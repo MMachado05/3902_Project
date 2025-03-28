@@ -19,7 +19,7 @@ namespace Project.Packages.Items
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, PositionRect);
+            Sprite.Draw(spriteBatch, Location);
         }
 
         public virtual void CollideWith(IGameObject collider)
