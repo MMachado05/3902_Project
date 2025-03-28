@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Packages.Characters;
 using Project.renderer;
 
 namespace Project.rooms
@@ -13,6 +14,7 @@ namespace Project.rooms
         private const int COLS = 1;
 
         private RoomParser roomParser;
+        private CollisionManager collisionManager;
 
         private IRoom[,] Map;
         private int currentRoomX;
@@ -29,6 +31,7 @@ namespace Project.rooms
             currentRoomX = currentRoomY = 0;
 
             this.roomParser = new RoomParser();
+            this.collisionManager = new CollisionManager();
         }
 
         public void LoadRoomsFromContent(ContentManager content, GameRenderer gr)
@@ -72,7 +75,7 @@ namespace Project.rooms
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           roomParser.LoadRoom(pathPrefix + roomRow[i],
-                              gr, content, gr.TileWidth, gr.TileHeight);
+                              gr, content, gr.TileWidth, gr.TileHeight, collisionManager);
                     }
                     mapRoomX++;
                 }
