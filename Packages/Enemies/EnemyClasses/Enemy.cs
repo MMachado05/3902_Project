@@ -17,11 +17,12 @@ namespace Project.Enemies.EnemyClasses
         public ISprite walkUp, walkDown, walkLeft, walkRight;
         public ISprite attackUp, attackDown, attackLeft, attackRight;
         public ISprite currentAnimation;
+        private float elapsedTime;
 
         public Enemy(Rectangle initialPosition)
         {
             Location = initialPosition;
-            Speed = 0.5f;
+            Speed = 1.0f;
             CurrentState = new IdleState();
 
             LoadAnimations();
@@ -47,14 +48,32 @@ namespace Project.Enemies.EnemyClasses
         {
             lastDirection = direction;
 
+            int movementX = 0;
+            int movementY = 0;
+
             switch (direction)
             {
-                case Direction.Up: currentAnimation = walkUp; break;
-                case Direction.Down: currentAnimation = walkDown; break;
-                case Direction.Left: currentAnimation = walkLeft; break;
-                case Direction.Right: currentAnimation = walkRight; break;
+                case Direction.Up:
+                    movementY = -1;
+                    currentAnimation = walkUp;
+                    break;
+                case Direction.Down:
+                    movementY = 1;
+                    currentAnimation = walkDown;
+                    break;
+                case Direction.Left:
+                    movementX = -1;
+                    currentAnimation = walkLeft;
+                    break;
+                case Direction.Right:
+                    movementX = 1;
+                    currentAnimation = walkRight;
+                    break;
             }
+
+            Location = new Rectangle(Location.X + movementX * (int)(Speed), Location.Y + movementY * (int)(Speed), Location.Width, Location.Height);
         }
+
 
         public void SetIdleAnimation()
         {
@@ -85,7 +104,12 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void UpdateAnimation(GameTime gameTime)
         {
-            currentAnimation.Update();
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime > 0.25f)
+            {
+                currentAnimation.Update();
+                elapsedTime = 0f;
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
