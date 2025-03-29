@@ -1,43 +1,33 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters.Enums;
+using Project.Factories;
+using Project.Rooms.Blocks.ConcreteClasses;
+using Project.Sprites;
 
-namespace Project
+namespace Project.Characters
 {
-    public class Player
+    public class Player : IGameObject
     {
         public ISprite Sprite { get; private set; }
-        public Vector2 PositionVector { get; set; }
-        public Rectangle PositionRect { get; set; }
-        public string LastDirection { get; private set; }
+        public Rectangle Location { get; set; }
+        private Rectangle _previousLocation;
+        public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
-        private Dictionary<String, Direction> stringDirToEnum;
         public Vector2 velocity;
 
         private float elapsedTime;
-        private Vector2 _previousPosition;
-
-        // Add public property to expose _previousPosition
-        public Vector2 PreviousPosition => _previousPosition;
 
         public Player()
         {
-            // TODO: This is a hotfix because other methods expect to pass in strings.
-            // Eventually, everything should be using the enums.
-            stringDirToEnum = new Dictionary<string, Direction>();
-            stringDirToEnum.Add("Up", Direction.Up);
-            stringDirToEnum.Add("Down", Direction.Down);
-            stringDirToEnum.Add("Left", Direction.Left);
-            stringDirToEnum.Add("Right", Direction.Right);
             // Set initial default states
-            PositionVector = new Vector2(36, 36);
-            PositionRect = new Rectangle(36, 36, 20, 44);
+            Location = new Rectangle(36, 36, 20, 44);
+            this._previousLocation = Location;
             velocity = new Vector2(0, 0);
-            // Because the vector is the origin, we need to offset the top-left corner of
-            //  the rect in order to have the rect properly surround the sprite.
-            LastDirection = "Down";
+
+            LastDirection = Direction.Down;
             isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
@@ -45,7 +35,7 @@ namespace Project
         }
 
 
-        public void Move(int dx, int dy, string direction)
+        public void Move(int dx, int dy, Direction direction)
         {
             this.velocity.X = dx;
             this.velocity.Y = dy;
@@ -56,29 +46,26 @@ namespace Project
         {
             Sprite = newSprite;
         }
+
         public void SetStaticSprite()
         {
             this.velocity.X = 0;
             this.velocity.Y = 0;
-            SpriteType = this.stringDirToEnum[LastDirection];
-            Sprite.State = SpriteState.Stopped;
+
+            SpriteType = LastDirection;
+            Sprite.State = CharacterState.Stopped;
+
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
         }
 
-
         public void Update(GameTime gameTime)
         {
-            // Move correctly
-            // Store previous movement here to prevent moving upon collision.
-            _previousPosition = PositionVector;
-
             // Update position
-            PositionVector = new Vector2(PositionVector.X + this.velocity.X,
-                PositionVector.Y + this.velocity.Y);
-            PositionRect = new Rectangle(PositionRect.X + (int)this.velocity.X,
-                PositionRect.Y + (int)this.velocity.Y,
-                                         PositionRect.Width, PositionRect.Height);
-            
+            this._previousLocation = Location;
+            Location = new Rectangle(Location.X + (int)this.velocity.X,
+                Location.Y + (int)this.velocity.Y,
+                                         Location.Width, Location.Height);
+
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
@@ -88,10 +75,18 @@ namespace Project
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
-            // Draw the sprite at the current position
-            Sprite.Draw(spriteBatch, PositionVector);
+            Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
+        }
+
+        public void CollideWith(IGameObject collider)
+        {
+            // TODO:Implement, include a check for what *kind* of game object it is
+            if (collider is SolidBlock)
+            {
+                this.Location = this._previousLocation;
+            }
         }
     }
 }

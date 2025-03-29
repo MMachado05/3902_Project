@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Packages.Items;
+using Project.Characters;
+using Project.Factories;
+using Project.Items;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -10,7 +12,7 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private bool hasThrownBoomerang = false;
 
-        public RedGoriya(Vector2 startPosition) : base(startPosition) { }
+        public RedGoriya(Rectangle initialPosition) : base(initialPosition) { }
 
         protected override void LoadAnimations()
         {
@@ -34,10 +36,10 @@ namespace Project.Enemies.EnemyClasses
         {
             return lastDirection switch
             {
-                "Up" => new Vector2(0, -1),
-                "Down" => new Vector2(0, 1),
-                "Left" => new Vector2(-1, 0),
-                "Right" => new Vector2(1, 0),
+                Direction.Up => new Vector2(0, -1),
+                Direction.Down => new Vector2(0, 1),
+                Direction.Left => new Vector2(-1, 0),
+                Direction.Right => new Vector2(1, 0),
                 _ => new Vector2(0, -1)
             };
         }
@@ -48,7 +50,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f, Position));
+            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
         }
 
         public override void ResetAttackState()
@@ -62,11 +64,11 @@ namespace Project.Enemies.EnemyClasses
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].Update();
-                if (projectiles[i].HasReturned())
-                {
-                    projectiles.RemoveAt(i);
-                    hasThrownBoomerang = false;
-                }
+                /*if (projectiles[i].HasReturned())*/
+                /*{*/
+                /*    projectiles.RemoveAt(i);*/
+                /*    hasThrownBoomerang = false;*/
+                /*}*/
             }
         }
 

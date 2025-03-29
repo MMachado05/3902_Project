@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters.Enums;
 
-namespace Project
+namespace Project.Sprites.ConcreteClasses
 {
     public class AnimatedLoopSprite : AbstractSprite
     {
@@ -15,12 +16,10 @@ namespace Project
         /// the constructor argument.
         /// </summary>
         public AnimatedLoopSprite(Texture2D texture, Rectangle sourceInitial,
-            int scaleFactor, int maxFrames, SpriteState state) : base(texture, sourceInitial, scaleFactor, state)
+            int maxFrames, CharacterState state) : base(texture, sourceInitial, state)
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;
-            this.topLeftXInitial = sourceInitial.X;
-            this.topLeftYInitial = sourceInitial.Y;
         }
 
         public override void Update()

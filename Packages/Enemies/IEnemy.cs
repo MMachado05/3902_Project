@@ -2,12 +2,11 @@ using Microsoft.Xna.Framework;
 
 namespace Project.Enemies
 {
-    public interface IEnemy
+    public interface IEnemy : IGameObject
     {
-        Vector2 Position { get; }
         float Speed { get; set; }
         void SetState(IEnemyState newState);
-        void SetPosition(Vector2 newPosition);
+        /*void SetPosition(Vector2 newPosition);*/
 
         /// <summary>
         /// Trigger this Enemy to perform their attack.
@@ -23,5 +22,6 @@ namespace Project.Enemies
         /// Returns the length of this Enemy's attack animation in seconds.
         /// </summary>
         float GetAttackDuration();
+        void Update(GameTime gameTime);
     }
 }

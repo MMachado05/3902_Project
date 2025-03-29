@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Sprites;
 
-namespace Project.Packages.Items
+namespace Project.Items
 {
     public abstract class Item : IItem
     {
-        public abstract Vector2 Position { get; set; }
         public abstract float Speed { get; set; }
+        public abstract Rectangle Location { get; set; }
+
         public ISprite Sprite { get; }
 
         protected Item(ISprite sprite)
@@ -18,7 +20,12 @@ namespace Project.Packages.Items
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Sprite.Draw(spriteBatch, Position);
+            Sprite.Draw(spriteBatch, Location);
+        }
+
+        public virtual void CollideWith(IGameObject collider)
+        {
+            // TODO: Implement this
         }
     }
 }

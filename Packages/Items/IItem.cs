@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Project
+namespace Project.Items
 {
-    public interface IItem
+    public interface IItem : IGameObject
     {
-        Vector2 Position { get; set; }
         float Speed { get; set; }
         void Update();
         void Draw(SpriteBatch spriteBatch);

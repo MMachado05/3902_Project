@@ -1,4 +1,4 @@
-namespace Project
+namespace Project.Characters
 {
     public enum Direction
     {

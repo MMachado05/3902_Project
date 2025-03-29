@@ -1,4 +1,4 @@
-namespace Project
+namespace Project.Commands
 {
     public interface ICommand
     {

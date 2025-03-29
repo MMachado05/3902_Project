@@ -1,170 +1,85 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Project.Blocks;
-using Project.Content;
-using Project.Enemies;
-using Project.Packages.Characters;
-using Project.Packages.Items;
-using Project.renderer;
-using Project.rooms;
+
+using Project.Commands.PlayerCommands;
+using Project.Commands.RoomCommands;
+using Project.Commands.GameLogicCommands;
+
+using Project.Controllers;
+using Project.Factories;
+using Project.Renderer;
+using Project.Rooms;
+using Project.Characters;
 
 namespace Project
 {
     public class Game1 : Game
     {
+        // Basic Game fields
         private GraphicsDeviceManager _graphics;
-        public SpriteBatch _spriteBatch; // Not best practice
-        private KeyboardController _keyboardController;
+        public SpriteBatch _spriteBatch;
+
         public Player player;
-        private Rectangle playerPosition;
-        private Vector2 playerPositionVector;
-        MouseController mouseController;
-        // NOTE: From Boggus: The Controllers all implement IController, so we should
-        // use that abstraction
 
-        public ISprite playerSprite; // Not best practice, but easiest fix. Could later create read-only property for playerSprite
-        public Direction spriteType;
-        KeyboardState input;
-
-        public string lastDirection = "Down"; // Default direction set to "down" for now; also public not best practice but easy fix for now.
-        private CollisionManager collisionManager;
-
-        // NOTE: From Boggus: enemyManager, etc. should all be hidden behind a room manager.
-        // Remove dependencies here once they've been moved into their appropriate classes
-
-        private EnemyManager enemyManager;
         private float elapsedTime;
 
+        GameRenderer gameRenderer;
+        Updater updater;
+        RoomManager roomManager;
 
-        // Not best practice; should be moved out of game1
-        /// <summary>
-        /// </summary>
-
-        private SolidBlockManager blockManager;
-        Renderer renderer;
-        RoomsManager roomManager;
         public void restart()
         {
             this.LoadContent();
             this.Initialize();
         }
 
-        // should be moved out of game1
-        ItemManager itemManager;
-        KeyboardState previousState = new KeyboardState();
-
-
-        private ItemController _itemController;
-        PlayerItemCollisionHandler playerItemCollisionHandler;
-
         public Game1()
         {
-            // Since we're in constructor, no need to call GraphicsDeviceManager.ApplyChanges()
-            // :)
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
             _graphics.PreferredBackBufferHeight = 704; // Set height
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
-
         }
+
         protected override void Initialize()
         {
+            this.player = new Player();
 
-            //playerPosition = new Rectangle(100, 100, 30, 30); // Initial character position
-            //playerPositionVector = new Vector2(100, 100);
-
-            player = new Player();
-
-            input = Keyboard.GetState();
             base.Initialize();
         }
 
+        private void CreateMouseController()
+        {
+            // TODO: Implement
+        }
+
+
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Load all textures
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            SolidBlockSpriteFactory.Instance.LoadAllTextures(Content);
-            blockManager = new SolidBlockManager(_spriteBatch);
-
-            // Set initial sprite to static down
-            playerSprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
-
-            // Load item sprites and create item manager
-            ItemFactory.Instance.LoadContent(Content);
-            itemManager = new ItemManager(this);
-            // Initialize ItemController with commands for switching items
-            _itemController = new ItemController(itemManager, this);
-
-            // Initialize KeyboardController with movement and quit commands, pass in player and game
-
+            SolidBlockFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            collisionManager = new CollisionManager();
-            enemyManager = new EnemyManager();
-            _keyboardController = new KeyboardController(player, this, blockManager, enemyManager);
-            roomManager = new RoomsManager(blockManager, enemyManager, this);
-            renderer = new Renderer(roomManager, enemyManager, collisionManager);
-            mouseController = new MouseController(this, _graphics, roomManager);
+            ItemFactory.Instance.LoadAllTextures(Content);
 
-            playerItemCollisionHandler = new PlayerItemCollisionHandler(itemManager, player);
+            this.gameRenderer = new GameRenderer(64, 64);
+            this.roomManager = new RoomManager();
+            this.gameRenderer.RoomManager = roomManager;
+            this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
+            this.roomManager.AssignPlayer(this.player);
+            this.gameRenderer.PlayerCharacter = this.player;
+            this.updater = new Updater(this.roomManager, this.player);
+            this.updater.RegisterController(this.CreateKeyboardController());
         }
 
         protected override void Update(GameTime gameTime)
         {
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            _keyboardController.Update();
-            mouseController.Update();
-            _itemController.Update();
-
-            // Check if player has stopped moving
-            input = Keyboard.GetState();
-
-            //collisionManager.UpdateCollisions(player, blockManager.GetAllBlocks());
-
-            if (!(input.IsKeyDown(Keys.W) || input.IsKeyDown(Keys.A) || input.IsKeyDown(Keys.S) || input.IsKeyDown(Keys.D)) && player.Sprite.State != SpriteState.Attacking)
-            {
-                player.SetStaticSprite(); // Set idle sprite
-            }
-
-
-            // Update lastDirection based on movement input (def need to change this approach)
-            if (input.IsKeyDown(Keys.W)) lastDirection = "Up";
-            else if (input.IsKeyDown(Keys.S)) lastDirection = "Down";
-            else if (input.IsKeyDown(Keys.A)) lastDirection = "Left";
-            else if (input.IsKeyDown(Keys.D)) lastDirection = "Right";
-            // NOTE: From Boggus: Move to KeyboardController class
-
-
-            //should be replaced with level loader
-            _itemController.Update();
-
-            // Update world items
-            foreach (IItem item in itemManager.GetWorldItems())
-            {
-                item.Update();
-            }
-
-            //Placing and updating inventory items
-            itemManager.GetCurrentItem().Update();
-            itemManager.PlaceInventoryItem();
-
-
-            renderer.Update(gameTime);
-
-            playerItemCollisionHandler.HandlePlayerItemCollision();
-
+            this.updater.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -173,18 +88,45 @@ namespace Project
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-           renderer.Draw(_spriteBatch);
-            // Draw world items
-            foreach (IItem item in itemManager.GetWorldItems())
-            {
-                item.Draw(_spriteBatch);
-            }
-            // Draw inventory items
-            itemManager.GetCurrentItem().Draw(_spriteBatch);
-           enemyManager.GetCurrentEnemy().Draw(_spriteBatch);
+            gameRenderer.Draw(_spriteBatch);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        // -------------------------- UTILITY METHODS -------------------------------
+
+        private IController CreateKeyboardController()
+        {
+            KeyboardController kbc = new KeyboardController();
+
+            // Player movement
+            kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
+            kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
+            kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
+            kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            kbc.DefaultCommand = new StopPlayerCommand(player);
+
+            // Attacking
+            kbc.RegisterKey(Keys.Z, new AttackCommand(player));
+            kbc.RegisterKey(Keys.N, new AttackCommand(player));
+
+            // Arrow keys to change current room
+            kbc.RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
+            kbc.RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
+            kbc.RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
+            kbc.RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
+
+            // Game logic
+            kbc.RegisterKey(Keys.Q, new QuitCommand(this));
+            kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
+            kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+
+            // Debugging commands
+            kbc.RegisterKey(Keys.E, new DamageCommand(player));
+
+            return kbc;
         }
 
     }

@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters.Enums;
 
-namespace Project
+namespace Project.Sprites
 {
     public interface ISprite
     {
-        SpriteState State
+        CharacterState State
         {
             get; set;
         }
@@ -17,7 +18,6 @@ namespace Project
         /// <summary>
         /// Draw this sprite to the game window.
         /// </summary>
-        void Draw(SpriteBatch spriteBatch, Vector2 position);
+        void Draw(SpriteBatch spriteBatch, Rectangle destination);
     }
-
 }

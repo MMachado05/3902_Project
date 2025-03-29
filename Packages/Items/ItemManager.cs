@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Project.Packages.Items
+namespace Project.Items
 {
     public class ItemManager
     {
@@ -9,11 +9,9 @@ namespace Project.Packages.Items
         private readonly List<IItem> worldItems;
         private readonly List<IItem> projectiles;
         private int currentItemIndex = 0;
-        private Game1 _game;
 
-        public ItemManager(Game1 game)
+        public ItemManager()
         {
-            _game = game;
 
             // NOTE: From Boggus: Separate these into three different classes.
             // Recommendation: items in the world and *maybe* the ones in the inventory
@@ -22,28 +20,28 @@ namespace Project.Packages.Items
             // some other type). Always ensure we have sprites to actually draw them.
             inventory = new List<IItem>
             {
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateSwordSprite()),
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBombSprite()),
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBowSprite()),
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateHeartSprite()),
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateCoinSprite()),
-                new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateKeySprite())
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateSwordSprite()),*/
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBombSprite()),*/
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateBowSprite()),*/
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateHeartSprite()),*/
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateCoinSprite()),*/
+                /*new StationaryItem(Vector2.Zero, 0, ItemFactory.Instance.CreateKeySprite())*/
             };
 
             projectiles = new List<IItem>
             {
-                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateSlashSprite(), 0, 500),
-                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateExplosionSprite(), 0, 500),
-                new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateArrowSprite(), 5, 500)
+                /*new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateSlashSprite(), 0, 500),*/
+                /*new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateExplosionSprite(), 0, 500),*/
+                /*new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateArrowSprite(), 5, 500)*/
             };
 
             worldItems = new List<IItem>
             {
                 //temporary random positions for collectible Items
-                new StationaryItem(new Vector2(100,200), 0, ItemFactory.Instance.CreateHeartSprite()),
-                new StationaryItem(new Vector2(500,100), 0, ItemFactory.Instance.CreateCoinSprite()),
-                new StationaryItem(new Vector2(300,300), 0, ItemFactory.Instance.CreateKeySprite())
-            }; 
+                /*new StationaryItem(new Vector2(100,200), 0, ItemFactory.Instance.CreateHeartSprite()),*/
+                /*new StationaryItem(new Vector2(500,100), 0, ItemFactory.Instance.CreateCoinSprite()),*/
+                /*new StationaryItem(new Vector2(300,300), 0, ItemFactory.Instance.CreateKeySprite())*/
+            };
         }
 
         public void SetCurrentIndex(int index)
@@ -60,7 +58,7 @@ namespace Project.Packages.Items
 
         public void PlaceInventoryItem()
         {
-            GetCurrentItem().Position = GetPlacementPosition();
+            /*GetCurrentItem().Position = GetPlacementPosition();*/
         }
 
         public void PlaceProjectile(int index)
@@ -72,37 +70,45 @@ namespace Project.Packages.Items
 
             IItem itemToPlace = projectiles[index];
 
-            if (itemToPlace is ProjectileItem proj)
-            {
-                worldItems.Add(new ProjectileItem(position, direction, proj.Sprite, proj.Speed, 100));
-            }
+            /*if (itemToPlace is ProjectileItem proj)*/
+            /*{*/
+            /*    worldItems.Add(new ProjectileItem(position, direction, proj.Sprite, proj.Speed, 100));*/
+            /*}*/
         }
 
         private Vector2 GetPlacementPosition()
         {
-            Vector2 playerPos = _game.player.PositionVector;
-            return _game.lastDirection switch
-            {
-                "Up" => playerPos + new Vector2(0, -50),
-                "Down" => playerPos + new Vector2(0, 50),
-                "Left" => playerPos + new Vector2(-30, 0),
-                "Right" => playerPos + new Vector2(30, 0),
-                _ => playerPos
-            };
+            /*Vector2 playerPos = _game.player.PositionVector;*/
+            /*return _game.lastDirection switch*/
+            /*{*/
+            /*    "Up" => playerPos + new Vector2(0, -50),*/
+            /*    "Down" => playerPos + new Vector2(0, 50),*/
+            /*    "Left" => playerPos + new Vector2(-30, 0),*/
+            /*    "Right" => playerPos + new Vector2(30, 0),*/
+            /*    _ => playerPos*/
+            /*};*/
+            // TODO: Fix this whole ass class
+            return new Vector2();
         }
 
         private Vector2 GetItemDirection()
         {
-            return _game.lastDirection switch
-            {
-                "Up" => new Vector2(0, -1),
-                "Down" => new Vector2(0, 1),
-                "Left" => new Vector2(-1, 0),
-                "Right" => new Vector2(1, 0),
-                _ => new Vector2(1, 0) // Default: Right
-            };
-        }
+            // TODO: Needa refactor, Kevin added game1
 
+            /*return _game.lastDirection switch*/
+            /*{*/
+            /*    "Up" => new Vector2(0, -1),*/
+            /*    "Down" => new Vector2(0, 1),*/
+            /*    "Left" => new Vector2(-1, 0),*/
+            /*    "Right" => new Vector2(1, 0),*/
+            /*    _ => new Vector2(1, 0) // Default: Right*/
+            /*};*/
+            return new Vector2();
+        }
+        public void addItem(Item item)
+        {
+            worldItems.Add(item);
+        }
         public void removeItem(Item item)
         {
             worldItems.Remove(item);
