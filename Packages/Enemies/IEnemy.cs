@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+
 namespace Project.Enemies
 {
     public interface IEnemy : IGameObject
@@ -20,5 +22,6 @@ namespace Project.Enemies
         /// Returns the length of this Enemy's attack animation in seconds.
         /// </summary>
         float GetAttackDuration();
+        void Update(GameTime gameTime);
     }
 }

@@ -101,5 +101,11 @@ namespace Project.Enemies.EnemyClasses
         public virtual void Attack() { }
         public virtual void ResetAttackState() { }
         public virtual float GetAttackDuration() => 4f;
+
+        public virtual void Update(GameTime gameTime)
+        {
+            UpdateState(gameTime);
+            UpdateAnimation(gameTime);
+        }
     }
 }

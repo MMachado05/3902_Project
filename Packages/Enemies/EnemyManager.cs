@@ -52,7 +52,10 @@ namespace Project.Enemies
 
         public void Update(GameTime gameTime)
         {
-            // TODO: Implement
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Update(gameTime);
+            }
         }
     }
 }
