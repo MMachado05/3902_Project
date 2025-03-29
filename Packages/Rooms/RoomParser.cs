@@ -74,11 +74,14 @@ namespace Project.Rooms
                             playerSpriteLocation.X = x * gr.TileWidth;
                             playerSpriteLocation.Y = y * gr.TileHeight;
                             break;
-                        case "en":
-                            // TODO: We should change the convention here to explicitly
-                            // express *which* enemy is being spawned. We'll add it to 
-                            // the enemy manager that'll get passed into the room.
+                        case "aq":
                             enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            break;
+                        case "rg":
+                            enemyManager.AddEnemy(new RedGoriya(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            break;
+                        case "st":
+                            enemyManager.AddEnemy(new Stalfos(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "it":
                             itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateHeartSprite()));
