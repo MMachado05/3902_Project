@@ -44,11 +44,6 @@ namespace Project.Enemies
                 currentEnemyIndex++;
         }
 
-        public Enemy GetCurrentEnemy()
-        {
-            return enemies.Count > 0 ? enemies[currentEnemyIndex] : null;
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Enemy enemy in enemies)
