@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project.Blocks
+namespace Project.Rooms.Blocks.ConcreteClasses
 {
     public class SolidBlock : IBlock
     {

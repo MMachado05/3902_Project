@@ -1,4 +1,6 @@
-﻿namespace Project
+﻿using Project.Characters;
+
+namespace Project.Commands.PlayerCommands
 {
     public class DamageCommand : ICommand
     {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Sprites;
 
-namespace Project.Packages.Items
+namespace Project.Items
 {
     public abstract class Item : IItem
     {

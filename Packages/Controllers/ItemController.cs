@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
-using Project.Packages.Items;
+using Project.Commands.CommandClasses;
+using Project.Commands.PlayerCommands;
+using Project.Commands;
+using Project.Items;
 
-namespace Project
+namespace Project.Controllers
 {
     public class ItemController : IController
     {

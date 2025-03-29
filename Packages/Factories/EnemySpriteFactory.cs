@@ -1,8 +1,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters.Enums;
+using Project.Sprites;
+using Project.Sprites.ConcreteClasses;
 
-namespace Project
+namespace Project.Factories
 {
     public class EnemySpriteFactory
     {

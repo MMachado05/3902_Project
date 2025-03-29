@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Project.rooms;
+using Project.Commands;
+using Project.Rooms;
 
-namespace Project
+namespace Project.Controllers
 {
     public class MouseController : IController
 

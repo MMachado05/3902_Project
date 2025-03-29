@@ -1,28 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
+using Project.Characters.Enums;
+using Project.Sprites;
+using Project.Sprites.ConcreteClasses;
 
-namespace Project
+namespace Project.Factories
 {
 
     public class PlayerSpriteFactory
     {
-
-        // Osama: Put these in the Jira Board!!!
-
-        // TODO: Might be good to have multiple factories for different sprite types (e.g.
-        // enemies, characters, items, etc.)
-        // TODO: Also I'm using way too many magic numbers, I should give these their own
-        // private fields to make modifying things easier.
 
         private Texture2D playerSpriteSheet;
 
         private int scale;
         private int widthPixels;
         private int heightPixels;
-        // TODO: In the future, we'll want all drawing to be delegated to some external
-        // "renderer" object. Scaling, destRectangles... all that stuff should be done
-        // somewhere else.
 
         private static PlayerSpriteFactory instance = new PlayerSpriteFactory();
 

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Project
+namespace Project.Rooms.Blocks
 {
     public interface IBlock : IGameObject
     {

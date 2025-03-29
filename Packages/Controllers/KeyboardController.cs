@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Input;
+using Project.Commands;
 
-namespace Project
+namespace Project.Controllers
 {
     public class KeyboardController : IController
     {

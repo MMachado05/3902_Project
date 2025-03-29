@@ -1,9 +1,12 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Blocks;
+using Project.Characters.Enums;
+using Project.Factories;
+using Project.Rooms.Blocks.ConcreteClasses;
+using Project.Sprites;
 
-namespace Project
+namespace Project.Characters
 {
     public class Player : IGameObject
     {

@@ -3,10 +3,11 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Packages.Characters;
-using Project.renderer;
+using Project.Renderer;
 
-namespace Project.rooms
+namespace Project.Rooms
 {
     public class RoomManager
     {

@@ -1,11 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Project.Blocks;
-using Project.Commands;
-using Project.Packages.Items;
-using Project.renderer;
-using Project.rooms;
+
+using Project.Commands.PlayerCommands;
+using Project.Commands.RoomCommands;
+using Project.Commands.GameLogicCommands;
+
+using Project.Controllers;
+using Project.Factories;
+using Project.Renderer;
+using Project.Rooms;
+using Project.Characters;
 
 namespace Project
 {
@@ -48,9 +53,7 @@ namespace Project
 
         private void CreateMouseController()
         {
-            /*MouseController mc = new MouseController();*/
-            /**/
-            /*this._mouseController = mc;*/
+            // TODO: Implement
         }
 
 

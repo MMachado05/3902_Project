@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters.Enums;
 
-namespace Project
+namespace Project.Sprites.ConcreteClasses
 {
     public class StationarySprite : AbstractSprite
     {
