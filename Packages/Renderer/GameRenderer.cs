@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.rooms;
+using Project.Characters;
+using Project.Rooms;
 
-namespace Project.renderer
+namespace Project.Renderer
 {
     public class GameRenderer : IRenderer
     {

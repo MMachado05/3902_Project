@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Packages.Items;
+using Project.Characters;
+using Project.Factories;
+using Project.Items;
 
 namespace Project.Enemies.EnemyClasses
 {

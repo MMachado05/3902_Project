@@ -1,4 +1,4 @@
-namespace Project.Commands.CommandClasses
+namespace Project.Commands
 {
     public abstract class AbstractCommand : ICommand
     {

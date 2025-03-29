@@ -2,15 +2,16 @@ using System;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Project.Blocks;
 using Project.Enemies;
 using Project.Packages;
-using Project.renderer;
 using Project.Enemies.EnemyClasses;
 using Project.Packages.Characters;
-using Project.Packages.Items;
+using Project.Renderer;
+using Project.Rooms.Blocks;
+using Project.Items;
+using Project.Factories;
 
-namespace Project.rooms
+namespace Project.Rooms
 {
     public class RoomParser
     {

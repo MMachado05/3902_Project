@@ -1,4 +1,8 @@
-﻿namespace Project
+﻿using Project.Characters;
+using Project.Characters.Enums;
+using Project.Factories;
+
+namespace Project.Commands.PlayerCommands
 {
     public class MoveCommand : ICommand
     {

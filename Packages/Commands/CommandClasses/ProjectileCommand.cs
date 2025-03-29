@@ -1,6 +1,6 @@
-﻿using Project.Packages.Items;
+﻿using Project.Items;
 
-namespace Project
+namespace Project.Commands.CommandClasses
 {
     public class ProjectileCommand : ICommand
     {

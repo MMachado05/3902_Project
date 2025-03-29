@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
+using Project.Sprites;
 
 namespace Project.Enemies.EnemyClasses
 {

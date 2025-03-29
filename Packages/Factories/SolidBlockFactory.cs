@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Rooms.Blocks;
+using Project.Rooms.Blocks.ConcreteClasses;
 
-namespace Project.Blocks
+namespace Project.Factories
 {
     public class SolidBlockFactory
     {

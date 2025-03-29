@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
 using Project.Enemies;
-using Project.rooms;
-using Project.Packages.Items;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Packages.Characters;
+using Project.Rooms;
+using Project.Rooms.Blocks;
+using Project.Items;
+using Project.Characters;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -71,8 +73,6 @@ namespace Project.Packages
             {
                 item.Draw(sb);
             }
-
-            System.Console.WriteLine(this._enemyManager.enemies.Count);
         }
 
         public void Update(GameTime gameTime)

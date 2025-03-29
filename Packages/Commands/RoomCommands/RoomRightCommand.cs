@@ -1,6 +1,6 @@
-using Project.rooms;
+using Project.Rooms;
 
-namespace Project
+namespace Project.Commands.RoomCommands
 {
     class RoomRightCommand : ICommand
     {

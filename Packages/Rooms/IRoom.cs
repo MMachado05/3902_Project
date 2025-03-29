@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 
-namespace Project.rooms
+namespace Project.Rooms
 {
     public interface IRoom
     {

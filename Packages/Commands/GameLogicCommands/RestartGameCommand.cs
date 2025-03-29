@@ -1,4 +1,4 @@
-namespace Project.Commands
+namespace Project.Commands.GameLogicCommands
 {
     public class RestartGameCommand : ICommand
     {

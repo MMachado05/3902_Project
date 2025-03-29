@@ -1,4 +1,7 @@
-namespace Project
+using Project.Characters;
+using Project.Characters.Enums;
+
+namespace Project.Commands.PlayerCommands
 {
     public class StopPlayerCommand : ICommand
     {

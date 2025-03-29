@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Project.rooms;
+using Project.Characters;
+using Project.Controllers;
+using Project.Rooms;
 
 namespace Project
 {

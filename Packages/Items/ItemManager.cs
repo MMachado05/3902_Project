@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace Project.Packages.Items
+namespace Project.Items
 {
     public class ItemManager
     {
@@ -103,7 +103,7 @@ namespace Project.Packages.Items
             /*    "Right" => new Vector2(1, 0),*/
             /*    _ => new Vector2(1, 0) // Default: Right*/
             /*};*/
-            return new Vector2(); 
+            return new Vector2();
         }
         public void addItem(Item item)
         {

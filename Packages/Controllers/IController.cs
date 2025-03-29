@@ -1,8 +1,6 @@
-﻿namespace Project
+﻿namespace Project.Controllers
 {
-
     public interface IController
-
     {
         /// <summary>
         /// Process new states from either external devices or other, higher-level
