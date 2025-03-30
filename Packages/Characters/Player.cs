@@ -35,10 +35,10 @@ namespace Project.Characters
         }
 
 
-        public void Move(int dx, int dy, Direction direction)
+        public void UpdateVelocity(int dx, int dy, Direction direction)
         {
-            this.velocity.X = dx;
-            this.velocity.Y = dy;
+            if (dx != 0) this.velocity.X = dx;
+            if (dy != 0) this.velocity.Y = dy;
             this.LastDirection = direction;
         }
 

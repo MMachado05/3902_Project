@@ -48,7 +48,7 @@ namespace Project.Commands.PlayerCommands
             _player.SpriteType = _direction;
             _player.Sprite.State = CharacterState.Walking;
 
-            _player.Move(dx, dy, _direction);
+            _player.UpdateVelocity(dx, dy, _direction);
         }
     }
 }
