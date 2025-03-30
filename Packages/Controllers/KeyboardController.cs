@@ -28,6 +28,7 @@ namespace Project.Controllers
         {
             this._onRelease.Add(key, command);
         }
+
         public ICommand DefaultCommand
         {
             set { this._defaultCommand = value; }
@@ -36,25 +37,25 @@ namespace Project.Controllers
         public void Update()
         {
             IEnumerable<Keys> justReleased = new Keys[0];
+
             Keys[] currentlyPressed = Keyboard.GetState().GetPressedKeys();
 
             justReleased = _stillPressed.Except<Keys>(currentlyPressed);
             foreach (Keys key in justReleased)
             {
+                if (this._onRelease.ContainsKey(key)) _onRelease[key].Execute();
             }
 
             foreach (Keys key in currentlyPressed)
             {
-                if (_commands.ContainsKey(key) && !_stillPressed.Contains<Keys>(key))
-                {
-                    _commands[key].Execute();
-                }
+                if (this._onPress.ContainsKey(key)) _onPress[key].Execute();
             }
 
             // Keep an active log of currently pressed keys so that "holding down" a key
             //  is ignored.
             _stillPressed = currentlyPressed.Union<Keys>(_stillPressed);
             _stillPressed = currentlyPressed.Intersect<Keys>(_stillPressed);
+
         }
     }
 }
