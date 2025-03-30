@@ -5,6 +5,7 @@ namespace Project.Characters
         Up,
         Down,
         Left,
-        Right
+        Right,
+        Previous
     }
 }
