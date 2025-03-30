@@ -4,15 +4,24 @@ using Project.Factories;
 
 namespace Project.Commands.PlayerCommands
 {
-    public class MoveCommand : ICommand
+    public class UpdateVelocityCommand : ICommand
     {
         private Player _player;
         private Direction _direction;
+        private int _dx;
+        private int _dy;
+        private bool _useX;
+        private bool _useY;
 
-        public MoveCommand(Player player, Direction direction)
+        public UpdateVelocityCommand(Player player, Direction direction,
+            int dx, int dy, bool useX, bool useY)
         {
             _direction = direction;
             _player = player;
+            this._dx = dx;
+            this._dy = dy;
+            this._useX = useX;
+            this._useY = useY;
         }
 
         public void Execute()
@@ -20,25 +29,6 @@ namespace Project.Commands.PlayerCommands
             // Early escape for mid-attack
             if (_player.Sprite.State == CharacterState.Attacking)
                 return;
-
-            // Maybe avoid hardcoding speed
-            int dx = 0, dy = 0;
-
-            switch (_direction)
-            {
-                case Direction.Up:
-                    dy = -2;
-                    break;
-                case Direction.Down:
-                    dy = 2;
-                    break;
-                case Direction.Left:
-                    dx = -2;
-                    break;
-                case Direction.Right:
-                    dx = 2;
-                    break;
-            }
 
             if (_player.Sprite.State != CharacterState.Walking
                 || (_player.Sprite.State == CharacterState.Walking
@@ -48,7 +38,7 @@ namespace Project.Commands.PlayerCommands
             _player.SpriteType = _direction;
             _player.Sprite.State = CharacterState.Walking;
 
-            _player.UpdateVelocity(dx, dy, _direction);
+            _player.UpdateVelocity(_dx, _dy, _useX, _useY, _direction);
         }
     }
 }
