@@ -35,11 +35,11 @@ namespace Project.Characters
         }
 
 
-        public void UpdateVelocity(int dx, int dy, Direction direction)
+        public void UpdateVelocity(int dx, int dy, bool useX, bool useY, Direction direction)
         {
-            if (dx != 0) this.velocity.X = dx;
-            if (dy != 0) this.velocity.Y = dy;
-            this.LastDirection = direction;
+            if (useX) this.velocity.X = dx;
+            if (useY) this.velocity.Y = dy;
+            if (direction != Direction.Previous) this.LastDirection = direction;
         }
 
         public void ChangeSprite(ISprite newSprite)
@@ -60,6 +60,9 @@ namespace Project.Characters
 
         public void Update(GameTime gameTime)
         {
+            if (this.velocity.X == 0 && this.velocity.Y == 0)
+                this.SetStaticSprite();
+
             // Update position
             this._previousLocation = Location;
             Location = new Rectangle(Location.X + (int)this.velocity.X,
