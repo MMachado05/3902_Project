@@ -102,29 +102,42 @@ namespace Project
             KeyboardController kbc = new KeyboardController();
 
             // Player movement
-            kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
-            kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
-            kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
-            kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            kbc.RegisterOnPress(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
+                  0, -2, false, true));
+            kbc.RegisterOnPress(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
+                  -2, 0, true, false));
+            kbc.RegisterOnPress(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
+                  0, 2, false, true));
+            kbc.RegisterOnPress(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
+                  2, 0, true, false));
+            kbc.RegisterOnRelease(Keys.W, new UpdateVelocityCommand(player, Direction.Previous,
+                  0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.A, new UpdateVelocityCommand(player, Direction.Previous,
+                  0, 0, true, false));
+            kbc.RegisterOnRelease(Keys.S, new UpdateVelocityCommand(player, Direction.Previous,
+                  0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.D, new UpdateVelocityCommand(player, Direction.Previous,
+                  0, 0, true, false));
+
             kbc.DefaultCommand = new StopPlayerCommand(player);
 
             // Attacking
-            kbc.RegisterKey(Keys.Z, new AttackCommand(player));
-            kbc.RegisterKey(Keys.N, new AttackCommand(player));
+            kbc.RegisterOnPress(Keys.Z, new AttackCommand(player));
+            kbc.RegisterOnPress(Keys.N, new AttackCommand(player));
 
             // Arrow keys to change current room
-            kbc.RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
-            kbc.RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
-            kbc.RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
-            kbc.RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Up, new RoomUpCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Down, new RoomDownCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Left, new RoomLeftCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Right, new RoomRightCommand(roomManager));
 
             // Game logic
-            kbc.RegisterKey(Keys.Q, new QuitCommand(this));
-            kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
-            kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+            kbc.RegisterOnPress(Keys.Q, new QuitCommand(this));
+            kbc.RegisterOnPress(Keys.Escape, new QuitCommand(this));
+            kbc.RegisterOnPress(Keys.R, new RestartGameCommand(this));
 
             // Debugging commands
-            kbc.RegisterKey(Keys.E, new DamageCommand(player));
+            kbc.RegisterOnPress(Keys.E, new DamageCommand(player));
 
             return kbc;
         }
