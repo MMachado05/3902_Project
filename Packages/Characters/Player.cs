@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Items;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
@@ -17,6 +19,9 @@ namespace Project.Characters
         public Direction SpriteType { get; set; }
         public Boolean isDamaged;
         public Vector2 velocity;
+        private IItem _activeItem;
+
+        private List<DirectionRegister> _activeDirections;
 
         private float elapsedTime;
 
@@ -32,14 +37,55 @@ namespace Project.Characters
 
             // Initially use a "stopped" sprite (down facing)
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
+
+            this._activeItem = null;
+            this._activeDirections = new List<DirectionRegister>();
         }
 
-
-        public void UpdateVelocity(int dx, int dy, bool useX, bool useY, Direction direction)
+        public void RegisterDirection(Direction direction, int dx, int dy)
         {
-            if (useX) this.velocity.X = dx;
-            if (useY) this.velocity.Y = dy;
-            if (direction != Direction.Previous) this.LastDirection = direction;
+            // Only register inactive directions to avoid double-ups
+            foreach (DirectionRegister dr in this._activeDirections)
+            {
+                if (dr.Direction == direction) return;
+            }
+
+            this._activeDirections.Add(new DirectionRegister(direction, dx, dy));
+            this.velocity.X += dx;
+            this.velocity.Y += dy;
+        }
+
+        public void DeregisterDirection(Direction direction)
+        {
+            int i = 0;
+            bool found = false;
+
+            while (i < this._activeDirections.Count && !found)
+            {
+                if (this._activeDirections[i].Direction == direction)
+                {
+                    this.velocity.X -= this._activeDirections[i].Dx;
+                    this.velocity.Y -= this._activeDirections[i].Dy;
+                    found = true;
+                }
+                else i++;
+            }
+
+            this._activeDirections.RemoveAt(i);
+
+            if (this._activeDirections.Count == 0)
+                this.LastDirection = direction;
+        }
+
+        public Direction LastActiveDirection
+        {
+            get
+            {
+                if (this._activeDirections.Count == 0)
+                    return this.LastDirection;
+
+                return this._activeDirections[this._activeDirections.Count - 1].Direction;
+            }
         }
 
         public void ChangeSprite(ISprite newSprite)
@@ -56,6 +102,14 @@ namespace Project.Characters
             Sprite.State = CharacterState.Stopped;
 
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
+        }
+
+        public void Attack()
+        {
+            if (this._activeItem == null)
+            {
+
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -91,6 +145,22 @@ namespace Project.Characters
             {
                 this.Location = this._previousLocation;
             }
+        }
+
+        private class DirectionRegister
+        {
+            public DirectionRegister(Direction direction, int dx, int dy)
+            {
+                this.Direction = direction;
+                this.Dx = dx;
+                this.Dy = dy;
+            }
+
+            public DirectionRegister() { }
+
+            public Direction Direction { get; set; }
+            public int Dx { get; set; }
+            public int Dy { get; set; }
         }
     }
 }
