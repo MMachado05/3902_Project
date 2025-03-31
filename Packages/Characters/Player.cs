@@ -85,7 +85,8 @@ namespace Project.Characters
 
         public void CollideWith(IGameObject collider)
         {
-            // TODO:Implement, include a check for what *kind* of game object it is
+            // In another branch, currenly using an IGameObject.IsPassable property
+
             if (collider is SolidBlock)
             {
                 this.Location = this._previousLocation;
