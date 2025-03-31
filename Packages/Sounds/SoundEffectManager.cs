@@ -27,14 +27,11 @@ namespace Project.Packages.Sounds
         }
         public void Update()
         {
-            Console.Write(roomManager.CurrentRoomRow);
-            Console.Write(roomManager.CurrentRoomColumn);
-            // check the current state of the MediaPlayer.
             if (MediaPlayer.State != MediaState.Stopped)
             {
                 MediaPlayer.Stop(); // stop current audio playback if playing or paused.
 
-                if (roomManager.CurrentRoomRow == 1 && roomManager.CurrentRoomColumn == 1)
+                if (roomManager.CurrentRoomRow == 0 && roomManager.CurrentRoomColumn == 1)
                 {
                     MediaPlayer.Play(song);
                 }
