@@ -30,6 +30,8 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             }
         }
 
+        public bool IsPassable { get => true; }
+
         public SolidBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
             Rectangle destination)
         {
@@ -48,9 +50,6 @@ namespace Project.Rooms.Blocks.ConcreteClasses
                 this._textureSource, Color.White);
         }
 
-        public void CollideWith(IGameObject collider)
-        {
-            // NOTE: Empty method, since blocks won't respond to collisions
-        }
+        public void CollideWith(IGameObject collider) { /* Intentionally empty */ }
     }
 }
