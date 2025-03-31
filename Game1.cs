@@ -11,6 +11,7 @@ using Project.Factories;
 using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
+using Project.Packages.Sounds;
 
 namespace Project
 {
@@ -27,6 +28,7 @@ namespace Project
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
+        SoundEffectManager soundEffectManager;
 
         public void restart()
         {
@@ -75,12 +77,15 @@ namespace Project
             this.gameRenderer.PlayerCharacter = this.player;
             this.updater = new Updater(this.roomManager, this.player);
             this.updater.RegisterController(this.CreateKeyboardController());
+
+            this.soundEffectManager = new SoundEffectManager(this.gameRenderer, this.roomManager);
         }
 
         protected override void Update(GameTime gameTime)
         {
             this.updater.Update(gameTime);
             base.Update(gameTime);
+            this.soundEffectManager.Update();
         }
 
         protected override void Draw(GameTime gameTime)
