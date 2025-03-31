@@ -103,21 +103,21 @@ namespace Project
 
             // Player movement
             kbc.RegisterOnPress(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
-                  0, -2, false, true));
+                  false, 0, -2, false, true));
             kbc.RegisterOnPress(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
-                  -2, 0, true, false));
+                  false, -2, 0, true, false));
             kbc.RegisterOnPress(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
-                  0, 2, false, true));
+                  false, 0, 2, false, true));
             kbc.RegisterOnPress(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
-                  2, 0, true, false));
-            kbc.RegisterOnRelease(Keys.W, new UpdateVelocityCommand(player, Direction.Previous,
-                  0, 0, false, true));
-            kbc.RegisterOnRelease(Keys.A, new UpdateVelocityCommand(player, Direction.Previous,
-                  0, 0, true, false));
-            kbc.RegisterOnRelease(Keys.S, new UpdateVelocityCommand(player, Direction.Previous,
-                  0, 0, false, true));
-            kbc.RegisterOnRelease(Keys.D, new UpdateVelocityCommand(player, Direction.Previous,
-                  0, 0, true, false));
+                  false, 2, 0, true, false));
+            kbc.RegisterOnRelease(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
+                  true, 0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
+                  true, 0, 0, true, false));
+            kbc.RegisterOnRelease(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
+                  true, 0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
+                  true, 0, 0, true, false));
 
             kbc.DefaultCommand = new StopPlayerCommand(player);
 
