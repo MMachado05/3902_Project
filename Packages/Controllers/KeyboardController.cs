@@ -48,7 +48,11 @@ namespace Project.Controllers
 
             foreach (Keys key in currentlyPressed)
             {
-                if (this._onPress.ContainsKey(key)) _onPress[key].Execute();
+                if (this._onPress.ContainsKey(key))
+                {
+                    if (!this._stillPressed.Contains(key))
+                        _onPress[key].Execute();
+                }
             }
 
             // Keep an active log of currently pressed keys so that "holding down" a key
