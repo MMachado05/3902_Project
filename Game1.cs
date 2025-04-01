@@ -80,6 +80,10 @@ namespace Project
 
             this.soundEffectManager = new SoundEffectManager(this.gameRenderer, this.roomManager);
             this.soundEffectManager.LoadContent(Content);
+
+            // Osama:
+            this.updater = new Updater(this.roomManager, this.player);
+            this.updater.RegisterController(this.CreateKeyboardController());
         }
 
         protected override void Update(GameTime gameTime)
@@ -128,6 +132,9 @@ namespace Project
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+
+            // Music toggle
+            kbc.RegisterKey(Keys.M, new ToggleMusicCommand(soundEffectManager));
 
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));

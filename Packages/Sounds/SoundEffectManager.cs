@@ -17,8 +17,12 @@ namespace Project.Packages.Sounds
         private RoomManager roomManager;
         private Song song;
         private Song bossTheme;
+
+        // --- Osama:
+        private bool isMusicEnabled = true;
+
         //Replace this later
-        private Boolean songPlaying = false;
+        private Boolean songPlaying = false; // Osama: Maybe rename to "dungonMusic" or something?
         private Boolean bossThemePlaying = false;
         public SoundEffectManager(GameRenderer gameRender, RoomManager roomManager)
         {
@@ -32,6 +36,19 @@ namespace Project.Packages.Sounds
         }
         public void Update()
         {
+            // --- Osama:
+            if (!isMusicEnabled)
+            {
+                // I hope im using this MediaPlayer correctly lol
+                if (MediaPlayer.State != MediaState.Stopped)
+                {
+                    MediaPlayer.Stop();
+                }
+                songPlaying = false;
+                bossThemePlaying = false;
+                return;
+            }
+
             //Replace this later
             if (roomManager.CurrentRoomRow == 0 && roomManager.CurrentRoomColumn == 0 && songPlaying == false)
             {
@@ -54,5 +71,19 @@ namespace Project.Packages.Sounds
                 bossThemePlaying = true;
             }
         }
+
+
+        public void ToggleMusic()
+        {
+            isMusicEnabled = !isMusicEnabled;
+            if (!isMusicEnabled)
+            {
+                // Toggling off all music tracks.
+                MediaPlayer.Stop();
+                songPlaying = false;
+                bossThemePlaying = false;
+            }
+        }
+
     }
 }
