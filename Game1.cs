@@ -75,13 +75,11 @@ namespace Project
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player);
-            this.updater.RegisterController(this.CreateKeyboardController());
 
             this.soundEffectManager = new SoundEffectManager(this.gameRenderer, this.roomManager);
             this.soundEffectManager.LoadContent(Content);
 
-            // Osama:
+            // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player);
             this.updater.RegisterController(this.CreateKeyboardController());
         }
