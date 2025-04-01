@@ -79,6 +79,7 @@ namespace Project
             this.updater.RegisterController(this.CreateKeyboardController());
 
             this.soundEffectManager = new SoundEffectManager(this.gameRenderer, this.roomManager);
+            this.soundEffectManager.LoadContent(Content);
         }
 
         protected override void Update(GameTime gameTime)

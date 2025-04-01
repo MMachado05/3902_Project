@@ -133,11 +133,11 @@
 /processorParam:TextureFormat=Color
 /build:Character32x32TextureTemplatePink.png
 
-#begin Diddy Monster Theme.wav
+#begin Boss Theme.wav
 /importer:WavImporter
-/processor:SoundEffectProcessor
+/processor:SongProcessor
 /processorParam:Quality=Best
-/build:Diddy Monster Theme.wav
+/build:Boss Theme.wav;Boss Theme.wav
 
 #begin explosion.png
 /importer:TextureImporter
@@ -210,6 +210,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:key.png
+
+#begin Monkeys Spinning Monkeys.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Monkeys Spinning Monkeys.mp3
 
 #begin RedGoriya.png
 /importer:TextureImporter

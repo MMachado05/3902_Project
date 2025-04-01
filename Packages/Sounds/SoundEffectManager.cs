@@ -16,25 +16,42 @@ namespace Project.Packages.Sounds
         private GameRenderer gameRender;
         private RoomManager roomManager;
         private Song song;
+        private Song bossTheme;
+        //Replace this later
+        private Boolean songPlaying = false;
+        private Boolean bossThemePlaying = false;
         public SoundEffectManager(GameRenderer gameRender, RoomManager roomManager)
         {
             this.gameRender = gameRender;
             this.roomManager = roomManager;
         }
-        void LoadContent(ContentManager content)
+        public void LoadContent(ContentManager content)
         {
-            song = content.Load<Song>("Diddy Monster Theme");
+            song = content.Load<Song>("Monkeys Spinning Monkeys");
+            bossTheme = content.Load<Song>("Boss Theme");
         }
         public void Update()
         {
-            if (MediaPlayer.State != MediaState.Stopped)
+            //Replace this later
+            if (roomManager.CurrentRoomRow == 0 && roomManager.CurrentRoomColumn == 0 && songPlaying == false)
             {
-                MediaPlayer.Stop(); // stop current audio playback if playing or paused.
-
-                if (roomManager.CurrentRoomRow == 0 && roomManager.CurrentRoomColumn == 1)
+                if (MediaPlayer.State != MediaState.Stopped)
                 {
-                    MediaPlayer.Play(song);
+                    MediaPlayer.Stop(); // stop current audio playback if playing or paused.
                 }
+                bossThemePlaying = false;
+                MediaPlayer.Play(song);
+                songPlaying = true;
+            }
+            if (roomManager.CurrentRoomRow == 1 && roomManager.CurrentRoomColumn == 0 && bossThemePlaying == false)
+            {
+                if (MediaPlayer.State != MediaState.Stopped)
+                {
+                    MediaPlayer.Stop(); // stop current audio playback if playing or paused.
+                }
+                songPlaying = false;
+                MediaPlayer.Play(bossTheme);
+                bossThemePlaying = true;
             }
         }
     }
