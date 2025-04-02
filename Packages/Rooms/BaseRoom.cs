@@ -78,7 +78,13 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                this._enemyManager.SwitchToNextEnemy();
+                this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
+            }
 
+            //Player and Block Collison
             for (int i = 0; i < this.internalMap.GetLength(0); i++)
             {
                 for (int j = 0; j < this.internalMap.GetLength(1); j++)
@@ -87,7 +93,7 @@ namespace Project.Packages
                     {
                         this._collisionManager.Collide(this._player, this.internalMap[i, j]);
                     }
-                }
+                }   
             }
         }
     }

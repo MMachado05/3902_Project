@@ -5,6 +5,8 @@ using Project.Characters.Enums;
 using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
+using Project.Enemies.EnemyClasses;
+using Project.Commands.GameLogicCommands;
 
 namespace Project.Characters
 {
@@ -15,9 +17,8 @@ namespace Project.Characters
         private Rectangle _previousLocation;
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
-        public Boolean isDamaged;
         public Vector2 velocity;
-
+        public int health;
         private float elapsedTime;
 
         public Player()
@@ -26,9 +27,9 @@ namespace Project.Characters
             Location = new Rectangle(36, 36, 20, 44);
             this._previousLocation = Location;
             velocity = new Vector2(0, 0);
+            health = 5;
 
             LastDirection = Direction.Down;
-            isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
@@ -54,8 +55,8 @@ namespace Project.Characters
 
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
-
-            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
+            
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, health < 5));
         }
 
         public void Update(GameTime gameTime)
@@ -73,6 +74,7 @@ namespace Project.Characters
                 Sprite.Update();
                 elapsedTime = 0f;
             }
+
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
@@ -87,6 +89,11 @@ namespace Project.Characters
             {
                 this.Location = this._previousLocation;
             }
+            if (collider is Enemy)
+            {
+                health -= 1;
+            }
+
         }
     }
 }

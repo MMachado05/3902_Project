@@ -81,6 +81,11 @@ namespace Project
         {
             this.updater.Update(gameTime);
             base.Update(gameTime);
+
+            if (player.health < 0)
+            {
+                new QuitCommand(this);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
