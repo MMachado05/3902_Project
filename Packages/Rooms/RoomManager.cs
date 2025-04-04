@@ -54,7 +54,7 @@ namespace Project.Rooms
             while ((roomLine = roomListReader.ReadLine()) != null)
             {
                 mapHeight++;
-                mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length);
+                mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length-1);
             }
 
             // Restart reader
@@ -70,9 +70,10 @@ namespace Project.Rooms
             while ((roomLine = roomListReader.ReadLine()) != null)
             {
                 roomRow = roomLine.Split(",");
-                for (int i = 0; i < roomRow.Length; i++)
+                mapRoomX=0;
+                for (int i = 0; i < roomRow.Length-1; i++)
                 {
-                    if (roomRow[i] != "") // Ignore "rooms" that don't exist
+                    if (roomRow[i] != "-") // Ignore "rooms" that don't exist
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           roomParser.LoadRoom(pathPrefix + roomRow[i],
@@ -88,8 +89,12 @@ namespace Project.Rooms
         {
             for (int i = 0; i < this.Map.GetLength(0); i++)
             {
-                for (int j = 0; j < this.Map.GetLength(1); j++)
-                    this.Map[i, j].AssignPlayer(player);
+                for (int j = 0; j < this.Map.GetLength(1); j++){
+
+                    if(this.Map[i, j]!=null)
+                        this.Map[i, j].AssignPlayer(player);
+
+                    }
             }
         }
 
