@@ -15,6 +15,7 @@ namespace Project.Commands.PlayerCommands
 
         public void Execute()
         {
+            System.Console.WriteLine("Attacking...");
             if (_player.Sprite.State != CharacterState.Attacking)
                 _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.isDamaged));
         }

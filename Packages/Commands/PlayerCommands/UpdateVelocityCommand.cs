@@ -28,10 +28,6 @@ namespace Project.Commands.PlayerCommands
 
         public void Execute()
         {
-            // Early escape for mid-attack
-            if (_player.Sprite.State == CharacterState.Attacking)
-                return;
-
             // Register direction for associated velocity change
             if (!this._deregister)
                 this._player.RegisterDirection(this._direction, this._dx, this._dy);

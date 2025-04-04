@@ -114,14 +114,17 @@ namespace Project.Characters
 
         public void Update(GameTime gameTime)
         {
-            if (this.velocity.X == 0 && this.velocity.Y == 0)
+            if (this.velocity.X == 0 && this.velocity.Y == 0 && this.Sprite.State != CharacterState.Attacking)
                 this.SetStaticSprite();
 
-            // Update position
-            this._previousLocation = Location;
-            Location = new Rectangle(Location.X + (int)this.velocity.X,
-                Location.Y + (int)this.velocity.Y,
-                                         Location.Width, Location.Height);
+            // Check if we're in the middle of an attack - if not, Update position
+            if (this.Sprite.State != CharacterState.Attacking)
+            {
+                this._previousLocation = Location;
+                Location = new Rectangle(Location.X + (int)this.velocity.X,
+                    Location.Y + (int)this.velocity.Y,
+                    Location.Width, Location.Height);
+            }
 
             // Check if we should animate sprite
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;

@@ -14,7 +14,6 @@ namespace Project.Factories
 
         private Texture2D playerSpriteSheet;
 
-        private int scale;
         private int widthPixels;
         private int heightPixels;
 
@@ -30,7 +29,6 @@ namespace Project.Factories
 
         private PlayerSpriteFactory()
         {
-            this.scale = 2;
             this.widthPixels = 32;
             this.heightPixels = 32;
         }
@@ -99,16 +97,37 @@ namespace Project.Factories
         public ISprite NewAttackingPlayerSprite(Direction direction, bool damaged)
         {
             int xOrigin;
-            int yOrigin;
+            int yOrigin = 0;
             int damagedOffset = damaged ? 128 : 0;
-            int width = this.widthPixels;
-            int height = this.heightPixels;
 
-            if (direction == Direction.Left) yOrigin = 288;
-            else yOrigin = 160;
-
-            if (direction == Direction.Left || direction == Direction.Right) width *= 2;
-            else height *= 2;
+            // NOTE: From previous method of creating attack animations, where we included
+            // the sprite for the attack in the sprite proper.
+            //
+            /*int width = this.widthPixels;*/
+            /*int height = this.heightPixels;*/
+            /**/
+            /*if (direction == Direction.Left) yOrigin = 288;*/
+            /*else yOrigin = 160;*/
+            /**/
+            /*if (direction == Direction.Left || direction == Direction.Right) width *= 2;*/
+            /*else height *= 2;*/
+            /**/
+            /*switch (direction)*/
+            /*{*/
+            /*    case Direction.Up:*/
+            /*        xOrigin = 0;*/
+            /*        break;*/
+            /*    case Direction.Right:*/
+            /*        xOrigin = 64;*/
+            /*        break;*/
+            /*    case Direction.Down:*/
+            /*        xOrigin = 32;*/
+            /*        break;*/
+            /*    case Direction.Left:*/
+            /*    default:*/
+            /*        xOrigin = 64;*/
+            /*        break;*/
+            /*}*/
 
             switch (direction)
             {
@@ -116,19 +135,19 @@ namespace Project.Factories
                     xOrigin = 0;
                     break;
                 case Direction.Right:
-                    xOrigin = 64;
+                    xOrigin = 32;
                     break;
                 case Direction.Down:
-                    xOrigin = 32;
+                    xOrigin = 64;
                     break;
                 case Direction.Left:
                 default:
-                    xOrigin = 64;
+                    xOrigin = 96;
                     break;
             }
 
             return new SingleAnimationSprite(this.playerSpriteSheet,
-                new Rectangle(xOrigin + damagedOffset, yOrigin, width, height),
+                new Rectangle(xOrigin + damagedOffset, yOrigin, this.widthPixels, this.heightPixels),
                 4, CharacterState.Attacking, CharacterState.FinishedAttack);
         }
     }
