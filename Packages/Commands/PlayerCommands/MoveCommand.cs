@@ -43,7 +43,7 @@ namespace Project.Commands.PlayerCommands
             if (_player.Sprite.State != CharacterState.Walking
                 || (_player.Sprite.State == CharacterState.Walking
                   && _direction != _player.LastDirection))
-                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.isDamaged));
+                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(_direction, _player.health < 5));
 
             _player.SpriteType = _direction;
             _player.Sprite.State = CharacterState.Walking;

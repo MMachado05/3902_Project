@@ -19,6 +19,7 @@ namespace Project.Characters
         public Direction SpriteType { get; set; }
         public Vector2 velocity;
         public int health;
+        public float invincibleTime;
         private float elapsedTime;
 
         public Player()
@@ -28,7 +29,7 @@ namespace Project.Characters
             this._previousLocation = Location;
             velocity = new Vector2(0, 0);
             health = 5;
-
+            invincibleTime = 0;
             LastDirection = Direction.Down;
 
             // Initially use a "stopped" sprite (down facing)
@@ -74,7 +75,9 @@ namespace Project.Characters
                 Sprite.Update();
                 elapsedTime = 0f;
             }
-
+            // Count down the invincibility frame timer
+            invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            System.Diagnostics.Debug.WriteLine(health);
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
@@ -89,9 +92,10 @@ namespace Project.Characters
             {
                 this.Location = this._previousLocation;
             }
-            if (collider is Enemy)
+            if (collider is Enemy && invincibleTime < 0)
             {
                 health -= 1;
+                invincibleTime = 1;
             }
 
         }

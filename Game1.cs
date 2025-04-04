@@ -84,7 +84,8 @@ namespace Project
 
             if (player.health < 0)
             {
-                new QuitCommand(this);
+                RestartGameCommand reset = new RestartGameCommand(this);
+                reset.Execute();
             }
         }
 
