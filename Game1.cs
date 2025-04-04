@@ -73,7 +73,7 @@ namespace Project
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player);
+            this.updater = new Updater(this.roomManager, this.player, this);
             this.updater.RegisterController(this.CreateKeyboardController());
         }
 
@@ -81,12 +81,6 @@ namespace Project
         {
             this.updater.Update(gameTime);
             base.Update(gameTime);
-
-            if (player.health < 0)
-            {
-                RestartGameCommand reset = new RestartGameCommand(this);
-                reset.Execute();
-            }
         }
 
         protected override void Draw(GameTime gameTime)

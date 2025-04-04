@@ -7,6 +7,7 @@ using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 using Project.Enemies.EnemyClasses;
 using Project.Commands.GameLogicCommands;
+using Project.Items;
 
 namespace Project.Characters
 {
@@ -57,7 +58,7 @@ namespace Project.Characters
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
             
-            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, health < 5));
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, invincibleTime > 0));
         }
 
         public void Update(GameTime gameTime)
@@ -98,6 +99,10 @@ namespace Project.Characters
                 invincibleTime = 1;
             }
 
+            if (collider is Item)
+            {
+                health += 2;
+            }
         }
     }
 }

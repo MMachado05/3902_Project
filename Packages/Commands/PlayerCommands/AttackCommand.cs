@@ -17,7 +17,7 @@ namespace Project.Commands.PlayerCommands
         {
 
             if (_player.Sprite.State != CharacterState.Attacking)
-                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.health < 5));
+                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.invincibleTime > 0));
 
         }
     }
