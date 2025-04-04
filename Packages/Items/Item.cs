@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Sprites;
 
 namespace Project.Items
@@ -25,7 +26,12 @@ namespace Project.Items
 
         public virtual void CollideWith(IGameObject collider)
         {
-            // TODO: Implement this
+            if (collider is Player)
+            {
+                //For now we will just set the location to a far away place
+                //I need to figure out how to make an item delete itself without access to the item manager?
+                Location = new Rectangle(1000, 1000, 1000, 1000);
+            }
         }
     }
 }

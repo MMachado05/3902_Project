@@ -44,6 +44,11 @@ namespace Project.Enemies
                 currentEnemyIndex++;
         }
 
+        public Enemy ReturnEnemy()
+        {
+            return enemies[currentEnemyIndex];
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Enemy enemy in enemies)

@@ -5,6 +5,9 @@ using Project.Characters.Enums;
 using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
+using Project.Enemies.EnemyClasses;
+using Project.Commands.GameLogicCommands;
+using Project.Items;
 
 namespace Project.Characters
 {
@@ -15,9 +18,9 @@ namespace Project.Characters
         private Rectangle _previousLocation;
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
-        public Boolean isDamaged;
         public Vector2 velocity;
-
+        public int health;
+        public float invincibleTime;
         private float elapsedTime;
 
         public Player()
@@ -26,9 +29,9 @@ namespace Project.Characters
             Location = new Rectangle(36, 36, 20, 44);
             this._previousLocation = Location;
             velocity = new Vector2(0, 0);
-
+            health = 5;
+            invincibleTime = 0;
             LastDirection = Direction.Down;
-            isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
@@ -54,8 +57,8 @@ namespace Project.Characters
 
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
-
-            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
+            
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, invincibleTime > 0));
         }
 
         public void Update(GameTime gameTime)
@@ -73,6 +76,8 @@ namespace Project.Characters
                 Sprite.Update();
                 elapsedTime = 0f;
             }
+            // Count down the invincibility frame timer
+            invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
@@ -86,6 +91,16 @@ namespace Project.Characters
             if (collider is SolidBlock)
             {
                 this.Location = this._previousLocation;
+            }
+            if (collider is Enemy && invincibleTime < 0)
+            {
+                health -= 1;
+                invincibleTime = 1;
+            }
+
+            if (collider is Item)
+            {
+                health += 2;
             }
         }
     }
