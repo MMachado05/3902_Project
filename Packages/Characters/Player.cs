@@ -78,7 +78,6 @@ namespace Project.Characters
             }
             // Count down the invincibility frame timer
             invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            System.Diagnostics.Debug.WriteLine(health);
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
