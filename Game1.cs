@@ -96,6 +96,7 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
+
             // Only update the rest of the game when not paused.
             if (!IsPaused)
             {
