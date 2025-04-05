@@ -13,12 +13,14 @@ namespace Project
     {
         private RoomManager _roomManager;
         private Player _player;
+        private GameStateMachine _gameState;
         private List<IController> _controllers;
 
-        public Updater(RoomManager roomManager, Player player)
+        public Updater(RoomManager roomManager, Player player, GameStateMachine gameState)
         {
             this._player = player;
             this._roomManager = roomManager;
+            this._gameState = gameState;
             this._controllers = new List<IController>();
         }
 
@@ -34,9 +36,12 @@ namespace Project
                 c.Update();
             }
 
-            this._player.Update(gameTime); // Keep this here because update logic
-                                           // might change *outside* of a room
-            this._roomManager.Update(gameTime);
+            if (this._gameState.State == GameState.Playing)
+            {
+                this._player.Update(gameTime); // Keep this here because update logic
+                                               // might change *outside* of a room
+                this._roomManager.Update(gameTime);
+            }
         }
     }
 }
