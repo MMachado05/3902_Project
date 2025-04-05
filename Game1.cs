@@ -25,7 +25,7 @@ namespace Project
 
         private float elapsedTime;
 
-        public static bool IsPaused = false; // osama
+        public GameState State { get; set; }
 
         string pauseMessage = "Game Paused - Press 'P' to Resume"; // osama (temp)
         Vector2 textSize; // osama (temp)
@@ -56,6 +56,7 @@ namespace Project
         protected override void Initialize()
         {
             this.player = new Player();
+            this.State = GameState.Playing;
 
             base.Initialize();
         }
@@ -97,11 +98,7 @@ namespace Project
         protected override void Update(GameTime gameTime)
         {
 
-            // Only update the rest of the game when not paused.
-            if (!IsPaused)
-            {
-                this.updater.Update(gameTime);
-            }
+            this.updater.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -113,11 +110,7 @@ namespace Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
 
-            // If game is paused, show pause menu (will implement later)
-            if (IsPaused)
-            {
-                _spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
-            }
+            _spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
 
             _spriteBatch.End();
 
