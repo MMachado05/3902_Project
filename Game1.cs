@@ -27,9 +27,6 @@ namespace Project
 
         private GameStateMachine gameState;
 
-        string pauseMessage = "Game Paused - Press 'P' to Resume"; // osama (temp)
-        Vector2 textSize; // osama (temp)
-        Vector2 textPosition; // osama (temp)
         private SpriteFont font; // osama (temp)
 
 
@@ -78,22 +75,16 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemFactory.Instance.LoadAllTextures(Content);
 
-            this.gameRenderer = new GameRenderer(64, 64);
+            font = Content.Load<SpriteFont>("PauseFont"); // osama
+
+            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState, font);
             this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player);
+            this.updater = new Updater(this.roomManager, this.player, this.gameState);
             this.updater.RegisterController(this.CreateKeyboardController());
-
-            font = Content.Load<SpriteFont>("PauseFont"); // osama
-
-            textSize = font.MeasureString(pauseMessage); // osama
-            textPosition = new Vector2(
-                (_graphics.PreferredBackBufferWidth - textSize.X) / 2,
-                (_graphics.PreferredBackBufferHeight - textSize.Y) / 2 // osama
-            );
         }
 
         protected override void Update(GameTime gameTime)
@@ -110,8 +101,6 @@ namespace Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
-
-            _spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
 
             _spriteBatch.End();
 
@@ -146,7 +135,7 @@ namespace Project
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
 
-            kbc.RegisterKey(Keys.P, new PauseGameCommand(this)); // osama
+            kbc.RegisterKey(Keys.P, new PauseGameCommand(this.gameState)); // osama
 
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));
