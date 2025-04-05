@@ -1,8 +1,10 @@
 namespace Project
 {
-  public enum GameState
-  {
-    Paused,
-    Playing,
-  }
+    public enum GameState
+    {
+        Paused,
+        Playing,
+        Won,
+        Lost
+    }
 }
