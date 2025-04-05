@@ -20,8 +20,8 @@ namespace Project.Renderer
         private GameStateMachine _gameState;
         private SpriteFont _tempPauseFont;
 
-        private int _screenWidth;
-        private int _screenHeight;
+        private int _screenWidth; // Since we can't see game1
+        private int _screenHeight; // Since we can't see game1
         private int tileWidth;
         private int tileHeight;
 
@@ -31,6 +31,7 @@ namespace Project.Renderer
         // Myra UI components for the pause menu
         private Desktop _pauseDesktop;
         private Panel _pausePanel;
+        private VerticalStackPanel stackPanel;
         private Label _pauseLabel;
         private Button _musicToggleButton;
         private VerticalStackPanel _inventoryPanel;
@@ -62,18 +63,12 @@ namespace Project.Renderer
 
             if (this._gameState.State == GameState.Paused)
             {
-                
+                // Osama: im gonna try some super janky workaround I saw on one of the forums:
+                spriteBatch.End();
+
                 _pauseDesktop.Render(); // Myra test
 
-                //string pauseMsg = "Game Paused (Press P to Unpause)";
-                //Vector2 textSize = this._tempPauseFont.MeasureString(pauseMsg);
-                //spriteBatch.DrawString(_tempPauseFont,
-                //    pauseMsg,
-                //    new Vector2(
-                //      (this._screenWidth - textSize.X) / 2,
-                //      (this._screenHeight - textSize.Y) / 2
-                //      ),
-                //    Color.White);
+                spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             }
         }
 
@@ -90,7 +85,7 @@ namespace Project.Renderer
         }
 
         /// <summary>
-        /// Initializes the Myra UI for the pause menu.
+        /// Initializes the Myra UI for the pause menu (auto-configured from library).
         /// </summary>
         private void InitializePauseMenuUI()
         {
@@ -102,52 +97,71 @@ namespace Project.Renderer
             {
                 Background = new SolidBrush(new Color(0, 0, 0, 150)),
                 Width = 300,
-                Height = 200,
+                Height = 250,
                 Padding = new Thickness(20),
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-            // Create a label indicating the game is paused
-            _pauseLabel = new Label
+            // Main stack panel to hold everything vertically
+            var mainStack = new VerticalStackPanel
             {
-                Text = "Game Paused",
+                Spacing = 8,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            // 1. Centered "GAME PAUSED" label
+            var pauseLabel = new Label
+            {
+                Text = "GAME PAUSED",
                 TextColor = Color.White,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
+            mainStack.Widgets.Add(pauseLabel);
 
-            // Create a placeholder music toggle button
-            _musicToggleButton = new Button
+            // 2. Sub-panel for everything else (left-aligned with a margin)
+            var subPanel = new VerticalStackPanel
+            {
+                Spacing = 8,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(0, 20, 0, 0) // Adds 20 pixels of space above this panel
+            };
+
+            // "Music: On/Off" button
+            var musicToggleButton = new Button
             {
                 Content = new Label { Text = "Music: On/Off", TextColor = Color.White },
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Left
             };
+            subPanel.Widgets.Add(musicToggleButton);
 
-            _musicToggleButton.Click += (sender, args) =>
+            // "Inventory" label
+            var inventoryHeader = new Label
             {
-                // TODO: Implement music toggle functionality
+                Text = "Inventory",
+                TextColor = Color.White,
+                HorizontalAlignment = HorizontalAlignment.Left
             };
+            subPanel.Widgets.Add(inventoryHeader);
 
-            // Create a vertical stack panel for inventory items
-            _inventoryPanel = new VerticalStackPanel
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                Spacing = 8
-            };
+            // Inventory items
+            subPanel.Widgets.Add(new Label { Text = "   Sword", TextColor = Color.White });
+            subPanel.Widgets.Add(new Label { Text = "   Boomerang", TextColor = Color.White });
+            subPanel.Widgets.Add(new Label { Text = "   Bomb", TextColor = Color.White });
 
-            // Add sample inventory items
-            _inventoryPanel.Widgets.Add(new Label { Text = "Sword", TextColor = Color.White });
-            _inventoryPanel.Widgets.Add(new Label { Text = "Boomerang", TextColor = Color.White });
-            _inventoryPanel.Widgets.Add(new Label { Text = "Bomb", TextColor = Color.White });
+            // Add the sub-panel to the main stack
+            mainStack.Widgets.Add(subPanel);
 
-            // Add the UI elements to the panel
-            _pausePanel.Widgets.Add(_pauseLabel);
-            _pausePanel.Widgets.Add(_musicToggleButton);
-            _pausePanel.Widgets.Add(_inventoryPanel);
+            // Add the main stack panel to the pause panel
+            _pausePanel.Widgets.Add(mainStack);
 
             // Set the panel as the root widget of the Desktop
             _pauseDesktop.Root = _pausePanel;
         }
+
+
+
     }
 
 }

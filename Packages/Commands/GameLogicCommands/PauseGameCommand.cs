@@ -6,6 +6,7 @@ namespace Project.Packages.Commands.GameLogicCommands
     public class PauseGameCommand : ICommand
     {
         private GameStateMachine _gameState;
+        private object _pauseDesktop;
 
         public PauseGameCommand(GameStateMachine gameState)
         {
