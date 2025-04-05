@@ -64,6 +64,7 @@ namespace Project.Renderer
             if (this._gameState.State == GameState.Paused)
             {
                 // Osama: im gonna try some super janky workaround I saw on one of the forums:
+                // I hope marci doesn't see this...
                 spriteBatch.End();
 
                 _pauseDesktop.Render(); // Myra test
