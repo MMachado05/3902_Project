@@ -96,7 +96,12 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
-            this.updater.Update(gameTime);
+            // Only update the rest of the game when not paused.
+            if (!IsPaused)
+            {
+                this.updater.Update(gameTime);
+            }
+
             base.Update(gameTime);
         }
 
