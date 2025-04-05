@@ -11,6 +11,7 @@ using Project.Factories;
 using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
+using Project.Packages.Commands.GameLogicCommands;
 
 namespace Project
 {
@@ -23,6 +24,14 @@ namespace Project
         public Player player;
 
         private float elapsedTime;
+
+        public static bool IsPaused = false; // osama
+
+        string pauseMessage = "Game Paused - Press 'P' to Resume"; // osama (temp)
+        Vector2 textSize; // osama (temp)
+        Vector2 textPosition; // osama (temp)
+        private SpriteFont font; // osama (temp)
+
 
         GameRenderer gameRenderer;
         Updater updater;
@@ -75,6 +84,14 @@ namespace Project
             this.gameRenderer.PlayerCharacter = this.player;
             this.updater = new Updater(this.roomManager, this.player);
             this.updater.RegisterController(this.CreateKeyboardController());
+
+            font = Content.Load<SpriteFont>("PauseFont"); // osama
+
+            textSize = font.MeasureString(pauseMessage); // osama
+            textPosition = new Vector2(
+                (_graphics.PreferredBackBufferWidth - textSize.X) / 2,
+                (_graphics.PreferredBackBufferHeight - textSize.Y) / 2 // osama
+            );
         }
 
         protected override void Update(GameTime gameTime)
@@ -89,6 +106,12 @@ namespace Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
+
+            // If game is paused, show pause menu (will implement later)
+            if (IsPaused)
+            {
+                _spriteBatch.DrawString(font, pauseMessage, textPosition, Color.White);
+            }
 
             _spriteBatch.End();
 
@@ -122,6 +145,8 @@ namespace Project
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+
+            kbc.RegisterKey(Keys.P, new PauseGameCommand(this)); // osama
 
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));
