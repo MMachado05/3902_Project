@@ -26,6 +26,11 @@ namespace Project
 
         public void RegisterController(IController controller)
         {
+            // TODO: It would be advisable to "lock" the player during certain game states,
+            // so it might be good to register controllers along with GameState enums,
+            // and then add them to a dictionary where the enum is the key. Then, we could,
+            // instead of doing the if statement, just update the controllers in the Dictionary
+            // slot matching the current game state
             this._controllers.Add(controller);
         }
 
