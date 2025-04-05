@@ -9,7 +9,7 @@ namespace Project.Controllers
     {
         private Dictionary<Keys, ICommand> _onPress;
         private Dictionary<Keys, ICommand> _onRelease;
-        private IEnumerable<Keys> _stillPressed;
+        private Keys[] _stillPressed;
         private ICommand _defaultCommand;
 
         public KeyboardController()
