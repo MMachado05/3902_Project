@@ -29,7 +29,6 @@ namespace Project
 
         private SpriteFont font; // osama (temp)
 
-
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
@@ -89,7 +88,6 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
-
             this.updater.Update(gameTime);
 
             base.Update(gameTime);
@@ -101,7 +99,6 @@ namespace Project
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
