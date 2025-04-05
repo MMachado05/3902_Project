@@ -3,22 +3,25 @@ using System.Diagnostics;
 
 namespace Project.Packages.Commands.GameLogicCommands
 {
-    public class PauseGameCommand : AbstractCommand
+    public class PauseGameCommand : ICommand
     {
-        public PauseGameCommand(Game1 game) : base(game)
+        private GameStateMachine _gameState;
+
+        public PauseGameCommand(GameStateMachine gameState)
         {
+            this._gameState = gameState;
         }
 
-        public override void Execute()
+        public void Execute()
         {
-            if (game.State == GameState.Paused)
+            if (this._gameState.State == GameState.Paused)
             {
-                game.State = GameState.Playing;
+                this._gameState.State = GameState.Playing;
                 Debug.WriteLine("Game is now playing.");
             }
             else
             {
-                game.State = GameState.Paused;
+                this._gameState.State = GameState.Paused;
                 Debug.WriteLine("Game is now paused.");
             }
         }

@@ -25,7 +25,7 @@ namespace Project
 
         private float elapsedTime;
 
-        public GameState State { get; set; }
+        private GameStateMachine gameState;
 
         string pauseMessage = "Game Paused - Press 'P' to Resume"; // osama (temp)
         Vector2 textSize; // osama (temp)
@@ -56,7 +56,8 @@ namespace Project
         protected override void Initialize()
         {
             this.player = new Player();
-            this.State = GameState.Playing;
+            this.gameState = new GameStateMachine();
+            this.gameState.State = GameState.Playing;
 
             base.Initialize();
         }
@@ -152,6 +153,10 @@ namespace Project
 
             return kbc;
         }
+    }
 
+    public class GameStateMachine
+    {
+        public GameState State { get; set; }
     }
 }
