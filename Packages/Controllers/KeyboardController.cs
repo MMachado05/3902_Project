@@ -8,7 +8,7 @@ namespace Project.Controllers
     public class KeyboardController : IController
     {
         private Dictionary<Keys, ICommand> _commands;
-        private IEnumerable<Keys> _stillPressed;
+        private Keys[] _stillPressed;
         private ICommand _defaultCommand;
 
         public KeyboardController()
@@ -44,8 +44,8 @@ namespace Project.Controllers
 
             // Keep an active log of currently pressed keys so that "holding down" a key
             //  is ignored.
-            _stillPressed = currentlyPressed.Union<Keys>(_stillPressed);
-            _stillPressed = currentlyPressed.Intersect<Keys>(_stillPressed);
+            _stillPressed = currentlyPressed.Union<Keys>(_stillPressed).ToArray();
+            _stillPressed = currentlyPressed.Intersect<Keys>(_stillPressed).ToArray();
         }
     }
 }
