@@ -12,6 +12,7 @@ using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
 using Project.Packages.Commands.GameLogicCommands;
+using Myra;
 
 namespace Project
 {
@@ -51,6 +52,8 @@ namespace Project
 
         protected override void Initialize()
         {
+            MyraEnvironment.Game = this; // UI library
+
             this.player = new Player();
             this.gameState = new GameStateMachine();
             this.gameState.State = GameState.Playing;
