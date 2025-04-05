@@ -14,18 +14,26 @@ namespace Project.Renderer
         public RoomManager RoomManager { set => this._roomManager = value; }
 
         private bool _fieldsSatisfied;
+        private GameStateMachine _gameState;
+        private SpriteFont _tempPauseFont;
 
+        private int _screenWidth;
+        private int _screenHeight;
         private int tileWidth;
         private int tileHeight;
 
         public int TileWidth { get => tileWidth; }
         public int TileHeight { get => tileHeight; }
 
-        public GameRenderer(int tileWidth, int tileHeight)
+        public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState, SpriteFont tempPauseFont)
         {
+            this._screenWidth = screenWidth;
+            this._screenHeight = screenHeight;
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
             this._fieldsSatisfied = false;
+            this._gameState = gameState;
+            this._tempPauseFont = tempPauseFont;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -39,6 +47,19 @@ namespace Project.Renderer
 
             // TODO: Catch collisions during the drawing stage and call relevant commands
             //  to colliding objects as needed
+
+            if (this._gameState.State == GameState.Paused)
+            {
+                string pauseMsg = "Game Paused (Press P to Unpause)";
+                Vector2 textSize = this._tempPauseFont.MeasureString(pauseMsg);
+                spriteBatch.DrawString(_tempPauseFont,
+                    pauseMsg,
+                    new Vector2(
+                      (this._screenWidth - textSize.X) / 2,
+                      (this._screenHeight - textSize.Y) / 2
+                      ),
+                    Color.White);
+            }
         }
 
         /// <summary>The renderer shouldn't need to update anything.</summary>
