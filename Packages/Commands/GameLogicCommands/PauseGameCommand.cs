@@ -1,6 +1,4 @@
-﻿using Project.Packages.Commands;
-using Project;
-using Project.Commands;
+﻿using Project.Commands;
 using System.Diagnostics;
 
 namespace Project.Packages.Commands.GameLogicCommands
@@ -13,17 +11,15 @@ namespace Project.Packages.Commands.GameLogicCommands
 
         public override void Execute()
         {
-            // Toggle IsPaused after every press
-            Game1.IsPaused = !Game1.IsPaused;
-
-            if (Game1.IsPaused)
+            if (game.State == GameState.Paused)
             {
-                // TODO: Implement UI using Myra; for now just use OOTB text boxes
-                Debug.WriteLine("P is pressed");
+                game.State = GameState.Playing;
+                Debug.WriteLine("Game is now playing.");
             }
             else
             {
-                // TODO: Hide the pause menu UI...
+                game.State = GameState.Paused;
+                Debug.WriteLine("Game is now paused.");
             }
         }
     }
