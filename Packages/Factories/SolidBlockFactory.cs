@@ -9,6 +9,8 @@ namespace Project.Factories
     public class SolidBlockFactory
     {
         private Texture2D _textureAtlas;
+        private Texture2D _backgroundTextureAtlas;
+
 
         private static SolidBlockFactory instance = new SolidBlockFactory();
 
@@ -27,6 +29,8 @@ namespace Project.Factories
         public void LoadAllTextures(ContentManager content)
         {
             this._textureAtlas = content.Load<Texture2D>("blocks");
+            this._backgroundTextureAtlas = content.Load<Texture2D>("bossBackground");
+
         }
 
         /// <summary>
@@ -43,6 +47,11 @@ namespace Project.Factories
         {
             return new BackgroundBlock(_textureAtlas,
                 new Rectangle(256, 64, 64, 64), new Rectangle(0,0,960,704));
+        }
+          public IBlock boosBackground()
+        {
+            return new BackgroundBlock(_backgroundTextureAtlas,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64,64,832,576));
         }
 
         public IBlock CreateDoor(Rectangle dest)

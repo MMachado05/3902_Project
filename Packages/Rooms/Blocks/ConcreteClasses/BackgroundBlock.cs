@@ -11,9 +11,6 @@ namespace Project.Rooms.Blocks.ConcreteClasses
     {
         private Texture2D _texture;
         private Rectangle _textureSource;
-        private int _horizontalBlockInstances;
-        private int _verticalBlockInstances;
-
         private Rectangle _renderedLocation;
         public Rectangle Location { get => this._renderedLocation; }
         public int LeftXCoord { get { return this._renderedLocation.X; } }
