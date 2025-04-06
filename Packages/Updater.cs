@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Microsoft.Xna.Framework;
 using Project.Characters;
+using Project.Commands;
 using Project.Commands.GameLogicCommands;
 using Project.Controllers;
 using Project.Rooms;
@@ -15,14 +16,14 @@ namespace Project
     {
         private RoomManager _roomManager;
         private Player _player;
-        private Game1 _game1;
+        private ICommand _restartCommand;
         private List<IController> _controllers;
 
-        public Updater(RoomManager roomManager, Player player, Game1 game1)
+        public Updater(RoomManager roomManager, Player player, ICommand restart)
         {
             this._player = player;
             this._roomManager = roomManager;
-            this._game1 = game1;
+            this._restartCommand = restart;
             this._controllers = new List<IController>();
         }
 
@@ -44,8 +45,7 @@ namespace Project
 
             if (_player.health <= 0)
             {
-                RestartGameCommand reset = new RestartGameCommand(_game1);
-                reset.Execute();
+                _restartCommand.Execute();
             }
         }
     }

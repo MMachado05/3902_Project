@@ -73,7 +73,7 @@ namespace Project
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player, this);
+            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this));
             this.updater.RegisterController(this.CreateKeyboardController());
         }
 

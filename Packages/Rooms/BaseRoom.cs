@@ -87,7 +87,7 @@ namespace Project.Packages
             }
             //Player and Item Collison
             for (int i = 0; i < this._itemManager.GetWorldItems().Count; i++)
-            { 
+            {
                 this._collisionManager.Collide(this._player, this._itemManager.GetWorldItems()[i]);
             }
             //Player and Block Collison
@@ -99,7 +99,7 @@ namespace Project.Packages
                     {
                         this._collisionManager.Collide(this._player, this.internalMap[i, j]);
                     }
-                }   
+                }
             }
         }
     }
