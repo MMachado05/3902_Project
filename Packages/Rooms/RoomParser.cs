@@ -10,11 +10,44 @@ using Project.Renderer;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Factories;
+using System.Diagnostics;
 
 namespace Project.Rooms
 {
     public class RoomParser
     {
+        private IBlock AddBlockToRoom(int x, int y, GameRenderer gr, int width, int hieght, String blockName)
+        {
+            IBlock result;
+            switch (blockName)
+            {
+                case "CreateBricks":
+                    result = SolidBlockFactory.Instance.CreateBricks(1, 1,
+                                       new Rectangle(x * gr.TileWidth,
+                                         (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+
+                    break;
+                case "CreateWoodPlanks":
+                    result = SolidBlockFactory.Instance.CreateWoodPlanks(1, 1,
+                                       new Rectangle(x * gr.TileWidth,
+                                         (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    break;
+                case "CreateDoor":
+                    result = SolidBlockFactory.Instance.CreateDoor(
+                                      new Rectangle(x * gr.TileWidth,
+                                        (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    break;
+                case "GreenBackGround":
+                    result = SolidBlockFactory.Instance.GreenBg();
+                    break;
+                default:
+                    result = null;
+                    break;
+
+            }
+            return result;
+
+        }
         public IRoom LoadRoom(string filePath, GameRenderer gr,
              ContentManager content, int tileWidth, int tileHeight, CollisionManager collisionManager)
         {
@@ -30,6 +63,8 @@ namespace Project.Rooms
                 roomHeight++;
             }
             IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
+            IBlock Background = SolidBlockFactory.Instance.GreenBg();
+
 
             // Restart reader
             reader.DiscardBufferedData();
@@ -52,65 +87,89 @@ namespace Project.Rooms
                 {
                     switch (items[x])
                     {
+                        case "gr":
+                            Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+                            break;
                         case "bl":
-                            internalMap[x, y] =
-                              SolidBlockFactory.Instance.CreateBricks(1, 1,
-                                  new Rectangle(x * gr.TileWidth,
-                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+
+                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateBricks");
                             break;
                         case "ob":
-                            internalMap[x, y] =
-                              SolidBlockFactory.Instance.CreateWoodPlanks(1, 1,
-                                  new Rectangle(x * gr.TileWidth,
-                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateWoodPlanks");
                             break;
                         case "dr":
-                            internalMap[x, y] =
-                              SolidBlockFactory.Instance.CreateDoor(
-                                  new Rectangle(x * gr.TileWidth,
-                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                            // internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDoor");
                             break;
                         case "pl":
+                            //  internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
                             playerSpriteLocation.X = x * gr.TileWidth;
-                            playerSpriteLocation.Y = y * gr.TileHeight;
+                            playerSpriteLocation.Y = (y-1) * gr.TileHeight;
                             break;
                         case "aq":
-                            enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            //internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "rg":
-                            enemyManager.AddEnemy(new RedGoriya(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            //  internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            enemyManager.AddEnemy(new RedGoriya(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "st":
-                            enemyManager.AddEnemy(new Stalfos(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            enemyManager.AddEnemy(new Stalfos(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "it":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateHeartSprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateHeartSprite()));
                             break;
                         case "ar":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateArrowSprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateArrowSprite()));
                             break;
                         case "sw":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateSwordSprite()));
+                           // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateSwordSprite()));
                             break;
                         case "co":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateCoinSprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateCoinSprite()));
                             break;
                         case "bm":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBombSprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBombSprite()));
                             break;
                         case "bmr":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBoomerangSprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBoomerangSprite()));
                             break;
                         case "bw":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBowSprite()));
+                            //internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateBowSprite()));
                             break;
                         case "frb":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateFireballSprite()));
+                            //internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateFireballSprite()));
                             break;
                         case "ky":
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, y * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateKeySprite()));
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y-1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateKeySprite()));
                             break;
                         default:
+                            // internalMap[x, y] = internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "GreenBackGround");
+
                             break;
                     }
                 }
@@ -118,7 +177,7 @@ namespace Project.Rooms
             }
 
 
-            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap);
+            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap , Background);
         }
     }
 }

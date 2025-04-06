@@ -39,6 +39,11 @@ namespace Project.Factories
                 new Rectangle(320, 256, 64, 64),
                 horizontals, verticals, dest);
         }
+          public IBlock GreenBg()
+        {
+            return new BackgroundBlock(_textureAtlas,
+                new Rectangle(256, 64, 64, 64), new Rectangle(0,0,960,704));
+        }
 
         public IBlock CreateDoor(Rectangle dest)
         {
