@@ -7,8 +7,10 @@ namespace Project.Items
 {
     public abstract class Item : IItem
     {
-        public abstract float Speed { get; set; }
         public abstract Rectangle Location { get; set; }
+        public virtual int PlayerHealthEffect { get => 2; }
+
+        public abstract float Speed { get; set; }
 
         public ISprite Sprite { get; }
 
