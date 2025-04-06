@@ -2,10 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
-using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
-using Project.Enemies.EnemyClasses;
-using Project.Items;
 
 namespace Project.Characters
 {

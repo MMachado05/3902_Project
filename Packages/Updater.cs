@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using System.Numerics;
 using Microsoft.Xna.Framework;
 using Project.Characters;
 using Project.Commands;
-using Project.Commands.GameLogicCommands;
 using Project.Controllers;
 using Project.Rooms;
 
