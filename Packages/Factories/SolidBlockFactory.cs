@@ -13,7 +13,7 @@ namespace Project.Factories
         private Texture2D _room1Texture;
         private Texture2D _room2Texture;
 
-        private Texture2D _roo3Texture;
+        private Texture2D _room3Texture;
 
         private Texture2D _room4Texture;
 
@@ -22,7 +22,6 @@ namespace Project.Factories
         private Texture2D _room6Texture;
 
         private Texture2D _room7Texture;
-        private Texture2D _room8Texture;
 
 
 
@@ -46,6 +45,15 @@ namespace Project.Factories
         {
             this._textureAtlas = content.Load<Texture2D>("blocks");
             this._bossRoomTexture = content.Load<Texture2D>("bossBackground");
+            this._room1Texture = content.Load<Texture2D>("room2background");
+            this._room2Texture = content.Load<Texture2D>("room2background");
+            this._room3Texture = content.Load<Texture2D>("room3background");
+            this._room4Texture = content.Load<Texture2D>("room4background");
+            this._room5Texture = content.Load<Texture2D>("room5background");
+            this._room6Texture = content.Load<Texture2D>("room6background");
+            this._room7Texture = content.Load<Texture2D>("room7background");
+
+
 
         }
 
@@ -71,37 +79,37 @@ namespace Project.Factories
         }
            public IBlock room1Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room1Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room2Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room2Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room3Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room3Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room4Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room4Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room5Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room5Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room6Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room6Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room7Background()
         {
-            return new BackgroundBlock(_bossRoomTexture,
+            return new BackgroundBlock(_room7Texture,
                 new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
            public IBlock room8Background()
