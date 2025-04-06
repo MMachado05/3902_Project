@@ -90,20 +90,17 @@ namespace Project.Characters
 
         public void CollideWith(IGameObject collider)
         {
-            // TODO:Implement, include a check for what *kind* of game object it is
-            if (collider is SolidBlock)
+            if (!collider.IsPassable)
             {
                 this.Location = this._previousLocation;
             }
-            if (collider is Enemy && invincibleTime < 0)
-            {
-                health -= 1;
-                invincibleTime = 1;
-            }
 
-            if (collider is Item)
+            int collisionHealthEffect = collider.PlayerHealthEffect;
+            health += collisionHealthEffect;
+
+            if (collisionHealthEffect < 0) // Causing damage
             {
-                health += 2;
+                invincibleTime = 1;
             }
         }
     }
