@@ -78,7 +78,19 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
-
+            
+            //Player and Enemy Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                this._enemyManager.SwitchToNextEnemy();
+                this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
+            }
+            //Player and Item Collison
+            for (int i = 0; i < this._itemManager.GetWorldItems().Count; i++)
+            {
+                this._collisionManager.Collide(this._player, this._itemManager.GetWorldItems()[i]);
+            }
+            //Player and Block Collison
             for (int i = 0; i < this.internalMap.GetLength(0); i++)
             {
                 for (int j = 0; j < this.internalMap.GetLength(1); j++)
