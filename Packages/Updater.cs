@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Project.Characters;
 using Project.Commands;
 using Project.Controllers;
+using Project.Packages.Sounds;
 using Project.Rooms;
 
 namespace Project
@@ -44,6 +45,7 @@ namespace Project
             if (_player.health <= 0)
             {
                 _restartCommand.Execute();
+                SoundEffectManager.Instance.playGameOver();
             }
         }
     }

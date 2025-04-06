@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -13,65 +14,36 @@ namespace Project.Packages.Sounds
 {
     public class SoundEffectManager
     {
-        private GameRenderer gameRender;
-        private RoomManager roomManager;
-        private Song song;
+        private Song dungeonMusic;
         private Song bossTheme;
+
+        private SoundEffect swordSlash;
+        private SoundEffect fireball;
+        private SoundEffect boomerang;
+        private SoundEffect heal;
+        private SoundEffect damage;
+        private SoundEffect gameOver;
+        
+        private static readonly SoundEffectManager instance = new SoundEffectManager();
+
+        public static SoundEffectManager Instance => instance;
 
         // --- Osama:
         private bool isMusicEnabled = true;
 
-        //Replace this later
-        private Boolean songPlaying = false; // Osama: Maybe rename to "dungonMusic" or something?
+        private Boolean dungeonMusicPlaying = false; // Osama: Maybe rename to "dungonMusic" or something?
         private Boolean bossThemePlaying = false;
-        public SoundEffectManager(GameRenderer gameRender, RoomManager roomManager)
-        {
-            this.gameRender = gameRender;
-            this.roomManager = roomManager;
-        }
         public void LoadContent(ContentManager content)
         {
-            song = content.Load<Song>("Monkeys Spinning Monkeys");
-            bossTheme = content.Load<Song>("Boss Theme");
+            dungeonMusic = content.Load<Song>("sfx/Monkeys Spinning Monkeys");
+            bossTheme = content.Load<Song>("sfx/Boss Theme");
+            swordSlash = content.Load<SoundEffect>("sfx/swordSlash");
+            fireball = content.Load<SoundEffect>("sfx/fireball");
+            boomerang = content.Load<SoundEffect>("sfx/boomerang");
+            heal = content.Load<SoundEffect>("sfx/heal");
+            damage = content.Load<SoundEffect>("sfx/damage");
+            gameOver = content.Load<SoundEffect>("sfx/gameOver");
         }
-        public void Update()
-        {
-            // --- Osama:
-            if (!isMusicEnabled)
-            {
-                // I hope im using this MediaPlayer correctly lol
-                if (MediaPlayer.State != MediaState.Stopped)
-                {
-                    MediaPlayer.Stop();
-                }
-                songPlaying = false;
-                bossThemePlaying = false;
-                return;
-            }
-
-            //Replace this later
-            if (roomManager.CurrentRoomRow == 0 && roomManager.CurrentRoomColumn == 0 && songPlaying == false)
-            {
-                if (MediaPlayer.State != MediaState.Stopped)
-                {
-                    MediaPlayer.Stop(); // stop current audio playback if playing or paused.
-                }
-                bossThemePlaying = false;
-                MediaPlayer.Play(song);
-                songPlaying = true;
-            }
-            if (roomManager.CurrentRoomRow == 1 && roomManager.CurrentRoomColumn == 0 && bossThemePlaying == false)
-            {
-                if (MediaPlayer.State != MediaState.Stopped)
-                {
-                    MediaPlayer.Stop(); // stop current audio playback if playing or paused.
-                }
-                songPlaying = false;
-                MediaPlayer.Play(bossTheme);
-                bossThemePlaying = true;
-            }
-        }
-
 
         public void ToggleMusic()
         {
@@ -80,9 +52,51 @@ namespace Project.Packages.Sounds
             {
                 // Toggling off all music tracks.
                 MediaPlayer.Stop();
-                songPlaying = false;
+                dungeonMusicPlaying = false;
                 bossThemePlaying = false;
             }
+        }
+        public void playDungeonMusic()
+        {
+            if (!dungeonMusicPlaying)
+            {
+                MediaPlayer.Play(dungeonMusic);
+            }
+            bossThemePlaying = false;
+            dungeonMusicPlaying = true;
+        }
+        public void playBossMusic()
+        {
+            if (!bossThemePlaying)
+            {
+                MediaPlayer.Play(bossTheme);
+            }
+            dungeonMusicPlaying = false;
+            bossThemePlaying = true;
+        }
+        public void playSword()
+        {
+            swordSlash.Play();
+        }
+        public void playFireball()
+        {
+            fireball.Play();
+        }
+        public void playBoomerang()
+        {
+            boomerang.Play();
+        }
+        public void playHeal()
+        {
+            heal.Play();
+        }
+        public void playDamage()
+        {
+            damage.Play();
+        }
+        public void playGameOver()
+        {
+            gameOver.Play();
         }
 
     }

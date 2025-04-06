@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Packages.Sounds;
 using Project.Sprites;
 
 namespace Project.Characters
@@ -96,11 +97,17 @@ namespace Project.Characters
             if (invincibleTime < 0)
             {
                 health += collisionHealthEffect;
+                if (collisionHealthEffect < 0) // Causing damage
+                {
+                    SoundEffectManager.Instance.playDamage();
+                    invincibleTime = 1;
+                }
+                if (collisionHealthEffect > 0) // Healing
+                {
+                    SoundEffectManager.Instance.playHeal();
+                }
             }
-            if (collisionHealthEffect < 0) // Causing damage
-            {
-                invincibleTime = 1;
-            }
+            
         }
     }
 }
