@@ -13,7 +13,8 @@ namespace Project.Commands.PlayerCommands
 
         public void Execute()
         {
-            _player.isDamaged = !_player.isDamaged;
+            _player.health -= 1;
+            _player.invincibleTime = 1;
         }
     }
 }
