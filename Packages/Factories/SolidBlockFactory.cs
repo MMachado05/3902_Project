@@ -9,7 +9,23 @@ namespace Project.Factories
     public class SolidBlockFactory
     {
         private Texture2D _textureAtlas;
-        private Texture2D _backgroundTextureAtlas;
+        private Texture2D _bossRoomTexture;
+        private Texture2D _room1Texture;
+        private Texture2D _room2Texture;
+
+        private Texture2D _roo3Texture;
+
+        private Texture2D _room4Texture;
+
+        private Texture2D _room5Texture;
+
+        private Texture2D _room6Texture;
+
+        private Texture2D _room7Texture;
+        private Texture2D _room8Texture;
+
+
+
 
 
         private static SolidBlockFactory instance = new SolidBlockFactory();
@@ -29,7 +45,7 @@ namespace Project.Factories
         public void LoadAllTextures(ContentManager content)
         {
             this._textureAtlas = content.Load<Texture2D>("blocks");
-            this._backgroundTextureAtlas = content.Load<Texture2D>("bossBackground");
+            this._bossRoomTexture = content.Load<Texture2D>("bossBackground");
 
         }
 
@@ -43,15 +59,55 @@ namespace Project.Factories
                 new Rectangle(320, 256, 64, 64),
                 horizontals, verticals, dest);
         }
-          public IBlock GreenBg()
+        public IBlock GreenBg()
         {
             return new BackgroundBlock(_textureAtlas,
-                new Rectangle(256, 64, 64, 64), new Rectangle(0,0,960,704));
+                new Rectangle(256, 64, 64, 64), new Rectangle(0, 0, 960, 704));
         }
-          public IBlock boosBackground()
+        public IBlock boosBackground()
         {
-            return new BackgroundBlock(_backgroundTextureAtlas,
-                new Rectangle(0, 0, 580, 425), new Rectangle(64,64,832,576));
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room1Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room2Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room3Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room4Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room5Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room6Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room7Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
+        }
+           public IBlock room8Background()
+        {
+            return new BackgroundBlock(_bossRoomTexture,
+                new Rectangle(0, 0, 580, 425), new Rectangle(64, 64, 832, 576));
         }
 
         public IBlock CreateDoor(Rectangle dest)
