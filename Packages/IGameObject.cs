@@ -6,6 +6,7 @@ namespace Project
     {
         Rectangle Location { get; }
         int PlayerHealthEffect { get; }
+        bool IsPassable { get; }
 
         void CollideWith(IGameObject collider);
     }
