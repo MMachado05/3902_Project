@@ -93,8 +93,10 @@ namespace Project.Characters
             }
 
             int collisionHealthEffect = collider.PlayerHealthEffect;
-            health += collisionHealthEffect;
-
+            if (invincibleTime < 0)
+            {
+                health += collisionHealthEffect;
+            }
             if (collisionHealthEffect < 0) // Causing damage
             {
                 invincibleTime = 1;
