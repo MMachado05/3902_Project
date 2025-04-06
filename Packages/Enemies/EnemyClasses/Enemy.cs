@@ -9,6 +9,8 @@ namespace Project.Enemies.EnemyClasses
     public abstract class Enemy : IEnemy
     {
         public Rectangle Location { get; private set; }
+        public virtual int PlayerHealthEffect { get => -2; }
+
         public float Speed { get; set; }
         private IEnemyState CurrentState { get; set; }
         protected Direction lastDirection = Direction.Left;
