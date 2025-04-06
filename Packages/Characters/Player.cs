@@ -13,6 +13,7 @@ namespace Project.Characters
     {
         public Rectangle Location { get; set; }
         public int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => true; }
 
         private Rectangle _previousLocation;
         public ISprite Sprite { get; private set; }

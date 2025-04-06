@@ -9,6 +9,7 @@ namespace Project.Items
     {
         public abstract Rectangle Location { get; set; }
         public virtual int PlayerHealthEffect { get => 2; }
+        public bool IsPassable { get => true; }
 
         public abstract float Speed { get; set; }
 

@@ -7,6 +7,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
     {
         public Rectangle Location { get => this._renderedLocation; }
         public int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => false; }
 
         private Texture2D _texture;
         private Rectangle _textureSource;
