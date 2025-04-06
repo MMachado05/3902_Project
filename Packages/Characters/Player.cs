@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
@@ -6,21 +5,24 @@ using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 using Project.Enemies.EnemyClasses;
-using Project.Commands.GameLogicCommands;
 using Project.Items;
 
 namespace Project.Characters
 {
     public class Player : IGameObject
     {
-        public ISprite Sprite { get; private set; }
         public Rectangle Location { get; set; }
+        public int PlayerHealthEffect { get => 0; }
+
         private Rectangle _previousLocation;
+        public ISprite Sprite { get; private set; }
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
         public Vector2 velocity;
+
         public int health;
         public float invincibleTime;
+
         private float elapsedTime;
 
         public Player()
@@ -57,7 +59,7 @@ namespace Project.Characters
 
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
-            
+
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, invincibleTime > 0));
         }
 
