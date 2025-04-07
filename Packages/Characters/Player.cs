@@ -130,7 +130,7 @@ namespace Project.Characters
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
-                Sprite.Update();
+                Sprite.Update(gameTime);
                 elapsedTime = 0f;
             }
         }

@@ -55,7 +55,7 @@ namespace Project.Enemies.EnemyClasses
         public override void UpdateAnimation(GameTime gameTime)
         {
             base.UpdateAnimation(gameTime);
-            projectiles.ForEach(p => p.Update());
+            projectiles.ForEach(p => p.Update(gameTime));
         }
 
         public override void Draw(SpriteBatch spriteBatch)

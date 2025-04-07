@@ -23,7 +23,7 @@ namespace Project.Sprites.ConcreteClasses
             this.complete = complete;
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             if (this.currFrame < this.maxFrames)
             {

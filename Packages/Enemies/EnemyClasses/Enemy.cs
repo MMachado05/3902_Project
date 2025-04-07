@@ -107,7 +107,7 @@ namespace Project.Enemies.EnemyClasses
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
-                currentAnimation.Update();
+                currentAnimation.Update(gameTime);
                 elapsedTime = 0f;
             }
         }

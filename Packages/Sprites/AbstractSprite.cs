@@ -50,7 +50,7 @@ namespace Project.Sprites
         {
             spriteBatch.Draw(this.texture, destination, this.source, Color.White);
         }
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
     }
 
 }
