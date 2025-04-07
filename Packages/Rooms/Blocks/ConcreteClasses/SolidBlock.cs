@@ -5,6 +5,10 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 {
     public class SolidBlock : IBlock
     {
+        public Rectangle Location { get => this._renderedLocation; }
+        public int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => false; }
+
         private Texture2D _texture;
         private Rectangle _textureSource;
 
@@ -12,7 +16,6 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         private int _verticalBlockInstances;
 
         private Rectangle _renderedLocation;
-        public Rectangle Location { get => this._renderedLocation; }
         public int LeftXCoord { get { return this._renderedLocation.X; } }
         public int RightXCoord
         {

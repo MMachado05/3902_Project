@@ -1,6 +1,7 @@
 ﻿using Project.Characters;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Packages.Sounds;
 
 namespace Project.Commands.PlayerCommands
 {
@@ -16,7 +17,8 @@ namespace Project.Commands.PlayerCommands
         public void Execute()
         {
             if (_player.Sprite.State != CharacterState.Attacking)
-                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.isDamaged));
+                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastDirection, _player.invincibleTime > 0));
+            SoundEffectManager.Instance.playSword();
         }
     }
 }
