@@ -28,8 +28,6 @@ namespace Project
 
         private GameStateMachine gameState;
 
-        private SpriteFont font; // osama (temp)
-
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
@@ -77,9 +75,7 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemFactory.Instance.LoadAllTextures(Content);
 
-            font = Content.Load<SpriteFont>("PauseFont"); // osama
-
-            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState, font);
+            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
             this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);

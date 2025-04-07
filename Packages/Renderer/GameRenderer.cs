@@ -18,7 +18,6 @@ namespace Project.Renderer
 
         private bool _fieldsSatisfied;
         private GameStateMachine _gameState;
-        private SpriteFont _tempPauseFont;
 
         private int _screenWidth; // Since we can't see game1
         private int _screenHeight; // Since we can't see game1
@@ -30,13 +29,14 @@ namespace Project.Renderer
 
         // Myra UI components for the pause menu
         private Desktop _pauseDesktop;
+        private VerticalStackPanel mainStack;
         private Panel _pausePanel;
         private VerticalStackPanel stackPanel;
         private Label _pauseLabel;
         private Button _musicToggleButton;
-        private VerticalStackPanel _inventoryPanel;
+        private Label _inventoryPanel;
 
-        public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState, SpriteFont tempPauseFont)
+        public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState)
         {
             this._screenWidth = screenWidth;
             this._screenHeight = screenHeight;
@@ -44,7 +44,6 @@ namespace Project.Renderer
             this.tileHeight = tileHeight;
             this._fieldsSatisfied = false;
             this._gameState = gameState;
-            this._tempPauseFont = tempPauseFont;
 
             InitializePauseMenuUI();
         }
@@ -63,8 +62,6 @@ namespace Project.Renderer
 
             if (this._gameState.State == GameState.Paused)
             {
-                // Osama: im gonna try some super janky workaround I saw on one of the forums:
-                // I hope marci doesn't see this...
                 spriteBatch.End();
 
                 _pauseDesktop.Render(); // Myra test
@@ -90,7 +87,7 @@ namespace Project.Renderer
         /// </summary>
         private void InitializePauseMenuUI()
         {
-            // Create the Desktop – Myra’s root container
+            // Create Myra root container as Desktop (rename to "root"?)
             _pauseDesktop = new Desktop();
 
             // Create a Panel with a semi-transparent black background
@@ -104,8 +101,8 @@ namespace Project.Renderer
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-            // Main stack panel to hold everything vertically
-            var mainStack = new VerticalStackPanel
+            // Main stack panel to hold everything vertically; UI cluster
+            mainStack = new VerticalStackPanel
             {
                 Spacing = 8,
                 HorizontalAlignment = HorizontalAlignment.Center,
@@ -113,51 +110,51 @@ namespace Project.Renderer
             };
 
             // 1. Centered "GAME PAUSED" label
-            var pauseLabel = new Label
+            _pauseLabel = new Label
             {
                 Text = "GAME PAUSED",
                 TextColor = Color.White,
                 HorizontalAlignment = HorizontalAlignment.Center
             };
-            mainStack.Widgets.Add(pauseLabel);
+            mainStack.Widgets.Add(_pauseLabel);
 
             // 2. Sub-panel for everything else (left-aligned with a margin)
-            var subPanel = new VerticalStackPanel
+            stackPanel = new VerticalStackPanel
             {
                 Spacing = 8,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 Margin = new Thickness(0, 20, 0, 0) // Adds 20 pixels of space above this panel
             };
 
-            // "Music: On/Off" button
-            var musicToggleButton = new Button
+            // TODO: Add toggle off functionality after branch is merged
+            _musicToggleButton = new Button
             {
                 Content = new Label { Text = "Music: On/Off", TextColor = Color.White },
                 HorizontalAlignment = HorizontalAlignment.Left
             };
-            subPanel.Widgets.Add(musicToggleButton);
+            stackPanel.Widgets.Add(_musicToggleButton);
 
-            // "Inventory" label
-            var inventoryHeader = new Label
+            // Inventory header to align text
+            _inventoryPanel = new Label
             {
                 Text = "Inventory",
                 TextColor = Color.White,
                 HorizontalAlignment = HorizontalAlignment.Left
             };
-            subPanel.Widgets.Add(inventoryHeader);
+            stackPanel.Widgets.Add(_inventoryPanel);
 
-            // Inventory items
-            subPanel.Widgets.Add(new Label { Text = "   Sword", TextColor = Color.White });
-            subPanel.Widgets.Add(new Label { Text = "   Boomerang", TextColor = Color.White });
-            subPanel.Widgets.Add(new Label { Text = "   Bomb", TextColor = Color.White });
+            // Inventory items; TODO: Work with Baqer to make functional
+            stackPanel.Widgets.Add(new Label { Text = "   Sword", TextColor = Color.White });
+            stackPanel.Widgets.Add(new Label { Text = "   Boomerang", TextColor = Color.White });
+            stackPanel.Widgets.Add(new Label { Text = "   Bomb", TextColor = Color.White });
 
-            // Add the sub-panel to the main stack
-            mainStack.Widgets.Add(subPanel);
+            // Add "child" stackPanel to the main stack
+            mainStack.Widgets.Add(stackPanel);
 
-            // Add the main stack panel to the pause panel
+            // Add the mainStack panel to the root pause panel
             _pausePanel.Widgets.Add(mainStack);
 
-            // Set the panel as the root widget of the Desktop
+            // Set the panel as root widget of the Desktop
             _pauseDesktop.Root = _pausePanel;
         }
 
