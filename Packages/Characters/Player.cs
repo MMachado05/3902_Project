@@ -19,7 +19,7 @@ namespace Project.Characters
         public ISprite Sprite { get; private set; }
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
-        public Vector2 velocity;
+        private Vector2 _velocity;
         private IItem _activeItem;
 
         private List<DirectionRegister> _activeDirections;
@@ -34,7 +34,7 @@ namespace Project.Characters
             // Set initial default states
             Location = new Rectangle(36, 36, 20, 44);
             this._previousLocation = Location;
-            velocity = new Vector2(0, 0);
+            _velocity = new Vector2(0, 0);
             health = 5;
             invincibleTime = 0;
             LastDirection = Direction.Down;
@@ -55,8 +55,8 @@ namespace Project.Characters
             }
 
             this._activeDirections.Add(new DirectionRegister(direction, dx, dy));
-            this.velocity.X += dx;
-            this.velocity.Y += dy;
+            this._velocity.X += dx;
+            this._velocity.Y += dy;
         }
 
         public void DeregisterDirection(Direction direction)
@@ -68,8 +68,8 @@ namespace Project.Characters
             {
                 if (this._activeDirections[i].Direction == direction)
                 {
-                    this.velocity.X -= this._activeDirections[i].Dx;
-                    this.velocity.Y -= this._activeDirections[i].Dy;
+                    _velocity.X -= _activeDirections[i].Dx;
+                    _velocity.Y -= _activeDirections[i].Dy;
                     found = true;
                 }
                 else i++;
