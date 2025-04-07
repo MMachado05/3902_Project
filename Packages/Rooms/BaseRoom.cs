@@ -78,7 +78,7 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
-            
+
             //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
@@ -101,6 +101,9 @@ namespace Project.Packages
                     }
                 }
             }
+
+            // TODO: Add collision logic for active player item (could be different if
+            // projectile)
         }
     }
 }
