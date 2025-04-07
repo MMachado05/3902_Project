@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Packages.Characters;
+using Project.Packages.Sounds;
 using Project.Renderer;
 
 namespace Project.Rooms
@@ -110,6 +111,15 @@ namespace Project.Rooms
         public void Update(GameTime gameTime)
         {
             this.GetCurrentRoom().Update(gameTime);
+
+            if (this.currentRoomX == 1 && this.currentRoomY == 0)
+            {
+                SoundEffectManager.Instance.playBossMusic();
+            }
+            else
+            {
+                SoundEffectManager.Instance.playDungeonMusic();
+            }
         }
 
         public void GotoRoomBelow()
@@ -173,5 +183,7 @@ namespace Project.Rooms
         {
             return this.Map[this.currentRoomX, this.currentRoomY];
         }
+
+        
     }
 }
