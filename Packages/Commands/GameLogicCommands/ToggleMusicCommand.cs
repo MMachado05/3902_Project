@@ -13,7 +13,7 @@ namespace Project.Commands.PlayerCommands
 
         public void Execute()
         {
-            _soundEffectManager.ToggleMusic();
+            SoundEffectManager.Instance.ToggleMusic();
         }
     }
 }

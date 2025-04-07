@@ -58,7 +58,7 @@ namespace Project.Packages.Sounds
         }
         public void playDungeonMusic()
         {
-            if (!dungeonMusicPlaying)
+            if (!dungeonMusicPlaying && isMusicEnabled)
             {
                 MediaPlayer.Play(dungeonMusic);
             }
@@ -67,7 +67,7 @@ namespace Project.Packages.Sounds
         }
         public void playBossMusic()
         {
-            if (!bossThemePlaying)
+            if (!bossThemePlaying && isMusicEnabled)
             {
                 MediaPlayer.Play(bossTheme);
             }
