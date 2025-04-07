@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Characters.Enums;
+using Project.Items;
 using Project.Sprites;
 using Project.Sprites.ConcreteClasses;
 
@@ -23,11 +24,14 @@ namespace Project.Factories
         private Texture2D explosionTexture;
         private Texture2D _basicAttackAtlas;
 
+        private int _tileWidth;
+        private int _tileHeight;
+
         private static readonly ItemFactory instance = new ItemFactory();
 
         public static ItemFactory Instance => instance;
 
-        public void LoadAllTextures(ContentManager content)
+        public void LoadAllTextures(ContentManager content, int tileWidth, int tileHeight)
         {
             heartTexture = content.Load<Texture2D>("heart");
             arrowTexture = content.Load<Texture2D>("arrow");
@@ -41,6 +45,9 @@ namespace Project.Factories
             slashTexture = content.Load<Texture2D>("swordSlash");
             explosionTexture = content.Load<Texture2D>("explosion");
             this._basicAttackAtlas = content.Load<Texture2D>("BasicAttack");
+
+            this._tileWidth = tileWidth;
+            this._tileHeight = tileHeight;
         }
 
         public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), new CharacterState());
@@ -64,7 +71,17 @@ namespace Project.Factories
         public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
         public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
-        public ISprite CreateBasicAttackSprite(Direction direction)
+        public IItem CreateBasicAttack(Direction direction, int locationX, int locationY)
+        {
+            Rectangle location = new Rectangle(locationX, locationY, _tileWidth, _tileHeight);
+            ISprite sprite = this.CreateBasicAttackSprite(direction);
+            return new BasicAttack(sprite, location);
+        }
+
+        public int BasicAttackWidth { get => _tileWidth; }
+        public int BasicAttackHeight { get => _tileHeight; }
+
+        private ISprite CreateBasicAttackSprite(Direction direction)
         {
             int sourceX = 0, sourceY = 0;
             switch (direction)

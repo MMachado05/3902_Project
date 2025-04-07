@@ -62,14 +62,17 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.gameRenderer = new GameRenderer(64, 64);
 
             // Load all textures
+            // TODO: All of these should likely take the tile width and height, especially
+            // if they have any say in how these are drawn to the screen.
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemFactory.Instance.LoadAllTextures(Content);
+            ItemFactory.Instance.LoadAllTextures(Content,
+                gameRenderer.TileWidth, gameRenderer.TileHeight);
 
-            this.gameRenderer = new GameRenderer(64, 64);
             this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
