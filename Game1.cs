@@ -136,9 +136,7 @@ namespace Project
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
-
-            kbc.RegisterKey(Keys.P, new PauseGameCommand(this.gameState)); // osama
-            // Music toggle
+            kbc.RegisterKey(Keys.P, new PauseGameCommand(this.gameState));
             kbc.RegisterKey(Keys.M, new ToggleMusicCommand(soundEffectManager));
 
             // Debugging commands

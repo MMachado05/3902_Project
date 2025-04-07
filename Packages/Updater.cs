@@ -47,8 +47,7 @@ namespace Project
 
             if (this._gameState.State == GameState.Playing)
             {
-                this._player.Update(gameTime); // Keep this here because update logic
-                                               // might change *outside* of a room
+                this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
                 this._roomManager.Update(gameTime);
 
                 if (_player.health <= 0)
