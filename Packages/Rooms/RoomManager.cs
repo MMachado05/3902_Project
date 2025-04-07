@@ -71,7 +71,7 @@ namespace Project.Rooms
             {
                 roomRow = roomLine.Split(",");
                 mapRoomX = 0;
-                for (int i = 0; i < roomRow.Length - 1; i++)
+                for (int i = 0; i < roomRow.Length -1 ; i++)
                 {
                     if (roomRow[i] != "-") // Ignore "rooms" that don't exist
                     {
