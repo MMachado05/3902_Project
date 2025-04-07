@@ -143,7 +143,7 @@ namespace Project
             kbc.RegisterOnPress(Keys.R, new RestartGameCommand(this));
 
             // Music toggle
-            kbc.RegisterKey(Keys.M, new ToggleMusicCommand(soundEffectManager));
+            kbc.RegisterOnPress(Keys.M, new ToggleMusicCommand(soundEffectManager));
 
             // Debugging commands
             kbc.RegisterOnPress(Keys.E, new DamageCommand(player));
