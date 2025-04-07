@@ -235,6 +235,12 @@
 /processorParam:Quality=Best
 /build:sfx/damage.wav
 
+#begin sfx/deathSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/deathSound.wav
+
 #begin sfx/fireball.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

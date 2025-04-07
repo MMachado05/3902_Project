@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Audio;
@@ -23,6 +24,7 @@ namespace Project.Packages.Sounds
         private SoundEffect heal;
         private SoundEffect damage;
         private SoundEffect gameOver;
+        private SoundEffect deathSound;
         
         private static readonly SoundEffectManager instance = new SoundEffectManager();
 
@@ -43,6 +45,7 @@ namespace Project.Packages.Sounds
             heal = content.Load<SoundEffect>("sfx/heal");
             damage = content.Load<SoundEffect>("sfx/damage");
             gameOver = content.Load<SoundEffect>("sfx/gameOver");
+            deathSound = content.Load<SoundEffect>("sfx/deathSound");
         }
 
         public void ToggleMusic()
@@ -97,6 +100,11 @@ namespace Project.Packages.Sounds
         public void playGameOver()
         {
             gameOver.Play();
+        }
+
+        public void playDeathSound()
+        {
+            deathSound.Play();
         }
 
     }
