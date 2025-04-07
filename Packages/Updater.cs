@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Characters;
+using Project.Commands;
 using Project.Controllers;
 using Project.Rooms;
 
@@ -13,12 +14,14 @@ namespace Project
     {
         private RoomManager _roomManager;
         private Player _player;
+        private ICommand _restartCommand;
         private List<IController> _controllers;
 
-        public Updater(RoomManager roomManager, Player player)
+        public Updater(RoomManager roomManager, Player player, ICommand restart)
         {
             this._player = player;
             this._roomManager = roomManager;
+            this._restartCommand = restart;
             this._controllers = new List<IController>();
         }
 
@@ -37,6 +40,11 @@ namespace Project
             this._player.Update(gameTime); // Keep this here because update logic
                                            // might change *outside* of a room
             this._roomManager.Update(gameTime);
+
+            if (_player.health <= 0)
+            {
+                _restartCommand.Execute();
+            }
         }
     }
 }
