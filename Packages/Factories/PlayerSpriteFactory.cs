@@ -91,7 +91,7 @@ namespace Project.Factories
 
             return new AnimatedLoopSprite(this.playerSpriteSheet,
                 new Rectangle(xOrigin + damagedOffset, yOrigin, this.widthPixels,
-                  this.heightPixels), 4, CharacterState.Stopped);
+                  this.heightPixels), 4, CharacterState.Walking);
         }
 
         public ISprite NewAttackingPlayerSprite(Direction direction, bool damaged)
