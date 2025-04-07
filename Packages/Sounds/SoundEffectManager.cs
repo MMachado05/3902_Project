@@ -58,6 +58,15 @@ namespace Project.Packages.Sounds
                 dungeonMusicPlaying = false;
                 bossThemePlaying = false;
             }
+
+            /* Will need to enahance this later so when re-toggling music back on, we find the corret track */
+            else
+            {
+                if (!dungeonMusicPlaying)
+                {
+                    MediaPlayer.Play(dungeonMusic);
+                }
+            }
         }
         public void playDungeonMusic()
         {
