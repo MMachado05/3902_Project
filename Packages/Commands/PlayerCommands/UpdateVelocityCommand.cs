@@ -34,6 +34,10 @@ namespace Project.Commands.PlayerCommands
             else
                 this._player.DeregisterDirection(this._direction);
 
+            // Don't actuate the velocity changes if we're mid-attack
+            if (this._player.Sprite.State == CharacterState.Attacking)
+                return;
+
             _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(this._player.LastActiveDirection, _player.isDamaged));
 
             _player.SpriteType = _direction;
