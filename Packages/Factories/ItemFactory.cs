@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Characters.Enums;
 using Project.Sprites;
 using Project.Sprites.ConcreteClasses;
@@ -20,6 +21,7 @@ namespace Project.Factories
         private Texture2D Boomerang;
         private Texture2D slashTexture;
         private Texture2D explosionTexture;
+        private Texture2D _basicAttackAtlas;
 
         private static readonly ItemFactory instance = new ItemFactory();
 
@@ -38,6 +40,7 @@ namespace Project.Factories
             Boomerang = content.Load<Texture2D>("Boomerang");
             slashTexture = content.Load<Texture2D>("swordSlash");
             explosionTexture = content.Load<Texture2D>("explosion");
+            this._basicAttackAtlas = content.Load<Texture2D>("BasicAttack");
         }
 
         public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), new CharacterState());
@@ -61,5 +64,28 @@ namespace Project.Factories
         public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
         public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
+        public ISprite CreateBasicAttackSprite(Direction direction)
+        {
+            int sourceX = 0, sourceY = 0;
+            switch (direction)
+            {
+                case Direction.Down:
+                    sourceX = 32;
+                    break;
+                case Direction.Right:
+                    sourceX = 64;
+                    break;
+                case Direction.Left:
+                    sourceX = 96;
+                    break;
+                case Direction.Up:
+                default:
+                    break;
+            }
+
+            return new SingleAnimationSprite(this._basicAttackAtlas,
+                new Rectangle(sourceX, sourceY, 32, 32), 4, CharacterState.Attacking,
+                CharacterState.FinishedAttack);
+        }
     }
 }
