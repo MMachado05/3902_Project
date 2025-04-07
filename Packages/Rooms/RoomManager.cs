@@ -4,8 +4,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Commands.RoomCommands;
+using Project.Controllers;
+using Project.Packages;
 using Project.Packages.Characters;
 using Project.Renderer;
+using Project.Rooms.Blocks;
 
 namespace Project.Rooms
 {
@@ -16,7 +20,6 @@ namespace Project.Rooms
 
         private RoomParser roomParser;
         private CollisionManager collisionManager;
-
         private IRoom[,] Map;
         private int currentRoomX;
         private int currentRoomY;

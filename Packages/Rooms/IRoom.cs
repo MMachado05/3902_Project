@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Rooms.Blocks;
 
 namespace Project.Rooms
 {
@@ -13,5 +14,6 @@ namespace Project.Rooms
         public void Update(GameTime gameTime);
         public void Draw(SpriteBatch sb);
         public void AssignPlayer(Player player);
+        public IBlock currentDoor();
     }
 }

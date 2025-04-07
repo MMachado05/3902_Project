@@ -6,6 +6,7 @@ using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Characters;
+using Project.Rooms.Blocks.ConcreteClasses;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -16,6 +17,7 @@ namespace Project.Packages
         public Rectangle PlayerLocation { get => this._player.Location; }
 
         private IBlock[,] internalMap;
+        IBlock doorBlock;
 
         // Per-room entity managers
         private EnemyManager _enemyManager;
@@ -56,6 +58,10 @@ namespace Project.Packages
                 for (int y = 0; y < this.internalMap.GetLength(1); y++)
                 {
                     if (this.internalMap[x, y] != null)
+                        if(internalMap[x,y] is DoorBlock door){
+                            doorBlock= internalMap[x,y];
+
+                        }
                         this.internalMap[x, y].Draw(sb);
                 }
             }
@@ -73,6 +79,9 @@ namespace Project.Packages
             {
                 item.Draw(sb);
             }
+        }
+        public IBlock currentDoor(){
+            return this.doorBlock;
         }
 
         public void Update(GameTime gameTime)

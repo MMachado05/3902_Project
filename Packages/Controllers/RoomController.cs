@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project.Commands;
+using Project.Commands.RoomCommands;
 using Project.Controllers;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
@@ -10,21 +11,27 @@ using Project.Rooms.Blocks.ConcreteClasses;
 namespace Project.Controllers
 {
     public class RoomController : IController
-{
-    IBlock doorBlock;
-    List<ICommand> _commands;
+    {
+        IBlock doorBlock;
+        List<ICommand> _commands;
 
-     public void AddRoomCommands(ICommand command)
+        public RoomController()
         {
-            this._commands.Add( command);
+            _commands = new List<ICommand>();
+            
         }
 
-    public void Update()
-    {
-        if(doorBlock.SwitchRoom){
+        public void AddRoomCommands(ICommand command)
+        {
+            this._commands.Add(command);
+        }
 
-            _commands[0].Execute();
+        public void Update()
+        {
+            foreach(var c in _commands){
+                c.Execute();
+            }
+
         }
     }
-}
 }
