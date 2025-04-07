@@ -16,6 +16,8 @@ namespace Project.Characters
         public ISprite Sprite { get; private set; }
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
+        public bool SwitchRoom { get; set; }
+
         public Vector2 velocity;
 
         public int health;

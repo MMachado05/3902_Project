@@ -14,6 +14,8 @@ namespace Project.Enemies.EnemyClasses
 
         public float Speed { get; set; }
         private IEnemyState CurrentState { get; set; }
+        public bool SwitchRoom { get; set; }
+
         protected Direction lastDirection = Direction.Left;
 
         public ISprite idleUp, idleDown, idleLeft, idleRight;
@@ -30,6 +32,7 @@ namespace Project.Enemies.EnemyClasses
 
             LoadAnimations();
             currentAnimation = idleRight;
+            SwitchRoom=false;
             // TODO: Each enemy should be able to decide this on its own
         }
 

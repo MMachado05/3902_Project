@@ -42,7 +42,7 @@ namespace Project.Factories
 
         public IBlock CreateDoor(Rectangle dest)
         {
-            return new SolidBlock(_textureAtlas,
+            return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
                 1, 1, dest);
         }

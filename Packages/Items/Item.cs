@@ -14,10 +14,12 @@ namespace Project.Items
         public abstract float Speed { get; set; }
 
         public ISprite Sprite { get; }
+        public bool SwitchRoom { get; set; }
 
         protected Item(ISprite sprite)
         {
             Sprite = sprite;
+            SwitchRoom=false;
         }
 
         public abstract void Update();

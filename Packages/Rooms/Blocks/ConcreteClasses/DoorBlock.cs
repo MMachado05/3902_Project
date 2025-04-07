@@ -1,15 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project;
+using Project.Characters;
+using Project.Rooms.Blocks;
 
 namespace Project.Rooms.Blocks.ConcreteClasses
 {
-    public class SolidBlock : IBlock
+    public class DoorBlock : IBlock
     {
         public Rectangle Location { get => this._renderedLocation; }
         public int PlayerHealthEffect { get => 0; }
-        public bool IsPassable { get => false; }
+        public bool IsPassable { get => true; }
         public bool SwitchRoom {get;set;}
-
         private Texture2D _texture;
         private Rectangle _textureSource;
 
@@ -17,6 +23,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         private int _verticalBlockInstances;
 
         private Rectangle _renderedLocation;
+
         public int LeftXCoord { get { return this._renderedLocation.X; } }
         public int RightXCoord
         {
@@ -34,8 +41,8 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             }
         }
 
-        public SolidBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
-            Rectangle destination)
+        public DoorBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
+           Rectangle destination)
         {
             this._texture = texture;
             this._textureSource = source;
@@ -44,18 +51,20 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             this._verticalBlockInstances = verticals;
 
             this._renderedLocation = destination;
-            this.SwitchRoom = false;
+            SwitchRoom = false;
         }
 
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(this._texture, this._renderedLocation,
-                this._textureSource, Color.White);
+                            this._textureSource, Color.White);
         }
 
         public void CollideWith(IGameObject collider)
         {
-            // NOTE: Empty method, since blocks won't respond to collisions
+            if(collider is Player player && player.IsPassable){
+                this.SwitchRoom= true;
+            }
         }
     }
 }
