@@ -18,7 +18,16 @@ namespace Project.Characters
         private Rectangle _previousLocation;
         public ISprite Sprite { get; private set; }
         public Direction LastDirection { get; private set; }
-        public Direction SpriteType { get; set; }
+        public Direction LastActiveDirection
+        {
+            get
+            {
+                if (this._activeDirections.Count == 0)
+                    return this.LastDirection;
+
+                return this._activeDirections[this._activeDirections.Count - 1].Direction;
+            }
+        }
         private Vector2 _velocity;
         private IItem _activeItem;
 
@@ -81,17 +90,6 @@ namespace Project.Characters
                 this.LastDirection = direction;
         }
 
-        public Direction LastActiveDirection
-        {
-            get
-            {
-                if (this._activeDirections.Count == 0)
-                    return this.LastDirection;
-
-                return this._activeDirections[this._activeDirections.Count - 1].Direction;
-            }
-        }
-
         public void ChangeSprite(ISprite newSprite)
         {
             Sprite = newSprite;
@@ -99,20 +97,14 @@ namespace Project.Characters
 
         public void SetStaticSprite()
         {
-            this.velocity.X = 0;
-            this.velocity.Y = 0;
-
-            SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
-
-            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, invincibleTime > 0));
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(LastActiveDirection, invincibleTime > 0));
         }
 
         public void Attack()
         {
             if (this._activeItem == null)
             {
-
             }
         }
 
