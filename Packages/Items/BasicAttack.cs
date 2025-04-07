@@ -5,8 +5,9 @@ namespace Project.Items
 {
     public class BasicAttack : Item
     {
-        public BasicAttack(ISprite sprite) : base(sprite)
+        public BasicAttack(ISprite sprite, Rectangle location) : base(sprite)
         {
+            Location = location;
         }
 
         public override float Speed { get; set; }

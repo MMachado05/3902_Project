@@ -39,9 +39,6 @@ namespace Project.Commands.PlayerCommands
                 return;
 
             _player.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(this._player.LastActiveDirection, _player.invincibleTime > 0));
-
-            _player.SpriteType = _direction;
-            _player.Sprite.State = CharacterState.Walking;
         }
     }
 }
