@@ -105,30 +105,70 @@ namespace Project.Characters
         {
             if (this._activeItem == null)
             {
+                int slashX = this.Location.X, slashY = this.Location.Y;
+                switch (LastActiveDirection)
+                {
+                    case Direction.Up:
+                        slashY -= ItemFactory.Instance.BasicAttackHeight;
+                        break;
+                    case Direction.Down:
+                        slashY += this.Location.Height;
+                        break;
+                    case Direction.Left:
+                        slashX -= ItemFactory.Instance.BasicAttackWidth;
+                        break;
+                    case Direction.Right:
+                        slashX += this.Location.Width;
+                        break;
+                }
+                this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
+                    slashX, slashY);
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (this.velocity.X == 0 && this.velocity.Y == 0 && this.Sprite.State != CharacterState.Attacking)
-                this.SetStaticSprite();
-
-            // Check if we're in the middle of an attack - if not, Update position
-            if (this.Sprite.State != CharacterState.Attacking)
-            {
-                this._previousLocation = Location;
-                Location = new Rectangle(Location.X + (int)this.velocity.X,
-                    Location.Y + (int)this.velocity.Y,
-                    Location.Width, Location.Height);
-            }
-
-            // Check if we should animate sprite
+            System.Console.WriteLine(this.Sprite.State);
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
                 Sprite.Update(gameTime);
                 elapsedTime = 0f;
+                if (this._activeItem != null)
+                    this._activeItem.Update(gameTime);
             }
+
+            switch (this.Sprite.State)
+            {
+                case CharacterState.Stopped:
+                    if (_velocity.X != 0 || _velocity.Y != 0)
+                    {
+                        this.ChangeSprite(PlayerSpriteFactory.Instance.NewWalkingPlayerSprite(
+                              LastActiveDirection, this.invincibleTime > 0
+                              ));
+                    }
+                    break;
+                case CharacterState.Walking:
+                    this._previousLocation = Location;
+                    Location = new Rectangle(Location.X + (int)this._velocity.X,
+                        Location.Y + (int)this._velocity.Y,
+                        Location.Width, Location.Height);
+                    break;
+                case CharacterState.FinishedAttack:
+                    // Throw away the "item" related to default attack
+                    // TODO: Change this logic when more items are implemented, I know it's
+                    //  shoddy at best.
+                    this._activeItem.Location = new Rectangle(0, 0, -1, -1);
+                    this._activeItem = null;
+                    this.SetStaticSprite();
+                    break;
+            }
+
+            if (this._velocity.X == 0
+                && this._velocity.Y == 0
+                && this.Sprite.State != CharacterState.Attacking)
+                this.SetStaticSprite();
+
             // Count down the invincibility frame timer
             invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
@@ -136,6 +176,8 @@ namespace Project.Characters
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
+            if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
+                this._activeItem.Draw(spriteBatch);
         }
 
         public void CollideWith(IGameObject collider)
@@ -159,7 +201,7 @@ namespace Project.Characters
                     SoundEffectManager.Instance.playHeal();
                 }
             }
-            
+
         }
 
         private class DirectionRegister
