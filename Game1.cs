@@ -11,6 +11,7 @@ using Project.Factories;
 using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
+using Project.Packages.Sounds;
 
 namespace Project
 {
@@ -27,6 +28,7 @@ namespace Project
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
+        SoundEffectManager soundEffectManager;
 
         public void restart()
         {
@@ -73,6 +75,10 @@ namespace Project
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
+
+            SoundEffectManager.Instance.LoadContent(Content);
+
+            // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this));
             this.updater.RegisterController(this.CreateKeyboardController());
         }
@@ -122,6 +128,9 @@ namespace Project
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+
+            // Music toggle
+            kbc.RegisterKey(Keys.M, new ToggleMusicCommand(soundEffectManager));
 
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));

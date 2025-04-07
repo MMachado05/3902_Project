@@ -217,6 +217,60 @@
 /processorParam:TextureFormat=Color
 /build:RedGoriya.png
 
+#begin sfx/boomerang.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/boomerang.wav
+
+#begin sfx/Boss Theme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sfx/Boss Theme.wav
+
+#begin sfx/damage.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/damage.wav
+
+#begin sfx/deathSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/deathSound.wav
+
+#begin sfx/fireball.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/fireball.wav
+
+#begin sfx/gameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/gameOver.wav
+
+#begin sfx/heal.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/heal.wav
+
+#begin sfx/Monkeys Spinning Monkeys.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sfx/Monkeys Spinning Monkeys.mp3
+
+#begin sfx/swordSlash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/swordSlash.wav
+
 #begin SolidBlocks32x32.jpeg
 /importer:TextureImporter
 /processor:TextureProcessor
