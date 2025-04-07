@@ -8,7 +8,7 @@ namespace Project.Enemies.EnemyClasses
 {
     public abstract class Enemy : IEnemy
     {
-        public Rectangle Location { get; private set; }
+        public Rectangle Location { get; set; }
         public virtual int PlayerHealthEffect { get => -2; }
         public bool IsPassable { get => true; }
 

@@ -5,7 +5,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 {
     public class SolidBlock : IBlock
     {
-        public Rectangle Location { get => this._renderedLocation; }
+        public Rectangle Location { get => this._renderedLocation; set => Location = value; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => false; }
 
