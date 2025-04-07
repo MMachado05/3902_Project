@@ -1,22 +1,26 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
-using Project.Rooms.Blocks.ConcreteClasses;
+using Project.Packages.Sounds;
 using Project.Sprites;
 
 namespace Project.Characters
 {
     public class Player : IGameObject
     {
-        public ISprite Sprite { get; private set; }
         public Rectangle Location { get; set; }
+        public int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => true; }
+
         private Rectangle _previousLocation;
+        public ISprite Sprite { get; private set; }
         public Direction LastDirection { get; private set; }
         public Direction SpriteType { get; set; }
-        public Boolean isDamaged;
         public Vector2 velocity;
+
+        public int health;
+        public float invincibleTime;
 
         private float elapsedTime;
 
@@ -26,9 +30,9 @@ namespace Project.Characters
             Location = new Rectangle(36, 36, 20, 44);
             this._previousLocation = Location;
             velocity = new Vector2(0, 0);
-
+            health = 5;
+            invincibleTime = 0;
             LastDirection = Direction.Down;
-            isDamaged = false;
 
             // Initially use a "stopped" sprite (down facing)
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
@@ -55,7 +59,7 @@ namespace Project.Characters
             SpriteType = LastDirection;
             Sprite.State = CharacterState.Stopped;
 
-            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, isDamaged));
+            ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(SpriteType, invincibleTime > 0));
         }
 
         public void Update(GameTime gameTime)
@@ -73,6 +77,8 @@ namespace Project.Characters
                 Sprite.Update();
                 elapsedTime = 0f;
             }
+            // Count down the invincibility frame timer
+            invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
@@ -82,11 +88,26 @@ namespace Project.Characters
 
         public void CollideWith(IGameObject collider)
         {
-            // TODO:Implement, include a check for what *kind* of game object it is
-            if (collider is SolidBlock)
+            if (!collider.IsPassable)
             {
                 this.Location = this._previousLocation;
             }
+
+            int collisionHealthEffect = collider.PlayerHealthEffect;
+            if (invincibleTime < 0)
+            {
+                health += collisionHealthEffect;
+                if (collisionHealthEffect < 0) // Causing damage
+                {
+                    SoundEffectManager.Instance.playDamage();
+                    invincibleTime = 1;
+                }
+                if (collisionHealthEffect > 0) // Healing
+                {
+                    SoundEffectManager.Instance.playHeal();
+                }
+            }
+            
         }
     }
 }

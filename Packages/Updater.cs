@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Characters;
+using Project.Commands;
 using Project.Controllers;
+using Project.Packages.Sounds;
 using Project.Rooms;
 
 namespace Project
@@ -13,13 +15,15 @@ namespace Project
     {
         private RoomManager _roomManager;
         private Player _player;
-        private GameStateMachine _gameState;
+        private ICommand _restartCommand;
         private List<IController> _controllers;
+        private GameStateMachine _gameState;
 
-        public Updater(RoomManager roomManager, Player player, GameStateMachine gameState)
+        public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
         {
             this._player = player;
             this._roomManager = roomManager;
+            this._restartCommand = restart;
             this._gameState = gameState;
             this._controllers = new List<IController>();
         }
@@ -46,7 +50,13 @@ namespace Project
                 this._player.Update(gameTime); // Keep this here because update logic
                                                // might change *outside* of a room
                 this._roomManager.Update(gameTime);
+                
+                if (_player.health <= 0)
+                {
+                _restartCommand.Execute();
+                //SoundEffectManager.Instance.playGameOver();
+                SoundEffectManager.Instance.playDeathSound();
+                }
             }
         }
     }
-}
