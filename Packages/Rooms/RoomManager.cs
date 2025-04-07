@@ -112,7 +112,7 @@ namespace Project.Rooms
         {
             this.GetCurrentRoom().Update(gameTime);
 
-            if (this.currentRoomX == 1 && this.currentRoomY == 0)
+            if (this.currentRoomX == 2 && this.currentRoomY == 4)
             {
                 SoundEffectManager.Instance.playBossMusic();
             }
