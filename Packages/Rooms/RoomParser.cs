@@ -58,6 +58,9 @@ namespace Project.Rooms
                 case "room7":
                     result = SolidBlockFactory.Instance.room7Background();
                     break;
+                case "room8":
+                    result = SolidBlockFactory.Instance.room8Background();
+                    break;
                 case "bossBackground":
                     result = SolidBlockFactory.Instance.boosBackground();
                     break;
@@ -132,6 +135,9 @@ namespace Project.Rooms
                             break;
                         case "room7":
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room7");
+                            break;
+                        case "room8":
+                            Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room8");
                             break;
                         case "bl":
 

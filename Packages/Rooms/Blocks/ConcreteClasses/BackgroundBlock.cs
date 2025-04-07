@@ -28,6 +28,10 @@ namespace Project.Rooms.Blocks.ConcreteClasses
                 return this._renderedLocation.Y + this._renderedLocation.Height;
             }
         }
+
+        public int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => false; }
+
         public BackgroundBlock(Texture2D texture, Rectangle source,
            Rectangle destination)
         {
