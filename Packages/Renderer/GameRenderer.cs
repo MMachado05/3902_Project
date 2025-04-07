@@ -5,6 +5,9 @@ using Myra.Graphics2D;
 using Myra.Graphics2D.UI;
 using Project.Characters;
 using Project.Rooms;
+using Project.Commands;
+using Project.Commands.PlayerCommands;
+using Project.Packages.Sounds;
 
 namespace Project.Renderer
 {
@@ -33,8 +36,9 @@ namespace Project.Renderer
         private Panel _pausePanel;
         private VerticalStackPanel stackPanel;
         private Label _pauseLabel;
-        private Button _musicToggleButton;
         private Label _inventoryPanel;
+        private Button _musicToggleButton;
+        private ICommand _toggleMusicCommand;
 
         public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState)
         {
@@ -132,6 +136,10 @@ namespace Project.Renderer
                 Content = new Label { Text = "Music: On/Off", TextColor = Color.White },
                 HorizontalAlignment = HorizontalAlignment.Left
             };
+            
+            _toggleMusicCommand = new ToggleMusicCommand(SoundEffectManager.Instance);
+            _musicToggleButton.Click += (sender, e) => _toggleMusicCommand.Execute();
+
             stackPanel.Widgets.Add(_musicToggleButton);
 
             // Inventory header to align text

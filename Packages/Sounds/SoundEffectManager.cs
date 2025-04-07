@@ -58,6 +58,13 @@ namespace Project.Packages.Sounds
                 dungeonMusicPlaying = false;
                 bossThemePlaying = false;
             }
+            else
+            {
+                if (!dungeonMusicPlaying)
+                {
+                    playDungeonMusic();
+                }
+            }
         }
         public void playDungeonMusic()
         {
