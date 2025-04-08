@@ -48,7 +48,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(this._texture, this._renderedLocation,
-                this._textureSource, Color.White);
+                this._textureSource, Color.Gray);
         }
 
         public void CollideWith(IGameObject collider)

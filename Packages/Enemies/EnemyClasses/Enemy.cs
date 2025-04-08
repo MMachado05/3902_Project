@@ -9,7 +9,7 @@ namespace Project.Enemies.EnemyClasses
     public abstract class Enemy : IEnemy
     {
         public Rectangle Location { get; set; }
-        public virtual int PlayerHealthEffect { get => -2; }
+        public virtual int PlayerHealthEffect { get => -1; }
         public bool IsPassable { get => true; }
 
         public float Speed { get; set; }
@@ -21,6 +21,8 @@ namespace Project.Enemies.EnemyClasses
         public ISprite attackUp, attackDown, attackLeft, attackRight;
         public ISprite currentAnimation;
         private float elapsedTime;
+
+        private Rectangle lastLocation;
 
         public Enemy(Rectangle initialPosition)
         {
@@ -50,6 +52,7 @@ namespace Project.Enemies.EnemyClasses
         public void MoveInDirection(Direction direction)
         {
             lastDirection = direction;
+            lastLocation = Location;
 
             int movementX = 0;
             int movementY = 0;
@@ -123,6 +126,10 @@ namespace Project.Enemies.EnemyClasses
         public void CollideWith(IGameObject collider)
         {
             // TODO: Implement, need to check what the collision is with
+            if (!collider.IsPassable)
+            {
+                Location = lastLocation;
+            }
         }
 
         public virtual void Attack() { }

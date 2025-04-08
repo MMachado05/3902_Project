@@ -171,6 +171,11 @@ namespace Project.Characters
 
             // Count down the invincibility frame timer
             invincibleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (health > 5)
+            {
+                health = 5;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
