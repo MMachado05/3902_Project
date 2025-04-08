@@ -11,7 +11,7 @@ namespace Project.Sprites.ConcreteClasses
         {
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             // Empty method, stationary sprite
         }

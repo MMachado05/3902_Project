@@ -15,7 +15,7 @@ namespace Project.Items
             Speed = speed;
         }
 
-        public override void Update() { }
+        public override void Update(GameTime gameTime) { }
 
         public override void Draw(SpriteBatch spriteBatch)
         {

@@ -12,7 +12,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         private Texture2D _texture;
         private Rectangle _textureSource;
         private Rectangle _renderedLocation;
-        public Rectangle Location { get => this._renderedLocation; }
+        public Rectangle Location { get => this._renderedLocation; set => Location = value; }
         public int LeftXCoord { get { return this._renderedLocation.X; } }
         public int RightXCoord
         {
