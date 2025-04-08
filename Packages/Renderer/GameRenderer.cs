@@ -8,6 +8,7 @@ using Project.Rooms;
 using Project.Commands;
 using Project.Commands.PlayerCommands;
 using Project.Packages.Sounds;
+using Project.Factories;
 
 namespace Project.Renderer
 {
@@ -60,6 +61,9 @@ namespace Project.Renderer
 
             this._roomManager.DrawCurrentRoom(spriteBatch);
             this._playerCharacter.Draw(spriteBatch);
+
+            HealthBarSpriteFactory.Instance.HealthBarSprite(_playerCharacter.health).Draw(spriteBatch, new Rectangle(64,0,256,64));
+
 
             // TODO: Catch collisions during the drawing stage and call relevant commands
             //  to colliding objects as needed
