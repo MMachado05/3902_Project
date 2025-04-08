@@ -22,6 +22,8 @@ namespace Project.Enemies.EnemyClasses
         public ISprite currentAnimation;
         private float elapsedTime;
 
+        private Rectangle lastLocation;
+
         public Enemy(Rectangle initialPosition)
         {
             Location = initialPosition;
@@ -50,6 +52,7 @@ namespace Project.Enemies.EnemyClasses
         public void MoveInDirection(Direction direction)
         {
             lastDirection = direction;
+            lastLocation = Location;
 
             int movementX = 0;
             int movementY = 0;
