@@ -58,10 +58,6 @@ namespace Project.Packages
                 for (int y = 0; y < this.internalMap.GetLength(1); y++)
                 {
                     if (this.internalMap[x, y] != null)
-                        if(internalMap[x,y] is DoorBlock door){
-                            doorBlock= internalMap[x,y];
-
-                        }
                         this.internalMap[x, y].Draw(sb);
                 }
             }
