@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Packages.Characters;
+using Project.Packages.Sounds;
 using Project.Renderer;
 
 namespace Project.Rooms
@@ -54,7 +55,7 @@ namespace Project.Rooms
             while ((roomLine = roomListReader.ReadLine()) != null)
             {
                 mapHeight++;
-                mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length);
+                mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length - 1);
             }
 
             // Restart reader
@@ -70,9 +71,10 @@ namespace Project.Rooms
             while ((roomLine = roomListReader.ReadLine()) != null)
             {
                 roomRow = roomLine.Split(",");
-                for (int i = 0; i < roomRow.Length; i++)
+                mapRoomX = 0;
+                for (int i = 0; i < roomRow.Length -1 ; i++)
                 {
-                    if (roomRow[i] != "") // Ignore "rooms" that don't exist
+                    if (roomRow[i] != "-") // Ignore "rooms" that don't exist
                     {
                         this.Map[mapRoomX, mapRoomY] =
                           roomParser.LoadRoom(pathPrefix + roomRow[i],
@@ -89,7 +91,12 @@ namespace Project.Rooms
             for (int i = 0; i < this.Map.GetLength(0); i++)
             {
                 for (int j = 0; j < this.Map.GetLength(1); j++)
-                    this.Map[i, j].AssignPlayer(player);
+                {
+
+                    if (this.Map[i, j] != null)
+                        this.Map[i, j].AssignPlayer(player);
+
+                }
             }
         }
 
@@ -104,6 +111,15 @@ namespace Project.Rooms
         public void Update(GameTime gameTime)
         {
             this.GetCurrentRoom().Update(gameTime);
+
+            if (this.currentRoomX == 2 && this.currentRoomY == 4)
+            {
+                SoundEffectManager.Instance.playBossMusic();
+            }
+            else
+            {
+                SoundEffectManager.Instance.playDungeonMusic();
+            }
         }
 
         public void GotoRoomBelow()
@@ -111,9 +127,12 @@ namespace Project.Rooms
             this.GetCurrentRoom().IsOnScreen = false;
             this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            this.currentRoomY++;
-            if (this.currentRoomY >= this.Map.GetLength(COLS))
-                this.currentRoomY = 0;
+            do
+            {
+                this.currentRoomY++;
+                if (this.currentRoomY >= this.Map.GetLength(COLS))
+                    this.currentRoomY = 0;
+            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
             // TODO: Save the current player location to the "default player location"
             // attribute in the room.
         }
@@ -122,9 +141,12 @@ namespace Project.Rooms
             this.GetCurrentRoom().IsOnScreen = false;
             this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            this.currentRoomY--;
-            if (this.currentRoomY < 0)
-                this.currentRoomY = this.Map.GetLength(COLS) - 1;
+            do
+            {
+                this.currentRoomY--;
+                if (this.currentRoomY < 0)
+                    this.currentRoomY = this.Map.GetLength(COLS) - 1;
+            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
             // TODO: Save the current player location to the "default player location"
             // attribute in the room.
         }
@@ -133,9 +155,12 @@ namespace Project.Rooms
             this.GetCurrentRoom().IsOnScreen = false;
             this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            this.currentRoomX++;
-            if (this.currentRoomX >= this.Map.GetLength(ROWS))
-                this.currentRoomX = 0;
+            do
+            {
+                this.currentRoomX++;
+                if (this.currentRoomX >= this.Map.GetLength(ROWS))
+                    this.currentRoomX = 0;
+            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
             // TODO: Save the current player location to the "default player location"
             // attribute in the room.
         }
@@ -144,9 +169,12 @@ namespace Project.Rooms
             this.GetCurrentRoom().IsOnScreen = false;
             this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            this.currentRoomX--;
-            if (this.currentRoomX < 0)
-                this.currentRoomX = this.Map.GetLength(ROWS) - 1;
+            do
+            {
+                this.currentRoomX--;
+                if (this.currentRoomX < 0)
+                    this.currentRoomX = this.Map.GetLength(ROWS) - 1;
+            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
             // TODO: Save the current player location to the "default player location"
             // attribute in the room.
         }
@@ -155,5 +183,7 @@ namespace Project.Rooms
         {
             return this.Map[this.currentRoomX, this.currentRoomY];
         }
+
+        
     }
 }

@@ -11,6 +11,9 @@ using Project.Factories;
 using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
+using Project.Packages.Commands.GameLogicCommands;
+using Myra;
+using Project.Packages.Sounds;
 
 namespace Project
 {
@@ -24,9 +27,12 @@ namespace Project
 
         private float elapsedTime;
 
+        private GameStateMachine gameState;
+
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
+        SoundEffectManager soundEffectManager;
 
         public void restart()
         {
@@ -46,7 +52,11 @@ namespace Project
 
         protected override void Initialize()
         {
+            MyraEnvironment.Game = this; // UI library
+
             this.player = new Player();
+            this.gameState = new GameStateMachine();
+            this.gameState.State = GameState.Playing;
 
             base.Initialize();
         }
@@ -67,29 +77,33 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemFactory.Instance.LoadAllTextures(Content);
 
-            this.gameRenderer = new GameRenderer(64, 64);
+            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
             this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this));
+
+            SoundEffectManager.Instance.LoadContent(Content);
+
+            // Osama: Also, these need to be loaded after roomManager, so moving these down here.
+            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
         }
 
         protected override void Update(GameTime gameTime)
         {
             this.updater.Update(gameTime);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
@@ -122,12 +136,18 @@ namespace Project
             kbc.RegisterKey(Keys.Q, new QuitCommand(this));
             kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
             kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+            kbc.RegisterKey(Keys.P, new PauseGameCommand(this.gameState));
+            kbc.RegisterKey(Keys.M, new ToggleMusicCommand(soundEffectManager));
 
             // Debugging commands
             kbc.RegisterKey(Keys.E, new DamageCommand(player));
 
             return kbc;
         }
+    }
 
+    public class GameStateMachine
+    {
+        public GameState State { get; set; }
     }
 }
