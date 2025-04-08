@@ -51,7 +51,7 @@ namespace Project.Factories
                     yOrigin = 68;
                     break;
                 case 2:
-                    yOrigin = 50;
+                    yOrigin = 51;
                     break;
                 case 3:
                     yOrigin = 34;
