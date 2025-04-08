@@ -62,9 +62,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
         public void CollideWith(IGameObject collider)
         {
-            if(collider is Player player && player.IsPassable){
-                this.SwitchRoom= true;
-            }
+          
         }
     }
 }

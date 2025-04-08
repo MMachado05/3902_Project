@@ -15,6 +15,7 @@ namespace Project.Rooms
 {
     public class RoomParser
     {
+        IBlock door;
         public IRoom LoadRoom(string filePath, GameRenderer gr,
              ContentManager content, int tileWidth, int tileHeight, CollisionManager collisionManager)
         {
@@ -65,10 +66,14 @@ namespace Project.Rooms
                                     y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                             break;
                         case "dr":
-                            internalMap[x, y] =
-                              SolidBlockFactory.Instance.CreateDoor(
-                                  new Rectangle(x * gr.TileWidth,
-                                    y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+
+                            door =
+                             SolidBlockFactory.Instance.CreateDoor(
+                                 new Rectangle(x * gr.TileWidth,
+                                   y * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                            internalMap[x, y] = door;
+
+
                             break;
                         case "pl":
                             playerSpriteLocation.X = x * gr.TileWidth;
@@ -94,7 +99,7 @@ namespace Project.Rooms
             }
 
 
-            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap);
+            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, door);
         }
     }
 }

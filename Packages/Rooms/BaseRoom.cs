@@ -35,13 +35,14 @@ namespace Project.Packages
         int playerIndex;
 
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap)
+            IBlock[,] internalMap,IBlock door)
         {
             this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
             this._itemManager = itemManager;
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
+            this.doorBlock =door;
 
             this._active = false;
         }

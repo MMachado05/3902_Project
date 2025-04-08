@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
 namespace Project.Characters
@@ -19,6 +20,8 @@ namespace Project.Characters
         public bool SwitchRoom { get; set; }
 
         public Vector2 velocity;
+
+        public DoorBlock doorBlock;
 
         public int health;
         public float invincibleTime;
@@ -93,6 +96,10 @@ namespace Project.Characters
             {
                 this.Location = this._previousLocation;
             }
+            if(collider is DoorBlock doorBlock){
+                doorBlock.SwitchRoom = true;
+            }
+            
 
             int collisionHealthEffect = collider.PlayerHealthEffect;
             if (invincibleTime < 0)
