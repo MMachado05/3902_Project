@@ -217,6 +217,13 @@
 /processorParam:TextureFormat=Color
 /build:key.png
 
+#begin PauseFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:PauseFont.spritefont
+
 #begin RedGoriya.png
 /importer:TextureImporter
 /processor:TextureProcessor
