@@ -78,7 +78,7 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
-            
+
             //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
@@ -100,6 +100,22 @@ namespace Project.Packages
                         this._collisionManager.Collide(this._player, this.internalMap[i, j]);
                     }
                 }
+            }
+            // Enemy and Block Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                var enemy = this._enemyManager.enemies[i];
+                for (int x = 0; x < this.internalMap.GetLength(0); x++)
+                {
+                    for (int y = 0; y < this.internalMap.GetLength(1); y++)
+                    {
+                        if (this.internalMap[x, y] != null)
+                        {
+                            this._collisionManager.Collide(enemy, this.internalMap[x, y]);
+                        }
+                    }
+                }
+
             }
         }
     }
