@@ -126,6 +126,10 @@ namespace Project.Enemies.EnemyClasses
         public void CollideWith(IGameObject collider)
         {
             // TODO: Implement, need to check what the collision is with
+            if (!collider.IsPassable)
+            {
+                Location = lastLocation;
+            }
         }
 
         public virtual void Attack() { }
