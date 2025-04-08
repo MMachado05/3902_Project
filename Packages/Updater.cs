@@ -6,7 +6,6 @@ using Project.Controllers;
 using Project.Packages.Sounds;
 using Project.Rooms;
 using Project.Rooms.Blocks;
-using Project.Rooms.Blocks.ConcreteClasses;
 
 namespace Project
 {
@@ -59,7 +58,7 @@ namespace Project
             if (this._gameState.State == GameState.Playing)
             {
                 this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
-                this._roomManager.Update(gameTime);
+                this._roomManager.Update(gameTime);}
             IBlock door = _roomManager.GetCurrentRoom().currentDoor();
             if ((this._player.Location.X > door.Location.X) && door.SwitchRoom)
             {
@@ -94,4 +93,4 @@ namespace Project
             }
         }
     }
-}
+

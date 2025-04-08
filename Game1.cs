@@ -93,7 +93,7 @@ namespace Project
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
-           this.updater.RegisterRoomCommands(this.RegisterCommands());
+            this.updater.RegisterRoomCommands(this.RegisterCommands());
         }
 
         protected override void Update(GameTime gameTime)
@@ -113,6 +113,9 @@ namespace Project
 
             base.Draw(gameTime);
         }
+ 
+
+
 
         // -------------------------- UTILITY METHODS -------------------------------
 
@@ -169,15 +172,14 @@ namespace Project
             RoomController rc = new RoomController();
             rc.AddRoomCommands(new RoomLeftCommand(roomManager));
             rc.AddRoomCommands(new RoomRightCommand(roomManager));
-           rc.AddRoomCommands(new RoomUpCommand(roomManager));
+            rc.AddRoomCommands(new RoomUpCommand(roomManager));
             rc.AddRoomCommands(new RoomDownCommand(roomManager));
 
             return rc;
         }
-        }
     }
 
-    public class GameStateMachine
+        public class GameStateMachine
     {
         public GameState State { get; set; }
     }

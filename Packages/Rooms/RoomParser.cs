@@ -149,7 +149,8 @@ namespace Project.Rooms
                             break;
                         case "dr":
 
-                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDoor");
+                            door = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDoor");
+                            internalMap[x, y]= door;
                             break;
                         case "pl":
                             playerSpriteLocation.X = x * gr.TileWidth;
