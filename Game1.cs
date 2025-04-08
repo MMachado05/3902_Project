@@ -76,6 +76,7 @@ namespace Project
             SolidBlockFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemFactory.Instance.LoadAllTextures(Content);
+            HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
             this.roomManager = new RoomManager();
