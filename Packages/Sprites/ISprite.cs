@@ -13,7 +13,7 @@ namespace Project.Sprites
         /// <summary>
         /// Update the visual state of this Sprite.
         /// </summary>
-        void Update();
+        void Update(GameTime gameTime);
 
         /// <summary>
         /// Draw this sprite to the game window.

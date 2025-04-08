@@ -11,6 +11,9 @@ using Project.Factories;
 using Project.Renderer;
 using Project.Rooms;
 using Project.Characters;
+using Project.Packages.Commands.GameLogicCommands;
+using Myra;
+using Project.Packages.Sounds;
 
 namespace Project
 {
@@ -24,9 +27,12 @@ namespace Project
 
         private float elapsedTime;
 
+        private GameStateMachine gameState;
+
         GameRenderer gameRenderer;
         Updater updater;
         RoomManager roomManager;
+        SoundEffectManager soundEffectManager;
 
         public void restart()
         {
@@ -46,7 +52,11 @@ namespace Project
 
         protected override void Initialize()
         {
+            MyraEnvironment.Game = this; // UI library
+
             this.player = new Player();
+            this.gameState = new GameStateMachine();
+            this.gameState.State = GameState.Playing;
 
             base.Initialize();
         }
@@ -60,20 +70,28 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
 
             // Load all textures
+            // TODO: All of these should likely take the tile width and height, especially
+            // if they have any say in how these are drawn to the screen.
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemFactory.Instance.LoadAllTextures(Content);
+            ItemFactory.Instance.LoadAllTextures(Content,
+                gameRenderer.TileWidth, gameRenderer.TileHeight);
+            HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
-            this.gameRenderer = new GameRenderer(64, 64);
             this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
-            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this));
+
+            SoundEffectManager.Instance.LoadContent(Content);
+
+            // Osama: Also, these need to be loaded after roomManager, so moving these down here.
+            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
            this.updater.RegisterRoomCommands(this.RegisterCommands());
         }
@@ -81,16 +99,16 @@ namespace Project
         protected override void Update(GameTime gameTime)
         {
             this.updater.Update(gameTime);
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             gameRenderer.Draw(_spriteBatch);
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
@@ -103,29 +121,46 @@ namespace Project
             KeyboardController kbc = new KeyboardController();
 
             // Player movement
-            kbc.RegisterKey(Keys.W, new MoveCommand(player, Direction.Up));
-            kbc.RegisterKey(Keys.A, new MoveCommand(player, Direction.Left));
-            kbc.RegisterKey(Keys.S, new MoveCommand(player, Direction.Down));
-            kbc.RegisterKey(Keys.D, new MoveCommand(player, Direction.Right));
+            kbc.RegisterOnPress(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
+                  false, 0, -2, false, true));
+            kbc.RegisterOnPress(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
+                  false, -2, 0, true, false));
+            kbc.RegisterOnPress(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
+                  false, 0, 2, false, true));
+            kbc.RegisterOnPress(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
+                  false, 2, 0, true, false));
+            kbc.RegisterOnRelease(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
+                  true, 0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
+                  true, 0, 0, true, false));
+            kbc.RegisterOnRelease(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
+                  true, 0, 0, false, true));
+            kbc.RegisterOnRelease(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
+                  true, 0, 0, true, false));
+
             kbc.DefaultCommand = new StopPlayerCommand(player);
 
             // Attacking
-            kbc.RegisterKey(Keys.Z, new AttackCommand(player));
-            kbc.RegisterKey(Keys.N, new AttackCommand(player));
+            kbc.RegisterOnPress(Keys.Z, new AttackCommand(player));
+            kbc.RegisterOnPress(Keys.N, new AttackCommand(player));
 
             // Arrow keys to change current room
-            kbc.RegisterKey(Keys.Up, new RoomUpCommand(roomManager));
-            kbc.RegisterKey(Keys.Down, new RoomDownCommand(roomManager));
-            kbc.RegisterKey(Keys.Left, new RoomLeftCommand(roomManager));
-            kbc.RegisterKey(Keys.Right, new RoomRightCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Up, new RoomUpCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Down, new RoomDownCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Left, new RoomLeftCommand(roomManager));
+            kbc.RegisterOnPress(Keys.Right, new RoomRightCommand(roomManager));
 
             // Game logic
-            kbc.RegisterKey(Keys.Q, new QuitCommand(this));
-            kbc.RegisterKey(Keys.Escape, new QuitCommand(this));
-            kbc.RegisterKey(Keys.R, new RestartGameCommand(this));
+            kbc.RegisterOnPress(Keys.Q, new QuitCommand(this));
+            kbc.RegisterOnPress(Keys.Escape, new QuitCommand(this));
+            kbc.RegisterOnPress(Keys.R, new RestartGameCommand(this));
+
+            // Music toggle
+            kbc.RegisterOnPress(Keys.M, new ToggleMusicCommand(soundEffectManager));
+            kbc.RegisterOnPress(Keys.P, new PauseGameCommand(this.gameState));
 
             // Debugging commands
-            kbc.RegisterKey(Keys.E, new DamageCommand(player));
+            kbc.RegisterOnPress(Keys.E, new DamageCommand(player));
 
             return kbc;
         }
@@ -139,6 +174,11 @@ namespace Project
 
             return rc;
         }
+        }
+    }
 
+    public class GameStateMachine
+    {
+        public GameState State { get; set; }
     }
 }

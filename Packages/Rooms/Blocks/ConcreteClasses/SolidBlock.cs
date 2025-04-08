@@ -5,7 +5,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 {
     public class SolidBlock : IBlock
     {
-        public Rectangle Location { get => this._renderedLocation; }
+        public Rectangle Location { get => this._renderedLocation; set => Location = value; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => false; }
         public bool SwitchRoom {get;set;}
@@ -50,7 +50,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(this._texture, this._renderedLocation,
-                this._textureSource, Color.White);
+                this._textureSource, Color.Gray);
         }
 
         public void CollideWith(IGameObject collider)

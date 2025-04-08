@@ -27,7 +27,7 @@ namespace Project.Items
             returning = false;
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             // TODO: Use rectangles here
             /*if (!returning && Vector2.Distance(initialPosition, Position) >= maxDistance)*/

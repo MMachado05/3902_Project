@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
 using Project.Items;
+using Project.Packages.Sounds;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -51,6 +52,7 @@ namespace Project.Enemies.EnemyClasses
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
             projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
+            SoundEffectManager.Instance.playBoomerang();
         }
 
         public override void ResetAttackState()
@@ -63,7 +65,7 @@ namespace Project.Enemies.EnemyClasses
             base.UpdateAnimation(gameTime);
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
-                projectiles[i].Update();
+                projectiles[i].Update(gameTime);
                 /*if (projectiles[i].HasReturned())*/
                 /*{*/
                 /*    projectiles.RemoveAt(i);*/

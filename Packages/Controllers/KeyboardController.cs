@@ -7,19 +7,26 @@ namespace Project.Controllers
 {
     public class KeyboardController : IController
     {
-        private Dictionary<Keys, ICommand> _commands;
+        private Dictionary<Keys, ICommand> _onPress;
+        private Dictionary<Keys, ICommand> _onRelease;
         private Keys[] _stillPressed;
         private ICommand _defaultCommand;
 
         public KeyboardController()
         {
-            this._commands = new Dictionary<Keys, ICommand>();
+            this._onPress = new Dictionary<Keys, ICommand>();
+            this._onRelease = new Dictionary<Keys, ICommand>();
             this._stillPressed = new Keys[0];
         }
 
-        public void RegisterKey(Keys key, ICommand command)
+        public void RegisterOnPress(Keys key, ICommand command)
         {
-            this._commands.Add(key, command);
+            this._onPress.Add(key, command);
+        }
+
+        public void RegisterOnRelease(Keys key, ICommand command)
+        {
+            this._onRelease.Add(key, command);
         }
 
         public ICommand DefaultCommand
@@ -29,16 +36,22 @@ namespace Project.Controllers
 
         public void Update()
         {
+            IEnumerable<Keys> justReleased = new Keys[0];
+
             Keys[] currentlyPressed = Keyboard.GetState().GetPressedKeys();
 
-            if (currentlyPressed.Length == 0)
-                this._defaultCommand.Execute();
+            justReleased = _stillPressed.Except<Keys>(currentlyPressed);
+            foreach (Keys key in justReleased)
+            {
+                if (this._onRelease.ContainsKey(key)) _onRelease[key].Execute();
+            }
 
             foreach (Keys key in currentlyPressed)
             {
-                if (_commands.ContainsKey(key) && !_stillPressed.Contains<Keys>(key))
+                if (this._onPress.ContainsKey(key))
                 {
-                    _commands[key].Execute();
+                    if (!this._stillPressed.Contains(key))
+                        _onPress[key].Execute();
                 }
             }
 

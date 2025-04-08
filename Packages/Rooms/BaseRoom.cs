@@ -6,6 +6,7 @@ using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Characters;
+using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 namespace Project.Packages
 {
@@ -17,6 +18,7 @@ namespace Project.Packages
         public Rectangle PlayerLocation { get => this._player.Location; }
 
         private IBlock[,] internalMap;
+        private IBlock Background;
         IBlock doorBlock;
 
         // Per-room entity managers
@@ -35,13 +37,14 @@ namespace Project.Packages
         int playerIndex;
 
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap,IBlock door)
+            IBlock[,] internalMap, IBlock Background,IBlock door)
         {
             this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
             this._itemManager = itemManager;
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
+            this.Background = Background;
             this.doorBlock =door;
 
             this._active = false;
@@ -54,6 +57,7 @@ namespace Project.Packages
 
         public void Draw(SpriteBatch sb)
         {
+            Background.Draw(sb);
             for (int x = 0; x < this.internalMap.GetLength(0); x++)
             {
                 for (int y = 0; y < this.internalMap.GetLength(1); y++)
@@ -84,7 +88,7 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
-            
+
             //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
@@ -106,6 +110,22 @@ namespace Project.Packages
                         this._collisionManager.Collide(this._player, this.internalMap[i, j]);
                     }
                 }
+            }
+            // Enemy and Block Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                var enemy = this._enemyManager.enemies[i];
+                for (int x = 0; x < this.internalMap.GetLength(0); x++)
+                {
+                    for (int y = 0; y < this.internalMap.GetLength(1); y++)
+                    {
+                        if (this.internalMap[x, y] != null)
+                        {
+                            this._collisionManager.Collide(enemy, this.internalMap[x, y]);
+                        }
+                    }
+                }
+
             }
         }
     }
