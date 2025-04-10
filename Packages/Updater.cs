@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Project.Blocks;
 using Project.Characters;
 using Project.Commands;
 using Project.Controllers;
@@ -20,6 +21,8 @@ namespace Project
         private List<IController> _controllers;
         private GameStateMachine _gameState;
         private List<IController> _rooms;
+        IBlock door;
+        CommandMux cm;
 
 
         public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
@@ -30,6 +33,8 @@ namespace Project
             this._gameState = gameState;
             this._controllers = new List<IController>();
             this._rooms = new List<IController>();
+            this.door = roomManager.GetCurrentRoom().currentDoor();
+            this.cm = new CommandMux(door);
 
         }
 
@@ -58,39 +63,29 @@ namespace Project
             if (this._gameState.State == GameState.Playing)
             {
                 this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
-                this._roomManager.Update(gameTime);}
-            IBlock door = _roomManager.GetCurrentRoom().currentDoor();
-            if ((this._player.Location.X > door.Location.X) && door.SwitchRoom)
-            {
-                _rooms[1].Update();
-                _roomManager.GetCurrentRoom().currentDoor().SwitchRoom = false;
-
+                this._roomManager.Update(gameTime);
             }
-            else if ((this._player.Location.X < door.Location.X) && door.SwitchRoom)
+            // List<IController> c = _rooms[0];
+            /*
+            if(_rooms[0] is RoomController rc)
             {
-                _rooms[0].Update();
-                _roomManager.GetCurrentRoom().currentDoor().SwitchRoom = false;
-            }
-            else if ((this._player.Location.Y < door.Location.Y) && door.SwitchRoom)
-            {
-                _rooms[2].Update();
-                _roomManager.GetCurrentRoom().currentDoor().SwitchRoom = false;
-            }
-            else if ((this._player.Location.Y > door.Location.Y) && door.SwitchRoom)
-            {
-                _rooms[3].Update();
-                _roomManager.GetCurrentRoom().currentDoor().SwitchRoom = false;
-            }
-
-
-
-                if (_player.health <= 0)
+                rc = new RoomController();  
+                if (door.SwitchRoom)
                 {
-                    _restartCommand.Execute();
-                    //SoundEffectManager.Instance.playGameOver();
-                    SoundEffectManager.Instance.playDeathSound();
+                    _rooms[0].Update();
+                    door = _roomManager.GetCurrentRoom().currentDoor();
+                    door.SwitchRoom = false;
                 }
+            }*/
+
+
+            if (_player.health <= 0)
+            {
+                _restartCommand.Execute();
+                //SoundEffectManager.Instance.playGameOver();
+                SoundEffectManager.Instance.playDeathSound();
             }
         }
     }
+}
 

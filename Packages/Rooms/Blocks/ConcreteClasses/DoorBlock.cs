@@ -41,6 +41,8 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             }
         }
 
+        Rectangle IGameObject.Location { get => this.Location; set => throw new NotImplementedException(); }
+
         public DoorBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
            Rectangle destination)
         {

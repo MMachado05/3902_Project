@@ -31,6 +31,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => false; }
+        public bool SwitchRoom { get; set; }
 
         public BackgroundBlock(Texture2D texture, Rectangle source,
            Rectangle destination)
