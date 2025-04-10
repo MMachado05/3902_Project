@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Project.Blocks;
 using Project.Characters;
 using Project.Commands;
 using Project.Controllers;
@@ -22,7 +21,6 @@ namespace Project
         private GameStateMachine _gameState;
         private List<IController> _rooms;
         IBlock door;
-        CommandMux cm;
 
 
         public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
@@ -34,7 +32,6 @@ namespace Project
             this._controllers = new List<IController>();
             this._rooms = new List<IController>();
             this.door = roomManager.GetCurrentRoom().currentDoor();
-            this.cm = new CommandMux(door);
 
         }
 
@@ -65,18 +62,6 @@ namespace Project
                 this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
                 this._roomManager.Update(gameTime);
             }
-            // List<IController> c = _rooms[0];
-            /*
-            if(_rooms[0] is RoomController rc)
-            {
-                rc = new RoomController();  
-                if (door.SwitchRoom)
-                {
-                    _rooms[0].Update();
-                    door = _roomManager.GetCurrentRoom().currentDoor();
-                    door.SwitchRoom = false;
-                }
-            }*/
 
 
             if (_player.health <= 0)

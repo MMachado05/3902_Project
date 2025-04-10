@@ -93,7 +93,6 @@ namespace Project
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
-            this.updater.RegisterRoomCommands(this.RegisterCommands());
         }
 
         protected override void Update(GameTime gameTime)
@@ -166,16 +165,6 @@ namespace Project
             kbc.RegisterOnPress(Keys.E, new DamageCommand(player));
 
             return kbc;
-        }
-        private IController RegisterCommands()
-        {
-            RoomController rc = new RoomController();
-            rc.AddRoomCommands(new RoomLeftCommand(roomManager));
-            rc.AddRoomCommands(new RoomRightCommand(roomManager));
-            rc.AddRoomCommands(new RoomUpCommand(roomManager));
-            rc.AddRoomCommands(new RoomDownCommand(roomManager));
-
-            return rc;
         }
     }
 

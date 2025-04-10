@@ -133,7 +133,6 @@ namespace Project.Characters
 
         public void Update(GameTime gameTime)
         {
-            System.Console.WriteLine(this.Sprite.State);
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
