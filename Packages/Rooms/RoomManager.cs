@@ -133,7 +133,9 @@ namespace Project.Rooms
         }
 
         public void GotoRoomBelow()
-        {/*
+        {
+            //this for saving player in room don't discard yet we might need in it. 
+            /*
             this.GetCurrentRoom().IsOnScreen = false;
             Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
             this.GetCurrentRoom().SavedPlayerLocation = new Rectangle(playerLocation.Location.X, playerLocation.Y, playerLocation.Width, playerLocation.Height);
@@ -150,11 +152,13 @@ namespace Project.Rooms
             {
                 this.currentRoomY = newY;
                 this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(playerLocation.X, 10, playerLocation.Width, playerLocation.Height); // top of the new room
+                _player.Location = new Rectangle(playerLocation.X, 10, playerLocation.Width, playerLocation.Height); 
             }
         }
         public void GotoRoomAbove()
         {
+            //this for saving player in room don't discard yet we might need in it. 
+
             /*
             this.GetCurrentRoom().IsOnScreen = false;
             Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
@@ -175,12 +179,13 @@ namespace Project.Rooms
             {
                 this.currentRoomY = newY;
                 this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(playerLocation.X, 640, playerLocation.Width, playerLocation.Height); // bottom of the new room
+                _player.Location = new Rectangle(playerLocation.X, 640, playerLocation.Width, playerLocation.Height); 
             }
         }
         public void GotoRoomToRight()
         {/*
-            
+             //this for saving player in room don't discard yet we might need in it. 
+           
             this.GetCurrentRoom().IsOnScreen = false;
             Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
             this.GetCurrentRoom().SavedPlayerLocation = new Rectangle(playerLocation.Location.X, playerLocation.Y, playerLocation.Width, playerLocation.Height);
@@ -197,11 +202,13 @@ namespace Project.Rooms
             {
                 this.currentRoomX = newX;
                 this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(10, playerLocation.Y, playerLocation.Width, playerLocation.Height); // move player just inside new room
+                _player.Location = new Rectangle(10, playerLocation.Y, playerLocation.Width, playerLocation.Height); 
             }
         }
         public void GotoRoomToLeft()
         {
+             //this for saving player in room don't discard yet we might need in it. 
+           
             /*
             this.GetCurrentRoom().IsOnScreen = false;
             Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
@@ -219,7 +226,7 @@ namespace Project.Rooms
             {
                 this.currentRoomX = newX;
                 this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(900, playerLocation.Y, playerLocation.Width, playerLocation.Height); // right side of the new room
+                _player.Location = new Rectangle(900, playerLocation.Y, playerLocation.Width, playerLocation.Height); 
             }
         }
 
