@@ -24,7 +24,7 @@ namespace Project.Packages.Commands.CommandClasses
 
         public void HandleCollisionsWithDoors()
         {
-            List<IBlock> doors = _roomManager.GetCurrentRoom().currentDoor(); // Always get the current doors
+            List<IBlock> doors = _roomManager.GetCurrentRoom().currentDoor(); 
 
             foreach (DoorBlock door in doors)
             {
@@ -39,7 +39,6 @@ namespace Project.Packages.Commands.CommandClasses
 
         private void SwitchRoom(DoorBlock door)
         {
-            // Determine the direction to switch the room based on player and door position
             if (door.Direction == DoorDirection.Right)
             {
                 _roomChangeCommand = new RoomRightCommand(_roomManager);
