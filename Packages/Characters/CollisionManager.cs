@@ -10,11 +10,6 @@ namespace Project.Packages.Characters
         {
             if (a.Location.Intersects(b.Location))
             {
-                if (b is DoorBlock door)
-                {
-                    Console.WriteLine("Player collided with DoorBlock at " + door.Location); // ✅
-                    door.SwitchRoom = true;
-                }
                 a.CollideWith(b);
                 b.CollideWith(a);
             }

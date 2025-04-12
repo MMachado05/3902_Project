@@ -8,6 +8,7 @@ using Project.Items;
 using Project.Characters;
 using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
+using System.Collections.Generic;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -20,6 +21,7 @@ namespace Project.Packages
         private IBlock[,] internalMap;
         private IBlock Background;
         IBlock doorBlock;
+        List<IBlock> allDoorsInRoom;
 
         // Per-room entity managers
         private EnemyManager _enemyManager;
@@ -37,7 +39,7 @@ namespace Project.Packages
         int playerIndex;
 
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap, IBlock Background,IBlock door)
+            IBlock[,] internalMap, IBlock Background, IBlock door)
         {
             this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
@@ -45,7 +47,7 @@ namespace Project.Packages
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
             this.Background = Background;
-            this.doorBlock =door;
+            this.doorBlock = door;
 
             this._active = false;
         }
@@ -68,7 +70,7 @@ namespace Project.Packages
             }
 
             // Draw player in default location if this room was just activated
-            if (!this._active)
+           if (!this._active)
             {
                 this._active = true;
                 this._player.Location = this._defaultPlayerLocation;
@@ -81,8 +83,20 @@ namespace Project.Packages
                 item.Draw(sb);
             }
         }
-        public IBlock currentDoor(){
-            return this.doorBlock;
+        public List<IBlock> currentDoor()
+        {
+            allDoorsInRoom = new List<IBlock>();
+            for (int i = 0; i < this.internalMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.internalMap.GetLength(1); j++)
+                {
+                    if (this.internalMap[i, j] is DoorBlock door)
+                    {
+                        allDoorsInRoom.Add(door);
+                    }
+                }
+            }
+            return allDoorsInRoom;
         }
 
         public void Update(GameTime gameTime)

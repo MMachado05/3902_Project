@@ -11,6 +11,7 @@ using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Factories;
 using System.Diagnostics;
+using Project.Rooms.Blocks.ConcreteClasses;
 
 namespace Project.Rooms
 {
@@ -32,8 +33,23 @@ namespace Project.Rooms
                                        new Rectangle(x * gr.TileWidth,
                                          (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                     break;
-                case "CreateDoor":
-                    result = SolidBlockFactory.Instance.CreateDoor(
+                case "CreateRightDoor":
+                    result = SolidBlockFactory.Instance.CreateRightDoor(
+                                      new Rectangle(x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    break;
+                case "CreateTopDoor":
+                    result = SolidBlockFactory.Instance.CreateTopDoor(
+                                      new Rectangle(x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    break;
+                case "CreateDownDoor":
+                    result = SolidBlockFactory.Instance.CreateBottomDoor(
+                                      new Rectangle(x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    break;
+                case "CreateLeftDoor":
+                    result = SolidBlockFactory.Instance.CreateLeftDoor(
                                       new Rectangle(x * gr.TileWidth,
                                         (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
                     break;
@@ -73,7 +89,7 @@ namespace Project.Rooms
             return result;
 
         }
-        IBlock door;
+        DoorBlock door;
         public IRoom LoadRoom(string filePath, GameRenderer gr,
              ContentManager content, int tileWidth, int tileHeight, CollisionManager collisionManager)
         {
@@ -147,10 +163,21 @@ namespace Project.Rooms
                         case "ob":
                             internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateWoodPlanks");
                             break;
-                        case "dr":
-
-                            door = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDoor");
-                            internalMap[x, y]= door;
+                        case "drR":
+                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateRightDoor");
+                            internalMap[x, y] = door;
+                            break;
+                        case "drL":
+                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateLeftDoor");
+                            internalMap[x, y] = door;
+                            break;
+                        case "drT":
+                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateTopDoor");
+                            internalMap[x, y] = door;
+                            break;
+                        case "drD":
+                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDownDoor");
+                            internalMap[x, y] = door;
                             break;
                         case "pl":
                             playerSpriteLocation.X = x * gr.TileWidth;

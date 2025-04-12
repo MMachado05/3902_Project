@@ -13,9 +13,11 @@ namespace Project.Rooms.Blocks.ConcreteClasses
     public class DoorBlock : IBlock
     {
         public Rectangle Location { get => this._renderedLocation; }
+        public enum DoorDirection { Up, Down, Left, Right }
+        public DoorDirection Direction { get; set; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => true; }
-        public bool SwitchRoom {get;set;}
+        public bool SwitchRoom { get; set; }
         private Texture2D _texture;
         private Rectangle _textureSource;
 
@@ -44,7 +46,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         Rectangle IGameObject.Location { get => this.Location; set => throw new NotImplementedException(); }
 
         public DoorBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
-           Rectangle destination)
+           Rectangle destination, DoorDirection direction)
         {
             this._texture = texture;
             this._textureSource = source;
@@ -53,6 +55,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             this._verticalBlockInstances = verticals;
 
             this._renderedLocation = destination;
+            Direction = direction;
             SwitchRoom = false;
         }
 
@@ -64,7 +67,14 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
         public void CollideWith(IGameObject collider)
         {
-          
+            if (collider is Player player)
+            {
+                if (this.Location.Intersects(player.Location))
+                {
+                    this.SwitchRoom = true;
+                }
+            }
+
         }
     }
 }

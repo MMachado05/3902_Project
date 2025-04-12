@@ -195,9 +195,7 @@ namespace Project.Characters
             {
                 this.Location = this._previousLocation;
             }
-            if(collider is DoorBlock doorBlock){
-                doorBlock.SwitchRoom = true;
-            }
+
             
 
             int collisionHealthEffect = collider.PlayerHealthEffect;

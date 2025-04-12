@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Project.Characters;
 using Project.Commands;
 using Project.Controllers;
+using Project.Packages.Commands.CommandClasses;
 using Project.Packages.Sounds;
 using Project.Rooms;
 using Project.Rooms.Blocks;
@@ -21,6 +22,7 @@ namespace Project
         private GameStateMachine _gameState;
         private List<IController> _rooms;
         IBlock door;
+        private DoorCollisionHandler _doorCollisionHandler;
 
 
         public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
@@ -31,7 +33,8 @@ namespace Project
             this._gameState = gameState;
             this._controllers = new List<IController>();
             this._rooms = new List<IController>();
-            this.door = roomManager.GetCurrentRoom().currentDoor();
+            // this.door = roomManager.GetCurrentRoom().currentDoor();
+            _doorCollisionHandler = new DoorCollisionHandler(_roomManager, _player, null);
 
         }
 
@@ -55,6 +58,8 @@ namespace Project
             {
                 c.Update();
             }
+            
+           _doorCollisionHandler.HandleCollisionsWithDoors();
 
 
             if (this._gameState.State == GameState.Playing)
