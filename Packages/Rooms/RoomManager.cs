@@ -16,8 +16,8 @@ namespace Project.Rooms
     {
         private const int ROWS = 0;
         private const int COLS = 1;
-        int newY;
-        int newX;
+        private int newY;
+        private int newX;
 
         private RoomParser roomParser;
         private CollisionManager collisionManager;
