@@ -29,7 +29,6 @@ namespace Project.Characters
                 return this._activeDirections[this._activeDirections.Count - 1].Direction;
             }
         }
-        public bool SwitchRoom { get; set; }
 
         private Vector2 _velocity;
         private IItem _activeItem;
@@ -196,7 +195,7 @@ namespace Project.Characters
                 this.Location = this._previousLocation;
             }
 
-            
+
 
             int collisionHealthEffect = collider.PlayerHealthEffect;
             if (invincibleTime < 0)
