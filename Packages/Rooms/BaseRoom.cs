@@ -8,6 +8,7 @@ using Project.Items;
 using Project.Characters;
 using Project.Rooms.Blocks.ConcreteClasses;
 using System.Collections.Generic;
+using info.lundin.math;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -28,7 +29,7 @@ namespace Project.Packages
 
         // Internal logic
         private Rectangle _defaultPlayerLocation;
-        public Rectangle SavedPlayerLocation { set => this._defaultPlayerLocation = value; }
+        public Rectangle SavedPlayerLocation { set; get; } = Rectangle.Empty;
 
         private bool _active;
 
@@ -45,6 +46,7 @@ namespace Project.Packages
             this.internalMap = internalMap;
             this.Background = Background;
             this.doorBlock = door;
+            SavedPlayerLocation = this._defaultPlayerLocation;
 
             this._active = false;
         }
@@ -67,10 +69,11 @@ namespace Project.Packages
             }
 
             // Draw player in default location if this room was just activated
-           if (!this._active)
+            if (!this._active)
             {
                 this._active = true;
-                this._player.Location = this._defaultPlayerLocation;
+
+                this._player.Location = SavedPlayerLocation != Rectangle.Empty ? SavedPlayerLocation : _defaultPlayerLocation;
             }
 
             this._player.Draw(sb);

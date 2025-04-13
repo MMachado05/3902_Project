@@ -139,69 +139,84 @@ namespace Project.Rooms
 
         public void GotoRoomBelow()
         {
-            //this for saving player in room don't discard yet we might need in it. 
-            /*
-            this.GetCurrentRoom().IsOnScreen = false;
-            Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
-            this.GetCurrentRoom().SavedPlayerLocation = new Rectangle(playerLocation.Location.X, playerLocation.Y, playerLocation.Width, playerLocation.Height);
-            newY = this.currentRoomY + 1;
-            if (newY < this.Map.GetLength(COLS) && this.Map[this.currentRoomX, newY] != null)
-            {
-                this.currentRoomY = newY;
-            }/*/
-            this.GetCurrentRoom().IsOnScreen = false;
-            Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
-            newY = this.currentRoomY + 1;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X, _player.Location.Y - 20, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            if (newY < this.Map.GetLength(COLS) && this.Map[this.currentRoomX, newY] != null)
+            newY = currentRoomY + 1;
+
+            if (newY < Map.GetLength(COLS) && Map[currentRoomX, newY] != null)
             {
-                this.currentRoomY = newY;
-                this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(playerLocation.X, 10, playerLocation.Width, playerLocation.Height);
+                currentRoomY = newY;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(_player.Location.X, 10, _player.Location.Width, _player.Location.Height);
             }
         }
         public void GotoRoomAbove()
         {
-            //this for saving player in room don't discard yet we might need in it. 
-            this.GetCurrentRoom().IsOnScreen = false;
-            Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
-            newY = this.currentRoomY - 1;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X, _player.Location.Y + 20, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            if (newY >= 0 && this.Map[this.currentRoomX, newY] != null)
+            newY = currentRoomY - 1;
+
+            if (newY >= 0 && Map[currentRoomX, newY] != null)
             {
-                this.currentRoomY = newY;
-                this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(playerLocation.X, 640, playerLocation.Width, playerLocation.Height);
+                currentRoomY = newY;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(_player.Location.X, 640, _player.Location.Width, _player.Location.Height);
             }
         }
         public void GotoRoomToRight()
         {
-            //this for saving player in room don't discard yet we might need in it. 
 
-            this.GetCurrentRoom().IsOnScreen = false;
-            Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
-            newX = this.currentRoomX + 1;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X - 20, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            if (newX < this.Map.GetLength(ROWS) && this.Map[newX, this.currentRoomY] != null)
+            newX = currentRoomX + 1;
+
+            if (newX < Map.GetLength(ROWS) && Map[newX, currentRoomY] != null)
             {
-                this.currentRoomX = newX;
-                this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(10, playerLocation.Y, playerLocation.Width, playerLocation.Height);
+                currentRoomX = newX;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(10, _player.Location.Y, _player.Location.Width, _player.Location.Height);
             }
         }
         public void GotoRoomToLeft()
         {
-            //this for saving player in room don't discard yet we might need in it. 
 
-            this.GetCurrentRoom().IsOnScreen = false;
-            Rectangle playerLocation = this.GetCurrentRoom().PlayerLocation;
-            newX = this.currentRoomX - 1;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X + 20, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            if (newX >= 0 && this.Map[newX, this.currentRoomY] != null)
+            newX = currentRoomX - 1;
+
+            if (newX >= 0 && Map[newX, currentRoomY] != null)
             {
-                this.currentRoomX = newX;
-                this.GetCurrentRoom().AssignPlayer(_player);
-                _player.Location = new Rectangle(900, playerLocation.Y, playerLocation.Width, playerLocation.Height);
+                currentRoomX = newX;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(900, _player.Location.Y, _player.Location.Width, _player.Location.Height);
             }
         }
 
