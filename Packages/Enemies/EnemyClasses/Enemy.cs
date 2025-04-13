@@ -34,7 +34,7 @@ namespace Project.Enemies.EnemyClasses
 
             LoadAnimations();
             currentAnimation = idleRight;
-            SwitchRoom=false;
+            SwitchRoom = false;
             // TODO: Each enemy should be able to decide this on its own
         }
 

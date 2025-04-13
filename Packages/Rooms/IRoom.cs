@@ -15,6 +15,6 @@ namespace Project.Rooms
         public void Update(GameTime gameTime);
         public void Draw(SpriteBatch sb);
         public void AssignPlayer(Player player);
-        public List<IBlock> currentDoor();
+        public List<IBlock> GetCurrentDoors();
     }
 }

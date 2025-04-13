@@ -11,20 +11,20 @@ namespace Project.Packages.Commands.CommandClasses
 {
     public class DoorCollisionHandler
     {
-        private RoomManager _roomManager;
+        private RoomManager RoomManager;
         private Player _player;
         private ICommand _roomChangeCommand;
 
         public DoorCollisionHandler(RoomManager roomManager, Player player, ICommand roomChangeCommand)
         {
-            _roomManager = roomManager;
+            RoomManager = roomManager;
             _player = player;
             _roomChangeCommand = roomChangeCommand;
         }
 
         public void HandleCollisionsWithDoors()
         {
-            List<IBlock> doors = _roomManager.GetCurrentRoom().currentDoor(); 
+            List<IBlock> doors = RoomManager.GetCurrentRoom().GetCurrentDoors(); 
 
             foreach (DoorBlock door in doors)
             {
@@ -41,19 +41,19 @@ namespace Project.Packages.Commands.CommandClasses
         {
             if (door.Direction == DoorDirection.Right)
             {
-                _roomChangeCommand = new RoomRightCommand(_roomManager);
+                _roomChangeCommand = new RoomRightCommand(RoomManager);
             }
             else if (door.Direction == DoorDirection.Left)
             {
-                _roomChangeCommand = new RoomLeftCommand(_roomManager);
+                _roomChangeCommand = new RoomLeftCommand(RoomManager);
             }
             else if (door.Direction == DoorDirection.Down)
             {
-                _roomChangeCommand = new RoomDownCommand(_roomManager);
+                _roomChangeCommand = new RoomDownCommand(RoomManager);
             }
             else if (door.Direction == DoorDirection.Up)
             {
-                _roomChangeCommand = new RoomUpCommand(_roomManager);
+                _roomChangeCommand = new RoomUpCommand(RoomManager);
             }
 
             _roomChangeCommand.Execute();

@@ -6,7 +6,6 @@ using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Characters;
-using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 using System.Collections.Generic;
 namespace Project.Packages
@@ -36,8 +35,6 @@ namespace Project.Packages
         public bool IsOnScreen { get => this._active; set => this._active = value; }
 
         // Logistic fields
-        int playerIndex;
-
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
             IBlock[,] internalMap, IBlock Background, IBlock door)
         {
@@ -83,7 +80,7 @@ namespace Project.Packages
                 item.Draw(sb);
             }
         }
-        public List<IBlock> currentDoor()
+        public List<IBlock> GetCurrentDoors()
         {
             allDoorsInRoom = new List<IBlock>();
             for (int i = 0; i < this.internalMap.GetLength(0); i++)
