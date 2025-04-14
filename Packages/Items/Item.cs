@@ -20,6 +20,7 @@ namespace Project.Items
             Sprite = sprite;
         }
 
+        public virtual void Use() { }
         public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(SpriteBatch spriteBatch)

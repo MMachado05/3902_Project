@@ -98,12 +98,12 @@ namespace Project.Inventory
             Items[currentItemIndex].Item1.Draw(spriteBatch);
             Items[currentItemIndex].Item1.Location = location;
 
-            //
-            for (int i = 0; i<Items.Count; i++)
-            {
-                System.Diagnostics.Debug.Write(i + " " + Items[i].Item1.GetType());
-            }
-            System.Diagnostics.Debug.WriteLine("\nindex: " + currentItemIndex + "Current Inventory:");
+            
+            //for (int i = 0; i<Items.Count; i++)
+            //{
+            //    System.Diagnostics.Debug.Write(i + " " + Items[i].Item1.GetType());
+            //}
+            //System.Diagnostics.Debug.WriteLine("\nindex: " + currentItemIndex + "Current Inventory:");
         }
         
         public void setIndex(int index)

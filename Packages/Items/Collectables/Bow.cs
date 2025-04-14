@@ -27,7 +27,11 @@ namespace Project.Items
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-           }
+            foreach (ProjectileItem projectile in projectiles)
+            {
+                projectile.Draw(spriteBatch);
+            }
+        }
         public override void CollideWith(IGameObject collider)
         {
             if (collider is Player)
@@ -36,10 +40,11 @@ namespace Project.Items
             }
         }
         
-        public void Use()
+        public override void Use()
         {
             //make direction later
-            projectiles.Add(new ProjectileItem(Location, new Vector2(0,1), ItemFactory.Instance.CreateBoomerangSprite(), 150.0f));
+            System.Diagnostics.Debug.Write("arrow!");
+            projectiles.Add(new ProjectileItem(Location, new Vector2(0,1), ItemFactory.Instance.CreateArrowSprite(), 150.0f));
         }
     }
 }
