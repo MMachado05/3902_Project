@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -31,6 +27,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => false; }
+        public bool SwitchRoom { get; set; }
 
         public BackgroundBlock(Texture2D texture, Rectangle source,
            Rectangle destination)

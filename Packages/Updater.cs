@@ -49,14 +49,16 @@ namespace Project
             {
                 this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
                 this._roomManager.Update(gameTime);
+            }
 
-                if (_player.health <= 0)
-                {
-                    _restartCommand.Execute();
-                    //SoundEffectManager.Instance.playGameOver();
-                    SoundEffectManager.Instance.playDeathSound();
-                }
+
+            if (_player.health <= 0)
+            {
+                _restartCommand.Execute();
+                //SoundEffectManager.Instance.playGameOver();
+                SoundEffectManager.Instance.playDeathSound();
             }
         }
     }
 }
+
