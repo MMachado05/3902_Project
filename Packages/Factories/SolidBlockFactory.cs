@@ -25,11 +25,6 @@ namespace Project.Factories
         private Texture2D _room7Texture;
         private Texture2D _room8Texture;
 
-
-
-
-
-
         private static SolidBlockFactory instance = new SolidBlockFactory();
 
         public static SolidBlockFactory Instance
@@ -56,10 +51,6 @@ namespace Project.Factories
             this._room6Texture = content.Load<Texture2D>("room6background");
             this._room7Texture = content.Load<Texture2D>("room7background");
             this._room8Texture = content.Load<Texture2D>("room5background");
-
-
-
-
         }
 
         /// <summary>
