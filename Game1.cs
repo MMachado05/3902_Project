@@ -70,19 +70,19 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.roomManager = new RoomManager();
             this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
 
             // Load all textures
             // TODO: All of these should likely take the tile width and height, especially
             // if they have any say in how these are drawn to the screen.
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
-            SolidBlockFactory.Instance.LoadAllTextures(Content);
+            SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             ItemFactory.Instance.LoadAllTextures(Content,
                 gameRenderer.TileWidth, gameRenderer.TileHeight);
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
-            this.roomManager = new RoomManager();
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
