@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
-using static Project.Rooms.Blocks.ConcreteClasses.DoorBlock;
 
 namespace Project.Factories
 {

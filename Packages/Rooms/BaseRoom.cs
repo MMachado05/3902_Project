@@ -8,7 +8,7 @@ using Project.Items;
 using Project.Characters;
 using Project.Rooms.Blocks.ConcreteClasses;
 using System.Collections.Generic;
-using info.lundin.math;
+
 namespace Project.Packages
 {
     public class BaseRoom : IRoom

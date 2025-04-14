@@ -1,5 +1,4 @@
 ﻿using Project.Commands;
-using System.Diagnostics;
 
 namespace Project.Packages.Commands.GameLogicCommands
 {

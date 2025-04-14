@@ -5,7 +5,6 @@ using Project.Commands.RoomCommands;
 using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
-using static Project.Rooms.Blocks.ConcreteClasses.DoorBlock;
 
 namespace Project.Packages.Commands.CommandClasses
 {
