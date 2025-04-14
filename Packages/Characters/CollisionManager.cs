@@ -1,7 +1,4 @@
-﻿using System;
-using Project.Rooms.Blocks.ConcreteClasses;
-
-namespace Project.Packages.Characters
+﻿namespace Project.Packages.Characters
 {
     // Needs to be public now for PlayerBlockCollisionCommand.cs
     public class CollisionManager

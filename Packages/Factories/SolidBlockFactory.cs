@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Project.Characters;
 using Project.Commands.RoomCommands;
 using Project.Rooms;
 using Project.Rooms.Blocks;
