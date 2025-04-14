@@ -127,6 +127,8 @@ namespace Project.Rooms
                 string[] items = line.Split(',');
                 for (int x = 0; x < items.Length; x++)
                 {
+                    // TODO: At some point, we should consider changing the way we set backgrounds
+                    // to not require very specific room names.
                     switch (items[x])
                     {
                         case "boss":
