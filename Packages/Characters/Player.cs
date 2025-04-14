@@ -195,8 +195,6 @@ namespace Project.Characters
                 this.Location = this._previousLocation;
             }
 
-
-
             int collisionHealthEffect = collider.PlayerHealthEffect;
             if (invincibleTime < 0)
             {
@@ -211,7 +209,6 @@ namespace Project.Characters
                     SoundEffectManager.Instance.playHeal();
                 }
             }
-
         }
 
         private class DirectionRegister

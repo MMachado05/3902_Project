@@ -112,9 +112,6 @@ namespace Project
 
             base.Draw(gameTime);
         }
- 
-
-
 
         // -------------------------- UTILITY METHODS -------------------------------
 
@@ -168,7 +165,7 @@ namespace Project
         }
     }
 
-        public class GameStateMachine
+    public class GameStateMachine
     {
         public GameState State { get; set; }
     }
