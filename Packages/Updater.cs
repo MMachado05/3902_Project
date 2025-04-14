@@ -18,8 +18,6 @@ namespace Project
         private ICommand _restartCommand;
         private List<IController> _controllers;
         private GameStateMachine _gameState;
-        private List<IController> _rooms;
-
 
         public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
         {
@@ -28,8 +26,6 @@ namespace Project
             this._restartCommand = restart;
             this._gameState = gameState;
             this._controllers = new List<IController>();
-            this._rooms = new List<IController>();
-
         }
 
         public void RegisterController(IController controller)
@@ -40,10 +36,6 @@ namespace Project
             // instead of doing the if statement, just update the controllers in the Dictionary
             // slot matching the current game state
             this._controllers.Add(controller);
-        }
-        public void RegisterRoomCommands(IController controller)
-        {
-            _rooms.Add(controller);
         }
 
         public void Update(GameTime gameTime)
