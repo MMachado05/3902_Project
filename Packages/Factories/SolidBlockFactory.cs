@@ -11,17 +11,13 @@ namespace Project.Factories
     {
         private Texture2D _textureAtlas;
         private Texture2D _bossRoomTexture;
+
         private Texture2D _room1Texture;
         private Texture2D _room2Texture;
-
         private Texture2D _room3Texture;
-
         private Texture2D _room4Texture;
-
         private Texture2D _room5Texture;
-
         private Texture2D _room6Texture;
-
         private Texture2D _room7Texture;
         private Texture2D _room8Texture;
 
