@@ -6,9 +6,7 @@ using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Characters;
-using Project.Factories;
-using Project.Rooms.Blocks.ConcreteClasses;
-using System.Threading;
+
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -27,15 +25,13 @@ namespace Project.Packages
 
         // Internal logic
         private Rectangle _defaultPlayerLocation;
-        public Rectangle SavedPlayerLocation { set => this._defaultPlayerLocation = value; }
+        public Rectangle SavedPlayerLocation { set; get; } = Rectangle.Empty;
 
         private bool _active;
 
         public bool IsOnScreen { get => this._active; set => this._active = value; }
 
         // Logistic fields
-        int playerIndex;
-
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
             IBlock[,] internalMap, IBlock Background)
         {
@@ -45,6 +41,7 @@ namespace Project.Packages
             this._defaultPlayerLocation = defaultPlayerLocation;
             this.internalMap = internalMap;
             this.Background = Background;
+            SavedPlayerLocation = this._defaultPlayerLocation;
 
             this._active = false;
         }
@@ -70,7 +67,8 @@ namespace Project.Packages
             if (!this._active)
             {
                 this._active = true;
-                this._player.Location = this._defaultPlayerLocation;
+
+                this._player.Location = SavedPlayerLocation != Rectangle.Empty ? SavedPlayerLocation : _defaultPlayerLocation;
             }
 
             this._player.Draw(sb);
@@ -92,11 +90,13 @@ namespace Project.Packages
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
             }
+
             //Player and Item Collison
             for (int i = 0; i < this._itemManager.GetWorldItems().Count; i++)
             {
                 this._collisionManager.Collide(this._player, this._itemManager.GetWorldItems()[i]);
             }
+
             //Player and Block Collison
             for (int i = 0; i < this.internalMap.GetLength(0); i++)
             {
@@ -122,7 +122,6 @@ namespace Project.Packages
                         }
                     }
                 }
-
             }
         }
     }

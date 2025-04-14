@@ -14,13 +14,15 @@ namespace Project.Rooms
     {
         private const int ROWS = 0;
         private const int COLS = 1;
+        private int newY;
+        private int newX;
 
         private RoomParser roomParser;
         private CollisionManager collisionManager;
-
         private IRoom[,] Map;
         private int currentRoomX;
         private int currentRoomY;
+        private Player _player;
 
         public int CurrentRoomRow { get { return currentRoomX; } }
         public int CurrentRoomColumn { get { return currentRoomY; } }
@@ -72,7 +74,7 @@ namespace Project.Rooms
             {
                 roomRow = roomLine.Split(",");
                 mapRoomX = 0;
-                for (int i = 0; i < roomRow.Length -1 ; i++)
+                for (int i = 0; i < roomRow.Length - 1; i++)
                 {
                     if (roomRow[i] != "-") // Ignore "rooms" that don't exist
                     {
@@ -88,25 +90,24 @@ namespace Project.Rooms
 
         public void AssignPlayer(Player player)
         {
+            _player = player;
             for (int i = 0; i < this.Map.GetLength(0); i++)
             {
                 for (int j = 0; j < this.Map.GetLength(1); j++)
                 {
-
                     if (this.Map[i, j] != null)
                         this.Map[i, j].AssignPlayer(player);
-
                 }
             }
         }
 
-        // TODO: Implement this; to be called by Renderer
         public void DrawCurrentRoom(SpriteBatch sb)
         {
             this.GetCurrentRoom().Draw(sb);
             // TODO: Draw enemies
             // TODO: Draw items
         }
+
 
         public void Update(GameTime gameTime)
         {
@@ -124,59 +125,85 @@ namespace Project.Rooms
 
         public void GotoRoomBelow()
         {
-            this.GetCurrentRoom().IsOnScreen = false;
-            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X, _player.Location.Y - 20, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            do
+            newY = currentRoomY + 1;
+
+            if (newY < Map.GetLength(COLS) && Map[currentRoomX, newY] != null)
             {
-                this.currentRoomY++;
-                if (this.currentRoomY >= this.Map.GetLength(COLS))
-                    this.currentRoomY = 0;
-            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
-            // TODO: Save the current player location to the "default player location"
-            // attribute in the room.
+                currentRoomY = newY;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(_player.Location.X, 10, _player.Location.Width, _player.Location.Height);
+            }
         }
         public void GotoRoomAbove()
         {
-            this.GetCurrentRoom().IsOnScreen = false;
-            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X, _player.Location.Y + 20, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
 
-            do
+            newY = currentRoomY - 1;
+
+            if (newY >= 0 && Map[currentRoomX, newY] != null)
             {
-                this.currentRoomY--;
-                if (this.currentRoomY < 0)
-                    this.currentRoomY = this.Map.GetLength(COLS) - 1;
-            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
-            // TODO: Save the current player location to the "default player location"
-            // attribute in the room.
+                currentRoomY = newY;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(_player.Location.X, 640, _player.Location.Width, _player.Location.Height);
+            }
         }
         public void GotoRoomToRight()
         {
-            this.GetCurrentRoom().IsOnScreen = false;
-            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            do
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X - 20, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
+
+            newX = currentRoomX + 1;
+
+            if (newX < Map.GetLength(ROWS) && Map[newX, currentRoomY] != null)
             {
-                this.currentRoomX++;
-                if (this.currentRoomX >= this.Map.GetLength(ROWS))
-                    this.currentRoomX = 0;
-            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
-            // TODO: Save the current player location to the "default player location"
-            // attribute in the room.
+                currentRoomX = newX;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(10, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            }
         }
         public void GotoRoomToLeft()
         {
-            this.GetCurrentRoom().IsOnScreen = false;
-            this.GetCurrentRoom().SavedPlayerLocation = this.GetCurrentRoom().PlayerLocation;
 
-            do
+            IRoom currentRoom = this.GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(_player.Location.X + 20, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            currentRoom.IsOnScreen = false;
+
+            newX = currentRoomX - 1;
+
+            if (newX >= 0 && Map[newX, currentRoomY] != null)
             {
-                this.currentRoomX--;
-                if (this.currentRoomX < 0)
-                    this.currentRoomX = this.Map.GetLength(ROWS) - 1;
-            } while (this.Map[this.currentRoomX, this.currentRoomY] == null);
-            // TODO: Save the current player location to the "default player location"
-            // attribute in the room.
+                currentRoomX = newX;
+                IRoom nextRoom = this.GetCurrentRoom();
+                nextRoom.AssignPlayer(_player);
+
+                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
+                    _player.Location = nextRoom.SavedPlayerLocation;
+                else
+                    _player.Location = new Rectangle(900, _player.Location.Y, _player.Location.Width, _player.Location.Height);
+            }
         }
 
         public IRoom GetCurrentRoom()
@@ -184,6 +211,6 @@ namespace Project.Rooms
             return this.Map[this.currentRoomX, this.currentRoomY];
         }
 
-        
+
     }
 }

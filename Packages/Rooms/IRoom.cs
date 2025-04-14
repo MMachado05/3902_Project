@@ -7,7 +7,7 @@ namespace Project.Rooms
     public interface IRoom
     {
         public Rectangle PlayerLocation { get; }
-        public Rectangle SavedPlayerLocation { set; }
+        public Rectangle SavedPlayerLocation { set; get; }
         public bool IsOnScreen { get; set; }
 
         public void Update(GameTime gameTime);

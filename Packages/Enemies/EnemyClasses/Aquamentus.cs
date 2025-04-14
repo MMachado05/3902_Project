@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
 using Project.Items;
-using Project.Packages.Sounds;
 
 namespace Project.Enemies.EnemyClasses
 {

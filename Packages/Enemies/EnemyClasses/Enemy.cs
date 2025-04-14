@@ -14,6 +14,7 @@ namespace Project.Enemies.EnemyClasses
 
         public float Speed { get; set; }
         private IEnemyState CurrentState { get; set; }
+
         protected Direction lastDirection = Direction.Left;
 
         public ISprite idleUp, idleDown, idleLeft, idleRight;

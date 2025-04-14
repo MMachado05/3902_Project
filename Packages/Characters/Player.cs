@@ -6,6 +6,7 @@ using Project.Factories;
 using Project.Inventory;
 using Project.Items;
 using Project.Packages.Sounds;
+using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
 namespace Project.Characters
@@ -29,11 +30,14 @@ namespace Project.Characters
                 return this._activeDirections[this._activeDirections.Count - 1].Direction;
             }
         }
+
         private Vector2 _velocity;
         private IItem _activeItem;
         public IInventory _inventory;
 
         private List<DirectionRegister> _activeDirections;
+
+        public DoorBlock doorBlock;
 
         public int health;
         public float invincibleTime;
@@ -134,7 +138,6 @@ namespace Project.Characters
 
         public void Update(GameTime gameTime)
         {
-            System.Console.WriteLine(this.Sprite.State);
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
@@ -219,7 +222,6 @@ namespace Project.Characters
             {
                 _inventory.Add(collider as IItem);
             }
-
         }
 
         private class DirectionRegister
