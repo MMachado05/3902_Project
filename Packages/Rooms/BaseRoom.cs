@@ -8,6 +8,7 @@ using Project.Items;
 using Project.Characters;
 using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
+using System.Threading;
 namespace Project.Packages
 {
     public class BaseRoom : IRoom
@@ -83,6 +84,7 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
+            this._itemManager.Update();
 
             //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)

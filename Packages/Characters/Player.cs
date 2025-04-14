@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Inventory;
 using Project.Items;
 using Project.Packages.Sounds;
 using Project.Sprites;
@@ -30,6 +31,7 @@ namespace Project.Characters
         }
         private Vector2 _velocity;
         private IItem _activeItem;
+        public IInventory _inventory;
 
         private List<DirectionRegister> _activeDirections;
 
@@ -52,6 +54,7 @@ namespace Project.Characters
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
 
             this._activeItem = null;
+            this._inventory = new Inventory.Inventory();
             this._activeDirections = new List<DirectionRegister>();
         }
 
@@ -103,6 +106,7 @@ namespace Project.Characters
 
         public void Attack()
         {
+            //Macri's Code, I'm too lazy to make this work for my code
             if (this._activeItem == null)
             {
                 int slashX = this.Location.X, slashY = this.Location.Y;
@@ -124,6 +128,8 @@ namespace Project.Characters
                 this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
                     slashX, slashY);
             }
+
+            this._inventory.GetCurrentItem().Item1.Use();
         }
 
         public void Update(GameTime gameTime)
@@ -181,8 +187,10 @@ namespace Project.Characters
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
-            if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
-                this._activeItem.Draw(spriteBatch);
+            //if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
+            //    this._activeItem.Draw(spriteBatch);
+
+            _inventory.PlaceCurrentItem(spriteBatch, Location);
         }
 
         public void CollideWith(IGameObject collider)
@@ -205,6 +213,11 @@ namespace Project.Characters
                 {
                     SoundEffectManager.Instance.playHeal();
                 }
+            }
+
+            if (collider is Heart || collider is Bow)
+            {
+                _inventory.Add(collider as IItem);
             }
 
         }

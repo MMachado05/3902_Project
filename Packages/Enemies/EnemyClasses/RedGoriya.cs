@@ -51,7 +51,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
+            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 150.0f));
             SoundEffectManager.Instance.playBoomerang();
         }
 

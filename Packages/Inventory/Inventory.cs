@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Project.Factories;
 using Project.Inventory;
 using Project.Items;
 
@@ -12,13 +16,13 @@ namespace Project.Inventory
     {
 
         public List<(IItem, int)> Items { get; set; }
-
+        public int currentItemIndex { get; set; }
 
         public Inventory()
         {
-            this.Items = new List<(IItem, int)>();
+            currentItemIndex = 0;
+            this.Items = new List<(IItem, int)> { (new Sword(new Rectangle(1, 2, 3, 4), ItemFactory.Instance.CreateSwordSprite()), 1) };
         }
-
 
         public bool Add(IItem item)
         {
@@ -56,9 +60,9 @@ namespace Project.Inventory
             return added;
         }
 
-        public IItem GetItem()
-        {
-            throw new NotImplementedException();
+        public (IItem,int) GetCurrentItem()
+        { 
+            return Items[currentItemIndex];
         }
 
         public bool Remove(IItem item)
@@ -87,6 +91,27 @@ namespace Project.Inventory
 
             }
             return removed;
+        }
+
+        public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location)
+        {
+            Items[currentItemIndex].Item1.Draw(spriteBatch);
+            Items[currentItemIndex].Item1.Location = location;
+
+            //
+            for (int i = 0; i<Items.Count; i++)
+            {
+                System.Diagnostics.Debug.Write(i + " " + Items[i].Item1.GetType());
+            }
+            System.Diagnostics.Debug.WriteLine("\nindex: " + currentItemIndex + "Current Inventory:");
+        }
+        
+        public void setIndex(int index)
+        {
+            if (Items.Count > index)
+            {
+                currentItemIndex = index;
+            }
         }
     }
 }
