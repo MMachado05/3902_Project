@@ -2,21 +2,21 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Commands;
 
 namespace Project.Rooms.Blocks.ConcreteClasses
 {
     public class DoorBlock : IBlock
     {
         public Rectangle Location { get => this._renderedLocation; }
-        public Direction Direction { get; set; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => true; }
-        public bool SwitchRoom { get; set; }
         private Texture2D _texture;
         private Rectangle _textureSource;
 
         private int _horizontalBlockInstances;
         private int _verticalBlockInstances;
+        private ICommand _onPlayerCollisionCommand;
 
         private Rectangle _renderedLocation;
 
@@ -40,7 +40,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         Rectangle IGameObject.Location { get => this.Location; set => throw new NotImplementedException(); }
 
         public DoorBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
-           Rectangle destination, Direction direction)
+           Rectangle destination, ICommand onPlayerCollisionCommand)
         {
             this._texture = texture;
             this._textureSource = source;
@@ -49,8 +49,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
             this._verticalBlockInstances = verticals;
 
             this._renderedLocation = destination;
-            Direction = direction;
-            SwitchRoom = false;
+            this._onPlayerCollisionCommand = onPlayerCollisionCommand;
         }
 
         public void Draw(SpriteBatch sb)
@@ -61,12 +60,11 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
         public void CollideWith(IGameObject collider)
         {
-            if (collider is Player player)
+            // TODO: I figure there's a way to do this w/o needing to check the implementation
+            // of the collider, but that's a future issue to solve.
+            if (collider is Player player && this.Location.Intersects(player.Location))
             {
-                if (this.Location.Intersects(player.Location))
-                {
-                    this.SwitchRoom = true;
-                }
+                _onPlayerCollisionCommand.Execute();
             }
         }
     }
