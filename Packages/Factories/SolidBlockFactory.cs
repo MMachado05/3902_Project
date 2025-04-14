@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Commands.RoomCommands;
+using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
 
@@ -9,6 +11,8 @@ namespace Project.Factories
 {
     public class SolidBlockFactory
     {
+        private RoomManager _roomManager;
+
         private Texture2D _textureAtlas;
         private Texture2D _bossRoomTexture;
 
@@ -35,7 +39,7 @@ namespace Project.Factories
         {
         }
 
-        public void LoadAllTextures(ContentManager content)
+        public void LoadAllTextures(ContentManager content, RoomManager roomManager)
         {
             this._textureAtlas = content.Load<Texture2D>("blocks");
             this._bossRoomTexture = content.Load<Texture2D>("bossBackground");
@@ -47,6 +51,8 @@ namespace Project.Factories
             this._room6Texture = content.Load<Texture2D>("room6background");
             this._room7Texture = content.Load<Texture2D>("room7background");
             this._room8Texture = content.Load<Texture2D>("room5background");
+
+            this._roomManager = roomManager;
         }
 
         /// <summary>
@@ -114,25 +120,25 @@ namespace Project.Factories
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest, Direction.Right);
+                1, 1, dest, new RoomRightCommand(_roomManager));
         }
         public IBlock CreateTopDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest, Direction.Up);
+                1, 1, dest, new RoomUpCommand(_roomManager));
         }
         public IBlock CreateLeftDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest, Direction.Left);
+                1, 1, dest, new RoomLeftCommand(_roomManager));
         }
         public IBlock CreateBottomDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest, Direction.Down);
+                1, 1, dest, new RoomDownCommand(_roomManager));
         }
 
         public IBlock CreateWoodPlanks(int horizontals, int verticals, Rectangle dest)
