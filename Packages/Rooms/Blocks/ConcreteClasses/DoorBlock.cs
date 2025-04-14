@@ -13,8 +13,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
     public class DoorBlock : IBlock
     {
         public Rectangle Location { get => this._renderedLocation; }
-        public enum DoorDirection { Up, Down, Left, Right }
-        public DoorDirection Direction { get; set; }
+        public Direction Direction { get; set; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => true; }
         public bool SwitchRoom { get; set; }
@@ -46,7 +45,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         Rectangle IGameObject.Location { get => this.Location; set => throw new NotImplementedException(); }
 
         public DoorBlock(Texture2D texture, Rectangle source, int horizontals, int verticals,
-           Rectangle destination, DoorDirection direction)
+           Rectangle destination, Direction direction)
         {
             this._texture = texture;
             this._textureSource = source;
@@ -74,7 +73,6 @@ namespace Project.Rooms.Blocks.ConcreteClasses
                     this.SwitchRoom = true;
                 }
             }
-
         }
     }
 }

@@ -39,19 +39,19 @@ namespace Project.Packages.Commands.CommandClasses
 
         private void SwitchRoom(DoorBlock door)
         {
-            if (door.Direction == DoorDirection.Right)
+            if (door.Direction == Direction.Right)
             {
                 _roomChangeCommand = new RoomRightCommand(RoomManager);
             }
-            else if (door.Direction == DoorDirection.Left)
+            else if (door.Direction == Direction.Left)
             {
                 _roomChangeCommand = new RoomLeftCommand(RoomManager);
             }
-            else if (door.Direction == DoorDirection.Down)
+            else if (door.Direction == Direction.Down)
             {
                 _roomChangeCommand = new RoomDownCommand(RoomManager);
             }
-            else if (door.Direction == DoorDirection.Up)
+            else if (door.Direction == Direction.Up)
             {
                 _roomChangeCommand = new RoomUpCommand(RoomManager);
             }

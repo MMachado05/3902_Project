@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
 using static Project.Rooms.Blocks.ConcreteClasses.DoorBlock;
@@ -118,25 +119,25 @@ namespace Project.Factories
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest,DoorDirection.Right);
+                1, 1, dest, Direction.Right);
         }
         public IBlock CreateTopDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest,DoorDirection.Up);
+                1, 1, dest, Direction.Up);
         }
         public IBlock CreateLeftDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest,DoorDirection.Left);
+                1, 1, dest, Direction.Left);
         }
         public IBlock CreateBottomDoor(Rectangle dest)
         {
             return new DoorBlock(_textureAtlas,
                 new Rectangle(384, 256, 64, 64),
-                1, 1, dest,DoorDirection.Down);
+                1, 1, dest, Direction.Down);
         }
 
         public IBlock CreateWoodPlanks(int horizontals, int verticals, Rectangle dest)
