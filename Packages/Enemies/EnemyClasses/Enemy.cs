@@ -8,8 +8,8 @@ namespace Project.Enemies.EnemyClasses
 {
     public abstract class Enemy : IEnemy
     {
-        public Rectangle Location { get; private set; }
-        public virtual int PlayerHealthEffect { get => -2; }
+        public Rectangle Location { get; set; }
+        public virtual int PlayerHealthEffect { get => -1; }
         public bool IsPassable { get => true; }
 
         public float Speed { get; set; }
@@ -113,7 +113,7 @@ namespace Project.Enemies.EnemyClasses
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
-                currentAnimation.Update();
+                currentAnimation.Update(gameTime);
                 elapsedTime = 0f;
             }
         }

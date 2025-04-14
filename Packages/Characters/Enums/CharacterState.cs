@@ -6,6 +6,7 @@ namespace Project.Characters.Enums
         Stopped,
         Walking,
         Attacking,
-        FinishedAttack
+        FinishedAttack,
+        Blank
     }
 }

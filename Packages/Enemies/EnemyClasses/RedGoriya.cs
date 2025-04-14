@@ -65,7 +65,7 @@ namespace Project.Enemies.EnemyClasses
             base.UpdateAnimation(gameTime);
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
-                projectiles[i].Update();
+                projectiles[i].Update(gameTime);
                 /*if (projectiles[i].HasReturned())*/
                 /*{*/
                 /*    projectiles.RemoveAt(i);*/
