@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Packages.Characters;
-using Project.Packages.Commands.CommandClasses;
 using Project.Packages.Sounds;
 using Project.Renderer;
 
@@ -24,7 +23,6 @@ namespace Project.Rooms
         private int currentRoomX;
         private int currentRoomY;
         private Player _player;
-        private DoorCollisionHandler _doorCollisionHandler;
 
         public int CurrentRoomRow { get { return currentRoomX; } }
         public int CurrentRoomColumn { get { return currentRoomY; } }
@@ -97,22 +95,12 @@ namespace Project.Rooms
             {
                 for (int j = 0; j < this.Map.GetLength(1); j++)
                 {
-
                     if (this.Map[i, j] != null)
                         this.Map[i, j].AssignPlayer(player);
-
                 }
             }
         }
-        public void DoorCollisionHandler()
-        {
-            _doorCollisionHandler = new DoorCollisionHandler(this, _player, null);
-            _doorCollisionHandler.HandleCollisionsWithDoors();
 
-        }
-
-
-        // TODO: Implement this; to be called by Renderer
         public void DrawCurrentRoom(SpriteBatch sb)
         {
             this.GetCurrentRoom().Draw(sb);
@@ -124,7 +112,6 @@ namespace Project.Rooms
         public void Update(GameTime gameTime)
         {
             this.GetCurrentRoom().Update(gameTime);
-            DoorCollisionHandler();
 
             if (this.currentRoomX == 2 && this.currentRoomY == 4)
             {
