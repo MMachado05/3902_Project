@@ -11,6 +11,7 @@ using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
+using Project.Packages.Commands.CommandClasses;
 
 namespace Project.Rooms
 {
@@ -105,7 +106,6 @@ namespace Project.Rooms
             }
             IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
             IBlock Background = SolidBlockFactory.Instance.GreenBg();
-
 
             // Restart reader
             reader.DiscardBufferedData();
@@ -233,15 +233,13 @@ namespace Project.Rooms
                             itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), 0, ItemFactory.Instance.CreateKeySprite()));
                             break;
                         default:
-
                             break;
                     }
                 }
                 y++;
             }
 
-
-            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, Background, door);
+            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, Background);
         }
     }
 }
