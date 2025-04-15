@@ -12,7 +12,9 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
-        public Aquamentus(Rectangle initialPosition) : base(initialPosition) { }
+        public Aquamentus(Rectangle initialPosition) : base(initialPosition) {
+            Health = 2;
+        }
 
         protected override void LoadAnimations()
         {

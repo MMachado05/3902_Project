@@ -13,7 +13,7 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        private List<Arrow> projectiles = new List<Arrow>();
+        public List<Arrow> projectiles = new List<Arrow>();
         public Bow(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;

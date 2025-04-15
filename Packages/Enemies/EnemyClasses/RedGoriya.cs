@@ -13,7 +13,9 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private bool hasThrownBoomerang = false;
 
-        public RedGoriya(Rectangle initialPosition) : base(initialPosition) { }
+        public RedGoriya(Rectangle initialPosition) : base(initialPosition) {
+            Health = 1;
+        }
 
         protected override void LoadAnimations()
         {

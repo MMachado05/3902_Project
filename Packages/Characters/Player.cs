@@ -109,29 +109,28 @@ namespace Project.Characters
         }
 
         public void Attack()
-        {
-            //Macri's Code, I'm too lazy to make this work for my code
-            //if (this._activeItem == null)
-            //{
-            //    int slashX = this.Location.X, slashY = this.Location.Y;
-            //    switch (LastActiveDirection)
-            //    {
-            //        case Direction.Up:
-            //            slashY -= ItemFactory.Instance.BasicAttackHeight;
-            //            break;
-            //        case Direction.Down:
-            //            slashY += this.Location.Height;
-            //            break;
-            //        case Direction.Left:
-            //            slashX -= ItemFactory.Instance.BasicAttackWidth;
-            //            break;
-            //        case Direction.Right:
-            //            slashX += this.Location.Width;
-            //            break;
-            //    }
-            //    this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
-            //        slashX, slashY);
-            //}
+        { 
+            if (this._activeItem == null)
+                {
+                    int slashX = this.Location.X, slashY = this.Location.Y;
+                    switch (LastActiveDirection)
+                    {
+                        case Direction.Up:
+                            slashY -= ItemFactory.Instance.BasicAttackHeight;
+                            break;
+                        case Direction.Down:
+                            slashY += this.Location.Height;
+                            break;
+                        case Direction.Left:
+                            slashX -= ItemFactory.Instance.BasicAttackWidth;
+                            break;
+                        case Direction.Right:
+                            slashX += this.Location.Width;
+                            break;
+                    }
+                    this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
+                        slashX, slashY);
+                }
 
             _inventory.GetCurrentItem().Item1.Use();
         }
@@ -166,10 +165,10 @@ namespace Project.Characters
                         Location.Width, Location.Height);
                     break;
                 case CharacterState.FinishedAttack:
-                    // Throw away the "item" related to default attack
-                    // TODO: Change this logic when more items are implemented, I know it's
+                    //Throw away the "item" related to default attack
+                    //TODO: Change this logic when more items are implemented, I know it's
                     //  shoddy at best.
-                    //this._activeItem.Location = new Rectangle(0, 0, -1, -1);
+                    this._activeItem.Location = new Rectangle(0, 0, -1, -1);
                     this._activeItem = null;
                     this.SetStaticSprite();
                     break;
@@ -192,8 +191,8 @@ namespace Project.Characters
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
-            //if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
-            //    this._activeItem.Draw(spriteBatch);
+            if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
+                this._activeItem.Draw(spriteBatch);
             _inventory.PlaceCurrentItem(spriteBatch, Location, LastActiveDirection);
         }
 

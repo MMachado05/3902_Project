@@ -123,6 +123,19 @@ namespace Project.Packages
                     }
                 }
             }
+
+            // Enemy and Block Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                var enemy = this._enemyManager.enemies[i];
+                if (_player._inventory.GetCurrentItem().Item1 is Bow)
+                {
+                    foreach (Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles)
+                    this._collisionManager.Collide(enemy, arrow);
+                }
+                            
+                
+            }
         }
     }
 }

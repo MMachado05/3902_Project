@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
+using Project.Items;
 using Project.Sprites;
 
 namespace Project.Enemies.EnemyClasses
@@ -13,6 +14,7 @@ namespace Project.Enemies.EnemyClasses
         public bool IsPassable { get => true; }
 
         public float Speed { get; set; }
+        public int Health { get; set; }
         private IEnemyState CurrentState { get; set; }
 
         protected Direction lastDirection = Direction.Left;
@@ -130,6 +132,10 @@ namespace Project.Enemies.EnemyClasses
             if (!collider.IsPassable)
             {
                 Location = lastLocation;
+            }
+            if (collider is Arrow)
+            {
+                Health -= 1; 
             }
         }
 
