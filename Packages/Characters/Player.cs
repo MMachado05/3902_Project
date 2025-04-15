@@ -41,6 +41,7 @@ namespace Project.Characters
 
         public int health;
         public float invincibleTime;
+        int points;
 
         private float elapsedTime;
 
@@ -221,11 +222,16 @@ namespace Project.Characters
                     SoundEffectManager.Instance.playHeal();
                 }
             }
+            if (collider is Coin)
+            {
+                ((IItem)collider).ToBeDeleted = true;
+                points += 1;
+            }
             if (collider is Heart)
             {
                 ((IItem)collider).ToBeDeleted = true;
             }
-            if (collider is Bow || collider is Bomb)
+            if (collider is Bow || collider is Bomb || collider is Boomerang || collider is Key)
             {
                 if (!((IItem)collider).Equipped)
                 {

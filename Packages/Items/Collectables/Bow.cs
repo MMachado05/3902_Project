@@ -24,6 +24,11 @@ namespace Project.Items
             foreach (Arrow arrow in projectiles)
             {
                 arrow.Update(gameTime);
+                if (arrow.ToBeDeleted)
+                {
+                    projectiles.Remove(arrow);
+                    break;
+                }
             }
         }
 

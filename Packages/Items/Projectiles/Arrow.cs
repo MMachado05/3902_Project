@@ -37,7 +37,7 @@ namespace Project.Items
                     Location = new Rectangle(Location.X + 5, Location.Y, Location.Width, Location.Height);
                     break;
                 default:
-                    Location = new Rectangle(Location.X + 20, Location.Y, Location.Width, Location.Height);
+                    Location = new Rectangle(Location.X + 5, Location.Y, Location.Width, Location.Height);
                     break;
             }
             

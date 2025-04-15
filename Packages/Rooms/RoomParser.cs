@@ -184,52 +184,31 @@ namespace Project.Rooms
                             playerSpriteLocation.Y = (y - 1) * gr.TileHeight;
                             break;
                         case "aq":
-
                             enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "rg":
-
                             enemyManager.AddEnemy(new RedGoriya(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
                         case "st":
-
                             enemyManager.AddEnemy(new Stalfos(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
                             break;
-                        case "it":
-
+                        case "hr":
                             itemManager.addItem(new Heart(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateHeartSprite()));
                             break;
-                        case "ar":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateUpArrowSprite()));
-                            break;
-                        case "sw":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateSwordSprite()));
-                            break;
                         case "co":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateCoinSprite()));
+                            itemManager.addItem(new Coin(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateCoinSprite()));
                             break;
                         case "bm":
-
                             itemManager.addItem(new Bomb(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBombSprite()));
                             break;
                         case "bmr":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBoomerangSprite()));
+                            itemManager.addItem(new Boomerang(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBoomerangSprite()));
                             break;
                         case "bw":
-
                             itemManager.addItem(new Bow(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBowSprite()));
                             break;
-                        case "frb":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateFireballSprite()));
-                            break;
                         case "ky":
-
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateKeySprite()));
+                            itemManager.addItem(new Key(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateKeySprite()));
                             break;
                         default:
                             break;

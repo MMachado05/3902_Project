@@ -137,6 +137,11 @@ namespace Project.Packages
                 {
                     this._collisionManager.Collide(enemy, ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb);
                 }
+                if (_player._inventory.GetCurrentItem().Item1 is Boomerang)
+                {
+                    foreach (ThrownBoomerang boomerang in ((Boomerang)_player._inventory.GetCurrentItem().Item1).projectiles)
+                        this._collisionManager.Collide(enemy, boomerang);
+                }
 
             }
         }
