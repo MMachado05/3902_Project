@@ -138,6 +138,10 @@ namespace Project.Characters
         public void Update(GameTime gameTime)
         {
             _inventory.GetCurrentItem().Item1.Update(gameTime);
+            //if(_inventory.GetCurrentItem().Item1.ToBeDeleted)
+            //{
+            //    _inventory.Remove(_inventory.GetCurrentItem().Item1);
+            //}
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
@@ -217,10 +221,19 @@ namespace Project.Characters
                     SoundEffectManager.Instance.playHeal();
                 }
             }
-
-            if (collider is Heart || collider is Bow)
+            if (collider is Heart)
             {
-                _inventory.Add(collider as IItem);
+                ((IItem)collider).ToBeDeleted = true;
+            }
+            if (collider is Bow || collider is Bomb)
+            {
+                if (!((IItem)collider).Equipped)
+                {
+                    ((IItem)collider).ToBeDeleted = true;
+                    ((IItem)collider).Equipped = true;
+                    collider.Location = Location;
+                    _inventory.Add((IItem)collider);
+                }
             }
         }
 

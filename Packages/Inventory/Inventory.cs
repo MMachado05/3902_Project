@@ -22,13 +22,15 @@ namespace Project.Inventory
         public Inventory()
         {
             currentItemIndex = 0;
-            this.Items = new List<(IItem, int)> { (new Sword(new Rectangle(1, 2, 3, 4), ItemFactory.Instance.CreateSwordSprite()), 1) };
+            Sword sword = new Sword(new Rectangle(1, 2, 3, 4), ItemFactory.Instance.CreateSwordSprite());
+            sword.Equipped = true;
+            this.Items = new List<(IItem, int)> { (sword, 1) };
         }
 
         public bool Add(IItem item)
         {
             int itemCount;
-            int counter = 0;
+            int counter = -1;
             bool found = false;
             bool added = false;
             foreach (var pair in Items)
@@ -62,14 +64,18 @@ namespace Project.Inventory
         }
 
         public (IItem,int) GetCurrentItem()
-        { 
+        {
+            if (currentItemIndex >= Items.Count)
+            {
+                currentItemIndex = Items.Count - 1;
+            }
             return Items[currentItemIndex];
         }
 
         public bool Remove(IItem item)
         {
             int itemCount;
-            int counter = 0;
+            int counter = -1;
             bool found = false;
             bool removed = false;
             foreach (var pair in Items)
@@ -90,17 +96,47 @@ namespace Project.Inventory
                 targetPair.Item2--;
                 Items.Add(targetPair);
 
+                if (targetPair.Item2 == 0)
+                {
+                    Items.Remove(targetPair);
+                }
             }
             return removed;
         }
-
+        private Rectangle offsetLocation(Rectangle location, Direction direction)
+        {
+            Rectangle offset = new Rectangle(location.X, location.Y, location.Width, location.Height);
+            switch (direction)
+            {
+                case Direction.Up:
+                    offset.Y -= 25;
+                    break;
+                case Direction.Down:
+                    offset.Y += 25;
+                    break;
+                case Direction.Left:
+                    offset.X -= 25;
+                    break;
+                case Direction.Right:
+                    offset.X += 25;
+                    break;
+            }
+            return offset;
+        }
         public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location, Direction direction)
         {
+            if (currentItemIndex >= Items.Count)
+            {
+                currentItemIndex = Items.Count - 1;
+            }
             Items[currentItemIndex].Item1.Draw(spriteBatch);
-            Items[currentItemIndex].Item1.Location = location;
+            Items[currentItemIndex].Item1.Location = offsetLocation(location, direction);
             Items[currentItemIndex].Item1.Direction = direction;
 
-            
+            if (!Items[currentItemIndex].Item1.Equipped) {
+                Remove(Items[currentItemIndex].Item1);
+            }
+            //For debugging Inventory
             //for (int i = 0; i<Items.Count; i++)
             //{
             //    System.Diagnostics.Debug.Write(i + " " + Items[i].Item1.GetType());

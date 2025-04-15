@@ -124,7 +124,7 @@ namespace Project.Packages
                 }
             }
 
-            // Enemy and Block Collision
+            // Enemy and Projectile Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 var enemy = this._enemyManager.enemies[i];
@@ -133,8 +133,11 @@ namespace Project.Packages
                     foreach (Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles)
                     this._collisionManager.Collide(enemy, arrow);
                 }
-                            
-                
+                if (_player._inventory.GetCurrentItem().Item1 is Bomb && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion)
+                {
+                    this._collisionManager.Collide(enemy, ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb);
+                }
+
             }
         }
     }

@@ -213,7 +213,7 @@ namespace Project.Rooms
                             break;
                         case "bm":
 
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBombSprite()));
+                            itemManager.addItem(new Bomb(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBombSprite()));
                             break;
                         case "bmr":
 

@@ -12,13 +12,14 @@ namespace Project.Items
         public virtual int PlayerHealthEffect { get; set; }
         public bool IsPassable { get => true; }
         public bool ToBeDeleted { get; set; }
-
-
+        public bool Equipped { get; set; }
         public ISprite Sprite { get; }
 
         protected Item(ISprite sprite)
         {
             Sprite = sprite;
+            ToBeDeleted = false;
+            Equipped = false;
         }
 
         public virtual void Use() { }

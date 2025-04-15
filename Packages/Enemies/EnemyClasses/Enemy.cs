@@ -133,9 +133,9 @@ namespace Project.Enemies.EnemyClasses
             {
                 Location = lastLocation;
             }
-            if (collider is Arrow)
+            if (collider is Arrow || collider is Explosion)
             {
-                Health -= 1; 
+                Health -= 1;
             }
         }
 

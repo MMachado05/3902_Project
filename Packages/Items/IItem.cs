@@ -9,6 +9,8 @@ namespace Project.Items
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
         virtual void Use() { }
-        Direction Direction { get; set; }
+        public Direction Direction { get; set; }
+        public bool ToBeDeleted { get; set; }
+        public bool Equipped { get; set; }
     }
 }

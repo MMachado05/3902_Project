@@ -37,7 +37,7 @@ namespace Project.Items
         }
         public override void CollideWith(IGameObject collider)
         {
-            if (collider is Player)
+            if (collider is Player && !Equipped)
             {
                 ToBeDeleted = true;
             }

@@ -17,6 +17,7 @@ namespace Project.Factories
         private Texture2D LeftArrowTexture;
         private Texture2D RightArrowTexture;
         private Texture2D bombTexture;
+        private Texture2D explodingBombTexture;
         private Texture2D swordTexture;
         private Texture2D bowTexture;
         private Texture2D coinTexture;
@@ -42,6 +43,7 @@ namespace Project.Factories
             LeftArrowTexture = content.Load<Texture2D>("LeftArrow");
             RightArrowTexture = content.Load<Texture2D>("RightArrow");
             bombTexture = content.Load<Texture2D>("bomb");
+            explodingBombTexture = content.Load<Texture2D>("ExplodingBomb");
             swordTexture = content.Load<Texture2D>("sword");
             bowTexture = content.Load<Texture2D>("bow");
             coinTexture = content.Load<Texture2D>("GluckCoin");
@@ -64,6 +66,7 @@ namespace Project.Factories
         public ISprite CreateHeartSprite() => new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 13, 13), 1, new CharacterState());
 
         public ISprite CreateBombSprite() => new StationarySprite(bombTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        public ISprite CreateExplodingBombSprite() => new AnimatedLoopSprite(explodingBombTexture, new Rectangle(0, 0, 16, 16), 1, new CharacterState());
 
         public ISprite CreateSwordSprite() => new StationarySprite(swordTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
