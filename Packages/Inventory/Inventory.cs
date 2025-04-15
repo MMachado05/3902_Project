@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Factories;
 using Project.Inventory;
 using Project.Items;
@@ -93,10 +94,11 @@ namespace Project.Inventory
             return removed;
         }
 
-        public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location)
+        public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location, Direction direction)
         {
             Items[currentItemIndex].Item1.Draw(spriteBatch);
             Items[currentItemIndex].Item1.Location = location;
+            Items[currentItemIndex].Item1.Direction = direction;
 
             
             //for (int i = 0; i<Items.Count; i++)

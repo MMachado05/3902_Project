@@ -9,6 +9,7 @@ namespace Project.Items
     public class Sword : Item
     {
         public override Rectangle Location { get; set; }
+        public override Direction Direction { get; set; }
         public Sword(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;

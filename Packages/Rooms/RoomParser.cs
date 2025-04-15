@@ -201,7 +201,7 @@ namespace Project.Rooms
                             break;
                         case "ar":
 
-                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateArrowSprite()));
+                            itemManager.addItem(new StationaryItem(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateUpArrowSprite()));
                             break;
                         case "sw":
 

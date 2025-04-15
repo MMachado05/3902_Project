@@ -50,8 +50,8 @@ namespace Project.Enemies.EnemyClasses
             if (hasThrownBoomerang) return;
 
             hasThrownBoomerang = true;
-            Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 150.0f));
+            //Vector2 direction = GetAttackDirection();
+            projectiles.Add(new ProjectileItem(Location, lastDirection, ItemFactory.Instance.CreateBoomerangSprite(), 150.0f));
             SoundEffectManager.Instance.playBoomerang();
         }
 

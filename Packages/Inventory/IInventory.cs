@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
 using Project.Items;
 
 namespace Project.Inventory
@@ -16,7 +14,8 @@ namespace Project.Inventory
         bool Add(IItem item);
         bool Remove(IItem item);
         (IItem,int) GetCurrentItem();
-        public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location);
+        public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location, Direction direction);
         public void setIndex(int index);
+
     }
 }

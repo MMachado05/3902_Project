@@ -12,22 +12,25 @@ namespace Project.Items
     public class Bow : Item
     {
         public override Rectangle Location { get; set; }
-        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
+        public override Direction Direction { get; set; }
+        private List<Arrow> projectiles = new List<Arrow>();
         public Bow(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
         }
 
-        public override void Update(GameTime gameTime) {
-            foreach (ProjectileItem projectile in projectiles) {
-                projectile.Update(gameTime);
+        public override void Update(GameTime gameTime)
+        {
+            foreach (Arrow arrow in projectiles)
+            {
+                arrow.Update(gameTime);
             }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            foreach (ProjectileItem projectile in projectiles)
+            foreach (Arrow projectile in projectiles)
             {
                 projectile.Draw(spriteBatch);
             }
@@ -39,12 +42,27 @@ namespace Project.Items
                 ToBeDeleted = true;
             }
         }
-        
+
         public override void Use()
         {
-            //make direction later
-            System.Diagnostics.Debug.Write("arrow!");
-            projectiles.Add(new ProjectileItem(Location, new Vector2(0,1), ItemFactory.Instance.CreateArrowSprite(), 150.0f));
+            switch (Direction)
+            {
+                case Direction.Up:
+                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateUpArrowSprite()));
+                    break;
+                case Direction.Right:
+                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateRightArrowSprite()));
+                    break;
+                case Direction.Left:
+                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateLeftArrowSprite()));
+                    break;
+                case Direction.Down:
+                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateDownArrowSprite()));
+                    break;
+                default:
+                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateRightArrowSprite()));
+                    break;
+            }
         }
     }
 }

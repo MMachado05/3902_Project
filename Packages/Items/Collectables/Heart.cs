@@ -9,6 +9,7 @@ namespace Project.Items
     public class Heart : Item
     {
         public override Rectangle Location { get; set; }
+        public override Direction Direction { get; set; }
         public override int PlayerHealthEffect { get => 2; }
         public Heart(Rectangle position, ISprite sprite) : base(sprite)
         {

@@ -138,6 +138,8 @@ namespace Project.Characters
 
         public void Update(GameTime gameTime)
         {
+            _inventory.GetCurrentItem().Item1.Update(gameTime);
+
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
@@ -192,8 +194,7 @@ namespace Project.Characters
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
             //if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
             //    this._activeItem.Draw(spriteBatch);
-
-            _inventory.PlaceCurrentItem(spriteBatch, Location);
+            _inventory.PlaceCurrentItem(spriteBatch, Location, LastActiveDirection);
         }
 
         public void CollideWith(IGameObject collider)

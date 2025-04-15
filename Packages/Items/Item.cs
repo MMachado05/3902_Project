@@ -8,6 +8,7 @@ namespace Project.Items
     public abstract class Item : IItem
     {
         public abstract Rectangle Location { get; set; }
+        public abstract Direction Direction { get; set; }
         public virtual int PlayerHealthEffect { get; set; }
         public bool IsPassable { get => true; }
         public bool ToBeDeleted { get; set; }

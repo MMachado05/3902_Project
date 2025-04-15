@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Project.Characters;
 using Project.Sprites;
 
 namespace Project.Items
@@ -11,6 +12,7 @@ namespace Project.Items
         }
 
         public override Rectangle Location { get; set; }
+        public override Direction Direction { get; set; }
 
         public override void Update(GameTime gameTime)
         {
