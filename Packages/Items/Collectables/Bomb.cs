@@ -20,7 +20,7 @@ namespace Project.Items
         public Bomb(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
-            TimeAlive = 6;
+            TimeAlive = 4;
             PlacedBomb = false;
             Explosion = new Explosion(Location, ItemFactory.Instance.CreateExplosionSprite());
         }

@@ -149,6 +149,8 @@ namespace Project
             kbc.RegisterOnPress(Keys.D1, new InventoryCommand(player, 0));
             kbc.RegisterOnPress(Keys.D2, new InventoryCommand(player, 1));
             kbc.RegisterOnPress(Keys.D3, new InventoryCommand(player, 2));
+            kbc.RegisterOnPress(Keys.D4, new InventoryCommand(player, 3));
+            kbc.RegisterOnPress(Keys.D5, new InventoryCommand(player, 4));
 
             // Arrow keys to change current room
             kbc.RegisterOnPress(Keys.Up, new RoomUpCommand(roomManager));

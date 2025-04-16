@@ -139,10 +139,6 @@ namespace Project.Characters
         public void Update(GameTime gameTime)
         {
             _inventory.GetCurrentItem().Item1.Update(gameTime);
-            //if(_inventory.GetCurrentItem().Item1.ToBeDeleted)
-            //{
-            //    _inventory.Remove(_inventory.GetCurrentItem().Item1);
-            //}
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)

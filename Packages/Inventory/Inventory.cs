@@ -30,7 +30,7 @@ namespace Project.Inventory
         public bool Add(IItem item)
         {
             int itemCount;
-            int counter = -1;
+            int counter = 0;
             bool found = false;
             bool added = false;
             foreach (var pair in Items)
@@ -49,15 +49,12 @@ namespace Project.Inventory
                 var targetPair = Items.ElementAt(counter);
                 Items.Remove(targetPair);
                 targetPair.Item2++;
-                                Items.Add(targetPair);
-
-
-            }else if (Items.Count<10){
+                Items.Add(targetPair);
+            }
+            else if (Items.Count<10){
                 added = true;
                 (IItem,int) targetPair = new (item,1);
                 Items.Add(targetPair);
-
-
             }
 
             return added;
@@ -68,6 +65,10 @@ namespace Project.Inventory
             if (currentItemIndex >= Items.Count)
             {
                 currentItemIndex = Items.Count - 1;
+            }
+            if (currentItemIndex < 0)
+            {
+                currentItemIndex = 0;
             }
             return Items[currentItemIndex];
         }
@@ -81,12 +82,13 @@ namespace Project.Inventory
             foreach (var pair in Items)
             {
                 var temp = pair.Item1;
+                counter++;
                 if (temp == item)
                 {
                     itemCount = pair.Item2;
                     found = true;
+                    break;
                 }
-                counter++;
             }
             if (found)
             {
@@ -125,23 +127,21 @@ namespace Project.Inventory
         }
         public void PlaceCurrentItem(SpriteBatch spriteBatch, Rectangle location, Direction direction)
         {
-            if (currentItemIndex >= Items.Count)
-            {
-                currentItemIndex = Items.Count - 1;
-            }
-            Items[currentItemIndex].Item1.Draw(spriteBatch);
-            Items[currentItemIndex].Item1.Location = offsetLocation(location, direction);
-            Items[currentItemIndex].Item1.Direction = direction;
+            IItem CurrentItem = GetCurrentItem().Item1;
+            CurrentItem.Draw(spriteBatch);
+            CurrentItem.Location = offsetLocation(location, direction);
+            CurrentItem.Direction = direction;
 
-            if (!Items[currentItemIndex].Item1.Equipped) {
-                Remove(Items[currentItemIndex].Item1);
+
+            if (!CurrentItem.Equipped) {
+                Remove(CurrentItem);
             }
-            //For debugging Inventory
-            //for (int i = 0; i<Items.Count; i++)
+            // For debugging Inventory
+            //System.Diagnostics.Debug.WriteLine("\nCurent Inventory: ");
+            //for (int i = 0; i < Items.Count; i++)
             //{
-            //    System.Diagnostics.Debug.Write(i + " " + Items[i].Item1.GetType());
+            //    System.Diagnostics.Debug.Write(" index: " + i + ": " + Items[i].Item1.GetType() + " count : " + Items[i].Item2 + " ");
             //}
-            //System.Diagnostics.Debug.WriteLine("\nindex: " + currentItemIndex + "Current Inventory:");
         }
         
         public void setIndex(int index)
