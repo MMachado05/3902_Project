@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
 using Project.Items;
+using Project.Packages.Sounds;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -43,10 +44,9 @@ namespace Project.Enemies.EnemyClasses
 
             foreach (var direction in GetAttackDirections())
             {
-                /*projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));*/
+                projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateFireballSprite(), 5.0f, 600f));
             }
-            //Add when fireballs start working
-            //SoundEffectManager.Instance.playFireball();
+            SoundEffectManager.Instance.playFireball();
         }
 
         public override void ResetAttackState()
@@ -63,7 +63,7 @@ namespace Project.Enemies.EnemyClasses
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            /*projectiles.ForEach(p => p.Draw(spriteBatch));*/
+            projectiles.ForEach(p => p.Draw(spriteBatch));
         }
 
         public override float GetAttackDuration() => 2f;

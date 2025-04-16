@@ -51,7 +51,7 @@ namespace Project.Enemies.EnemyClasses
 
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
-            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 30.0f, 150.0f));
+            projectiles.Add(new ProjectileItem(Location, direction, ItemFactory.Instance.CreateBoomerangSprite(), 5.0f, 150.0f));
             SoundEffectManager.Instance.playBoomerang();
         }
 
@@ -66,11 +66,11 @@ namespace Project.Enemies.EnemyClasses
             for (int i = projectiles.Count - 1; i >= 0; i--)
             {
                 projectiles[i].Update(gameTime);
-                /*if (projectiles[i].HasReturned())*/
-                /*{*/
-                /*    projectiles.RemoveAt(i);*/
-                /*    hasThrownBoomerang = false;*/
-                /*}*/
+                if (projectiles[i].HasReturned())
+                {
+                    projectiles.RemoveAt(i);
+                    hasThrownBoomerang = false;
+                }
             }
         }
 
