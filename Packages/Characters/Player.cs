@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters.Enums;
 using Project.Factories;
+using Project.Inventory;
 using Project.Items;
 using Project.Packages.Sounds;
 using Project.Rooms.Blocks.ConcreteClasses;
@@ -32,6 +33,7 @@ namespace Project.Characters
 
         private Vector2 _velocity;
         private IItem _activeItem;
+        public IInventory _inventory;
 
         private List<DirectionRegister> _activeDirections;
 
@@ -39,6 +41,7 @@ namespace Project.Characters
 
         public int health;
         public float invincibleTime;
+        int points;
 
         private float elapsedTime;
 
@@ -56,6 +59,7 @@ namespace Project.Characters
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
 
             this._activeItem = null;
+            this._inventory = new Inventory.Inventory();
             this._activeDirections = new List<DirectionRegister>();
         }
 
@@ -106,32 +110,36 @@ namespace Project.Characters
         }
 
         public void Attack()
-        {
+        { 
             if (this._activeItem == null)
-            {
-                int slashX = this.Location.X, slashY = this.Location.Y;
-                switch (LastActiveDirection)
                 {
-                    case Direction.Up:
-                        slashY -= ItemFactory.Instance.BasicAttackHeight;
-                        break;
-                    case Direction.Down:
-                        slashY += this.Location.Height;
-                        break;
-                    case Direction.Left:
-                        slashX -= ItemFactory.Instance.BasicAttackWidth;
-                        break;
-                    case Direction.Right:
-                        slashX += this.Location.Width;
-                        break;
+                    int slashX = this.Location.X, slashY = this.Location.Y;
+                    switch (LastActiveDirection)
+                    {
+                        case Direction.Up:
+                            slashY -= ItemFactory.Instance.BasicAttackHeight;
+                            break;
+                        case Direction.Down:
+                            slashY += this.Location.Height;
+                            break;
+                        case Direction.Left:
+                            slashX -= ItemFactory.Instance.BasicAttackWidth;
+                            break;
+                        case Direction.Right:
+                            slashX += this.Location.Width;
+                            break;
+                    }
+                    this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
+                        slashX, slashY);
                 }
-                this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
-                    slashX, slashY);
-            }
+
+            _inventory.GetCurrentItem().Item1.Use();
         }
 
         public void Update(GameTime gameTime)
         {
+            _inventory.GetCurrentItem().Item1.Update(gameTime);
+
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
             {
@@ -158,8 +166,8 @@ namespace Project.Characters
                         Location.Width, Location.Height);
                     break;
                 case CharacterState.FinishedAttack:
-                    // Throw away the "item" related to default attack
-                    // TODO: Change this logic when more items are implemented, I know it's
+                    //Throw away the "item" related to default attack
+                    //TODO: Change this logic when more items are implemented, I know it's
                     //  shoddy at best.
                     this._activeItem.Location = new Rectangle(0, 0, -1, -1);
                     this._activeItem = null;
@@ -186,6 +194,7 @@ namespace Project.Characters
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
             if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
                 this._activeItem.Draw(spriteBatch);
+            _inventory.PlaceCurrentItem(spriteBatch, Location, LastActiveDirection);
         }
 
         public void CollideWith(IGameObject collider)
@@ -207,6 +216,25 @@ namespace Project.Characters
                 if (collisionHealthEffect > 0) // Healing
                 {
                     SoundEffectManager.Instance.playHeal();
+                }
+            }
+            if (collider is Coin)
+            {
+                ((IItem)collider).ToBeDeleted = true;
+                points += 1;
+            }
+            if (collider is Heart)
+            {
+                ((IItem)collider).ToBeDeleted = true;
+            }
+            if (collider is Bow || collider is Bomb || collider is Boomerang || collider is Key)
+            {
+                if (!((IItem)collider).Equipped)
+                {
+                    ((IItem)collider).ToBeDeleted = true;
+                    ((IItem)collider).Equipped = true;
+                    collider.Location = Location;
+                    _inventory.Add((IItem)collider);
                 }
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
@@ -5,11 +6,12 @@ using Project.Sprites;
 
 namespace Project.Items
 {
-    public class StationaryItem : Item
+    public class Key : Item
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        public StationaryItem(Rectangle position, ISprite sprite) : base(sprite)
+        public override int PlayerHealthEffect { get => 2; }
+        public Key(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
         }
@@ -19,6 +21,13 @@ namespace Project.Items
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+           }
+        public override void CollideWith(IGameObject collider)
+        {
+            if (collider is Player)
+            {
+                ToBeDeleted = true;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Project.Items
     public class ItemManager
     {
         private readonly List<IItem> inventory;
-        private readonly List<IItem> worldItems;
+        private readonly List<Item> worldItems;
         private readonly List<IItem> projectiles;
         private int currentItemIndex = 0;
 
@@ -35,7 +35,7 @@ namespace Project.Items
                 /*new ProjectileItem(Vector2.Zero, Vector2.Zero, ItemFactory.Instance.CreateArrowSprite(), 5, 500)*/
             };
 
-            worldItems = new List<IItem>
+            worldItems = new List<Item>
             {
                 //temporary random positions for collectible Items
                 /*new StationaryItem(new Vector2(100,200), 0, ItemFactory.Instance.CreateHeartSprite()),*/
@@ -44,6 +44,17 @@ namespace Project.Items
             };
         }
 
+        public void Update()
+        {
+            foreach (Item item in worldItems)
+            {
+                if (item.ToBeDeleted)
+                {
+                    worldItems.Remove(item);
+                    break;
+                }
+            }
+        }
         public void SetCurrentIndex(int index)
         {
             if (index >= 0 && index < inventory.Count)
@@ -54,7 +65,7 @@ namespace Project.Items
 
         public IItem GetCurrentItem() => inventory[currentItemIndex];
 
-        public List<IItem> GetWorldItems() => worldItems;
+        public List<Item> GetWorldItems() => worldItems;
 
         public void PlaceInventoryItem()
         {

@@ -60,6 +60,11 @@ namespace Project.Enemies
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime);
+                if (enemy.Health == 0)
+                {
+                    enemies.Remove(enemy);
+                    break;
+                }
             }
         }
     }

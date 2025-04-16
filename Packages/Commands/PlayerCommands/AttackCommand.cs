@@ -18,7 +18,7 @@ namespace Project.Commands.PlayerCommands
         {
             if (_player.Sprite.State != CharacterState.Attacking)
                 _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastActiveDirection, _player.invincibleTime > 0));
-            this._player.Attack();
+            _player.Attack();
             SoundEffectManager.Instance.playSword();
         }
     }

@@ -82,6 +82,7 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
+            this._itemManager.Update();
 
             //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
@@ -121,6 +122,27 @@ namespace Project.Packages
                         }
                     }
                 }
+            }
+
+            // Enemy and Projectile Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                var enemy = this._enemyManager.enemies[i];
+                if (_player._inventory.GetCurrentItem().Item1 is Bow)
+                {
+                    foreach (Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles)
+                    this._collisionManager.Collide(enemy, arrow);
+                }
+                if (_player._inventory.GetCurrentItem().Item1 is Bomb && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion)
+                {
+                    this._collisionManager.Collide(enemy, ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb);
+                }
+                if (_player._inventory.GetCurrentItem().Item1 is Boomerang)
+                {
+                    foreach (ThrownBoomerang boomerang in ((Boomerang)_player._inventory.GetCurrentItem().Item1).projectiles)
+                        this._collisionManager.Collide(enemy, boomerang);
+                }
+
             }
         }
     }

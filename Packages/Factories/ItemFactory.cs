@@ -12,8 +12,12 @@ namespace Project.Factories
     public class ItemFactory
     {
         private Texture2D heartTexture;
-        private Texture2D arrowTexture;
+        private Texture2D UpArrowTexture;
+        private Texture2D DownArrowTexture;
+        private Texture2D LeftArrowTexture;
+        private Texture2D RightArrowTexture;
         private Texture2D bombTexture;
+        private Texture2D explodingBombTexture;
         private Texture2D swordTexture;
         private Texture2D bowTexture;
         private Texture2D coinTexture;
@@ -34,8 +38,12 @@ namespace Project.Factories
         public void LoadAllTextures(ContentManager content, int tileWidth, int tileHeight)
         {
             heartTexture = content.Load<Texture2D>("heart");
-            arrowTexture = content.Load<Texture2D>("arrow");
+            UpArrowTexture = content.Load<Texture2D>("UpArrow");
+            DownArrowTexture = content.Load<Texture2D>("DownArrow");
+            LeftArrowTexture = content.Load<Texture2D>("LeftArrow");
+            RightArrowTexture = content.Load<Texture2D>("RightArrow");
             bombTexture = content.Load<Texture2D>("bomb");
+            explodingBombTexture = content.Load<Texture2D>("ExplodingBomb");
             swordTexture = content.Load<Texture2D>("sword");
             bowTexture = content.Load<Texture2D>("bow");
             coinTexture = content.Load<Texture2D>("GluckCoin");
@@ -50,11 +58,15 @@ namespace Project.Factories
             this._tileHeight = tileHeight;
         }
 
-        public ISprite CreateArrowSprite() => new StationarySprite(arrowTexture, new Rectangle(0, 0, 32, 32), new CharacterState());
+        public ISprite CreateUpArrowSprite() => new StationarySprite(UpArrowTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        public ISprite CreateDownArrowSprite() => new StationarySprite(DownArrowTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        public ISprite CreateLeftArrowSprite() => new StationarySprite(LeftArrowTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        public ISprite CreateRightArrowSprite() => new StationarySprite(RightArrowTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
         public ISprite CreateHeartSprite() => new AnimatedLoopSprite(heartTexture, new Rectangle(0, 0, 13, 13), 1, new CharacterState());
 
         public ISprite CreateBombSprite() => new StationarySprite(bombTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        public ISprite CreateExplodingBombSprite() => new AnimatedLoopSprite(explodingBombTexture, new Rectangle(0, 0, 16, 16), 1, new CharacterState());
 
         public ISprite CreateSwordSprite() => new StationarySprite(swordTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
