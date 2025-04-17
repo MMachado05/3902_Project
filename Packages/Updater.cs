@@ -54,9 +54,12 @@ namespace Project
 
             if (_player.health <= 0)
             {
-                _restartCommand.Execute();
+                //_restartCommand.Execute();
                 //SoundEffectManager.Instance.playGameOver();
                 SoundEffectManager.Instance.playDeathSound();
+
+                // added for game state
+                _gameState.State = GameState.Lost;
             }
         }
     }
