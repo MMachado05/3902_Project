@@ -40,6 +40,7 @@ namespace Project
 
         public void restart()
         {
+            SoundEffectManager.Instance.StopAllSounds();
             this.LoadContent();
             this.Initialize();
         }
