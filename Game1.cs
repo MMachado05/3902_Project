@@ -101,7 +101,7 @@ namespace Project
 
             // game over screen 
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
-            gameOverScreen = new GameOverScreen(font);
+            gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Update(GameTime gameTime)
