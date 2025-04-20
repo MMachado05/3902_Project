@@ -113,6 +113,8 @@ namespace Project.Packages.Sounds
             MediaPlayer.Stop();
             dungeonMusicPlaying = false;
             bossThemePlaying = false;
+
+            // doesn't actually stop any of the sound effects, will need to make changes in order to get that to work
         }
 
     }

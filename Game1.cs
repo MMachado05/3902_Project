@@ -113,6 +113,7 @@ namespace Project
                 {
                     case GameOverAction.Restart:
                         new RestartGameCommand(this).Execute();
+                        SoundEffectManager.Instance.StopAllSounds(); // this doesn't stop the death sound from playing
                         break;
                     case GameOverAction.Exit:
                         new QuitCommand(this).Execute();

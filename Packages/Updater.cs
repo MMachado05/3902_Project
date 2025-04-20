@@ -51,7 +51,6 @@ namespace Project
                 this._roomManager.Update(gameTime);
             }
 
-
             if (_player.health <= 0)
             {
                 //_restartCommand.Execute();
