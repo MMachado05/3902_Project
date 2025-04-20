@@ -28,9 +28,15 @@ namespace Project.UI
 
             spriteBatch.DrawString(font, title, titlePosition, Color.White);
         }
+
         public virtual void Update()
         {
+            // Optional for derived classes
+        }
 
+        public virtual GameOverAction HandleInput()
+        {
+            return GameOverAction.None;
         }
     }
 }

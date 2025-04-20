@@ -106,16 +106,27 @@ namespace Project
 
         protected override void Update(GameTime gameTime)
         {
-            // to test game over screen
             if (gameState.State == GameState.Lost)
             {
+                var action = gameOverScreen.HandleInput();
+
+                switch (action)
+                {
+                    case GameOverAction.Restart:
+                        new RestartGameCommand(this).Execute();
+                        break;
+                    case GameOverAction.Exit:
+                        new QuitCommand(this).Execute();
+                        break;
+                }
+
                 return;
             }
 
-            this.updater.Update(gameTime);
-
+            updater.Update(gameTime);
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {
