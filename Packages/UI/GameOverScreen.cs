@@ -13,18 +13,28 @@ namespace Project.UI
             : base(font, screenWidth, screenHeight, "Game Over")
         {
             int bw = 200, bh = 50;
+            int centerX = (screenWidth - bw) / 2;
+            int centerY = screenHeight / 2;
+
             restartButton = new Button("Restart",
-                new Rectangle((screenWidth - bw) / 2, screenHeight / 2 + 60, bw, bh),
+                new Rectangle(centerX, centerY, bw, bh),
                 GameOverAction.Restart, font);
 
             exitButton = new Button("Exit",
-                new Rectangle((screenWidth - bw) / 2, screenHeight / 2 + 130, bw, bh),
+                new Rectangle(centerX, centerY + 70, bw, bh),
                 GameOverAction.Exit, font);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            Vector2 titleSize = font.MeasureString(title);
+            Vector2 titlePosition = new Vector2(
+                (screenWidth - titleSize.X) / 2,
+                (screenHeight - titleSize.Y) / 2 - 100
+            );
+
+            spriteBatch.DrawString(font, title, titlePosition, Color.White);
+
             restartButton.Draw(spriteBatch);
             exitButton.Draw(spriteBatch);
         }

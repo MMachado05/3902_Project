@@ -11,6 +11,9 @@ namespace Project.UI
         public GameOverAction Action { get; set; }
 
         private SpriteFont font;
+        private Color defaultColor = new Color(50, 50, 50);
+        private Color hoverColor = new Color(70, 70, 120);
+        private Color textColor = Color.White;
 
         public Button(string text, Rectangle bounds, GameOverAction action, SpriteFont font)
         {
@@ -22,7 +25,21 @@ namespace Project.UI
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(font, Text, new Vector2(Bounds.X + 10, Bounds.Y + 10), Color.White);
+            MouseState mouse = Mouse.GetState();
+            Color background = Bounds.Contains(mouse.Position) ? hoverColor : defaultColor;
+
+            Texture2D rectTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            rectTexture.SetData(new[] { Color.White });
+
+            spriteBatch.Draw(rectTexture, Bounds, background);
+
+            Vector2 textSize = font.MeasureString(Text);
+            Vector2 textPos = new Vector2(
+                Bounds.X + (Bounds.Width - textSize.X) / 2,
+                Bounds.Y + (Bounds.Height - textSize.Y) / 2
+            );
+
+            spriteBatch.DrawString(font, Text, textPos, textColor);
         }
 
         public bool IsClicked(MouseState mouse)
