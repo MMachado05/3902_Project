@@ -23,6 +23,9 @@ namespace Project.Enemies.EnemyClasses
         public ISprite currentAnimation;
         private float elapsedTime;
 
+        private float hurtCooldown = 0f;
+        private const float HurtDelay = 1.0f;
+
         private Rectangle lastLocation;
 
         public int Health { get; private set; } = 3;
@@ -141,13 +144,21 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Update(GameTime gameTime)
         {
+            if (hurtCooldown > 0)
+                hurtCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             UpdateState(gameTime);
             UpdateAnimation(gameTime);
         }
 
         public virtual void TakeDamage(int amount)
         {
-            Health -= amount;
+            if (hurtCooldown <= 0)
+            {
+                Health -= amount;
+                hurtCooldown = HurtDelay;
+                System.Console.Out.WriteLine($"Enemy took {amount} damage. Remaining: {Health}");
+            }
         }
 
         public bool IsDead => Health <= 0;
