@@ -10,7 +10,6 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        public override int PlayerHealthEffect { get => 2; }
         public Coin(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;

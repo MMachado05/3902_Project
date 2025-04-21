@@ -89,6 +89,10 @@ namespace Project.Packages
             {
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
+                foreach (ProjectileItem projectile in this._enemyManager.ReturnEnemy().GetProjectiles())
+                {
+                    this._collisionManager.Collide(this._player, projectile);
+                }
             }
 
             //Player and Item Collison
