@@ -157,7 +157,6 @@ namespace Project.Enemies.EnemyClasses
             {
                 Health -= amount;
                 hurtCooldown = HurtDelay;
-                System.Console.Out.WriteLine($"Enemy took {amount} damage. Remaining: {Health}");
             }
         }
 
