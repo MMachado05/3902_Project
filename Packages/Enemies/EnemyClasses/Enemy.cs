@@ -144,5 +144,12 @@ namespace Project.Enemies.EnemyClasses
             UpdateState(gameTime);
             UpdateAnimation(gameTime);
         }
+
+        public virtual void TakeDamage(int amount)
+        {
+            Health -= amount;
+        }
+
+        public bool IsDead => Health <= 0;
     }
 }
