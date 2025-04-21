@@ -25,6 +25,8 @@ namespace Project.Enemies.EnemyClasses
 
         private Rectangle lastLocation;
 
+        public int Health { get; private set; } = 3;
+
         public Enemy(Rectangle initialPosition)
         {
             Location = initialPosition;
