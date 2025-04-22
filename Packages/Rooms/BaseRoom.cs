@@ -6,6 +6,8 @@ using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
 using Project.Characters;
+using System.Collections.Generic;
+using Project.Enemies.EnemyClasses;
 
 namespace Project.Packages
 {
@@ -26,6 +28,7 @@ namespace Project.Packages
         // Internal logic
         private Rectangle _defaultPlayerLocation;
         public Rectangle SavedPlayerLocation { set; get; } = Rectangle.Empty;
+        string RoomName;
 
         private bool _active;
 
@@ -33,7 +36,7 @@ namespace Project.Packages
 
         // Logistic fields
         public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap, IBlock Background)
+            IBlock[,] internalMap, IBlock Background,string RoomName)
         {
             this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
@@ -42,6 +45,7 @@ namespace Project.Packages
             this.internalMap = internalMap;
             this.Background = Background;
             SavedPlayerLocation = this._defaultPlayerLocation;
+            this.RoomName = RoomName;
 
             this._active = false;
         }
@@ -77,6 +81,12 @@ namespace Project.Packages
             {
                 item.Draw(sb);
             }
+        }
+        public string GetRoomName(){
+            return RoomName;
+        }
+        public List<Enemy> GetAllCurrentEnimeies(){
+            return this._enemyManager.GetAllEnimies();
         }
 
         public void Update(GameTime gameTime)
