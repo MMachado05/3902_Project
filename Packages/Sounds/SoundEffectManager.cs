@@ -18,10 +18,6 @@ namespace Project.Packages.Sounds
         private SoundEffect gameOver;
         private SoundEffect deathSound;
 
-        private static readonly SoundEffectManager instance = new SoundEffectManager();
-
-        public static SoundEffectManager Instance => instance;
-
         // --- Osama:
         private bool isMusicEnabled = true;
 
