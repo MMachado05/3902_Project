@@ -36,7 +36,7 @@ namespace Project.Enemies.EnemyClasses
         {
             Location = initialPosition;
             Speed = 1.0f;
-            stateMachine = new EnemyStateMachine(new SimpleRandomAI());
+            stateMachine = new EnemyStateMachine(new SimpleRandomAI(), GetInitialState());
 
             LoadAnimations();
             currentAnimation = idleRight;
@@ -165,5 +165,7 @@ namespace Project.Enemies.EnemyClasses
 
         public bool IsDead => Health <= 0;
         public abstract List<ProjectileItem> GetProjectiles();
+        protected virtual IEnemyState GetInitialState() => new IdleState();
+
     }
 }
