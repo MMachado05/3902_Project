@@ -105,6 +105,9 @@ namespace Project.Rooms
             }
             IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
             IBlock Background = SolidBlockFactory.Instance.GreenBg();
+            string RoomName = "";
+
+
 
             // Restart reader
             reader.DiscardBufferedData();
@@ -133,27 +136,35 @@ namespace Project.Rooms
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "bossBackground");
                             break;
                         case "room1":
+                            RoomName = "room1";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room1");
                             break;
                         case "room2":
+                            RoomName = "room2";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room2");
                             break;
                         case "room3":
+                            RoomName = "room3";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room3");
                             break;
                         case "room4":
+                            RoomName = "room4";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room4");
                             break;
                         case "room5":
+                            RoomName = "room5";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room5");
                             break;
                         case "room6":
+                            RoomName = "room6";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room6");
                             break;
                         case "room7":
+                            RoomName = "room7";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room7");
                             break;
                         case "room8":
+                            RoomName = "room8";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room8");
                             break;
                         case "bl":
@@ -238,7 +249,7 @@ namespace Project.Rooms
                 y++;
             }
 
-            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, Background);
+            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, Background,RoomName);
         }
     }
 }
