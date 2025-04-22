@@ -1,8 +1,6 @@
 using System;
-using Microsoft.Xna.Framework;
 using Project.Characters;
-using Project.Enemies;
-using Project.Enemies.EnemyClasses;
+using System.Collections.Generic;
 
 namespace Project.Enemies.EnemyStateClasses
 {
@@ -17,29 +15,21 @@ namespace Project.Enemies.EnemyStateClasses
 
         public MovingState(IEnemy enemy)
         {
-            var rng = new Random();
+            Random rng = new Random();
             duration = rng.Next(2, 13);
-            moveDirection = GenerateDirection(enemy, rng);
+            moveDirection = GenerateDirection(enemy.PossibleMovementDirections(), rng);
         }
 
         public void Execute(IEnemy enemy)
         {
             timer += 0.1f;
 
-            if (enemy is Enemy e)
-                e.MoveInDirection(moveDirection);
+            enemy.MoveInDirection(moveDirection);
         }
 
-        private Direction GenerateDirection(IEnemy enemy, Random rng)
+        private Direction GenerateDirection(List<Direction> validDirections, Random rng)
         {
-            if (enemy is Aquamentus)
-                return rng.Next(2) == 0 ? Direction.Left : Direction.Right;
-
-            bool horizontal = rng.Next(2) == 0;
-            if (horizontal)
-                return rng.Next(2) == 0 ? Direction.Left : Direction.Right;
-            else
-                return rng.Next(2) == 0 ? Direction.Up : Direction.Down;
+            return validDirections[rng.Next(validDirections.Count - 1)];
         }
     }
 }

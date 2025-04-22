@@ -166,6 +166,10 @@ namespace Project.Enemies.EnemyClasses
 
         public abstract List<ProjectileItem> GetProjectiles();
         protected virtual IEnemyState GetInitialState() => new IdleState();
-
+        public virtual List<Direction> PossibleMovementDirections()
+        {
+            return new List<Direction>{Direction.Up, Direction.Down, Direction.Right,
+          Direction.Left};
+        }
     }
 }
