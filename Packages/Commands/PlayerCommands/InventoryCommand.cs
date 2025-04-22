@@ -1,21 +1,23 @@
-﻿using Project.Items;
+﻿using Project.Characters;
+using Project.Items;
 
 namespace Project.Commands.PlayerCommands
 {
     public class InventoryCommand : ICommand
     {
-        private ItemManager _itemManager;
+        private Player _player;
         private int _itemIndex;
 
-        public InventoryCommand(ItemManager itemManager, int itemIndex)
+        public InventoryCommand(Player player, int itemIndex)
         {
-            _itemManager = itemManager;
+            _player = player;
             _itemIndex = itemIndex;
         }
 
         public void Execute()
         {
-            _itemManager.SetCurrentIndex(_itemIndex);
+            _player._inventory.setIndex(_itemIndex);
+            _player._inventory.GetCurrentItem().Item1.Location = _player.Location;
         }
     }
 }
