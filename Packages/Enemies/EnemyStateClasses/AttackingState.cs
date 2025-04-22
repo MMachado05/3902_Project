@@ -2,13 +2,15 @@ namespace Project.Enemies.EnemyStateClasses
 {
     public class AttackingState : IEnemyState
     {
-        private float attackDuration = 0;
-        private const float AttackFrameTime = 1f;
-        private bool hasAttacked = false;
+        private float timer;
+        private bool hasAttacked;
 
-        public void Update(IEnemy enemy)
+        public bool IsDone => timer >= 4;
+        public StateId Id => StateId.Attacking;
+
+        public void Execute(IEnemy enemy)
         {
-            attackDuration += 0.1f;
+            timer += 0.1f;
 
             if (!hasAttacked)
             {
@@ -16,18 +18,10 @@ namespace Project.Enemies.EnemyStateClasses
                 hasAttacked = true;
             }
 
-            if (attackDuration >= enemy.GetAttackDuration() * 4)
-            {
-                ResetAttack(enemy);
-            }
-        }
-
-        private void ResetAttack(IEnemy enemy)
-        {
-            attackDuration = 0;
-            hasAttacked = false;
-            enemy.ResetAttackState();
-            enemy.SetState(new IdleState());
+            if (IsDone)
+                enemy.ResetAttackState();
         }
     }
+
 }
+
