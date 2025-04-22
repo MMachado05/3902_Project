@@ -12,19 +12,16 @@ Team members in surname alphabetical order:
 
 # State of the Project
 
-#### Last Updated: 2/17/2025
+#### Last Updated: 4/21/2025
+Note: Seems like the previous Sprint Reflections were not seen in the Carmen submission comments, so we've included them again below for reference.
 
-The game largely functions as a proof-of-concept for various crucial functionalities
-that will be present throughout the game's development.
-The main player character, a red hooded sprite sourced from
-[Penzilla Design](https://penzilla.itch.io/hooded-protagonist), is controllable in the
-cardinal directions with the WASD or Arrow keys on a personal computer keyboard. 
-There are three enemies, selectable through the keys `o` and `p`. All move in a random
-way. The goblin and dragon enemies have a probability to attack; the goblin will throw
-a boomerang, and the dragon will shoot fireballs. A block sprite near the center of
-the game screen can be cycled through different available blocks with `t` and `y`.
-The currently active user item is visible near the top of the screen and can be cycled
-through different items with `u` and `i`.
+## Sprint 5 Reflection: https://docs.google.com/document/d/1q28rPGCG-rG73ghfsE4Clv-rERPY8Y1yNFoyA41vnCg/edit?usp=sharing
+
+## Sprint 4 Reflection: https://docs.google.com/document/d/1NK3ypsbkjp6Z4qUwtLITh1dAkzRBlRRAUzDb-0qkU9E/edit?usp=sharing
+
+## Sprint 3 Reflection: https://docs.google.com/document/d/1idFrSJx2DSiJr1UXSqbW2N4226-FbqvD6j2SJ2BxlIw/edit?usp=sharing
+
+## Sprint 2 reflection (below):
 
 ### Expected Improvements
 
