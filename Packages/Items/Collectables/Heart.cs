@@ -18,10 +18,6 @@ namespace Project.Items
 
         public override void Update(GameTime gameTime) { }
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-           }
         public override void CollideWith(IGameObject collider)
         {
             if (collider is Player)

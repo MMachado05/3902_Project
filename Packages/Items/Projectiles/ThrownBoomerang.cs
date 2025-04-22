@@ -24,7 +24,8 @@ namespace Project.Items
             TimeAlive = 0;
         }
 
-        public override void Update(GameTime gameTime) {
+        public override void Update(GameTime gameTime)
+        {
             TimeAlive += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (TimeAlive < .4)
             {
@@ -72,11 +73,6 @@ namespace Project.Items
             {
                 ToBeDeleted = true;
             }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
         }
         public override void CollideWith(IGameObject collider ){ }
     }
