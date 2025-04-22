@@ -16,6 +16,7 @@ namespace Project.Enemies.EnemyClasses
 
         public float Speed { get; set; }
         public int Health { get; set; }
+        public virtual bool IsDead => Health <= 0;
         //private IEnemyState CurrentState { get; set; }
         private EnemyStateMachine stateMachine;
 
@@ -163,7 +164,6 @@ namespace Project.Enemies.EnemyClasses
             }
         }
 
-        public bool IsDead => Health <= 0;
         public abstract List<ProjectileItem> GetProjectiles();
         protected virtual IEnemyState GetInitialState() => new IdleState();
 

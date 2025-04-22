@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
+using Project.Items;
 
 namespace Project.Enemies
 {
@@ -24,5 +27,10 @@ namespace Project.Enemies
         /// </summary>
         float GetAttackDuration();
         void Update(GameTime gameTime);
+        bool IsDead { get; }
+        void TakeDamage(int amount);
+        void MoveInDirection(Direction direction);
+        List<ProjectileItem> GetProjectiles();
+        List<Direction> PossibleMovementDirections();
     }
 }
