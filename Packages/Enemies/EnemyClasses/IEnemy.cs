@@ -7,7 +7,6 @@ namespace Project.Enemies
     {
         float Speed { get; set; }
         int Health { get; set; }
-        void SetState(IEnemyState newState);
         /*void SetPosition(Vector2 newPosition);*/
 
         /// <summary>
