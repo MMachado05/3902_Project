@@ -30,10 +30,12 @@ namespace Project.Packages
         private bool _active;
 
         public bool IsOnScreen { get => this._active; set => this._active = value; }
+        public string RoomSong { get; set; }
 
         // Logistic fields
-        public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap, IBlock Background)
+        public BaseRoom(CollisionManager collisionManager, ItemManager itemManager,
+            EnemyManager enemyManager, Rectangle defaultPlayerLocation,
+            IBlock[,] internalMap, IBlock Background, string songName)
         {
             this._collisionManager = collisionManager;
             this._enemyManager = enemyManager;
@@ -42,6 +44,7 @@ namespace Project.Packages
             this.internalMap = internalMap;
             this.Background = Background;
             SavedPlayerLocation = this._defaultPlayerLocation;
+            RoomSong = songName;
 
             this._active = false;
         }

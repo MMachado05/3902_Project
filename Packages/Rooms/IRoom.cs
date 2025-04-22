@@ -9,6 +9,7 @@ namespace Project.Rooms
         public Rectangle PlayerLocation { get; }
         public Rectangle SavedPlayerLocation { set; get; }
         public bool IsOnScreen { get; set; }
+        public string RoomSong { get; set; }
 
         public void Update(GameTime gameTime);
         public void Draw(SpriteBatch sb);
