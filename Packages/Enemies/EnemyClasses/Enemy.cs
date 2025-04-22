@@ -16,7 +16,9 @@ namespace Project.Enemies.EnemyClasses
 
         public float Speed { get; set; }
         public int Health { get; set; }
-        private IEnemyState CurrentState { get; set; }
+        public virtual bool IsDead => Health <= 0;
+        //private IEnemyState CurrentState { get; set; }
+        private EnemyStateMachine stateMachine;
 
         protected Direction lastDirection = Direction.Left;
 
@@ -35,7 +37,7 @@ namespace Project.Enemies.EnemyClasses
         {
             Location = initialPosition;
             Speed = 1.0f;
-            CurrentState = new IdleState();
+            stateMachine = new EnemyStateMachine(new SimpleRandomAI(), GetInitialState());
 
             LoadAnimations();
             currentAnimation = idleRight;
@@ -44,10 +46,6 @@ namespace Project.Enemies.EnemyClasses
 
         protected abstract void LoadAnimations();
 
-        public void SetState(IEnemyState newState)
-        {
-            CurrentState = newState;
-        }
 
         // TODO: Either the property should be public, or unsettable. We could also
         // just have some sort of "move" command.
@@ -112,8 +110,9 @@ namespace Project.Enemies.EnemyClasses
 
         public void UpdateState(GameTime gameTime)
         {
-            CurrentState.Update(this);
+            stateMachine.Update(this);
         }
+
 
         public virtual void UpdateAnimation(GameTime gameTime)
         {
@@ -165,7 +164,12 @@ namespace Project.Enemies.EnemyClasses
             }
         }
 
-        public bool IsDead => Health <= 0;
         public abstract List<ProjectileItem> GetProjectiles();
+        protected virtual IEnemyState GetInitialState() => new IdleState();
+        public virtual List<Direction> PossibleMovementDirections()
+        {
+            return new List<Direction>{Direction.Up, Direction.Down, Direction.Right,
+          Direction.Left};
+        }
     }
 }

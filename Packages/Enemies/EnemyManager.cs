@@ -7,12 +7,12 @@ namespace Project.Enemies
 {
     public class EnemyManager
     {
-        public List<Enemy> enemies;
+        public List<IEnemy> enemies;
         private int currentEnemyIndex;
 
         public EnemyManager()
         {
-            enemies = new List<Enemy>();
+            enemies = new List<IEnemy>();
             currentEnemyIndex = 0;
         }
 
@@ -44,7 +44,7 @@ namespace Project.Enemies
                 currentEnemyIndex++;
         }
 
-        public Enemy ReturnEnemy()
+        public IEnemy ReturnEnemy()
         {
             return enemies[currentEnemyIndex];
         }
