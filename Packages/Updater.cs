@@ -45,6 +45,7 @@ namespace Project
                 c.Update();
             }
 
+
             if (this._gameState.State == GameState.Playing)
             {
                 this._player.Update(gameTime); // Keep this here because update logic might change *outside* of a room
@@ -57,6 +58,11 @@ namespace Project
                 //SoundEffectManager.Instance.playGameOver();
                 SoundEffectManager.Instance.playDeathSound();
                 _gameState.State = GameState.Lost;
+            }
+            if(this._roomManager.IsThereEnmey()){
+                System.Console.WriteLine("win");
+                _gameState.State = GameState.Won;
+
             }
         }
     }
