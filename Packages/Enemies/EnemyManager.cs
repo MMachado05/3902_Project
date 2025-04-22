@@ -57,13 +57,12 @@ namespace Project.Enemies
 
         public void Update(GameTime gameTime)
         {
-            foreach (Enemy enemy in enemies)
+            for (int i = enemies.Count - 1; i >= 0; i--)
             {
-                enemy.Update(gameTime);
-                if (enemy.Health == 0)
+                enemies[i].Update(gameTime);
+                if (enemies[i].IsDead)
                 {
-                    enemies.Remove(enemy);
-                    break;
+                    enemies.RemoveAt(i);
                 }
             }
         }

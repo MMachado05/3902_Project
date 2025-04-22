@@ -148,6 +148,21 @@ namespace Project.Packages
                 }
 
             }
+            // Enemy and Attack Collisions
+            if (_player.IsAttacking())
+            {
+                var attack = _player.ActiveItem;
+                if (attack != null)
+                {
+                    foreach (var enemy in _enemyManager.enemies)
+                    {
+                        if (attack.Location.Intersects(enemy.Location))
+                        {
+                            enemy.TakeDamage(1);
+                        }
+                    }
+                }
+            }
         }
     }
 }

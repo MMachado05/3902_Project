@@ -254,5 +254,9 @@ namespace Project.Characters
             public int Dx { get; set; }
             public int Dy { get; set; }
         }
+
+        public IItem ActiveItem => _activeItem;
+        public bool IsAttacking() => Sprite.State == CharacterState.Attacking && _activeItem != null;
+
     }
 }
