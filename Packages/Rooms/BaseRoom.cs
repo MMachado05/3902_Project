@@ -154,7 +154,7 @@ namespace Project.Packages
                 var attack = _player.GetBasicAttack;
                 if (attack != null)
                 {
-                    foreach (var enemy in _enemyManager.enemies)
+                    foreach (IEnemy enemy in _enemyManager.enemies)
                     {
                         if (attack.Location.Intersects(enemy.Location))
                         {
