@@ -28,6 +28,8 @@ namespace Project
 
         private float elapsedTime;
 
+        private Texture2D _mapSpriteSheet; // osama
+
         private GameStateMachine gameState;
 
         GameRenderer gameRenderer;
@@ -95,6 +97,10 @@ namespace Project
             this.gameRenderer.PlayerCharacter = this.player;
 
             SoundEffectManager.Instance.LoadContent(Content);
+
+            _mapSpriteSheet = Content.Load<Texture2D>("map"); // osama
+            gameRenderer.MapSpriteSheet = _mapSpriteSheet; // osama
+            
 
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
