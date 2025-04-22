@@ -52,6 +52,7 @@ namespace Project.Renderer
 
         public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState)
         {
+            //TODO: adjust naming convention for some of these
             this._screenWidth = screenWidth;
             this._screenHeight = screenHeight;
             this.tileWidth = tileWidth;
@@ -73,40 +74,20 @@ namespace Project.Renderer
 
             HealthBarSpriteFactory.Instance.HealthBarSprite(_playerCharacter.health).Draw(spriteBatch, new Rectangle(64,0,256,64));
 
-            // osama beg
+            // -------------------- osama begg
 
-        if (_mapSpriteSheet != null)
-        {
-            // a) how big is each room‐frame?
-            int frameCount  = 8;
-            int frameWidth  = _mapSpriteSheet.Width  / frameCount;
+            int frameWidth  = _mapSpriteSheet.Width / 20;
             int frameHeight = _mapSpriteSheet.Height;
 
-            // b) compute which frame index we need:
-            //    here we treat CurrentRoomRow as the 0‑based index [0..7]
+            // [0->7]
             int frameIndex = _roomManager.CurrentRoomRow;
 
-            // c) source rectangle in the sheet:
-            Rectangle src = new Rectangle(
-                frameIndex * frameWidth,  // x
-                0,                        // y
-                frameWidth,
-                frameHeight
-            );
+            Rectangle src = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight); 
+            Rectangle dest = new Rectangle(895, -190, (frameWidth * (int)2.2), (frameHeight * (int)2.2)); // Added scaling bc map sprite is smol
 
-            // d) where on screen?  adjust these X/Y & size to taste:
-            var dest = new Rectangle(
-                x: _screenWidth  - frameWidth  - 10,  // 10px from right edge
-                y: 10,                                 // 10px from top
-                width:  frameWidth,
-                height: frameHeight
-            );
-
-            // e) draw it
             spriteBatch.Draw(_mapSpriteSheet, dest, src, Color.White);
-        }
 
-            // osama end
+            // -------------------- osama end
 
 
             // TODO: Catch collisions during the drawing stage and call relevant commands

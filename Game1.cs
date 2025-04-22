@@ -98,12 +98,12 @@ namespace Project
 
             SoundEffectManager.Instance.LoadContent(Content);
 
-            _mapSpriteSheet = Content.Load<Texture2D>("map"); // osama
-            gameRenderer.MapSpriteSheet = _mapSpriteSheet; // osama
+            _mapSpriteSheet = Content.Load<Texture2D>("map");
+            gameRenderer.MapSpriteSheet = _mapSpriteSheet; // Osama: Since no factory, need this. Alt: Could modify arguments for GameRenderer.cs, but could lead to bad code smells
             
 
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
-            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
+            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState);
             this.updater.RegisterController(this.CreateKeyboardController());
 
             // game over screen 
