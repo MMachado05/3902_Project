@@ -37,6 +37,8 @@ namespace Project
 
         // gameOver
         private GameOverScreen gameOverScreen;
+        private GameWinningScreen _GameWinningScreen;
+
 
         public void restart()
         {
@@ -101,6 +103,7 @@ namespace Project
             // game over screen 
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            _GameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Update(GameTime gameTime)
@@ -139,6 +142,9 @@ namespace Project
             if (gameState.State == GameState.Lost)
             {
                 gameOverScreen.Draw(_spriteBatch);
+            }
+            else if (gameState.State == GameState.Won){
+                _GameWinningScreen.Draw(_spriteBatch);
             }
             else
             {
