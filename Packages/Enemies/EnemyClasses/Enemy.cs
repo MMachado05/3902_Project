@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
+using Project.Items;
 using Project.Sprites;
 
 namespace Project.Enemies.EnemyClasses
@@ -13,6 +15,7 @@ namespace Project.Enemies.EnemyClasses
         public bool IsPassable { get => true; }
 
         public float Speed { get; set; }
+        public int Health { get; set; }
         private IEnemyState CurrentState { get; set; }
 
         protected Direction lastDirection = Direction.Left;
@@ -22,6 +25,9 @@ namespace Project.Enemies.EnemyClasses
         public ISprite attackUp, attackDown, attackLeft, attackRight;
         public ISprite currentAnimation;
         private float elapsedTime;
+
+        private float hurtCooldown = 0f;
+        private const float HurtDelay = 1.0f;
 
         private Rectangle lastLocation;
 
@@ -131,6 +137,10 @@ namespace Project.Enemies.EnemyClasses
             {
                 Location = lastLocation;
             }
+            if (collider is Arrow || collider is Explosion || collider is ThrownBoomerang)
+            {
+                Health -= 1;
+            }
         }
 
         public virtual void Attack() { }
@@ -139,8 +149,23 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Update(GameTime gameTime)
         {
+            if (hurtCooldown > 0)
+                hurtCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             UpdateState(gameTime);
             UpdateAnimation(gameTime);
         }
+
+        public virtual void TakeDamage(int amount)
+        {
+            if (hurtCooldown <= 0)
+            {
+                Health -= amount;
+                hurtCooldown = HurtDelay;
+            }
+        }
+
+        public bool IsDead => Health <= 0;
+        public abstract List<ProjectileItem> GetProjectiles();
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
 using Project.Items;
+using Project.Packages.Sounds;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -12,7 +13,9 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
-        public Aquamentus(Rectangle initialPosition) : base(initialPosition) { }
+        public Aquamentus(Rectangle initialPosition) : base(initialPosition) {
+            Health = 2;
+        }
 
         protected override void LoadAnimations()
         {
@@ -41,12 +44,12 @@ namespace Project.Enemies.EnemyClasses
             if (hasShot) return;
             hasShot = true;
 
-            foreach (var direction in GetAttackDirections())
+            foreach (Vector2 direction in GetAttackDirections())
             {
-                /*projectiles.Add(new ProjectileItem(Position, direction, ItemFactory.Instance.CreateFireballSprite(), 30.0f, 600f));*/
+                Rectangle fireballLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
+                projectiles.Add(new ProjectileItem(fireballLocation, direction, ItemFactory.Instance.CreateFireballSprite(), 5.0f, 600f));
             }
-            //Add when fireballs start working
-            //SoundEffectManager.Instance.playFireball();
+            SoundEffectManager.Instance.playFireball();
         }
 
         public override void ResetAttackState()
@@ -63,9 +66,14 @@ namespace Project.Enemies.EnemyClasses
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            /*projectiles.ForEach(p => p.Draw(spriteBatch));*/
+            projectiles.ForEach(p => p.Draw(spriteBatch));
         }
 
         public override float GetAttackDuration() => 2f;
+
+        public override List<ProjectileItem> GetProjectiles()
+        {
+            return projectiles;
+        }
     }
 }
