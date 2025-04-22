@@ -18,13 +18,15 @@ namespace Project
         private ICommand _restartCommand;
         private List<IController> _controllers;
         private GameStateMachine _gameState;
+        private SoundEffectManager _sfxManager;
 
-        public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState)
+        public Updater(RoomManager roomManager, Player player, ICommand restart, GameStateMachine gameState, SoundEffectManager sfxManager)
         {
             this._player = player;
             this._roomManager = roomManager;
             this._restartCommand = restart;
             this._gameState = gameState;
+            this._sfxManager = sfxManager;
             this._controllers = new List<IController>();
         }
 

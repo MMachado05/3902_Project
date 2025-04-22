@@ -74,6 +74,8 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.soundEffectManager = new SoundEffectManager();
+            this.soundEffectManager.LoadContent(Content);
             this.roomManager = new RoomManager();
             this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
 
@@ -92,10 +94,8 @@ namespace Project
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
 
-            SoundEffectManager.Instance.LoadContent(Content);
-
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
-            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
+            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState, this.soundEffectManager); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
 
             // game over screen 
