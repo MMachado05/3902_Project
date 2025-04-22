@@ -5,10 +5,10 @@ namespace Project.Enemies.EnemyStateClasses
         private IEnemyState current;
         private readonly IEnemyAI ai;
 
-        public EnemyStateMachine(IEnemyAI controller)
+        public EnemyStateMachine(IEnemyAI controller, IEnemyState initialState)
         {
             ai = controller;
-            current = new IdleState();
+            current = initialState;
         }
 
         public void Update(IEnemy enemy)
@@ -19,4 +19,5 @@ namespace Project.Enemies.EnemyStateClasses
                 current = ai.DecideNextState(enemy, current);
         }
     }
+
 }
