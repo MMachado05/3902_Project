@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Project.Enemies.EnemyStateClasses;
 
 namespace Project.Enemies
 {
