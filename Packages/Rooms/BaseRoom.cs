@@ -148,10 +148,10 @@ namespace Project.Packages
                 }
 
             }
-            // Enemy and Attack Collisions
+            // Enemy and BaseAttack Collisions
             if (_player.IsAttacking())
             {
-                var attack = _player.ActiveItem;
+                var attack = _player.GetBasicAttack;
                 if (attack != null)
                 {
                     foreach (var enemy in _enemyManager.enemies)

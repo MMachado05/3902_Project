@@ -32,7 +32,7 @@ namespace Project.Characters
         }
 
         private Vector2 _velocity;
-        private IItem _activeItem;
+        private IItem BasicAttack;
         public IInventory _inventory;
 
         private List<DirectionRegister> _activeDirections;
@@ -58,7 +58,7 @@ namespace Project.Characters
             // Initially use a "stopped" sprite (down facing)
             Sprite = PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(Direction.Down, false);
 
-            this._activeItem = null;
+            this.BasicAttack = null;
             this._inventory = new Inventory.Inventory();
             this._activeDirections = new List<DirectionRegister>();
         }
@@ -111,7 +111,7 @@ namespace Project.Characters
 
         public void Attack()
         { 
-            if (this._activeItem == null)
+            if (this.BasicAttack == null && _inventory.GetCurrentItem().Item1 is Sword)
                 {
                     int slashX = this.Location.X, slashY = this.Location.Y;
                     switch (LastActiveDirection)
@@ -129,7 +129,7 @@ namespace Project.Characters
                             slashX += this.Location.Width;
                             break;
                     }
-                    this._activeItem = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
+                    this.BasicAttack = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
                         slashX, slashY);
                 }
 
@@ -145,8 +145,8 @@ namespace Project.Characters
             {
                 Sprite.Update(gameTime);
                 elapsedTime = 0f;
-                if (this._activeItem != null)
-                    this._activeItem.Update(gameTime);
+                if (this.BasicAttack != null)
+                    this.BasicAttack.Update(gameTime);
             }
 
             switch (this.Sprite.State)
@@ -169,9 +169,13 @@ namespace Project.Characters
                     //Throw away the "item" related to default attack
                     //TODO: Change this logic when more items are implemented, I know it's
                     //  shoddy at best.
-                    this._activeItem.Location = new Rectangle(0, 0, -1, -1);
-                    this._activeItem = null;
-                    this.SetStaticSprite();
+                    if (BasicAttack != null)
+                    {
+                        this.BasicAttack.Location = new Rectangle(0, 0, -1, -1);
+                        this.BasicAttack = null;
+                        this.SetStaticSprite();
+                        break;
+                    }
                     break;
             }
 
@@ -192,8 +196,8 @@ namespace Project.Characters
         public void Draw(SpriteBatch spriteBatch, Rectangle? position = null)
         {
             Sprite.Draw(spriteBatch, position.HasValue ? position.Value : this.Location);
-            if (this.Sprite.State == CharacterState.Attacking && this._activeItem != null)
-                this._activeItem.Draw(spriteBatch);
+            if (this.Sprite.State == CharacterState.Attacking && this.BasicAttack != null)
+                this.BasicAttack.Draw(spriteBatch);
             _inventory.PlaceCurrentItem(spriteBatch, Location, LastActiveDirection);
         }
 
@@ -237,6 +241,7 @@ namespace Project.Characters
                     _inventory.Add((IItem)collider);
                 }
             }
+
         }
 
         private class DirectionRegister
@@ -255,8 +260,7 @@ namespace Project.Characters
             public int Dy { get; set; }
         }
 
-        public IItem ActiveItem => _activeItem;
-        public bool IsAttacking() => Sprite.State == CharacterState.Attacking && _activeItem != null;
-
+        public IItem GetBasicAttack => BasicAttack;
+        public bool IsAttacking() => Sprite.State == CharacterState.Attacking && BasicAttack != null;
     }
 }
