@@ -83,7 +83,10 @@ namespace Project.Enemies.EnemyClasses
             projectiles.ForEach(p => p.Draw(spriteBatch));
         }
 
-
+        public override List<ProjectileItem> GetProjectiles()
+        {
+            return projectiles;
+        }
 
     }
 }

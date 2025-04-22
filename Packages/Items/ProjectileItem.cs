@@ -11,7 +11,7 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        public virtual int PlayerHealthEffect { get => -1; }
+        public override int PlayerHealthEffect { get => -1; }
         public Vector2 VectorDirection { get; set; }
         private readonly Rectangle initialPosition;
         private readonly float maxDistance;

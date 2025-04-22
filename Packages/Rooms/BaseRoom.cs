@@ -84,7 +84,7 @@ namespace Project.Packages
             this._enemyManager.Update(gameTime);
             this._itemManager.Update();
 
-            //Player and Enemy Collision
+            //Player and Enemy/Projecilt Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 this._enemyManager.SwitchToNextEnemy();

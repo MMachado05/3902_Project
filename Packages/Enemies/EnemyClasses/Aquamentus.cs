@@ -71,7 +71,7 @@ namespace Project.Enemies.EnemyClasses
 
         public override float GetAttackDuration() => 2f;
 
-        public List<ProjectileItem> GetProjectiles()
+        public override List<ProjectileItem> GetProjectiles()
         {
             return projectiles;
         }

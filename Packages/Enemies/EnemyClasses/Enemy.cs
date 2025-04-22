@@ -16,8 +16,6 @@ namespace Project.Enemies.EnemyClasses
 
         public float Speed { get; set; }
         public int Health { get; set; }
-
-        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private IEnemyState CurrentState { get; set; }
 
         protected Direction lastDirection = Direction.Left;
@@ -151,9 +149,6 @@ namespace Project.Enemies.EnemyClasses
             UpdateState(gameTime);
             UpdateAnimation(gameTime);
         }
-        public List<ProjectileItem> GetProjectiles()
-        {
-            return projectiles;
-        }
+        public abstract List<ProjectileItem> GetProjectiles();
     }
 }

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Factories;
+using Project.Items;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -25,6 +27,10 @@ namespace Project.Enemies.EnemyClasses
             attackDown = EnemySpriteFactory.Instance.NewStalfosAttackingDown();
             attackLeft = EnemySpriteFactory.Instance.NewStalfosAttackingLeft();
             attackRight = EnemySpriteFactory.Instance.NewStalfosAttackingRight();
+        }
+        public override List<ProjectileItem> GetProjectiles()
+        {
+            return new List<ProjectileItem>();
         }
     }
 }
