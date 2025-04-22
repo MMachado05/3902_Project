@@ -82,12 +82,17 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
+            this._itemManager.Update();
 
-            //Player and Enemy Collision
+            //Player and Enemy/Projecilt Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
+                foreach (ProjectileItem projectile in this._enemyManager.ReturnEnemy().GetProjectiles())
+                {
+                    this._collisionManager.Collide(this._player, projectile);
+                }
             }
 
             //Player and Item Collison
@@ -122,10 +127,31 @@ namespace Project.Packages
                     }
                 }
             }
-            // Enemy and Attack Collisions
+
+            // Enemy and Projectile Collision
+            for (int i = 0; i < this._enemyManager.enemies.Count; i++)
+            {
+                var enemy = this._enemyManager.enemies[i];
+                if (_player._inventory.GetCurrentItem().Item1 is Bow)
+                {
+                    foreach (Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles)
+                    this._collisionManager.Collide(enemy, arrow);
+                }
+                if (_player._inventory.GetCurrentItem().Item1 is Bomb && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion)
+                {
+                    this._collisionManager.Collide(enemy, ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb);
+                }
+                if (_player._inventory.GetCurrentItem().Item1 is Boomerang)
+                {
+                    foreach (ThrownBoomerang boomerang in ((Boomerang)_player._inventory.GetCurrentItem().Item1).projectiles)
+                        this._collisionManager.Collide(enemy, boomerang);
+                }
+
+            }
+            // Enemy and BaseAttack Collisions
             if (_player.IsAttacking())
             {
-                var attack = _player.ActiveItem;
+                var attack = _player.GetBasicAttack;
                 if (attack != null)
                 {
                     foreach (var enemy in _enemyManager.enemies)

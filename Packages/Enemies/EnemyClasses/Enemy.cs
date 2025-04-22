@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
+using Project.Items;
 using Project.Sprites;
 
 namespace Project.Enemies.EnemyClasses
@@ -13,6 +15,7 @@ namespace Project.Enemies.EnemyClasses
         public bool IsPassable { get => true; }
 
         public float Speed { get; set; }
+        public int Health { get; set; }
         private IEnemyState CurrentState { get; set; }
 
         protected Direction lastDirection = Direction.Left;
@@ -27,8 +30,6 @@ namespace Project.Enemies.EnemyClasses
         private const float HurtDelay = 1.0f;
 
         private Rectangle lastLocation;
-
-        public int Health { get; private set; } = 3;
 
         public Enemy(Rectangle initialPosition)
         {
@@ -136,6 +137,10 @@ namespace Project.Enemies.EnemyClasses
             {
                 Location = lastLocation;
             }
+            if (collider is Arrow || collider is Explosion || collider is ThrownBoomerang)
+            {
+                Health -= 1;
+            }
         }
 
         public virtual void Attack() { }
@@ -161,5 +166,6 @@ namespace Project.Enemies.EnemyClasses
         }
 
         public bool IsDead => Health <= 0;
+        public abstract List<ProjectileItem> GetProjectiles();
     }
 }

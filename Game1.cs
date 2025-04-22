@@ -58,6 +58,9 @@ namespace Project
         {
             MyraEnvironment.Game = this; // UI library
 
+            //necessary for starting player with default item
+            ItemFactory.Instance.LoadAllTextures(Content,
+                64, 64);
             this.player = new Player();
             this.gameState = new GameStateMachine();
             this.gameState.State = GameState.Playing;
@@ -83,8 +86,7 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            ItemFactory.Instance.LoadAllTextures(Content,
-                gameRenderer.TileWidth, gameRenderer.TileHeight);
+            
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer.RoomManager = roomManager;
@@ -180,6 +182,13 @@ namespace Project
             // Attacking
             kbc.RegisterOnPress(Keys.Z, new AttackCommand(player));
             kbc.RegisterOnPress(Keys.N, new AttackCommand(player));
+
+            // Inventory
+            kbc.RegisterOnPress(Keys.D1, new InventoryCommand(player, 0));
+            kbc.RegisterOnPress(Keys.D2, new InventoryCommand(player, 1));
+            kbc.RegisterOnPress(Keys.D3, new InventoryCommand(player, 2));
+            kbc.RegisterOnPress(Keys.D4, new InventoryCommand(player, 3));
+            kbc.RegisterOnPress(Keys.D5, new InventoryCommand(player, 4));
 
             // Arrow keys to change current room
             kbc.RegisterOnPress(Keys.Up, new RoomUpCommand(roomManager));

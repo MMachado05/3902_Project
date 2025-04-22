@@ -1,11 +1,15 @@
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Factories;
+using Project.Items;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class Stalfos : Enemy
     {
-        public Stalfos(Rectangle initialPosition) : base(initialPosition) { }
+        public Stalfos(Rectangle initialPosition) : base(initialPosition) {
+            Health = 1;
+        }
 
         protected override void LoadAnimations()
         {
@@ -23,6 +27,10 @@ namespace Project.Enemies.EnemyClasses
             attackDown = EnemySpriteFactory.Instance.NewStalfosAttackingDown();
             attackLeft = EnemySpriteFactory.Instance.NewStalfosAttackingLeft();
             attackRight = EnemySpriteFactory.Instance.NewStalfosAttackingRight();
+        }
+        public override List<ProjectileItem> GetProjectiles()
+        {
+            return new List<ProjectileItem>();
         }
     }
 }
