@@ -17,7 +17,7 @@ namespace Project.Packages.Sounds
         private SoundEffect damage;
         private SoundEffect gameOver;
         private SoundEffect deathSound;
-        
+
         private static readonly SoundEffectManager instance = new SoundEffectManager();
 
         public static SoundEffectManager Instance => instance;
@@ -106,6 +106,15 @@ namespace Project.Packages.Sounds
         public void playDeathSound()
         {
             deathSound.Play();
+        }
+
+        public void StopAllSounds()
+        {
+            MediaPlayer.Stop();
+            dungeonMusicPlaying = false;
+            bossThemePlaying = false;
+
+            // doesn't actually stop any of the sound effects, will need to make changes in order to get that to work
         }
 
     }

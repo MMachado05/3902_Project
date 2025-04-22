@@ -14,6 +14,7 @@ using Project.Characters;
 using Project.Packages.Commands.GameLogicCommands;
 using Myra;
 using Project.Packages.Sounds;
+using Project.UI;
 
 namespace Project
 {
@@ -33,6 +34,9 @@ namespace Project
         Updater updater;
         RoomManager roomManager;
         SoundEffectManager soundEffectManager;
+
+        // gameOver
+        private GameOverScreen gameOverScreen;
 
         public void restart()
         {
@@ -95,21 +99,55 @@ namespace Project
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
             this.updater.RegisterController(this.CreateKeyboardController());
+
+            // game over screen 
+            SpriteFont font = Content.Load<SpriteFont>("PauseFont");
+            gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            this.updater.Update(gameTime);
+            if (gameState.State == GameState.Lost)
+            {
+                var action = gameOverScreen.HandleInput();
 
+                switch (action)
+                {
+                    case GameOverAction.Restart:
+                        new RestartGameCommand(this).Execute();
+                        SoundEffectManager.Instance.StopAllSounds(); // this doesn't stop the death sound from playing
+                        break;
+                    case GameOverAction.Exit:
+                        new QuitCommand(this).Execute();
+                        break;
+                }
+
+                return;
+            }
+
+            updater.Update(gameTime);
             base.Update(gameTime);
         }
+
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            gameRenderer.Draw(_spriteBatch);
+            // gameRenderer.Draw(_spriteBatch);
+
+            // to test game over screen
+            if (gameState.State == GameState.Lost)
+            {
+                gameOverScreen.Draw(_spriteBatch);
+            }
+            else
+            {
+                gameRenderer.Draw(_spriteBatch);
+            }
+
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
