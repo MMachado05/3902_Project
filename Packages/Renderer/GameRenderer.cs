@@ -76,16 +76,16 @@ namespace Project.Renderer
 
             // -------------------- osama begg
 
-            int frameWidth  = _mapSpriteSheet.Width / 20;
+            int frameWidth  = _mapSpriteSheet.Width / 20; // fuzzy
             int frameHeight = _mapSpriteSheet.Height;
 
-            // [0->7]
+            // [0->8]
             int frameIndex = _roomManager.CurrentRoomRow;
 
-            Rectangle src = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight); 
-            Rectangle dest = new Rectangle(895, -190, (frameWidth * (int)2.2), (frameHeight * (int)2.2)); // Added scaling bc map sprite is smol
+            Rectangle sourceRect = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight);
+            Rectangle destRect = new Rectangle(900, 20, (frameWidth * (int)3.2), (frameHeight * (int)3.2)); // Added scaling bc map sprite is smol
 
-            spriteBatch.Draw(_mapSpriteSheet, dest, src, Color.White);
+            spriteBatch.Draw(_mapSpriteSheet, destRect, sourceRect, Color.White);
 
             // -------------------- osama end
 
