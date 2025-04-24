@@ -28,21 +28,6 @@ namespace Project.Items
         }
         public List<Item> GetWorldItems() => worldItems;
 
-        public void PlaceInventoryItem()
-        {
-            /*GetCurrentItem().Position = GetPlacementPosition();*/
-        }
-
-        private Vector2 GetPlacementPosition()
-        {
-            return new Vector2();
-        }
-
-        private Vector2 GetItemDirection()
-        {
-            return new Vector2();
-        }
-
         public void AddProjectile(ProjectileItem projectile)
         {
             this.projectiles.Add(projectile);
