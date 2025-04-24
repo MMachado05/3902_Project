@@ -154,6 +154,9 @@ namespace Project.Rooms
             }
             IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
             IBlock Background = SolidBlockFactory.Instance.GreenBg();
+            string RoomName = "";
+
+
 
             // Restart reader
             reader.DiscardBufferedData();
@@ -199,6 +202,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(0, 0, 32, 32)
                             );
+                            RoomName = "room1";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room1");
                             break;
                         case "room2":
@@ -207,6 +211,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(32, 0, 32, 32)
                             );
+                            RoomName = "room2";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room2");
                             break;
                         case "room3":
@@ -215,6 +220,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(2 * 32, 0, 32, 32)
                             );
+                            RoomName = "room3";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room3");
                             break;
                         case "room4":
@@ -223,6 +229,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(4 * 32, 0, 32, 32)
                             );
+                            RoomName = "room4";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room4");
                             break;
                         case "room5":
@@ -231,6 +238,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(3 * 32, 0, 32, 32)
                             );
+                            RoomName = "room5";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room5");
                             break;
                         case "room6":
@@ -239,6 +247,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(5 * 32, 0, 32, 32)
                             );
+                            RoomName = "room6";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room6");
                             break;
                         case "room7":
@@ -247,6 +256,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(6 * 32, 0, 32, 32)
                             );
+                            RoomName = "room7";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room7");
                             break;
                         case "room8":
@@ -256,6 +266,7 @@ namespace Project.Rooms
                                 new Rectangle(7 * 32, 0, 32, 32)
                             );
 
+                            RoomName = "room8";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room8");
                             break;
                         case "bl":

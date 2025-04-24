@@ -75,5 +75,10 @@ namespace Project.Enemies.EnemyClasses
         {
             return projectiles;
         }
+
+        public override List<Direction> PossibleMovementDirections()
+        {
+          return new List<Direction>{Direction.Left, Direction.Right};
+        }
     }
 }

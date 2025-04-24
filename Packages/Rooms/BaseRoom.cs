@@ -7,6 +7,10 @@ using Project.Packages.Characters;
 using Project.Packages.Rooms;
 using Project.Rooms;
 using Project.Rooms.Blocks;
+using Project.Items;
+using Project.Characters;
+using System.Collections.Generic;
+using Project.Enemies.EnemyClasses;
 
 namespace Project.Packages
 {
@@ -30,6 +34,7 @@ namespace Project.Packages
         // Internal logic
         private Rectangle _defaultPlayerLocation;
         public Rectangle SavedPlayerLocation { set; get; } = Rectangle.Empty;
+        string RoomName;
 
         private bool _active;
         IBlock MiniMap;
@@ -90,6 +95,12 @@ namespace Project.Packages
             {
                 item.Draw(sb);
             }
+        }
+        public string GetRoomName(){
+            return RoomName;
+        }
+        public List<IEnemy> GetAllCurrentEnimeies(){
+            return this._enemyManager.GetAllEnimies();
         }
 
         public void Update(GameTime gameTime)
@@ -180,7 +191,7 @@ namespace Project.Packages
                 var attack = _player.GetBasicAttack;
                 if (attack != null)
                 {
-                    foreach (var enemy in _enemyManager.enemies)
+                    foreach (IEnemy enemy in _enemyManager.enemies)
                     {
                         if (attack.Location.Intersects(enemy.Location))
                         {

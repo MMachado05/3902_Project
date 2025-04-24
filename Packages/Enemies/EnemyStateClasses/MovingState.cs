@@ -1,73 +1,35 @@
 using System;
-using Microsoft.Xna.Framework;
 using Project.Characters;
-using Project.Enemies.EnemyClasses;
+using System.Collections.Generic;
 
 namespace Project.Enemies.EnemyStateClasses
 {
     public class MovingState : IEnemyState
     {
-        private static readonly Random random = new Random();
-        private Vector2 direction;
-        private float moveTimer = 0;
+        private readonly Direction moveDirection;
+        private readonly float duration;
+        private float timer;
 
-        private float moveDuration;
+        public bool IsDone => timer > duration;
+        public StateId Id => StateId.Moving;
 
         public MovingState(IEnemy enemy)
         {
-            SetNewMovement(enemy);
+            Random rng = new Random();
+            duration = rng.Next(2, 13);
+            moveDirection = GenerateDirection(enemy.PossibleMovementDirections(), rng);
         }
 
-        private void SetNewMovement(IEnemy enemy)
+        public void Execute(IEnemy enemy)
         {
+            timer += 0.1f;
 
-            moveDuration = random.Next(2, 13);
-
-            if (enemy is Aquamentus)
-            {
-                direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0);
-            }
-            else
-            {
-                bool moveHorizontally = random.Next(2) == 0;
-
-                if (moveHorizontally)
-                {
-                    direction = new Vector2(random.Next(2) == 0 ? -1 : 1, 0);
-                }
-                else
-                {
-                    direction = new Vector2(0, random.Next(2) == 0 ? -1 : 1);
-                }
-            }
+            enemy.MoveInDirection(moveDirection);
         }
 
-        public void Update(IEnemy enemy)
+        private Direction GenerateDirection(List<Direction> validDirections, Random rng)
         {
-            moveTimer += 0.1f;
-            if (enemy is Enemy e)
-            {
-                Direction moveDir = GetMoveDirection(direction);
-                e.MoveInDirection(moveDir);
-            }
-
-            // TODO: Refactor and such
-            /*enemy.SetPosition(enemy.Position + direction * enemy.Speed);*/
-
-            if (moveTimer > moveDuration)
-            {
-                enemy.SetState(new IdleState());
-                moveTimer = 0;
-                SetNewMovement(enemy);
-            }
-        }
-
-        private static Direction GetMoveDirection(Vector2 dir)
-        {
-            if (dir.Y < 0) return Direction.Up;
-            if (dir.Y > 0) return Direction.Down;
-            if (dir.X < 0) return Direction.Left;
-            return Direction.Right;
+            return validDirections[rng.Next(validDirections.Count - 1)];
         }
     }
 }

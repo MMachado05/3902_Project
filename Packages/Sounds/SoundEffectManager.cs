@@ -17,6 +17,10 @@ namespace Project.Packages.Sounds
         private SoundEffect damage;
         private SoundEffect gameOver;
         private SoundEffect deathSound;
+        private SoundEffect explosion;
+        private SoundEffect FireBow;
+        private SoundEffect keys;
+
 
         private static readonly SoundEffectManager instance = new SoundEffectManager();
 
@@ -28,8 +32,8 @@ namespace Project.Packages.Sounds
         private Boolean dungeonMusicPlaying = false; // Osama: Maybe rename to "dungonMusic" or something?
         private Boolean bossThemePlaying = false;
         public void LoadContent(ContentManager content)
-        {
-            dungeonMusic = content.Load<Song>("sfx/Monkeys Spinning Monkeys");
+        { 
+            dungeonMusic = content.Load<Song>("sfx/Main Theme");
             bossTheme = content.Load<Song>("sfx/Boss Theme");
             swordSlash = content.Load<SoundEffect>("sfx/swordSlash");
             fireball = content.Load<SoundEffect>("sfx/fireball");
@@ -38,6 +42,9 @@ namespace Project.Packages.Sounds
             damage = content.Load<SoundEffect>("sfx/damage");
             gameOver = content.Load<SoundEffect>("sfx/gameOver");
             deathSound = content.Load<SoundEffect>("sfx/deathSound");
+            explosion = content.Load<SoundEffect>("sfx/explosion");
+            FireBow = content.Load<SoundEffect>("sfx/FireBow");
+            keys = content.Load<SoundEffect>("sfx/keys");
         }
 
         public void ToggleMusic()
@@ -106,6 +113,18 @@ namespace Project.Packages.Sounds
         public void playDeathSound()
         {
             deathSound.Play();
+        }
+        public void playExplosion()
+        {
+            explosion.Play();
+        }
+        public void playFireBow()
+        {
+            FireBow.Play();
+        }
+        public void playKeys()
+        {
+            keys.Play();
         }
 
         public void StopAllSounds()

@@ -87,6 +87,5 @@ namespace Project.Enemies.EnemyClasses
         {
             return projectiles;
         }
-
     }
 }

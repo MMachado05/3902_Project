@@ -23,15 +23,9 @@ namespace Project.Rooms
         private int currentRoomX;
         private int currentRoomY;
         private Player _player;
-
-        public int CurrentRoomRow
-        {
-            get { return currentRoomX; }
-        }
-        public int CurrentRoomColumn
-        {
-            get { return currentRoomY; }
-        }
+        private bool NoEnimes;
+        public int CurrentRoomRow { get { return currentRoomX; } }
+        public int CurrentRoomColumn { get { return currentRoomY; } }
 
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
@@ -42,6 +36,7 @@ namespace Project.Rooms
 
             this.roomParser = new RoomParser();
             this.collisionManager = new CollisionManager();
+            NoEnimes= false;
         }
 
         public void LoadRoomsFromContent(ContentManager content, GameRenderer gr)
@@ -98,6 +93,7 @@ namespace Project.Rooms
                 mapRoomY++;
             }
         }
+        
 
         public void AssignPlayer(Player player)
         {
@@ -121,7 +117,8 @@ namespace Project.Rooms
 
         public void Update(GameTime gameTime)
         {
-            this.GetCurrentRoom().Update(gameTime);
+            IRoom Room = this.GetCurrentRoom();
+            Room.Update(gameTime);
 
             if (this.currentRoomX == 2 && this.currentRoomY == 4)
             {
@@ -131,6 +128,13 @@ namespace Project.Rooms
             {
                 SoundEffectManager.Instance.playDungeonMusic();
             }
+            if(this.currentRoomX == 2 && this.currentRoomY == 4&&Room.GetAllCurrentEnimeies().Count==0){
+                NoEnimes = true;
+            }
+            
+        }
+        public bool IsThereEnmey(){
+            return NoEnimes;
         }
 
         public void GotoRoomBelow()
@@ -256,7 +260,6 @@ namespace Project.Rooms
                     );
             }
         }
-
         public IRoom GetCurrentRoom()
         {
             return this.Map[this.currentRoomX, this.currentRoomY];
