@@ -1,6 +1,4 @@
-# Gluckbusters Game
-
-#### Game name pending
+# Gluckbusters, The Game
 
 Team members in surname alphabetical order:
 
