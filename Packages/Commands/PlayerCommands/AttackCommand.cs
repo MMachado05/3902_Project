@@ -1,24 +1,24 @@
-﻿using Project.Characters;
-using Project.Characters.Enums;
+﻿using Project.Characters.Enums;
 using Project.Factories;
 using Project.Packages.Sounds;
+using Project.Rooms;
 
 namespace Project.Commands.PlayerCommands
 {
     public class AttackCommand : ICommand
     {
-        private Player _player;
+        private RoomManager _roomManager;
 
-        public AttackCommand(Player player)
+        public AttackCommand(RoomManager roomManager)
         {
-            _player = player;
+            _roomManager = roomManager;
         }
 
         public void Execute()
         {
-            if (_player.Sprite.State != CharacterState.Attacking)
-                _player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_player.LastActiveDirection, _player.invincibleTime > 0));
-            _player.Attack();
+            if (_roomManager.player.Sprite.State != CharacterState.Attacking)
+                _roomManager.player.ChangeSprite(PlayerSpriteFactory.Instance.NewAttackingPlayerSprite(_roomManager.player.LastActiveDirection, _roomManager.player.invincibleTime > 0));
+            _roomManager.GetCurrentRoom().TriggerPlayerAttack();
             SoundEffectManager.Instance.playSword();
         }
     }
