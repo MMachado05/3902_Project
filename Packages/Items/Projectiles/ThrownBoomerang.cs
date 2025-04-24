@@ -9,8 +9,8 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
 
-        public ThrownBoomerang(Rectangle position, Vector2 vectorDirection, float speed, ISprite sprite)
-          : base(position, vectorDirection, sprite, speed, 100f)
+        public ThrownBoomerang(Rectangle position, Vector2 vectorDirection, float speed, ISprite sprite, bool damagesPlayer, bool damagesEnemies)
+          : base(position, vectorDirection, sprite, speed, 100f, damagesPlayer, damagesEnemies)
         {
             Location = position;
         }

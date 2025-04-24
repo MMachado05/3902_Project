@@ -110,21 +110,21 @@ namespace Project.Packages
             this._enemyManager.Update(gameTime, _itemManager);
             this._itemManager.Update(gameTime);
 
-            //Player and Enemy/Projecilt Collision
+            //Player and Enemy Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
             }
 
-            //Player and Item Collison
+            //Player and Item/Projectiles Collison
             for (int i = 0; i < this._itemManager.GetWorldItems().Count; i++)
             {
                 this._collisionManager.Collide(this._player, this._itemManager.GetWorldItems()[i]);
             }
             for (int i = 0; i < this._itemManager.GetProjectiles.Count; i++)
             {
-                if (this._itemManager.GetProjectiles[i].PlayerHealthEffect < 0)
+                if (this._itemManager.GetProjectiles[i].DamagesPlayer)
                     this._collisionManager.Collide(this._player, this._itemManager.GetProjectiles[i]);
             }
 

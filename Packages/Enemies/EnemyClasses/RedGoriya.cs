@@ -66,7 +66,9 @@ namespace Project.Enemies.EnemyClasses
                   GetAttackDirection(),
                   ItemFactory.Instance.CreateBoomerangSprite(),
                   5.0f,
-                  150.0f
+                  150.0f,
+                  true,
+                  false
                   );
 
 

@@ -48,7 +48,15 @@ namespace Project.Enemies.EnemyClasses
             foreach (Vector2 direction in GetAttackDirections())
             {
                 Rectangle fireballLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
-                itemManager.AddProjectile(new ProjectileItem(fireballLocation, direction, ItemFactory.Instance.CreateFireballSprite(), 5.0f, 600f));
+                itemManager.AddProjectile(new ProjectileItem(
+                      fireballLocation,
+                      direction,
+                      ItemFactory.Instance.CreateFireballSprite(),
+                      5.0f,
+                      600f,
+                      true,
+                      false
+                      ));
             }
             SoundEffectManager.Instance.playFireball();
         }

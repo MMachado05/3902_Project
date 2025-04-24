@@ -8,11 +8,10 @@ namespace Project.Items
     public class Arrow : ProjectileItem
     {
         public override Rectangle Location { get; set; }
-        public Arrow(Rectangle position, Vector2 vectorDirection, float speed, ISprite sprite)
-          : base(position, vectorDirection, sprite, speed, 600f)
+        public Arrow(Rectangle position, Vector2 vectorDirection, float speed, ISprite sprite, bool damagesPlayer, bool damagesEnemies)
+          : base(position, vectorDirection, sprite, speed, 600f, damagesPlayer, damagesEnemies)
         {
             Location = position;
-            PlayerHealthEffect = 0;
         }
 
         public override void CollideWith(IGameObject collider)

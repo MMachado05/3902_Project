@@ -42,16 +42,16 @@ namespace Project.Items
             switch (Direction)
             {
                 case Direction.Up:
-                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, -2), 2f, ItemFactory.Instance.CreateUpArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, -2), 2f, ItemFactory.Instance.CreateUpArrowSprite(), false, true));
                     break;
                 case Direction.Right:
-                    itemManager.AddProjectile(new Arrow(Location, new Vector2(2, 0), 2f, ItemFactory.Instance.CreateRightArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(2, 0), 2f, ItemFactory.Instance.CreateRightArrowSprite(), false, true));
                     break;
                 case Direction.Left:
-                    itemManager.AddProjectile(new Arrow(Location, new Vector2(-2, 0), 2f, ItemFactory.Instance.CreateLeftArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(-2, 0), 2f, ItemFactory.Instance.CreateLeftArrowSprite(), false, true));
                     break;
                 case Direction.Down:
-                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, 2), 2f, ItemFactory.Instance.CreateDownArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, 2), 2f, ItemFactory.Instance.CreateDownArrowSprite(), false, true));
                     break;
                 default:
                     break;
