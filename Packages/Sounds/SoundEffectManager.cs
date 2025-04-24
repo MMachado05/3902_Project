@@ -35,7 +35,7 @@ namespace Project.Packages.Sounds
         private Boolean bossThemePlaying = false;
         public void LoadContent(ContentManager content)
         { 
-            dungeonMusic = content.Load<Song>("sfx/Main Theme");
+            dungeonMusic = content.Load<Song>("sfx/dungeonMusic");
             bossTheme = content.Load<Song>("sfx/Boss Theme");
             swordSlash = content.Load<SoundEffect>("sfx/swordSlash");
             fireball = content.Load<SoundEffect>("sfx/fireball");

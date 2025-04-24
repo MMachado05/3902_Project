@@ -306,7 +306,6 @@
 /processor:SongProcessor
 /processorParam:Quality=Best
 /build:sfx/MenuTheme.mp3
-#end
 
 #begin PauseFont.spritefont
 /importer:FontDescriptionImporter
@@ -470,12 +469,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sfx/keys.wav
-
-#begin sfx/Main Theme.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:sfx/Main Theme.wav
 
 #begin sfx/swordSlash.wav
 /importer:WavImporter
