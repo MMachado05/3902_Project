@@ -8,6 +8,7 @@ using Project.Items;
 using Project.Packages.Sounds;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
+using Project.Commands.PlayerCommands;
 
 namespace Project.Characters
 {
@@ -215,7 +216,7 @@ namespace Project.Characters
                 if (collisionHealthEffect < 0) // Causing damage
                 {
                     SoundEffectManager.Instance.playDamage();
-                    invincibleTime = 1;
+                    new DamageCommand(this).Execute();
                 }
                 if (collisionHealthEffect > 0) // Healing
                 {
