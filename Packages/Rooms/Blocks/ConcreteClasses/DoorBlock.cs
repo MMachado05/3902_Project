@@ -58,7 +58,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
                             this._textureSource, Color.White);
         }
 
-        public void CollideWith(IGameObject collider)
+        public void CollideWith(IGameObject collider, Vector2 from)
         {
             // TODO: I figure there's a way to do this w/o needing to check the implementation
             // of the collider, but that's a future issue to solve.

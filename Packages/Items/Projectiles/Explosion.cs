@@ -16,7 +16,7 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        private int TimeAlive; 
+        private int TimeAlive;
         public Explosion(Rectangle position, ISprite sprite) : base(sprite)
         {
             int width = position.Width;
@@ -25,10 +25,11 @@ namespace Project.Items
             TimeAlive = 1000;
         }
 
-        public override void Update(GameTime gameTime) {
+        public override void Update(GameTime gameTime)
+        {
         }
-        public override void CollideWith(IGameObject collider)
-        { 
+        public override void CollideWith(IGameObject collider, Vector2 from)
+        {
         }
     }
 }
