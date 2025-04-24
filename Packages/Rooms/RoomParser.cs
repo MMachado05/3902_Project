@@ -3,54 +3,95 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Project.Enemies;
-using Project.Packages;
 using Project.Enemies.EnemyClasses;
+using Project.Factories;
+using Project.Items;
+using Project.Packages;
 using Project.Packages.Characters;
 using Project.Renderer;
 using Project.Rooms.Blocks;
-using Project.Items;
-using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 
 namespace Project.Rooms
 {
     public class RoomParser
     {
-        private IBlock AddBlockToRoom(int x, int y, GameRenderer gr, int width, int hieght, String blockName)
+        private IBlock AddBlockToRoom(
+            int x,
+            int y,
+            GameRenderer gr,
+            int width,
+            int hieght,
+            String blockName
+        )
         {
             IBlock result;
             switch (blockName)
             {
                 case "CreateBricks":
-                    result = SolidBlockFactory.Instance.CreateBricks(1, 1,
-                                       new Rectangle(x * gr.TileWidth,
-                                         (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    result = SolidBlockFactory.Instance.CreateBricks(
+                        1,
+                        1,
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
 
                     break;
                 case "CreateWoodPlanks":
-                    result = SolidBlockFactory.Instance.CreateWoodPlanks(1, 1,
-                                       new Rectangle(x * gr.TileWidth,
-                                         (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                    result = SolidBlockFactory.Instance.CreateWoodPlanks(
+                        1,
+                        1,
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
                     break;
                 case "CreateRightDoor":
                     result = SolidBlockFactory.Instance.CreateRightDoor(
-                                      new Rectangle(x * gr.TileWidth,
-                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
                     break;
                 case "CreateTopDoor":
                     result = SolidBlockFactory.Instance.CreateTopDoor(
-                                      new Rectangle(x * gr.TileWidth,
-                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
                     break;
                 case "CreateDownDoor":
                     result = SolidBlockFactory.Instance.CreateBottomDoor(
-                                      new Rectangle(x * gr.TileWidth,
-                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
                     break;
                 case "CreateLeftDoor":
                     result = SolidBlockFactory.Instance.CreateLeftDoor(
-                                      new Rectangle(x * gr.TileWidth,
-                                        (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight));
+                        new Rectangle(
+                            x * gr.TileWidth,
+                            (y - 1) * gr.TileHeight,
+                            gr.TileWidth,
+                            gr.TileHeight
+                        )
+                    );
                     break;
                 case "room1":
                     result = SolidBlockFactory.Instance.room1Background();
@@ -83,14 +124,21 @@ namespace Project.Rooms
                 default:
                     result = null;
                     break;
-
             }
             return result;
-
         }
+
         DoorBlock door;
-        public IRoom LoadRoom(string filePath, GameRenderer gr,
-             ContentManager content, int tileWidth, int tileHeight, CollisionManager collisionManager)
+        IBlock mini_map;
+
+        public IRoom LoadRoom(
+            string filePath,
+            GameRenderer gr,
+            ContentManager content,
+            int tileWidth,
+            int tileHeight,
+            CollisionManager collisionManager
+        )
         {
             StreamReader reader = new(filePath);
             string line;
@@ -130,53 +178,148 @@ namespace Project.Rooms
                     switch (items[x])
                     {
                         case "boss":
-                            Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "bossBackground");
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(8 * 32, 0, 32, 32)
+                            );
+                            Background = AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "bossBackground"
+                            );
                             break;
                         case "room1":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(0, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room1");
                             break;
                         case "room2":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room2");
                             break;
                         case "room3":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(2 * 32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room3");
                             break;
                         case "room4":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(4 * 32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room4");
                             break;
                         case "room5":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(3 * 32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room5");
                             break;
                         case "room6":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(5 * 32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room6");
                             break;
                         case "room7":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(6 * 32, 0, 32, 32)
+                            );
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room7");
                             break;
                         case "room8":
+                            mini_map = SolidBlockFactory.Instance.MiniMap(
+                                1,
+                                1,
+                                new Rectangle(7 * 32, 0, 32, 32)
+                            );
+
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room8");
                             break;
                         case "bl":
 
-                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateBricks");
+                            internalMap[x, y] = AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateBricks"
+                            );
                             break;
                         case "ob":
-                            internalMap[x, y] = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateWoodPlanks");
+                            internalMap[x, y] = AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateWoodPlanks"
+                            );
                             break;
                         case "drR":
-                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateRightDoor");
+                            door = (DoorBlock)AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateRightDoor"
+                            );
                             internalMap[x, y] = door;
                             break;
                         case "drL":
-                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateLeftDoor");
+                            door = (DoorBlock)AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateLeftDoor"
+                            );
                             internalMap[x, y] = door;
                             break;
                         case "drT":
-                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateTopDoor");
+                            door = (DoorBlock)AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateTopDoor"
+                            );
                             internalMap[x, y] = door;
                             break;
                         case "drD":
-                            door = (DoorBlock)AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "CreateDownDoor");
+                            door = (DoorBlock)AddBlockToRoom(
+                                x,
+                                y,
+                                gr,
+                                tileWidth,
+                                tileHeight,
+                                "CreateDownDoor"
+                            );
                             internalMap[x, y] = door;
                             break;
                         case "pl":
@@ -184,31 +327,118 @@ namespace Project.Rooms
                             playerSpriteLocation.Y = (y - 1) * gr.TileHeight;
                             break;
                         case "aq":
-                            enemyManager.AddEnemy(new Aquamentus(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            enemyManager.AddEnemy(
+                                new Aquamentus(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    )
+                                )
+                            );
                             break;
                         case "rg":
-                            enemyManager.AddEnemy(new RedGoriya(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            enemyManager.AddEnemy(
+                                new RedGoriya(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    )
+                                )
+                            );
                             break;
                         case "st":
-                            enemyManager.AddEnemy(new Stalfos(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight)));
+                            enemyManager.AddEnemy(
+                                new Stalfos(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    )
+                                )
+                            );
                             break;
                         case "hr":
-                            itemManager.addItem(new Heart(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateHeartSprite()));
+                            itemManager.addItem(
+                                new Heart(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateHeartSprite()
+                                )
+                            );
                             break;
                         case "co":
-                            itemManager.addItem(new Coin(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateCoinSprite()));
+                            itemManager.addItem(
+                                new Coin(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateCoinSprite()
+                                )
+                            );
                             break;
                         case "bm":
-                            itemManager.addItem(new Bomb(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBombSprite()));
+                            itemManager.addItem(
+                                new Bomb(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateBombSprite()
+                                )
+                            );
                             break;
                         case "bmr":
-                            itemManager.addItem(new Boomerang(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBoomerangSprite()));
+                            itemManager.addItem(
+                                new Boomerang(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateBoomerangSprite()
+                                )
+                            );
                             break;
                         case "bw":
-                            itemManager.addItem(new Bow(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateBowSprite()));
+                            itemManager.addItem(
+                                new Bow(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateBowSprite()
+                                )
+                            );
                             break;
                         case "ky":
-                            itemManager.addItem(new Key(new Rectangle(x * gr.TileWidth, (y - 1) * gr.TileHeight, gr.TileWidth, gr.TileHeight), ItemFactory.Instance.CreateKeySprite()));
+                            itemManager.addItem(
+                                new Key(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateKeySprite()
+                                )
+                            );
                             break;
                         default:
                             break;
@@ -217,7 +447,15 @@ namespace Project.Rooms
                 y++;
             }
 
-            return new BaseRoom(collisionManager, itemManager, enemyManager, playerSpriteLocation, internalMap, Background);
+            return new BaseRoom(
+                collisionManager,
+                itemManager,
+                enemyManager,
+                playerSpriteLocation,
+                internalMap,
+                Background,
+                mini_map
+            );
         }
     }
 }
