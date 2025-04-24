@@ -35,10 +35,7 @@ namespace Project
         RoomManager roomManager;
         SoundEffectManager soundEffectManager;
 
-        // gameOver
-        private GameOverScreen gameOverScreen;
-        private GameWinningScreen _GameWinningScreen;
-
+        private IScreen screen = null, gameOverScreen, gameWinningScreen;
 
         public void restart()
         {
@@ -88,7 +85,7 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            
+
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer.RoomManager = roomManager;
@@ -105,20 +102,33 @@ namespace Project
             // game over screen 
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            _GameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (gameState.State == GameState.Lost)
+            switch (gameState.State)
             {
-                var action = gameOverScreen.HandleInput();
+                case GameState.Lost:
+                    screen = gameOverScreen;
+                    break;
+                case GameState.Won:
+                    screen = gameWinningScreen;
+                    break;
+                default:
+                    screen = null;
+                    break;
+            }
+
+            if (screen != null)
+            {
+                var action = screen.HandleInput();
 
                 switch (action)
                 {
                     case GameOverAction.Restart:
                         new RestartGameCommand(this).Execute();
-                        SoundEffectManager.Instance.StopAllSounds(); // this doesn't stop the death sound from playing
+                        SoundEffectManager.Instance.StopAllSounds();
                         break;
                     case GameOverAction.Exit:
                         new QuitCommand(this).Execute();
@@ -140,19 +150,14 @@ namespace Project
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
             // gameRenderer.Draw(_spriteBatch);
 
-            // to test game over screen
-            if (gameState.State == GameState.Lost)
+            if (screen != null)
             {
-                gameOverScreen.Draw(_spriteBatch);
-            }
-            else if (gameState.State == GameState.Won){
-                _GameWinningScreen.Draw(_spriteBatch);
+                screen.Draw(_spriteBatch);
             }
             else
             {
                 gameRenderer.Draw(_spriteBatch);
             }
-
 
             _spriteBatch.End();
 
