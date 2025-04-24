@@ -392,6 +392,12 @@
 /processorParam:Quality=Best
 /build:sfx/Boss Theme.wav
 
+#begin sfx/Boss Theme.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sfx/Boss Theme.wav
+
 #begin sfx/damage.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -404,11 +410,23 @@
 /processorParam:Quality=Best
 /build:sfx/deathSound.wav
 
+#begin sfx/explosion.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/explosion.wav
+
 #begin sfx/fireball.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sfx/fireball.wav
+
+#begin sfx/FireBow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/FireBow.wav
 
 #begin sfx/gameOver.wav
 /importer:WavImporter
@@ -422,11 +440,17 @@
 /processorParam:Quality=Best
 /build:sfx/heal.wav
 
-#begin sfx/Monkeys Spinning Monkeys.mp3
-/importer:Mp3Importer
+#begin sfx/keys.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:sfx/keys.wav
+
+#begin sfx/Main Theme.wav
+/importer:WavImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:sfx/Monkeys Spinning Monkeys.mp3
+/build:sfx/Main Theme.wav
 
 #begin sfx/swordSlash.wav
 /importer:WavImporter

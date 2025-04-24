@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
+using Project.Packages.Sounds;
 using Project.Sprites;
 
 namespace Project.Items
@@ -30,8 +31,9 @@ namespace Project.Items
             if (PlacedBomb)
             {
                 TimeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (TimeAlive <= 1)
+                if (TimeAlive == 1)
                 {
+                    SoundEffectManager.Instance.playExplosion();
                     ExplodingBomb = Explosion;
                 }
                 if (TimeAlive <= 0)

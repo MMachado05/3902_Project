@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Enemies.EnemyClasses;
 using Project.Factories;
+using Project.Packages.Sounds;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
