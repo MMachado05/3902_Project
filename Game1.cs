@@ -1,19 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using Myra;
+using Project.Characters;
+using Project.Commands.GameLogicCommands;
 using Project.Commands.PlayerCommands;
 using Project.Commands.RoomCommands;
-using Project.Commands.GameLogicCommands;
-
 using Project.Controllers;
 using Project.Factories;
+using Project.Packages.Commands.GameLogicCommands;
+using Project.Packages.Sounds;
 using Project.Renderer;
 using Project.Rooms;
-using Project.Characters;
-using Project.Packages.Commands.GameLogicCommands;
-using Myra;
-using Project.Packages.Sounds;
 using Project.UI;
 
 namespace Project
@@ -27,6 +25,8 @@ namespace Project
         public Player player;
 
         private float elapsedTime;
+
+        private Texture2D _mapSpriteSheet; // osama
 
         private GameStateMachine gameState;
 
@@ -61,8 +61,7 @@ namespace Project
             MyraEnvironment.Game = this; // UI library
 
             //necessary for starting player with default item
-            ItemFactory.Instance.LoadAllTextures(Content,
-                64, 64);
+            ItemFactory.Instance.LoadAllTextures(Content, 64, 64);
             this.player = new Player();
             this.gameState = new GameStateMachine();
             this.gameState.State = GameState.Playing;
@@ -75,12 +74,17 @@ namespace Project
             // TODO: Implement
         }
 
-
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             this.roomManager = new RoomManager();
-            this.gameRenderer = new GameRenderer(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, 64, 64, this.gameState);
+            this.gameRenderer = new GameRenderer(
+                _graphics.PreferredBackBufferWidth,
+                _graphics.PreferredBackBufferHeight,
+                64,
+                64,
+                this.gameState
+            );
 
             // Load all textures
             // TODO: All of these should likely take the tile width and height, especially
@@ -88,7 +92,7 @@ namespace Project
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
-            
+
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer.RoomManager = roomManager;
@@ -97,14 +101,22 @@ namespace Project
             this.gameRenderer.PlayerCharacter = this.player;
 
             SoundEffectManager.Instance.LoadContent(Content);
-
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
-            this.updater = new Updater(this.roomManager, this.player, new RestartGameCommand(this), this.gameState); //TODO: update updater.cs to accept this.
+            this.updater = new Updater(
+                this.roomManager,
+                this.player,
+                new RestartGameCommand(this),
+                this.gameState
+            );
             this.updater.RegisterController(this.CreateKeyboardController());
 
-            // game over screen 
+            // game over screen
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
-            gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            gameOverScreen = new GameOverScreen(
+                font,
+                _graphics.PreferredBackBufferWidth,
+                _graphics.PreferredBackBufferHeight
+            );
             _GameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
@@ -132,7 +144,6 @@ namespace Project
             base.Update(gameTime);
         }
 
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
@@ -153,7 +164,6 @@ namespace Project
                 gameRenderer.Draw(_spriteBatch);
             }
 
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
@@ -166,22 +176,38 @@ namespace Project
             KeyboardController kbc = new KeyboardController();
 
             // Player movement
-            kbc.RegisterOnPress(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
-                  false, 0, -2, false, true));
-            kbc.RegisterOnPress(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
-                  false, -2, 0, true, false));
-            kbc.RegisterOnPress(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
-                  false, 0, 2, false, true));
-            kbc.RegisterOnPress(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
-                  false, 2, 0, true, false));
-            kbc.RegisterOnRelease(Keys.W, new UpdateVelocityCommand(player, Direction.Up,
-                  true, 0, 0, false, true));
-            kbc.RegisterOnRelease(Keys.A, new UpdateVelocityCommand(player, Direction.Left,
-                  true, 0, 0, true, false));
-            kbc.RegisterOnRelease(Keys.S, new UpdateVelocityCommand(player, Direction.Down,
-                  true, 0, 0, false, true));
-            kbc.RegisterOnRelease(Keys.D, new UpdateVelocityCommand(player, Direction.Right,
-                  true, 0, 0, true, false));
+            kbc.RegisterOnPress(
+                Keys.W,
+                new UpdateVelocityCommand(player, Direction.Up, false, 0, -2, false, true)
+            );
+            kbc.RegisterOnPress(
+                Keys.A,
+                new UpdateVelocityCommand(player, Direction.Left, false, -2, 0, true, false)
+            );
+            kbc.RegisterOnPress(
+                Keys.S,
+                new UpdateVelocityCommand(player, Direction.Down, false, 0, 2, false, true)
+            );
+            kbc.RegisterOnPress(
+                Keys.D,
+                new UpdateVelocityCommand(player, Direction.Right, false, 2, 0, true, false)
+            );
+            kbc.RegisterOnRelease(
+                Keys.W,
+                new UpdateVelocityCommand(player, Direction.Up, true, 0, 0, false, true)
+            );
+            kbc.RegisterOnRelease(
+                Keys.A,
+                new UpdateVelocityCommand(player, Direction.Left, true, 0, 0, true, false)
+            );
+            kbc.RegisterOnRelease(
+                Keys.S,
+                new UpdateVelocityCommand(player, Direction.Down, true, 0, 0, false, true)
+            );
+            kbc.RegisterOnRelease(
+                Keys.D,
+                new UpdateVelocityCommand(player, Direction.Right, true, 0, 0, true, false)
+            );
 
             kbc.DefaultCommand = new StopPlayerCommand(player);
 

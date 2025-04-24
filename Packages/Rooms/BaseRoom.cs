@@ -1,7 +1,10 @@
 using Microsoft.Xna.Framework;
-using Project.Enemies;
 using Microsoft.Xna.Framework.Graphics;
+using Project.Characters;
+using Project.Enemies;
+using Project.Items;
 using Project.Packages.Characters;
+using Project.Packages.Rooms;
 using Project.Rooms;
 using Project.Rooms.Blocks;
 using Project.Items;
@@ -16,7 +19,10 @@ namespace Project.Packages
         // Global references
         private CollisionManager _collisionManager;
         private Player _player;
-        public Rectangle PlayerLocation { get => this._player.Location; }
+        public Rectangle PlayerLocation
+        {
+            get => this._player.Location;
+        }
 
         private IBlock[,] internalMap;
         private IBlock Background;
@@ -31,21 +37,25 @@ namespace Project.Packages
         string RoomName;
 
         private bool _active;
+        IBlock MiniMap;
 
-        public bool IsOnScreen { get => this._active; set => this._active = value; }
+        public bool IsOnScreen
+        {
+            get => this._active;
+            set => this._active = value;
+        }
 
         // Logistic fields
-        public BaseRoom(CollisionManager collisionManager, ItemManager itemManager, EnemyManager enemyManager, Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap, IBlock Background,string RoomName)
+        public BaseRoom(RoomData roomData)
         {
-            this._collisionManager = collisionManager;
-            this._enemyManager = enemyManager;
-            this._itemManager = itemManager;
-            this._defaultPlayerLocation = defaultPlayerLocation;
-            this.internalMap = internalMap;
-            this.Background = Background;
+            this._collisionManager = roomData.CollisionManager;
+            this._enemyManager = roomData.EnemyManager;
+            this._itemManager = roomData.ItemManager;
+            this._defaultPlayerLocation = roomData.PlayerStartLocation;
+            this.internalMap = roomData.BlockMap;
+            this.Background = roomData.Background;
             SavedPlayerLocation = this._defaultPlayerLocation;
-            this.RoomName = RoomName;
+            this.MiniMap = roomData.MiniMap;
 
             this._active = false;
         }
@@ -66,13 +76,17 @@ namespace Project.Packages
                         this.internalMap[x, y].Draw(sb);
                 }
             }
+            MiniMap.Draw(sb);
 
             // Draw player in default location if this room was just activated
             if (!this._active)
             {
                 this._active = true;
 
-                this._player.Location = SavedPlayerLocation != Rectangle.Empty ? SavedPlayerLocation : _defaultPlayerLocation;
+                this._player.Location =
+                    SavedPlayerLocation != Rectangle.Empty
+                        ? SavedPlayerLocation
+                        : _defaultPlayerLocation;
             }
 
             this._player.Draw(sb);
@@ -99,7 +113,9 @@ namespace Project.Packages
             {
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
-                foreach (ProjectileItem projectile in this._enemyManager.ReturnEnemy().GetProjectiles())
+                foreach (
+                    ProjectileItem projectile in this._enemyManager.ReturnEnemy().GetProjectiles()
+                )
                 {
                     this._collisionManager.Collide(this._player, projectile);
                 }
@@ -144,19 +160,30 @@ namespace Project.Packages
                 var enemy = this._enemyManager.enemies[i];
                 if (_player._inventory.GetCurrentItem().Item1 is Bow)
                 {
-                    foreach (Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles)
-                    this._collisionManager.Collide(enemy, arrow);
+                    foreach (
+                        Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles
+                    )
+                        this._collisionManager.Collide(enemy, arrow);
                 }
-                if (_player._inventory.GetCurrentItem().Item1 is Bomb && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion)
+                if (
+                    _player._inventory.GetCurrentItem().Item1 is Bomb
+                    && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion
+                )
                 {
-                    this._collisionManager.Collide(enemy, ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb);
+                    this._collisionManager.Collide(
+                        enemy,
+                        ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb
+                    );
                 }
                 if (_player._inventory.GetCurrentItem().Item1 is Boomerang)
                 {
-                    foreach (ThrownBoomerang boomerang in ((Boomerang)_player._inventory.GetCurrentItem().Item1).projectiles)
+                    foreach (
+                        ThrownBoomerang boomerang in (
+                            (Boomerang)_player._inventory.GetCurrentItem().Item1
+                        ).projectiles
+                    )
                         this._collisionManager.Collide(enemy, boomerang);
                 }
-
             }
             // Enemy and BaseAttack Collisions
             if (_player.IsAttacking())
