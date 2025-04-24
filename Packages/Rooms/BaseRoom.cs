@@ -4,6 +4,7 @@ using Project.Characters;
 using Project.Enemies;
 using Project.Items;
 using Project.Packages.Characters;
+using Project.Packages.Rooms;
 using Project.Rooms;
 using Project.Rooms.Blocks;
 
@@ -40,24 +41,16 @@ namespace Project.Packages
         }
 
         // Logistic fields
-        public BaseRoom(
-            CollisionManager collisionManager,
-            ItemManager itemManager,
-            EnemyManager enemyManager,
-            Rectangle defaultPlayerLocation,
-            IBlock[,] internalMap,
-            IBlock Background,
-            IBlock minimap
-        )
+        public BaseRoom(RoomData roomData)
         {
-            this._collisionManager = collisionManager;
-            this._enemyManager = enemyManager;
-            this._itemManager = itemManager;
-            this._defaultPlayerLocation = defaultPlayerLocation;
-            this.internalMap = internalMap;
-            this.Background = Background;
+            this._collisionManager = roomData.CollisionManager;
+            this._enemyManager = roomData.EnemyManager;
+            this._itemManager = roomData.ItemManager;
+            this._defaultPlayerLocation = roomData.PlayerStartLocation;
+            this.internalMap = roomData.BlockMap;
+            this.Background = roomData.Background;
             SavedPlayerLocation = this._defaultPlayerLocation;
-            this.MiniMap = minimap;
+            this.MiniMap = roomData.MiniMap;
 
             this._active = false;
         }
