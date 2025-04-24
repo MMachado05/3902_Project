@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
-using Project.Enemies.EnemyClasses;
-using Project.Factories;
-using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
 namespace Project.Items
 {
-    public class ThrownBoomerang : Item
+    public class ThrownBoomerang : ProjectileItem
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
@@ -74,6 +67,6 @@ namespace Project.Items
                 ToBeDeleted = true;
             }
         }
-        public override void CollideWith(IGameObject collider ){ }
+        public override void CollideWith(IGameObject collider) { }
     }
 }
