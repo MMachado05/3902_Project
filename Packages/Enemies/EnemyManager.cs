@@ -48,6 +48,9 @@ namespace Project.Enemies
         {
             return enemies[currentEnemyIndex];
         }
+        public List<Enemy> GetAllEnimies(){
+            return enemies;
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
