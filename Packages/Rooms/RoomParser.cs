@@ -8,6 +8,7 @@ using Project.Factories;
 using Project.Items;
 using Project.Packages;
 using Project.Packages.Characters;
+using Project.Packages.Rooms;
 using Project.Renderer;
 using Project.Rooms.Blocks;
 using Project.Rooms.Blocks.ConcreteClasses;
@@ -446,16 +447,18 @@ namespace Project.Rooms
                 }
                 y++;
             }
+            RoomData data = new RoomData
+            {
+                CollisionManager = collisionManager,
+                ItemManager = itemManager,
+                EnemyManager = enemyManager,
+                PlayerStartLocation = playerSpriteLocation,
+                BlockMap = internalMap,
+                Background = Background,
+                MiniMap = mini_map,
+            };
 
-            return new BaseRoom(
-                collisionManager,
-                itemManager,
-                enemyManager,
-                playerSpriteLocation,
-                internalMap,
-                Background,
-                mini_map
-            );
+            return new BaseRoom(data);
         }
     }
 }
