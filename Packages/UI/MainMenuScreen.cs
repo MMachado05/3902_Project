@@ -16,9 +16,13 @@ namespace Project.UI
             int centerX = (screenWidth - bw) / 2;
             int centerY = screenHeight / 2;
 
+            startGameButton = new Button("Begin Journey",
                 new Rectangle(centerX, centerY, bw, bh),
                 GameStateAction.StartGame, font);
 
+            exitButton = new Button("Return Home",
+                new Rectangle(centerX, centerY + 70, bw, bh),
+                GameStateAction.Exit, font);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -44,6 +48,7 @@ namespace Project.UI
             if (exitButton.IsClicked(mouse)) return GameStateAction.Exit;
             return GameStateAction.None;
 
+            
         }
     }
 }
