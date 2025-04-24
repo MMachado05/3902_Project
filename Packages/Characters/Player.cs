@@ -110,36 +110,36 @@ namespace Project.Characters
             ChangeSprite(PlayerSpriteFactory.Instance.NewStoppedPlayerSprite(LastActiveDirection, invincibleTime > 0));
         }
 
-        public void Attack()
-        { 
-            if (this.BasicAttack == null && _inventory.GetCurrentItem().Item1 is Sword)
+        public void Attack(ItemManager itemManager)
+        {
+            if (this.BasicAttack == null && _inventory.GetCurrentItem() is Sword)
+            {
+                int slashX = this.Location.X, slashY = this.Location.Y;
+                switch (LastActiveDirection)
                 {
-                    int slashX = this.Location.X, slashY = this.Location.Y;
-                    switch (LastActiveDirection)
-                    {
-                        case Direction.Up:
-                            slashY -= ItemFactory.Instance.BasicAttackHeight;
-                            break;
-                        case Direction.Down:
-                            slashY += this.Location.Height;
-                            break;
-                        case Direction.Left:
-                            slashX -= ItemFactory.Instance.BasicAttackWidth;
-                            break;
-                        case Direction.Right:
-                            slashX += this.Location.Width;
-                            break;
-                    }
-                    this.BasicAttack = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
-                        slashX, slashY);
+                    case Direction.Up:
+                        slashY -= ItemFactory.Instance.BasicAttackHeight;
+                        break;
+                    case Direction.Down:
+                        slashY += this.Location.Height;
+                        break;
+                    case Direction.Left:
+                        slashX -= ItemFactory.Instance.BasicAttackWidth;
+                        break;
+                    case Direction.Right:
+                        slashX += this.Location.Width;
+                        break;
                 }
+                this.BasicAttack = ItemFactory.Instance.CreateBasicAttack(LastActiveDirection,
+                    slashX, slashY);
+            }
 
-            _inventory.GetCurrentItem().Item1.Use();
+            _inventory.GetCurrentItem().Use(itemManager);
         }
 
         public void Update(GameTime gameTime)
         {
-            _inventory.GetCurrentItem().Item1.Update(gameTime);
+            _inventory.GetCurrentItem().Update(gameTime);
 
             elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (elapsedTime > 0.25f)
@@ -223,6 +223,8 @@ namespace Project.Characters
                     SoundEffectManager.Instance.playHeal();
                 }
             }
+
+            // TODO: Could be good to have a "Collectable" interface.
             if (collider is Coin)
             {
                 ((IItem)collider).ToBeDeleted = true;
@@ -232,6 +234,8 @@ namespace Project.Characters
             {
                 ((IItem)collider).ToBeDeleted = true;
             }
+
+            // TODO: Could be good to have an "Equippable" interface.
             if (collider is Bow || collider is Bomb || collider is Boomerang || collider is Key)
             {
                 if (!((IItem)collider).Equipped)
@@ -242,7 +246,6 @@ namespace Project.Characters
                     _inventory.Add((IItem)collider);
                 }
             }
-
         }
 
         private class DirectionRegister

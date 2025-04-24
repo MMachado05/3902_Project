@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
@@ -60,7 +57,7 @@ namespace Project.Items
             }
         }
 
-        public override void Use()
+        public override void Use(ItemManager itemManager)
         {
             Explosion.Location = new Rectangle(Location.X - 64, Location.Y - 64, Location.Width * 4, Location.Height * 4);
             ExplodingBomb = new StationaryItem(Location, ItemFactory.Instance.CreateExplodingBombSprite());

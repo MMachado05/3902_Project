@@ -15,15 +15,19 @@ namespace Project.Items
         public Vector2 VectorDirection { get; set; }
         private readonly Rectangle initialPosition;
         private readonly float maxDistance;
+        public bool DamagesPlayer { get; set; }
+        public bool DamagesEnemies { get; set; }
         private bool returning;
         public readonly Vector2? returnTarget;
         public float Speed;
 
-        public ProjectileItem(Rectangle position, Vector2 vectorDirection, ISprite sprite, float speed, float maxDistance)
+        public ProjectileItem(Rectangle position, Vector2 vectorDirection, ISprite sprite, float speed, float maxDistance, bool damagesPlayer, bool damagesEnemies)
             : base(sprite)
         {
             Location = position;
             VectorDirection = vectorDirection;
+            DamagesPlayer = damagesPlayer;
+            DamagesEnemies = damagesEnemies;
             Speed = speed;
             this.maxDistance = maxDistance;
             initialPosition = position;

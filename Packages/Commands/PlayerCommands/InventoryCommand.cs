@@ -1,5 +1,4 @@
 ﻿using Project.Characters;
-using Project.Items;
 
 namespace Project.Commands.PlayerCommands
 {
@@ -17,7 +16,7 @@ namespace Project.Commands.PlayerCommands
         public void Execute()
         {
             _player._inventory.setIndex(_itemIndex);
-            _player._inventory.GetCurrentItem().Item1.Location = _player.Location;
+            _player._inventory.GetCurrentItem().Location = _player.Location;
         }
     }
 }

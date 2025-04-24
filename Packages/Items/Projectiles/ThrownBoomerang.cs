@@ -1,79 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Project.Characters;
 using Project.Enemies.EnemyClasses;
-using Project.Factories;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
 
 namespace Project.Items
 {
-    public class ThrownBoomerang : Item
+    public class ThrownBoomerang : ProjectileItem
     {
         public override Rectangle Location { get; set; }
-        public override Direction Direction { get; set; }
-        float TimeAlive;
 
-        public ThrownBoomerang(Rectangle position, Direction direction, ISprite sprite) : base(sprite)
+        public ThrownBoomerang(Rectangle position, Vector2 vectorDirection, float speed, ISprite sprite, bool damagesPlayer, bool damagesEnemies)
+          : base(position, vectorDirection, sprite, speed, 100f, damagesPlayer, damagesEnemies)
         {
             Location = position;
-            Direction = direction;
-            TimeAlive = 0;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void CollideWith(IGameObject collider)
         {
-            TimeAlive += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (TimeAlive < .4)
-            {
-                switch (Direction)
-                {
-                    case Direction.Up:
-                        Location = new Rectangle(Location.X, Location.Y - 10, Location.Width, Location.Height);
-                        break;
-                    case Direction.Down:
-                        Location = new Rectangle(Location.X, Location.Y + 10, Location.Width, Location.Height);
-                        break;
-                    case Direction.Left:
-                        Location = new Rectangle(Location.X - 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                    case Direction.Right:
-                        Location = new Rectangle(Location.X + 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                    default:
-                        Location = new Rectangle(Location.X + 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                }
-            }
-            else
-            {
-                switch (Direction)
-                {
-                    case Direction.Up:
-                        Location = new Rectangle(Location.X, Location.Y + 10, Location.Width, Location.Height);
-                        break;
-                    case Direction.Down:
-                        Location = new Rectangle(Location.X, Location.Y - 10, Location.Width, Location.Height);
-                        break;
-                    case Direction.Left:
-                        Location = new Rectangle(Location.X + 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                    case Direction.Right:
-                        Location = new Rectangle(Location.X - 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                    default:
-                        Location = new Rectangle(Location.X - 10, Location.Y, Location.Width, Location.Height);
-                        break;
-                }
-            }
-            if (TimeAlive > .8)
+            if (collider is Enemy || collider is SolidBlock)
             {
                 ToBeDeleted = true;
             }
         }
-        public override void CollideWith(IGameObject collider ){ }
     }
 }
