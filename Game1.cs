@@ -115,7 +115,7 @@ namespace Project
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
-            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory);
         }
 
         protected override void Update(GameTime gameTime)
