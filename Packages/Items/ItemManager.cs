@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 namespace Project.Items
 {
     public class ItemManager
     {
         private readonly List<Item> worldItems;
-        private readonly List<IItem> projectiles;
+        private readonly List<ProjectileItem> projectiles;
         private int currentItemIndex = 0;
 
         public ItemManager()
         {
-            projectiles = new List<IItem>();
+            projectiles = new List<ProjectileItem>();
             worldItems = new List<Item>();
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             foreach (Item item in worldItems)
             {
@@ -23,8 +24,19 @@ namespace Project.Items
                     break;
                 }
             }
+
+            foreach (ProjectileItem projectile in projectiles)
+            {
+                projectile.Update(gameTime);
+                if (projectile.HasReturned() || projectile.ToBeDeleted)
+                {
+                    projectiles.Remove(projectile);
+                    break;
+                }
+            }
         }
         public List<Item> GetWorldItems() => worldItems;
+        public List<ProjectileItem> GetProjectiles => projectiles;
 
         public void AddProjectile(ProjectileItem projectile)
         {
