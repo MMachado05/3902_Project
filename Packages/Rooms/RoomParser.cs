@@ -187,6 +187,7 @@ namespace Project.Rooms
                                 1,
                                 new Rectangle(8 * 32, 0, 32, 32)
                             );
+                            RoomName = "boss";
                             Background = AddBlockToRoom(
                                 x,
                                 y,
@@ -467,6 +468,7 @@ namespace Project.Rooms
                 BlockMap = internalMap,
                 Background = Background,
                 MiniMap = mini_map,
+                RoomName = RoomName
             };
 
             return new BaseRoom(data);
