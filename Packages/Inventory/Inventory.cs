@@ -110,7 +110,7 @@ namespace Project.Inventory
 
         public void setIndex(int index)
         {
-            ActiveSlot = Math.Min(index, _itemsOrdered.Count);
+            ActiveSlot = Math.Max(0, Math.Min(index, _itemsOrdered.Count - 1));
         }
     }
 }

@@ -5,6 +5,8 @@ namespace Project.UI
         None,
         StartGame,
         Restart,
-        Exit
+        Exit,
+        ToggleMusic,
+        TogglePause
     }
 }
