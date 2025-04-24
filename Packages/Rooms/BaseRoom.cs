@@ -57,6 +57,11 @@ namespace Project.Packages
             this._active = false;
         }
 
+        public void TriggerPlayerAttack()
+        {
+            _player.Attack(_itemManager);
+        }
+
         public void AssignPlayer(Player player)
         {
             this._player = player;
@@ -105,25 +110,23 @@ namespace Project.Packages
         public void Update(GameTime gameTime)
         {
             this._enemyManager.Update(gameTime);
-            this._itemManager.Update();
+            this._itemManager.Update(gameTime);
 
             //Player and Enemy/Projecilt Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 this._enemyManager.SwitchToNextEnemy();
                 this._collisionManager.Collide(this._player, this._enemyManager.ReturnEnemy());
-                foreach (
-                    ProjectileItem projectile in this._enemyManager.ReturnEnemy().GetProjectiles()
-                )
-                {
-                    this._collisionManager.Collide(this._player, projectile);
-                }
             }
 
             //Player and Item Collison
             for (int i = 0; i < this._itemManager.GetWorldItems().Count; i++)
             {
                 this._collisionManager.Collide(this._player, this._itemManager.GetWorldItems()[i]);
+            }
+            for (int i = 0; i < this._itemManager.GetProjectiles.Count; i++)
+            {
+                this._collisionManager.Collide(this._player, this._itemManager.GetProjectiles[i]);
             }
 
             //Player and Block Collison
@@ -157,28 +160,21 @@ namespace Project.Packages
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
                 var enemy = this._enemyManager.enemies[i];
-                if (_player._inventory.GetCurrentItem().Item1 is Bow)
-                {
-                    foreach (
-                        Arrow arrow in ((Bow)_player._inventory.GetCurrentItem().Item1).projectiles
-                    )
-                        this._collisionManager.Collide(enemy, arrow);
-                }
                 if (
-                    _player._inventory.GetCurrentItem().Item1 is Bomb
-                    && ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb is Explosion
+                    _player._inventory.GetCurrentItem() is Bomb
+                    && ((Bomb)_player._inventory.GetCurrentItem()).ExplodingBomb is Explosion
                 )
                 {
                     this._collisionManager.Collide(
                         enemy,
-                        ((Bomb)_player._inventory.GetCurrentItem().Item1).ExplodingBomb
+                        ((Bomb)_player._inventory.GetCurrentItem()).ExplodingBomb
                     );
                 }
-                if (_player._inventory.GetCurrentItem().Item1 is Boomerang)
+                if (_player._inventory.GetCurrentItem() is Boomerang)
                 {
                     foreach (
                         ThrownBoomerang boomerang in (
-                            (Boomerang)_player._inventory.GetCurrentItem().Item1
+                            (Boomerang)_player._inventory.GetCurrentItem()
                         ).projectiles
                     )
                         this._collisionManager.Collide(enemy, boomerang);

@@ -145,6 +145,7 @@ namespace Project.Rooms
             string line;
             int roomWidth = 0;
             int roomHeight = 0;
+            string RoomName;
 
             // Create dimensions for loaded room
             while ((line = reader.ReadLine()) != null)
@@ -154,9 +155,6 @@ namespace Project.Rooms
             }
             IBlock[,] internalMap = new IBlock[roomWidth, roomHeight];
             IBlock Background = SolidBlockFactory.Instance.GreenBg();
-            string RoomName = "";
-
-
 
             // Restart reader
             reader.DiscardBufferedData();

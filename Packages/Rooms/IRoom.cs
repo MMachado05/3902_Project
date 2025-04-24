@@ -16,6 +16,7 @@ namespace Project.Rooms
         public void Draw(SpriteBatch sb);
         public void AssignPlayer(Player player);
         public string GetRoomName();
+        public void TriggerPlayerAttack();
         public List<IEnemy> GetAllCurrentEnimeies();
     }
 }

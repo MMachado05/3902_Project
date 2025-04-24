@@ -156,7 +156,8 @@ namespace Project
             {
                 gameOverScreen.Draw(_spriteBatch);
             }
-            else if (gameState.State == GameState.Won){
+            else if (gameState.State == GameState.Won)
+            {
                 _GameWinningScreen.Draw(_spriteBatch);
             }
             else
@@ -212,8 +213,8 @@ namespace Project
             kbc.DefaultCommand = new StopPlayerCommand(player);
 
             // Attacking
-            kbc.RegisterOnPress(Keys.Z, new AttackCommand(player));
-            kbc.RegisterOnPress(Keys.N, new AttackCommand(player));
+            kbc.RegisterOnPress(Keys.Z, new AttackCommand(roomManager));
+            kbc.RegisterOnPress(Keys.N, new AttackCommand(roomManager));
 
             // Inventory
             kbc.RegisterOnPress(Keys.D1, new InventoryCommand(player, 0));

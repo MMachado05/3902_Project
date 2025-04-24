@@ -22,7 +22,7 @@ namespace Project.Rooms
         private IRoom[,] Map;
         private int currentRoomX;
         private int currentRoomY;
-        private Player _player;
+        public Player player;
         private bool NoEnimes;
         public int CurrentRoomRow { get { return currentRoomX; } }
         public int CurrentRoomColumn { get { return currentRoomY; } }
@@ -36,7 +36,7 @@ namespace Project.Rooms
 
             this.roomParser = new RoomParser();
             this.collisionManager = new CollisionManager();
-            NoEnimes= false;
+            NoEnimes = false;
         }
 
         public void LoadRoomsFromContent(ContentManager content, GameRenderer gr)
@@ -93,11 +93,11 @@ namespace Project.Rooms
                 mapRoomY++;
             }
         }
-        
+
 
         public void AssignPlayer(Player player)
         {
-            _player = player;
+            this.player = player;
             for (int i = 0; i < this.Map.GetLength(0); i++)
             {
                 for (int j = 0; j < this.Map.GetLength(1); j++)
@@ -128,12 +128,14 @@ namespace Project.Rooms
             {
                 SoundEffectManager.Instance.playDungeonMusic();
             }
-            if(this.currentRoomX == 2 && this.currentRoomY == 4&&Room.GetAllCurrentEnimeies().Count==0){
+            if (this.currentRoomX == 2 && this.currentRoomY == 4 && Room.GetAllCurrentEnimeies().Count == 0)
+            {
                 NoEnimes = true;
             }
-            
+
         }
-        public bool IsThereEnmey(){
+        public bool IsThereEnmey()
+        {
             return NoEnimes;
         }
 
@@ -141,10 +143,10 @@ namespace Project.Rooms
         {
             IRoom currentRoom = this.GetCurrentRoom();
             currentRoom.SavedPlayerLocation = new Rectangle(
-                _player.Location.X,
-                _player.Location.Y - 20,
-                _player.Location.Width,
-                _player.Location.Height
+                player.Location.X,
+                player.Location.Y - 20,
+                player.Location.Width,
+                player.Location.Height
             );
             currentRoom.IsOnScreen = false;
 
@@ -154,16 +156,16 @@ namespace Project.Rooms
             {
                 currentRoomY = newY;
                 IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(_player);
+                nextRoom.AssignPlayer(player);
 
                 if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    _player.Location = nextRoom.SavedPlayerLocation;
+                    player.Location = nextRoom.SavedPlayerLocation;
                 else
-                    _player.Location = new Rectangle(
-                        _player.Location.X,
+                    player.Location = new Rectangle(
+                        player.Location.X,
                         10,
-                        _player.Location.Width,
-                        _player.Location.Height
+                        player.Location.Width,
+                        player.Location.Height
                     );
             }
         }
@@ -172,10 +174,10 @@ namespace Project.Rooms
         {
             IRoom currentRoom = this.GetCurrentRoom();
             currentRoom.SavedPlayerLocation = new Rectangle(
-                _player.Location.X,
-                _player.Location.Y + 20,
-                _player.Location.Width,
-                _player.Location.Height
+                player.Location.X,
+                player.Location.Y + 20,
+                player.Location.Width,
+                player.Location.Height
             );
             currentRoom.IsOnScreen = false;
 
@@ -185,16 +187,16 @@ namespace Project.Rooms
             {
                 currentRoomY = newY;
                 IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(_player);
+                nextRoom.AssignPlayer(player);
 
                 if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    _player.Location = nextRoom.SavedPlayerLocation;
+                    player.Location = nextRoom.SavedPlayerLocation;
                 else
-                    _player.Location = new Rectangle(
-                        _player.Location.X,
+                    player.Location = new Rectangle(
+                        player.Location.X,
                         640,
-                        _player.Location.Width,
-                        _player.Location.Height
+                        player.Location.Width,
+                        player.Location.Height
                     );
             }
         }
@@ -203,10 +205,10 @@ namespace Project.Rooms
         {
             IRoom currentRoom = this.GetCurrentRoom();
             currentRoom.SavedPlayerLocation = new Rectangle(
-                _player.Location.X - 20,
-                _player.Location.Y,
-                _player.Location.Width,
-                _player.Location.Height
+                player.Location.X - 20,
+                player.Location.Y,
+                player.Location.Width,
+                player.Location.Height
             );
             currentRoom.IsOnScreen = false;
 
@@ -216,16 +218,16 @@ namespace Project.Rooms
             {
                 currentRoomX = newX;
                 IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(_player);
+                nextRoom.AssignPlayer(player);
 
                 if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    _player.Location = nextRoom.SavedPlayerLocation;
+                    player.Location = nextRoom.SavedPlayerLocation;
                 else
-                    _player.Location = new Rectangle(
+                    player.Location = new Rectangle(
                         10,
-                        _player.Location.Y,
-                        _player.Location.Width,
-                        _player.Location.Height
+                        player.Location.Y,
+                        player.Location.Width,
+                        player.Location.Height
                     );
             }
         }
@@ -234,10 +236,10 @@ namespace Project.Rooms
         {
             IRoom currentRoom = this.GetCurrentRoom();
             currentRoom.SavedPlayerLocation = new Rectangle(
-                _player.Location.X + 20,
-                _player.Location.Y,
-                _player.Location.Width,
-                _player.Location.Height
+                player.Location.X + 20,
+                player.Location.Y,
+                player.Location.Width,
+                player.Location.Height
             );
             currentRoom.IsOnScreen = false;
 
@@ -247,16 +249,16 @@ namespace Project.Rooms
             {
                 currentRoomX = newX;
                 IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(_player);
+                nextRoom.AssignPlayer(player);
 
                 if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    _player.Location = nextRoom.SavedPlayerLocation;
+                    player.Location = nextRoom.SavedPlayerLocation;
                 else
-                    _player.Location = new Rectangle(
+                    player.Location = new Rectangle(
                         900,
-                        _player.Location.Y,
-                        _player.Location.Width,
-                        _player.Location.Height
+                        player.Location.Y,
+                        player.Location.Width,
+                        player.Location.Height
                     );
             }
         }
