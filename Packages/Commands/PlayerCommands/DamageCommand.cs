@@ -14,7 +14,7 @@ namespace Project.Commands.PlayerCommands
         public void Execute()
         {
             _player.health -= 1;
-            _player.invincibleTime = 1;
+            _player.invincibleTime = 2f; // 2.0 second of iFrames
         }
     }
 }

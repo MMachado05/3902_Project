@@ -15,5 +15,6 @@ namespace Project.Packages.Rooms
         public IBlock[,] BlockMap { get; set; }
         public IBlock Background { get; set; }
         public IBlock MiniMap { get; set; }
+        public string RoomName { get; set; }
     }
 }

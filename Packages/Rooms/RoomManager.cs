@@ -128,8 +128,7 @@ namespace Project.Rooms
             {
                 SoundEffectManager.Instance.playDungeonMusic();
             }
-            if (this.currentRoomX == 2 && this.currentRoomY == 4 && Room.GetAllCurrentEnimeies().Count == 0)
-            {
+            if(Room.GetRoomName().Equals("boss")&&Room.GetAllCurrentEnimeies().Count==0){
                 NoEnimes = true;
             }
 
