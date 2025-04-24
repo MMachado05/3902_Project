@@ -36,7 +36,7 @@ namespace Project
         SoundEffectManager soundEffectManager;
 
         // gameOver
-        private IScreen screen = null, gameOverScreen, gameWinningScreen;
+        private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen;
 
 
         public void restart()
@@ -63,7 +63,7 @@ namespace Project
             ItemFactory.Instance.LoadAllTextures(Content, 64, 64);
             this.player = new Player();
             this.gameState = new GameStateMachine();
-            this.gameState.State = GameState.Playing;
+            this.gameState.State = GameState.MainMenu;
 
             base.Initialize();
         }
@@ -254,5 +254,10 @@ namespace Project
     public class GameStateMachine
     {
         public GameState State { get; set; }
+
+        public void StartGame()
+        {
+            State = GameState.Playing;
+        }
     }
 }
