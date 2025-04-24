@@ -158,7 +158,12 @@ namespace Project.Packages
             // Enemy and Projectile Collision
             for (int i = 0; i < this._enemyManager.enemies.Count; i++)
             {
-                var enemy = this._enemyManager.enemies[i];
+                IEnemy enemy = this._enemyManager.enemies[i];
+                foreach (ProjectileItem projectile in _itemManager.GetProjectiles)
+                {
+                    _collisionManager.Collide(enemy, projectile);
+                }
+
                 if (
                     _player._inventory.GetCurrentItem() is Bomb
                     && ((Bomb)_player._inventory.GetCurrentItem()).ExplodingBomb is Explosion
@@ -179,6 +184,7 @@ namespace Project.Packages
                         this._collisionManager.Collide(enemy, boomerang);
                 }
             }
+
             // Enemy and BaseAttack Collisions
             if (_player.IsAttacking())
             {
