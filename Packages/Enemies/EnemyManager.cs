@@ -48,7 +48,7 @@ namespace Project.Enemies
         {
             return enemies[currentEnemyIndex];
         }
-        public List<Enemy> GetAllEnimies(){
+        public List<IEnemy> GetAllEnimies(){
             return enemies;
         }
 

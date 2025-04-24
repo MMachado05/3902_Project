@@ -85,7 +85,7 @@ namespace Project.Packages
         public string GetRoomName(){
             return RoomName;
         }
-        public List<Enemy> GetAllCurrentEnimeies(){
+        public List<IEnemy> GetAllCurrentEnimeies(){
             return this._enemyManager.GetAllEnimies();
         }
 
