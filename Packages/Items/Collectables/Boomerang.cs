@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
@@ -49,29 +47,25 @@ namespace Project.Items
             }
         }
 
-        public override void Use()
+        public override void Use(ItemManager itemManager)
         {
             SoundEffectManager.Instance.playBoomerang();
-            if (projectiles.Count <= 1)
+            switch (Direction)
             {
-                switch (Direction)
-                {
-                    case Direction.Up:
-                        projectiles.Add(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
-                        break;
-                    case Direction.Right:
-                        projectiles.Add(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
-                        break;
-                    case Direction.Left:
-                        projectiles.Add(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
-                        break;
-                    case Direction.Down:
-                        projectiles.Add(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
-                        break;
-                    default:
-                        projectiles.Add(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
-                        break;
-                }
+                case Direction.Up:
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    break;
+                case Direction.Right:
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    break;
+                case Direction.Left:
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    break;
+                case Direction.Down:
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    break;
+                default:
+                    break;
             }
         }
     }
