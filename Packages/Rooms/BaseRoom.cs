@@ -7,10 +7,7 @@ using Project.Packages.Characters;
 using Project.Packages.Rooms;
 using Project.Rooms;
 using Project.Rooms.Blocks;
-using Project.Items;
-using Project.Characters;
 using System.Collections.Generic;
-using Project.Enemies.EnemyClasses;
 
 namespace Project.Packages
 {
@@ -96,10 +93,12 @@ namespace Project.Packages
                 item.Draw(sb);
             }
         }
-        public string GetRoomName(){
+        public string GetRoomName()
+        {
             return RoomName;
         }
-        public List<IEnemy> GetAllCurrentEnimeies(){
+        public List<IEnemy> GetAllCurrentEnimeies()
+        {
             return this._enemyManager.GetAllEnimies();
         }
 
