@@ -96,10 +96,12 @@ namespace Project.Packages
                 item.Draw(sb);
             }
         }
-        public string GetRoomName(){
+        public string GetRoomName()
+        {
             return RoomName;
         }
-        public List<IEnemy> GetAllCurrentEnimeies(){
+        public List<IEnemy> GetAllCurrentEnimeies()
+        {
             return this._enemyManager.GetAllEnimies();
         }
 
@@ -193,10 +195,7 @@ namespace Project.Packages
                 {
                     foreach (IEnemy enemy in _enemyManager.enemies)
                     {
-                        if (attack.Location.Intersects(enemy.Location))
-                        {
-                            enemy.TakeDamage(1);
-                        }
+                        this._collisionManager.Collide(enemy, attack);
                     }
                 }
             }
