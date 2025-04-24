@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Project.Enemies.EnemyClasses;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Project.Items;
 
 namespace Project.Enemies
 {
@@ -48,7 +49,8 @@ namespace Project.Enemies
         {
             return enemies[currentEnemyIndex];
         }
-        public List<IEnemy> GetAllEnimies(){
+        public List<IEnemy> GetAllEnimies()
+        {
             return enemies;
         }
 
@@ -58,11 +60,11 @@ namespace Project.Enemies
                 enemy.Draw(spriteBatch);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, ItemManager itemManager)
         {
             for (int i = enemies.Count - 1; i >= 0; i--)
             {
-                enemies[i].Update(gameTime);
+                enemies[i].Update(gameTime, itemManager);
                 if (enemies[i].IsDead)
                 {
                     enemies.RemoveAt(i);

@@ -13,7 +13,8 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
-        public Aquamentus(Rectangle initialPosition) : base(initialPosition) {
+        public Aquamentus(Rectangle initialPosition) : base(initialPosition)
+        {
             Health = 2;
         }
 
@@ -39,7 +40,7 @@ namespace Project.Enemies.EnemyClasses
             };
         }
 
-        public override void Attack()
+        public override void Attack(ItemManager itemManager)
         {
             if (hasShot) return;
             hasShot = true;
@@ -47,7 +48,15 @@ namespace Project.Enemies.EnemyClasses
             foreach (Vector2 direction in GetAttackDirections())
             {
                 Rectangle fireballLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
-                projectiles.Add(new ProjectileItem(fireballLocation, direction, ItemFactory.Instance.CreateFireballSprite(), 5.0f, 600f));
+                itemManager.AddProjectile(new ProjectileItem(
+                      fireballLocation,
+                      direction,
+                      ItemFactory.Instance.CreateFireballSprite(),
+                      5.0f,
+                      600f,
+                      true,
+                      false
+                      ));
             }
             SoundEffectManager.Instance.playFireball();
         }
@@ -71,14 +80,9 @@ namespace Project.Enemies.EnemyClasses
 
         public override float GetAttackDuration() => 2f;
 
-        public override List<ProjectileItem> GetProjectiles()
-        {
-            return projectiles;
-        }
-
         public override List<Direction> PossibleMovementDirections()
         {
-          return new List<Direction>{Direction.Left, Direction.Right};
+            return new List<Direction> { Direction.Left, Direction.Right };
         }
     }
 }

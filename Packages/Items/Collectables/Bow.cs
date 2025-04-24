@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
@@ -14,7 +11,7 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
-        public List<Arrow> projectiles = new List<Arrow>();
+
         public Bow(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
@@ -22,25 +19,13 @@ namespace Project.Items
 
         public override void Update(GameTime gameTime)
         {
-            foreach (Arrow arrow in projectiles)
-            {
-                arrow.Update(gameTime);
-                if (arrow.ToBeDeleted)
-                {
-                    projectiles.Remove(arrow);
-                    break;
-                }
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            foreach (Arrow projectile in projectiles)
-            {
-                projectile.Draw(spriteBatch);
-            }
         }
+
         public override void CollideWith(IGameObject collider)
         {
             if (collider is Player && !Equipped)
@@ -49,25 +34,26 @@ namespace Project.Items
             }
         }
 
-        public override void Use()
+        public override void Use(ItemManager itemManager)
         {
+            // TODO: Implement some way to only fire arrows when they're available in the
+            // inventory.
             SoundEffectManager.Instance.playFireBow();
             switch (Direction)
             {
                 case Direction.Up:
-                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateUpArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, -2), 2f, ItemFactory.Instance.CreateUpArrowSprite(), false, true));
                     break;
                 case Direction.Right:
-                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateRightArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(2, 0), 2f, ItemFactory.Instance.CreateRightArrowSprite(), false, true));
                     break;
                 case Direction.Left:
-                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateLeftArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(-2, 0), 2f, ItemFactory.Instance.CreateLeftArrowSprite(), false, true));
                     break;
                 case Direction.Down:
-                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateDownArrowSprite()));
+                    itemManager.AddProjectile(new Arrow(Location, new Vector2(0, 2), 2f, ItemFactory.Instance.CreateDownArrowSprite(), false, true));
                     break;
                 default:
-                    projectiles.Add(new Arrow(Location, Direction, ItemFactory.Instance.CreateRightArrowSprite()));
                     break;
             }
         }
