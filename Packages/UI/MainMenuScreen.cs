@@ -9,7 +9,7 @@ namespace Project.UI
         private Button startGameButton;
 
         public MainMenuScreen(SpriteFont font, int screenWidth, int screenHeight)
-            : base(font, screenWidth, screenHeight, "Legend of Zelda: Gluckbusters Edition")
+            : base(font, screenWidth, screenHeight, "")
         {
             int bw = 200, bh = 50;
             int centerX = (screenWidth - bw) / 2;
