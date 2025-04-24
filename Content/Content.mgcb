@@ -428,6 +428,12 @@
 /processorParam:Quality=Best
 /build:sfx/deathSound.wav
 
+#begin sfx/dungeonMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:sfx/dungeonMusic.mp3
+
 #begin sfx/explosion.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -464,11 +470,11 @@
 /processorParam:Quality=Best
 /build:sfx/keys.wav
 
-#begin sfx/Main Theme.wav
-/importer:WavImporter
+#begin sfx/MenuTheme.mp3
+/importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:sfx/Main Theme.wav
+/build:sfx/MenuTheme.mp3
 
 #begin sfx/swordSlash.wav
 /importer:WavImporter
