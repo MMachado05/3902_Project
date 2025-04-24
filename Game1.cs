@@ -257,14 +257,4 @@ namespace Project
             return kbc;
         }
     }
-
-    public class GameStateMachine
-    {
-        public GameState State { get; set; }
-
-        public void StartGame()
-        {
-            State = GameState.Playing;
-        }
-    }
 }

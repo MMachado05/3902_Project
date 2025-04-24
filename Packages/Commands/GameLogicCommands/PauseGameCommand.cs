@@ -14,14 +14,7 @@ namespace Project.Packages.Commands.GameLogicCommands
 
         public void Execute()
         {
-            if (this._gameState.State == GameState.Paused)
-            {
-                this._gameState.State = GameState.Playing;
-            }
-            else
-            {
-                this._gameState.State = GameState.Paused;
-            }
+            this._gameState.TogglePause();
         }
     }
 }
