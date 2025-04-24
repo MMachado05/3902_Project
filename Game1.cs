@@ -36,7 +36,7 @@ namespace Project
         SoundEffectManager soundEffectManager;
 
         // gameOver
-        private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen;
+        private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen, pauseScreen;
 
 
         public void restart()
@@ -115,6 +115,7 @@ namespace Project
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
+            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory);
         }
 
         protected override void Update(GameTime gameTime)
@@ -129,6 +130,9 @@ namespace Project
                     break;
                 case GameState.Won:
                     screen = gameWinningScreen;
+                    break;
+                case GameState.Paused:
+                    screen = pauseScreen;
                     break;
                 default:
                     screen = null;
@@ -151,9 +155,13 @@ namespace Project
                     case GameStateAction.StartGame:
                         new StartGameCommand(this.gameState).Execute();
                         break;
+                    case GameStateAction.TogglePause:
+                        new PauseGameCommand(this.gameState).Execute();
+                        break;
+                    case GameStateAction.ToggleMusic:
+                        new ToggleMusicCommand(soundEffectManager).Execute();
+                        break;
                 }
-
-                return;
             }
 
             updater.Update(gameTime);

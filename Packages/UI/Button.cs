@@ -46,5 +46,14 @@ namespace Project.UI
         {
             return Bounds.Contains(mouse.Position) && mouse.LeftButton == ButtonState.Pressed;
         }
+
+        public bool IsClicked(MouseState current, MouseState previous)
+        {
+            return Bounds.Contains(current.Position)
+                && current.LeftButton == ButtonState.Pressed
+                && previous.LeftButton == ButtonState.Released;
+        }
+
+
     }
 }
