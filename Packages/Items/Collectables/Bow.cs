@@ -11,10 +11,12 @@ namespace Project.Items
     {
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
+        public int Count { get; set; }
 
         public Bow(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
+            Count = 0;
         }
 
         public override void Update(GameTime gameTime)
@@ -38,6 +40,9 @@ namespace Project.Items
         {
             // TODO: Implement some way to only fire arrows when they're available in the
             // inventory.
+            if (Count <= 0)
+                return;
+
             SoundEffectManager.Instance.playFireBow();
             switch (Direction)
             {
@@ -56,6 +61,8 @@ namespace Project.Items
                 default:
                     break;
             }
+
+            Count--;
         }
     }
 }

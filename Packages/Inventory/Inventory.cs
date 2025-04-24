@@ -31,11 +31,17 @@ namespace Project.Inventory
             bool added = true;
             if (!Items.ContainsKey(item))
             {
-                Items.Add(item, 1);
+                Items.Add(item, 2);
                 _itemsOrdered.Add(item);
+                if (item is Bow bow)
+                    bow.Count += 2;
             }
             else if (Items[item] < 10)
-                Items[item]++;
+            {
+                Items[item] = Items[item] + 2;
+                if (item is Bow bow)
+                    bow.Count += 2;
+            }
             else
                 added = false;
 
@@ -49,11 +55,15 @@ namespace Project.Inventory
 
             Items[item]--;
 
-            if (Items[item] == 0)
+            if (Items[item] == 0 && !(item is Bow))
             {
                 Items.Remove(item);
                 _itemsOrdered.Remove(item);
                 ActiveSlot = 0;
+            }
+            else if (item is Bow)
+            {
+                Items[item]++;
             }
             return true;
         }
