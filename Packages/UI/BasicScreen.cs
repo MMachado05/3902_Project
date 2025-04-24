@@ -34,9 +34,9 @@ namespace Project.UI
             // Optional for derived classes
         }
 
-        public virtual GameOverAction HandleInput()
+        public virtual GameStateAction HandleInput()
         {
-            return GameOverAction.None;
+            return GameStateAction.None;
         }
     }
 }

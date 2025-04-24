@@ -137,15 +137,15 @@ namespace Project
 
             if (screen != null)
             {
-                var action = screen.HandleInput();
+                GameStateAction action = screen.HandleInput();
 
                 switch (action)
                 {
-                    case GameOverAction.Restart:
+                    case GameStateAction.Restart:
                         new RestartGameCommand(this).Execute();
                         SoundEffectManager.Instance.StopAllSounds();
                         break;
-                    case GameOverAction.Exit:
+                    case GameStateAction.Exit:
                         new QuitCommand(this).Execute();
                         break;
                 }
