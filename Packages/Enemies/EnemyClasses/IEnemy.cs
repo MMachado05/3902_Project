@@ -29,7 +29,6 @@ namespace Project.Enemies
         bool IsDead { get; }
         void TakeDamage(int amount);
         void MoveInDirection(Direction direction);
-        List<ProjectileItem> GetProjectiles();
         List<Direction> PossibleMovementDirections();
     }
 }

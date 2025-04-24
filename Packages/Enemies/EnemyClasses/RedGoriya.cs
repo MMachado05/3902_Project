@@ -10,8 +10,8 @@ namespace Project.Enemies.EnemyClasses
 {
     public class RedGoriya : Enemy
     {
-        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private bool hasThrownBoomerang = false;
+        private ProjectileItem _activeBoomerang;
 
         public RedGoriya(Rectangle initialPosition) : base(initialPosition)
         {
@@ -53,9 +53,25 @@ namespace Project.Enemies.EnemyClasses
             if (hasThrownBoomerang) return;
 
             hasThrownBoomerang = true;
-            Vector2 direction = GetAttackDirection();
-            Rectangle boomerangLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
-            projectiles.Add(new ProjectileItem(boomerangLocation, direction, ItemFactory.Instance.CreateBoomerangSprite(), 5.0f, 150.0f));
+
+            Rectangle boomerangLocation = new Rectangle(
+                Location.X,
+                Location.Y,
+                Location.Width / 2,
+                Location.Height / 2
+                );
+
+            _activeBoomerang = new ProjectileItem(
+                  boomerangLocation,
+                  GetAttackDirection(),
+                  ItemFactory.Instance.CreateBoomerangSprite(),
+                  5.0f,
+                  150.0f
+                  );
+
+
+            itemManager.AddProjectile(_activeBoomerang);
+
             SoundEffectManager.Instance.playBoomerang();
         }
 
@@ -67,26 +83,13 @@ namespace Project.Enemies.EnemyClasses
         public override void UpdateAnimation(GameTime gameTime)
         {
             base.UpdateAnimation(gameTime);
-            for (int i = projectiles.Count - 1; i >= 0; i--)
-            {
-                projectiles[i].Update(gameTime);
-                if (projectiles[i].HasReturned())
-                {
-                    projectiles.RemoveAt(i);
-                    hasThrownBoomerang = false;
-                }
-            }
+            if (_activeBoomerang.HasReturned())
+                hasThrownBoomerang = false;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
-            projectiles.ForEach(p => p.Draw(spriteBatch));
-        }
-
-        public override List<ProjectileItem> GetProjectiles()
-        {
-            return projectiles;
         }
     }
 }
