@@ -118,12 +118,16 @@ namespace Project
             );
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Update(GameTime gameTime)
         {
             switch (gameState.State)
             {
+                case GameState.MainMenu:
+                    screen = mainMenuScreen;
+                    break;
                 case GameState.Lost:
                     screen = gameOverScreen;
                     break;
@@ -147,6 +151,9 @@ namespace Project
                         break;
                     case GameStateAction.Exit:
                         new QuitCommand(this).Execute();
+                        break;
+                    case GameStateAction.StartGame:
+                        new StartGameCommand(this.gameState).Execute();
                         break;
                 }
 
