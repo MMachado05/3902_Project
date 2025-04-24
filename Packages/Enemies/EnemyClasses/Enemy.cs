@@ -142,7 +142,7 @@ namespace Project.Enemies.EnemyClasses
             }
         }
 
-        public virtual void Attack() { }
+        public virtual void Attack(ItemManager itemManager) { }
         public virtual void ResetAttackState() { }
         public virtual float GetAttackDuration() => 4f;
 

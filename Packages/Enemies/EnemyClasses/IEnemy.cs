@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Project.Characters;
-using Project.Enemies.EnemyStateClasses;
 using Project.Items;
 
 namespace Project.Enemies
@@ -15,7 +14,7 @@ namespace Project.Enemies
         /// <summary>
         /// Trigger this Enemy to perform their attack.
         /// </summary>
-        void Attack();
+        void Attack(ItemManager itemManager);
 
         /// <summary>
         /// Return Enemy's internal state to not attacking.

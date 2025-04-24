@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-
 namespace Project.Items
 {
     public class ItemManager
