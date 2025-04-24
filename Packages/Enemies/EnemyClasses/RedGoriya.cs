@@ -13,7 +13,8 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         private bool hasThrownBoomerang = false;
 
-        public RedGoriya(Rectangle initialPosition) : base(initialPosition) {
+        public RedGoriya(Rectangle initialPosition) : base(initialPosition)
+        {
             Health = 1;
         }
 
@@ -54,7 +55,7 @@ namespace Project.Enemies.EnemyClasses
             hasThrownBoomerang = true;
             Vector2 direction = GetAttackDirection();
             Rectangle boomerangLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
-            projectiles.Add(new ProjectileItem(boomerangLocation, direction, ItemFactory.Instance.CreateBoomerangSprite(), 5.0f, 150.0f));
+            projectiles.Add(new ProjectileItem(boomerangLocation, direction, ItemFactory.Instance.CreateBoomerangSprite(), 5.0f, 10.0f));
             SoundEffectManager.Instance.playBoomerang();
         }
 

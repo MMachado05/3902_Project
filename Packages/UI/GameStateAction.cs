@@ -1,8 +1,9 @@
 namespace Project.UI
 {
-    public enum GameOverAction
+    public enum GameStateAction
     {
         None,
+        StartGame,
         Restart,
         Exit
     }

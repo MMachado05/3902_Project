@@ -8,14 +8,14 @@ namespace Project.UI
     {
         public string Text { get; set; }
         public Rectangle Bounds { get; set; }
-        public GameOverAction Action { get; set; }
+        public GameStateAction Action { get; set; }
 
         private SpriteFont font;
         private Color defaultColor = new Color(50, 50, 50);
         private Color hoverColor = new Color(70, 70, 120);
         private Color textColor = Color.White;
 
-        public Button(string text, Rectangle bounds, GameOverAction action, SpriteFont font)
+        public Button(string text, Rectangle bounds, GameStateAction action, SpriteFont font)
         {
             Text = text;
             Bounds = bounds;

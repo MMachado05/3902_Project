@@ -18,11 +18,11 @@ namespace Project.UI
 
             restartButton = new Button("Restart",
                 new Rectangle(centerX, centerY, bw, bh),
-                GameOverAction.Restart, font);
+                GameStateAction.Restart, font);
 
             exitButton = new Button("Exit",
                 new Rectangle(centerX, centerY + 70, bw, bh),
-                GameOverAction.Exit, font);
+                GameStateAction.Exit, font);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -39,12 +39,12 @@ namespace Project.UI
             exitButton.Draw(spriteBatch);
         }
 
-        public override GameOverAction HandleInput()
+        public override GameStateAction HandleInput()
         {
             MouseState mouse = Mouse.GetState();
-            if (restartButton.IsClicked(mouse)) return GameOverAction.Restart;
-            if (exitButton.IsClicked(mouse)) return GameOverAction.Exit;
-            return GameOverAction.None;
+            if (restartButton.IsClicked(mouse)) return GameStateAction.Restart;
+            if (exitButton.IsClicked(mouse)) return GameStateAction.Exit;
+            return GameStateAction.None;
         }
     }
 }

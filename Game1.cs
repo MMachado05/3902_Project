@@ -36,8 +36,7 @@ namespace Project
         SoundEffectManager soundEffectManager;
 
         // gameOver
-        private GameOverScreen gameOverScreen;
-        private GameWinningScreen _GameWinningScreen;
+        private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen;
 
 
         public void restart()
@@ -64,7 +63,7 @@ namespace Project
             ItemFactory.Instance.LoadAllTextures(Content, 64, 64);
             this.player = new Player();
             this.gameState = new GameStateMachine();
-            this.gameState.State = GameState.Playing;
+            this.gameState.State = GameState.MainMenu;
 
             base.Initialize();
         }
@@ -112,28 +111,45 @@ namespace Project
 
             // game over screen
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
-            gameOverScreen = new GameOverScreen(
-                font,
-                _graphics.PreferredBackBufferWidth,
-                _graphics.PreferredBackBufferHeight
-            );
-            _GameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            Texture2D background = Content.Load<Texture2D>("mainmenu");
+            gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (gameState.State == GameState.Lost)
+            switch (gameState.State)
             {
-                var action = gameOverScreen.HandleInput();
+                case GameState.MainMenu:
+                    screen = mainMenuScreen;
+                    break;
+                case GameState.Lost:
+                    screen = gameOverScreen;
+                    break;
+                case GameState.Won:
+                    screen = gameWinningScreen;
+                    break;
+                default:
+                    screen = null;
+                    break;
+            }
+
+            if (screen != null)
+            {
+                GameStateAction action = screen.HandleInput();
 
                 switch (action)
                 {
-                    case GameOverAction.Restart:
+                    case GameStateAction.Restart:
                         new RestartGameCommand(this).Execute();
-                        SoundEffectManager.Instance.StopAllSounds(); // this doesn't stop the death sound from playing
+                        SoundEffectManager.Instance.StopAllSounds();
                         break;
-                    case GameOverAction.Exit:
+                    case GameStateAction.Exit:
                         new QuitCommand(this).Execute();
+                        break;
+                    case GameStateAction.StartGame:
+                        new StartGameCommand(this.gameState).Execute();
                         break;
                 }
 
@@ -149,21 +165,15 @@ namespace Project
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-            // gameRenderer.Draw(_spriteBatch);
 
-            // to test game over screen
-            if (gameState.State == GameState.Lost)
+            if (screen != null)
             {
-                gameOverScreen.Draw(_spriteBatch);
-            }
-            else if (gameState.State == GameState.Won){
-                _GameWinningScreen.Draw(_spriteBatch);
+                screen.Draw(_spriteBatch);
             }
             else
             {
                 gameRenderer.Draw(_spriteBatch);
             }
-
             _spriteBatch.End();
 
             base.Draw(gameTime);
@@ -242,10 +252,5 @@ namespace Project
 
             return kbc;
         }
-    }
-
-    public class GameStateMachine
-    {
-        public GameState State { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace Project.UI
     {
         void Draw(SpriteBatch spriteBatch);
         void Update();
-        GameOverAction HandleInput();
+        GameStateAction HandleInput();
     }
 }
