@@ -40,6 +40,7 @@ namespace Project.Items
         {
             // TODO: Implement some way to only fire arrows when they're available in the
             // inventory.
+            System.Console.WriteLine(Count);
             if (Count <= 0)
                 return;
 

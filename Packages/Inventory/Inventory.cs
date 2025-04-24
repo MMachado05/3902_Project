@@ -29,21 +29,21 @@ namespace Project.Inventory
         public bool Add(IItem item)
         {
             bool added = true;
-            if (!Items.ContainsKey(item))
+            Type itemType = item.GetType();
+
+            foreach (KeyValuePair<IItem, int> itemCount in Items)
             {
-                Items.Add(item, 2);
-                _itemsOrdered.Add(item);
-                if (item is Bow bow)
-                    bow.Count += 2;
+                if (itemCount.Key.GetType() == itemType)
+                {
+                    Items[itemCount.Key] += 2;
+                    if (itemCount.Key is Bow brow)
+                        brow.Count += 2;
+                }
             }
-            else if (Items[item] < 10)
-            {
-                Items[item] = Items[item] + 2;
-                if (item is Bow bow)
-                    bow.Count += 2;
-            }
-            else
-                added = false;
+            Items.Add(item, 2);
+            _itemsOrdered.Add(item);
+            if (item is Bow bow)
+                bow.Count += 2;
 
             return added;
         }
