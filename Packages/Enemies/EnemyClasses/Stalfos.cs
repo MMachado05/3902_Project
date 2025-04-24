@@ -7,8 +7,9 @@ namespace Project.Enemies.EnemyClasses
 {
     public class Stalfos : Enemy
     {
-        public Stalfos(Rectangle initialPosition) : base(initialPosition) {
-            Health = 1;
+        public Stalfos(Rectangle initialPosition) : base(initialPosition)
+        {
+            Health = 2;
         }
 
         protected override void LoadAnimations()

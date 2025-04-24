@@ -13,8 +13,9 @@ namespace Project.Enemies.EnemyClasses
         private List<ProjectileItem> projectiles = new List<ProjectileItem>();
         public bool hasShot = false;
 
-        public Aquamentus(Rectangle initialPosition) : base(initialPosition) {
-            Health = 2;
+        public Aquamentus(Rectangle initialPosition) : base(initialPosition)
+        {
+            Health = 6;
         }
 
         protected override void LoadAnimations()
@@ -78,7 +79,7 @@ namespace Project.Enemies.EnemyClasses
 
         public override List<Direction> PossibleMovementDirections()
         {
-          return new List<Direction>{Direction.Left, Direction.Right};
+            return new List<Direction> { Direction.Left, Direction.Right };
         }
     }
 }
