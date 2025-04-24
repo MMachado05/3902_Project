@@ -8,6 +8,6 @@ namespace Project
         int PlayerHealthEffect { get; }
         bool IsPassable { get; }
 
-        void CollideWith(IGameObject collider);
+        void CollideWith(IGameObject collider, Vector2 fromVector);
     }
 }

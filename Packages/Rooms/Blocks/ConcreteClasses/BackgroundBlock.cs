@@ -42,7 +42,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
 
 
 
-        public void CollideWith(IGameObject collider)
+        public void CollideWith(IGameObject collider, Vector2 from)
         {
         }
 
