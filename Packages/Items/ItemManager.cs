@@ -33,16 +33,6 @@ namespace Project.Items
             /*GetCurrentItem().Position = GetPlacementPosition();*/
         }
 
-        public void PlaceProjectile(int index)
-        {
-            if (index < 0 || index >= projectiles.Count) return;
-
-            Vector2 position = GetPlacementPosition();
-            Vector2 direction = GetItemDirection();
-
-            IItem itemToPlace = projectiles[index];
-        }
-
         private Vector2 GetPlacementPosition()
         {
             return new Vector2();
