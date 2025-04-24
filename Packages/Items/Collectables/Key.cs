@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Packages.Sounds;
 using Project.Sprites;
 
 namespace Project.Items
@@ -21,6 +22,7 @@ namespace Project.Items
         {
             if (collider is Player)
             {
+                SoundEffectManager.Instance.playKeys();
                 ToBeDeleted = true;
             }
         }

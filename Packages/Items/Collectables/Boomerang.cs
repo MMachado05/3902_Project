@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Factories;
+using Project.Packages.Sounds;
 using Project.Sprites;
 
 namespace Project.Items
@@ -50,6 +51,7 @@ namespace Project.Items
 
         public override void Use()
         {
+            SoundEffectManager.Instance.playBoomerang();
             if (projectiles.Count <= 1)
             {
                 switch (Direction)
