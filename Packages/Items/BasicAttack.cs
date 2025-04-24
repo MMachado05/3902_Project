@@ -11,6 +11,8 @@ namespace Project.Items
             Location = location;
         }
 
+        public override EnemyDamage = 1; 
+
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
 

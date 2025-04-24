@@ -15,6 +15,8 @@ namespace Project.Items
         public override Rectangle Location { get; set; }
         public override Direction Direction { get; set; }
         public List<ThrownBoomerang> projectiles = new List<ThrownBoomerang>();
+
+        public override EnemyDamage = 3; 
         public Boomerang(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
