@@ -202,7 +202,7 @@ namespace Project.Characters
             _inventory.PlaceCurrentItem(spriteBatch, Location, LastActiveDirection);
         }
 
-        public void CollideWith(IGameObject collider)
+        public void CollideWith(IGameObject collider, Vector2 from)
         {
             if (!collider.IsPassable)
             {

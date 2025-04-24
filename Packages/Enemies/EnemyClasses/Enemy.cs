@@ -129,7 +129,7 @@ namespace Project.Enemies.EnemyClasses
             currentAnimation.Draw(spriteBatch, Location);
         }
 
-        public void CollideWith(IGameObject collider)
+        public void CollideWith(IGameObject collider, Vector2 from)
         {
             // TODO: Implement, need to check what the collision is with
             if (!collider.IsPassable)
@@ -139,6 +139,7 @@ namespace Project.Enemies.EnemyClasses
             if (collider is Arrow || collider is Explosion || collider is ThrownBoomerang)
             {
                 Health -= 1;
+                Location = new Rectangle(Location.X + (int)from.X, Location.Y + (int)from.Y, Location.Width, Location.Height);
             }
         }
 

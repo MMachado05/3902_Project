@@ -14,7 +14,7 @@ namespace Project.Items
             Location = position;
         }
 
-        public override void CollideWith(IGameObject collider)
+        public override void CollideWith(IGameObject collider, Vector2 from)
         {
             if (collider is Enemy || collider is SolidBlock)
             {
