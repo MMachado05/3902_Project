@@ -56,6 +56,7 @@ namespace Project.Packages
             this.Background = roomData.Background;
             SavedPlayerLocation = this._defaultPlayerLocation;
             this.MiniMap = roomData.MiniMap;
+            RoomName = roomData.RoomName;
 
             this._active = false;
         }
