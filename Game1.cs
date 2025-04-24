@@ -111,14 +111,10 @@ namespace Project
 
             // game over screen
             SpriteFont font = Content.Load<SpriteFont>("PauseFont");
-            gameOverScreen = new GameOverScreen(
-                font,
-                _graphics.PreferredBackBufferWidth,
-                _graphics.PreferredBackBufferHeight
-            );
+            Texture2D background = Content.Load<Texture2D>("mainmenu");
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
-            mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
+            mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
         }
 
         protected override void Update(GameTime gameTime)

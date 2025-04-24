@@ -8,8 +8,8 @@ namespace Project.UI
     {
         private Button startGameButton;
 
-        public MainMenuScreen(SpriteFont font, int screenWidth, int screenHeight)
-            : base(font, screenWidth, screenHeight, "")
+        public MainMenuScreen(SpriteFont font, int screenWidth, int screenHeight, Texture2D backgroundTexture)
+            : base(font, screenWidth, screenHeight, "", backgroundTexture)
         {
             int bw = 200, bh = 50;
             int centerX = (screenWidth - bw) / 2;
@@ -22,6 +22,8 @@ namespace Project.UI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
             Vector2 titleSize = font.MeasureString(title);
             Vector2 titlePosition = new Vector2(
                 (screenWidth - titleSize.X) / 2,

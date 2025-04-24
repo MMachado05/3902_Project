@@ -9,13 +9,15 @@ namespace Project.UI
         protected int screenWidth;
         protected int screenHeight;
         protected string title;
+        protected Texture2D? backgroundTexture;
 
-        public BasicScreen(SpriteFont font, int screenWidth, int screenHeight, string title)
+        public BasicScreen(SpriteFont font, int screenWidth, int screenHeight, string title, Texture2D? backgroundTexture = null)
         {
             this.font = font;
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;
             this.title = title;
+            this.backgroundTexture = backgroundTexture;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
