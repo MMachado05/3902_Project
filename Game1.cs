@@ -88,6 +88,7 @@ namespace Project
             EnemySpriteFactory.Instance.LoadAllTextures(Content);
             
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
+            InventoryGUISpriteFactory.Instance.LoadAllTextures(Content);
 
             this.gameRenderer.RoomManager = roomManager;
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);

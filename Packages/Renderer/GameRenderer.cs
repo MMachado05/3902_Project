@@ -64,6 +64,9 @@ namespace Project.Renderer
 
             HealthBarSpriteFactory.Instance.HealthBarSprite(_playerCharacter.health).Draw(spriteBatch, new Rectangle(64,0,256,64));
 
+            //Inventory GUI
+            InventoryGUISpriteFactory.Instance.InventoryGUISprite(_playerCharacter._inventory.currentItemIndex).Draw(spriteBatch, new Rectangle(320, 0, 256, 64));
+
 
             // TODO: Catch collisions during the drawing stage and call relevant commands
             //  to colliding objects as needed
