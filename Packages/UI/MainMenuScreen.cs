@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Project.Packages.Sounds;
 
 namespace Project.UI
 {
@@ -12,6 +13,9 @@ namespace Project.UI
         public MainMenuScreen(SpriteFont font, int screenWidth, int screenHeight, Texture2D backgroundTexture)
             : base(font, screenWidth, screenHeight, "", backgroundTexture)
         {
+            // Play sound immediately
+            SoundEffectManager.Instance.PlayMenuMusic();
+
             int bw = 200, bh = 50;
             int centerX = (screenWidth - bw) / 2;
             int centerY = screenHeight / 2;
