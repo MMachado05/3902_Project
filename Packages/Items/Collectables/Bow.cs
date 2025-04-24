@@ -26,7 +26,7 @@ namespace Project.Items
             base.Draw(spriteBatch);
         }
 
-        public override void CollideWith(IGameObject collider)
+        public override void CollideWith(IGameObject collider, Vector2 from)
         {
             if (collider is Player && !Equipped)
             {

@@ -17,7 +17,7 @@ namespace Project.Items
 
         public override void Update(GameTime gameTime) { }
 
-        public override void CollideWith(IGameObject collider)
+        public override void CollideWith(IGameObject collider, Vector2 from)
         {
             if (collider is Player)
             {

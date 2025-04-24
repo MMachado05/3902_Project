@@ -20,6 +20,7 @@ namespace Project.Packages.Sounds
         private SoundEffect explosion;
         private SoundEffect FireBow;
         private SoundEffect keys;
+        private Song menuMusic;
 
 
         private static readonly SoundEffectManager instance = new SoundEffectManager();
@@ -28,12 +29,13 @@ namespace Project.Packages.Sounds
 
         // --- Osama:
         private bool isMusicEnabled = true;
+        private bool menuMusicPlaying = false;
 
         private Boolean dungeonMusicPlaying = false; // Osama: Maybe rename to "dungonMusic" or something?
         private Boolean bossThemePlaying = false;
         public void LoadContent(ContentManager content)
-        { 
-            dungeonMusic = content.Load<Song>("sfx/Main Theme");
+        {
+            dungeonMusic = content.Load<Song>("sfx/dungeonMusic");
             bossTheme = content.Load<Song>("sfx/Boss Theme");
             swordSlash = content.Load<SoundEffect>("sfx/swordSlash");
             fireball = content.Load<SoundEffect>("sfx/fireball");
@@ -45,6 +47,19 @@ namespace Project.Packages.Sounds
             explosion = content.Load<SoundEffect>("sfx/explosion");
             FireBow = content.Load<SoundEffect>("sfx/FireBow");
             keys = content.Load<SoundEffect>("sfx/keys");
+            menuMusic = content.Load<Song>("sfx/MenuTheme");
+        }
+
+
+        public void PlayMenuMusic()
+        {
+            if (!menuMusicPlaying && isMusicEnabled)
+            {
+                MediaPlayer.Play(menuMusic);
+            }
+            menuMusicPlaying = true;
+            dungeonMusicPlaying = false;
+            bossThemePlaying = false;
         }
 
         public void ToggleMusic()

@@ -8,7 +8,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
         public Rectangle Location { get => this._renderedLocation; set => Location = value; }
         public int PlayerHealthEffect { get => 0; }
         public bool IsPassable { get => false; }
-        public bool SwitchRoom {get;set;}
+        public bool SwitchRoom { get; set; }
 
         private Texture2D _texture;
         private Rectangle _textureSource;
@@ -53,7 +53,7 @@ namespace Project.Rooms.Blocks.ConcreteClasses
                 this._textureSource, Color.Gray);
         }
 
-        public void CollideWith(IGameObject collider)
+        public void CollideWith(IGameObject collider, Vector2 from)
         {
             // NOTE: Empty method, since blocks won't respond to collisions
         }
