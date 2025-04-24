@@ -277,6 +277,18 @@
 /processorParam:TextureFormat=Color
 /build:LeftArrow.png
 
+#begin mainmenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:mainmenu.png
+
 #begin map.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -397,12 +409,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:sfx/boomerang.wav
-
-#begin sfx/Boss Theme.wav
-/importer:WavImporter
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:sfx/Boss Theme.wav
 
 #begin sfx/Boss Theme.wav
 /importer:WavImporter

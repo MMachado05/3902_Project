@@ -4,29 +4,26 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Project.UI
 {
-    public class GameOverScreen : BasicScreen
+    public class MainMenuScreen : BasicScreen
     {
-        private Button restartButton;
-        private Button exitButton;
+        private Button startGameButton;
 
-        public GameOverScreen(SpriteFont font, int screenWidth, int screenHeight)
-            : base(font, screenWidth, screenHeight, "Game Over")
+        public MainMenuScreen(SpriteFont font, int screenWidth, int screenHeight, Texture2D backgroundTexture)
+            : base(font, screenWidth, screenHeight, "", backgroundTexture)
         {
             int bw = 200, bh = 50;
             int centerX = (screenWidth - bw) / 2;
             int centerY = screenHeight / 2;
 
-            restartButton = new Button("Restart",
+            startGameButton = new Button("Start Game",
                 new Rectangle(centerX, centerY, bw, bh),
-                GameStateAction.Restart, font);
-
-            exitButton = new Button("Exit",
-                new Rectangle(centerX, centerY + 70, bw, bh),
-                GameStateAction.Exit, font);
+                GameStateAction.StartGame, font);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
             Vector2 titleSize = font.MeasureString(title);
             Vector2 titlePosition = new Vector2(
                 (screenWidth - titleSize.X) / 2,
@@ -35,15 +32,13 @@ namespace Project.UI
 
             spriteBatch.DrawString(font, title, titlePosition, Color.White);
 
-            restartButton.Draw(spriteBatch);
-            exitButton.Draw(spriteBatch);
+            startGameButton.Draw(spriteBatch);
         }
 
         public override GameStateAction HandleInput()
         {
             MouseState mouse = Mouse.GetState();
-            if (restartButton.IsClicked(mouse)) return GameStateAction.Restart;
-            if (exitButton.IsClicked(mouse)) return GameStateAction.Exit;
+            if (startGameButton.IsClicked(mouse)) return GameStateAction.StartGame;
             return GameStateAction.None;
         }
     }
