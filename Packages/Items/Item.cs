@@ -39,5 +39,7 @@ namespace Project.Items
                 //Location = new Rectangle(1000, 1000, 1000, 1000);
             }
         }
+
+        public virtual EnemyDamage = 0;
     }
 }

@@ -12,5 +12,7 @@ namespace Project.Items
         public Direction Direction { get; set; }
         public bool ToBeDeleted { get; set; }
         public bool Equipped { get; set; }
+
+        int EnemyDamage { get; set; }
     }
 }
