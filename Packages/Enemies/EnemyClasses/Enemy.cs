@@ -108,9 +108,9 @@ namespace Project.Enemies.EnemyClasses
             }
         }
 
-        public void UpdateState(GameTime gameTime)
+        public void UpdateState(GameTime gameTime, ItemManager itemManager)
         {
-            stateMachine.Update(this);
+            stateMachine.Update(this, itemManager);
         }
 
 
@@ -146,12 +146,12 @@ namespace Project.Enemies.EnemyClasses
         public virtual void ResetAttackState() { }
         public virtual float GetAttackDuration() => 4f;
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, ItemManager itemManager)
         {
             if (hurtCooldown > 0)
                 hurtCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            UpdateState(gameTime);
+            UpdateState(gameTime, itemManager);
             UpdateAnimation(gameTime);
         }
 

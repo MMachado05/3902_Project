@@ -18,9 +18,12 @@ namespace Project.Inventory
         public Inventory()
         {
             ActiveSlot = 0;
+            _itemsOrdered = new List<IItem>();
             Sword sword = new Sword(new Rectangle(1, 2, 3, 4), ItemFactory.Instance.CreateSwordSprite());
             sword.Equipped = true;
             this.Items = new Dictionary<IItem, int>();
+            Items.Add(sword, 1);
+            _itemsOrdered.Add(sword);
         }
 
         public bool Add(IItem item)

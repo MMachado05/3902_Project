@@ -83,7 +83,7 @@ namespace Project.Enemies.EnemyClasses
         public override void UpdateAnimation(GameTime gameTime)
         {
             base.UpdateAnimation(gameTime);
-            if (_activeBoomerang.HasReturned())
+            if (hasThrownBoomerang && _activeBoomerang.HasReturned())
                 hasThrownBoomerang = false;
         }
 

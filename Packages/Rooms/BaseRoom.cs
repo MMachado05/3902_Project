@@ -94,10 +94,7 @@ namespace Project.Packages
 
             this._player.Draw(sb);
             this._enemyManager.Draw(sb);
-            foreach (IItem item in _itemManager.GetWorldItems())
-            {
-                item.Draw(sb);
-            }
+            _itemManager.Draw(sb);
         }
         public string GetRoomName()
         {
@@ -110,7 +107,7 @@ namespace Project.Packages
 
         public void Update(GameTime gameTime)
         {
-            this._enemyManager.Update(gameTime);
+            this._enemyManager.Update(gameTime, _itemManager);
             this._itemManager.Update(gameTime);
 
             //Player and Enemy/Projecilt Collision
@@ -127,7 +124,8 @@ namespace Project.Packages
             }
             for (int i = 0; i < this._itemManager.GetProjectiles.Count; i++)
             {
-                this._collisionManager.Collide(this._player, this._itemManager.GetProjectiles[i]);
+                if (this._itemManager.GetProjectiles[i].PlayerHealthEffect < 0)
+                    this._collisionManager.Collide(this._player, this._itemManager.GetProjectiles[i]);
             }
 
             //Player and Block Collison

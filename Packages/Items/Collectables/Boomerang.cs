@@ -53,16 +53,16 @@ namespace Project.Items
             switch (Direction)
             {
                 case Direction.Up:
-                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, new Vector2(0, -5), 5f, ItemFactory.Instance.CreateBoomerangSprite()));
                     break;
                 case Direction.Right:
-                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, new Vector2(5, 0), 5f, ItemFactory.Instance.CreateBoomerangSprite()));
                     break;
                 case Direction.Left:
-                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, new Vector2(-5, 0), 5f, ItemFactory.Instance.CreateBoomerangSprite()));
                     break;
                 case Direction.Down:
-                    itemManager.AddProjectile(new ThrownBoomerang(Location, Direction, ItemFactory.Instance.CreateBoomerangSprite()));
+                    itemManager.AddProjectile(new ThrownBoomerang(Location, new Vector2(0, 5), 5f, ItemFactory.Instance.CreateBoomerangSprite()));
                     break;
                 default:
                     break;

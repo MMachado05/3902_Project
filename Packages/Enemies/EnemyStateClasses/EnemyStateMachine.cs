@@ -1,3 +1,5 @@
+using Project.Items;
+
 namespace Project.Enemies.EnemyStateClasses
 {
     public class EnemyStateMachine
@@ -11,9 +13,9 @@ namespace Project.Enemies.EnemyStateClasses
             current = initialState;
         }
 
-        public void Update(IEnemy enemy)
+        public void Update(IEnemy enemy, ItemManager itemManager)
         {
-            current.Execute(enemy);
+            current.Execute(enemy, itemManager);
 
             if (current.IsDone)
                 current = ai.DecideNextState(enemy, current);

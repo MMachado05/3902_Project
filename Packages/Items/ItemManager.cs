@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace Project.Items
 {
     public class ItemManager
     {
         private readonly List<Item> worldItems;
         private readonly List<ProjectileItem> projectiles;
-        private int currentItemIndex = 0;
 
         public ItemManager()
         {
@@ -35,6 +35,15 @@ namespace Project.Items
                 }
             }
         }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (Item item in worldItems)
+                item.Draw(spriteBatch);
+            foreach (ProjectileItem projectile in projectiles)
+                projectile.Draw(spriteBatch);
+        }
+
         public List<Item> GetWorldItems() => worldItems;
         public List<ProjectileItem> GetProjectiles => projectiles;
 

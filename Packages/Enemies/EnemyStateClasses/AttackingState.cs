@@ -1,3 +1,5 @@
+using Project.Items;
+
 namespace Project.Enemies.EnemyStateClasses
 {
     public class AttackingState : IEnemyState
@@ -8,13 +10,13 @@ namespace Project.Enemies.EnemyStateClasses
         public bool IsDone => timer >= 4;
         public StateId Id => StateId.Attacking;
 
-        public void Execute(IEnemy enemy)
+        public void Execute(IEnemy enemy, ItemManager itemManager)
         {
             timer += 0.1f;
 
             if (!hasAttacked)
             {
-                enemy.Attack();
+                enemy.Attack(itemManager);
                 hasAttacked = true;
             }
 

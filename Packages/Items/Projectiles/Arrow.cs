@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Project.Characters;
 using Project.Enemies.EnemyClasses;
 using Project.Rooms.Blocks.ConcreteClasses;
 using Project.Sprites;
@@ -13,6 +12,7 @@ namespace Project.Items
           : base(position, vectorDirection, sprite, speed, 600f)
         {
             Location = position;
+            PlayerHealthEffect = 0;
         }
 
         public override void CollideWith(IGameObject collider)

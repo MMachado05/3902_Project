@@ -145,7 +145,7 @@ namespace Project.Rooms
             string line;
             int roomWidth = 0;
             int roomHeight = 0;
-            string RoomName;
+            string RoomName = "";
 
             // Create dimensions for loaded room
             while ((line = reader.ReadLine()) != null)

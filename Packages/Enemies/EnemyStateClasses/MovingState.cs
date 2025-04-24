@@ -1,6 +1,7 @@
 using System;
 using Project.Characters;
 using System.Collections.Generic;
+using Project.Items;
 
 namespace Project.Enemies.EnemyStateClasses
 {
@@ -20,7 +21,7 @@ namespace Project.Enemies.EnemyStateClasses
             moveDirection = GenerateDirection(enemy.PossibleMovementDirections(), rng);
         }
 
-        public void Execute(IEnemy enemy)
+        public void Execute(IEnemy enemy, ItemManager itemManager)
         {
             timer += 0.1f;
 

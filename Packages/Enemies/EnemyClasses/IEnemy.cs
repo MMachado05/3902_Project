@@ -25,7 +25,7 @@ namespace Project.Enemies
         /// Returns the length of this Enemy's attack animation in seconds.
         /// </summary>
         float GetAttackDuration();
-        void Update(GameTime gameTime);
+        void Update(GameTime gameTime, ItemManager itemManager);
         bool IsDead { get; }
         void TakeDamage(int amount);
         void MoveInDirection(Direction direction);
