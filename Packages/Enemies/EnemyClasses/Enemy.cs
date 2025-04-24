@@ -136,17 +136,9 @@ namespace Project.Enemies.EnemyClasses
             {
                 Location = lastLocation;
             }
-            if (collider is BasicAttack)
+            if (collider is Item)
             {
-                TakeDamage(1);
-            }
-            else if (collider is Arrow)
-            {
-                TakeDamage(2);
-            }
-            else if (collider is ThrownBoomerang)
-            {
-                TakeDamage(3);
+                TakeDamage(Item.EnemyDamage);
             }
         }
 

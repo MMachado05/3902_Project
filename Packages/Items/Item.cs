@@ -40,6 +40,6 @@ namespace Project.Items
             }
         }
 
-        public virtual EnemyDamage = 0;
+        public virtual int EnemyDamage { get; set; } = 0;
     }
 }

@@ -16,7 +16,7 @@ namespace Project.Items
         public override Direction Direction { get; set; }
         public List<Arrow> projectiles = new List<Arrow>();
 
-        public override EnemyDamage = 2; 
+        public override int EnemyDamage { get; set; } = 2;
         public Bow(Rectangle position, ISprite sprite) : base(sprite)
         {
             Location = position;
