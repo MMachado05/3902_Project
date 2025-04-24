@@ -1,44 +1,49 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D;
+using Myra.Graphics2D.Brushes;
 using Myra.Graphics2D.UI;
 using Project.Characters;
-using Project.Rooms;
 using Project.Commands;
 using Project.Commands.PlayerCommands;
-using Project.Packages.Sounds;
 using Project.Factories;
+using Project.Packages.Sounds;
+using Project.Rooms;
 
 namespace Project.Renderer
 {
     public class GameRenderer : IRenderer
     {
-
         private Player _playerCharacter;
-        public Player PlayerCharacter { set => this._playerCharacter = value; }
+        public Player PlayerCharacter
+        {
+            set => this._playerCharacter = value;
+        }
 
         private RoomManager _roomManager;
-        public RoomManager RoomManager { set => this._roomManager = value; }
+        public RoomManager RoomManager
+        {
+            set => this._roomManager = value;
+        }
 
         private bool _fieldsSatisfied;
         private GameStateMachine _gameState;
 
         // Osama: exposing public property of map sprite sheet to most simply render them here.
-        private Texture2D _mapSpriteSheet;
-        public Texture2D MapSpriteSheet 
-        {
-            private get => _mapSpriteSheet;
-            set => _mapSpriteSheet = value;
-        }
 
         private int _screenWidth; // Since we can't see game1
         private int _screenHeight; // Since we can't see game1
         private int tileWidth;
         private int tileHeight;
 
-        public int TileWidth { get => tileWidth; }
-        public int TileHeight { get => tileHeight; }
+        public int TileWidth
+        {
+            get => tileWidth;
+        }
+        public int TileHeight
+        {
+            get => tileHeight;
+        }
 
         // Myra UI components for the pause menu
         private Desktop _pauseDesktop;
@@ -50,7 +55,13 @@ namespace Project.Renderer
         private Button _musicToggleButton;
         private ICommand _toggleMusicCommand;
 
-        public GameRenderer(int screenWidth, int screenHeight, int tileWidth, int tileHeight, GameStateMachine gameState)
+        public GameRenderer(
+            int screenWidth,
+            int screenHeight,
+            int tileWidth,
+            int tileHeight,
+            GameStateMachine gameState
+        )
         {
             //TODO: adjust naming convention for some of these
             this._screenWidth = screenWidth;
@@ -72,23 +83,9 @@ namespace Project.Renderer
             this._roomManager.DrawCurrentRoom(spriteBatch);
             this._playerCharacter.Draw(spriteBatch);
 
-            HealthBarSpriteFactory.Instance.HealthBarSprite(_playerCharacter.health).Draw(spriteBatch, new Rectangle(64,0,256,64));
-
-            // -------------------- osama begg
-
-            int frameWidth  = _mapSpriteSheet.Width / 20; // fuzzy
-            int frameHeight = _mapSpriteSheet.Height;
-
-            // [0->8]
-            int frameIndex = _roomManager.CurrentRoomRow;
-
-            Rectangle sourceRect = new Rectangle(frameIndex * frameWidth, 0, frameWidth, frameHeight);
-            Rectangle destRect = new Rectangle(900, 20, (frameWidth * (int)3.2), (frameHeight * (int)3.2)); // Added scaling bc map sprite is smol
-
-            spriteBatch.Draw(_mapSpriteSheet, destRect, sourceRect, Color.White);
-
-            // -------------------- osama end
-
+            HealthBarSpriteFactory
+                .Instance.HealthBarSprite(_playerCharacter.health)
+                .Draw(spriteBatch, new Rectangle(64, 0, 256, 64));
 
             // TODO: Catch collisions during the drawing stage and call relevant commands
             //  to colliding objects as needed
@@ -131,7 +128,7 @@ namespace Project.Renderer
                 Height = 250,
                 Padding = new Thickness(20),
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
             };
 
             // Main stack panel to hold everything vertically; UI cluster
@@ -139,7 +136,7 @@ namespace Project.Renderer
             {
                 Spacing = 8,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
             };
 
             // 1. Centered "GAME PAUSED" label
@@ -147,7 +144,7 @@ namespace Project.Renderer
             {
                 Text = "GAME PAUSED",
                 TextColor = Color.White,
-                HorizontalAlignment = HorizontalAlignment.Center
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
             mainStack.Widgets.Add(_pauseLabel);
 
@@ -156,16 +153,16 @@ namespace Project.Renderer
             {
                 Spacing = 8,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(0, 20, 0, 0) // Adds 20 pixels of space above this panel
+                Margin = new Thickness(0, 20, 0, 0), // Adds 20 pixels of space above this panel
             };
 
             // TODO: Add toggle off functionality after branch is merged
             _musicToggleButton = new Button
             {
                 Content = new Label { Text = "Music: On/Off", TextColor = Color.White },
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment = HorizontalAlignment.Left,
             };
-            
+
             _toggleMusicCommand = new ToggleMusicCommand(SoundEffectManager.Instance);
             _musicToggleButton.Click += (sender, e) => _toggleMusicCommand.Execute();
 
@@ -176,7 +173,7 @@ namespace Project.Renderer
             {
                 Text = "Inventory",
                 TextColor = Color.White,
-                HorizontalAlignment = HorizontalAlignment.Left
+                HorizontalAlignment = HorizontalAlignment.Left,
             };
             stackPanel.Widgets.Add(_inventoryPanel);
 
@@ -194,9 +191,5 @@ namespace Project.Renderer
             // Set the panel as root widget of the Desktop
             _pauseDesktop.Root = _pausePanel;
         }
-
-
-
     }
-
 }
