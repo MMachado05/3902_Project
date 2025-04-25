@@ -29,15 +29,21 @@ namespace Project.Inventory
         public bool Add(IItem item)
         {
             bool added = true;
-            if (!Items.ContainsKey(item))
+            Type itemType = item.GetType();
+
+            foreach (KeyValuePair<IItem, int> itemCount in Items)
             {
-                Items.Add(item, 1);
-                _itemsOrdered.Add(item);
+                if (itemCount.Key.GetType() == itemType)
+                {
+                    Items[itemCount.Key] += 2;
+                    if (itemCount.Key is Bow brow)
+                        brow.Count += 2;
+                }
             }
-            else if (Items[item] < 10)
-                Items[item]++;
-            else
-                added = false;
+            Items.Add(item, 2);
+            _itemsOrdered.Add(item);
+            if (item is Bow bow)
+                bow.Count += 2;
 
             return added;
         }
@@ -49,11 +55,15 @@ namespace Project.Inventory
 
             Items[item]--;
 
-            if (Items[item] == 0)
+            if (Items[item] == 0 && !(item is Bow))
             {
                 Items.Remove(item);
                 _itemsOrdered.Remove(item);
                 ActiveSlot = 0;
+            }
+            else if (item is Bow)
+            {
+                Items[item]++;
             }
             return true;
         }

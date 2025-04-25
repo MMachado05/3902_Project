@@ -52,14 +52,15 @@ namespace Project
                 this._roomManager.Update(gameTime);
             }
 
-            if (_player.health <= 0)
+            if (_player.health <= 0 && this._gameState.State != GameState.Lost)
             {
                 //_restartCommand.Execute();
                 //SoundEffectManager.Instance.playGameOver();
                 SoundEffectManager.Instance.playDeathSound();
                 _gameState.State = GameState.Lost;
             }
-            if(this._roomManager.IsThereEnmey()){
+            if (this._roomManager.IsThereEnmey())
+            {
                 System.Console.WriteLine("win");
                 _gameState.State = GameState.Won;
 
