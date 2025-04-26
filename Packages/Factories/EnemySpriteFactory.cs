@@ -13,6 +13,8 @@ namespace Project.Factories
         private Texture2D stalfosSpriteSheet;
         private Texture2D aquamentusSpriteSheet;
 
+        private Texture2D nickSpriteSheet;
+
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
 
         public static EnemySpriteFactory Instance => instance;
@@ -24,6 +26,7 @@ namespace Project.Factories
             redGoriyaSpriteSheet = content.Load<Texture2D>("RedGoriya");
             stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
             aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
+            nickSpriteSheet = content.Load<Texture2D>("nick");
         }
 
         // ----------------- RED GORIYA SPRITES -----------------
@@ -67,5 +70,8 @@ namespace Project.Factories
 
         public ISprite NewAquamentusAttackingRight() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 160, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
         public ISprite NewAquamentusAttackingLeft() => new SingleAnimationSprite(aquamentusSpriteSheet, new Rectangle(64, 288, 64, 32), 4, CharacterState.Attacking, CharacterState.FinishedAttack);
+
+        // ----------------- NICK SPRITES -----------------
+        public ISprite NewNickMoving() => new AnimatedLoopSprite(nickSpriteSheet, new Rectangle(0, 0, 128, 128), 2, CharacterState.Walking);
     }
 }
