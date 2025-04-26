@@ -11,8 +11,8 @@ namespace Project.Enemies.EnemyClasses
     public abstract class Enemy : IEnemy
     {
         public Rectangle Location { get; set; }
-        public virtual int PlayerHealthEffect { get => -1; }
-        public bool IsPassable { get => true; }
+        public virtual int PlayerHealthEffect { get => 0; }
+        public bool IsPassable { get => false; }
 
         public float Speed { get; set; }
         public int Health { get; set; }

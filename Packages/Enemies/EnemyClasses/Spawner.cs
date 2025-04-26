@@ -6,16 +6,18 @@ using Project.Sprites;
 using Project.Items;
 using System;
 using Project.Enemies.EnemyStateClasses;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 
 namespace Project.Enemies.EnemyClasses
 {
-    public class Spawner : Enemy
+    public class Spawner : Enemy, ICustomCollidable
     {
         private readonly EnemyManager enemyManager;
         private double spawnCooldown;
         private double timeSinceLastSpawn;
-        private static readonly int SpawnOffsetX = 160;
+        private static readonly int SpawnOffsetX = 130;
         private static readonly int SpawnOffsetY = 30;
         private static readonly int NickWidth = 128;
         private static readonly int NickHeight = 128;
@@ -74,6 +76,14 @@ namespace Project.Enemies.EnemyClasses
             attackDown = idleUp;
             attackLeft = idleUp;
             attackRight = idleUp;
+        }
+
+        public List<Rectangle> GetCollisionBoxes()
+        {
+            return new List<Rectangle>
+            {
+                // generate accurate rectangles
+            };
         }
 
     }
