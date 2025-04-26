@@ -1,97 +1,61 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Project.Characters;
+using System.Collections.Generic;
 using Project.Factories;
 using Project.Items;
 using Project.Packages.Sounds;
+using Project.Enemies.Helper;
+using Project.Characters;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class RedGoriya : Enemy
     {
         private bool hasThrownBoomerang = false;
-        private ProjectileItem _activeBoomerang;
 
-        public RedGoriya(Rectangle initialPosition) : base(initialPosition)
+        private readonly ItemManager itemManager;
+
+        public RedGoriya(Rectangle initialPosition, ItemManager itemManager) : base(initialPosition)
         {
+            this.itemManager = itemManager;
             Health = 1;
+            Shooter = new ProjectileShooter(itemManager, 5f, 150f);
         }
 
-        protected override void LoadAnimations()
+
+        protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            idleUp = EnemySpriteFactory.Instance.NewRedGoriyaIdleUp();
-            idleDown = EnemySpriteFactory.Instance.NewRedGoriyaIdleDown();
-            idleLeft = EnemySpriteFactory.Instance.NewRedGoriyaIdleLeft();
-            idleRight = EnemySpriteFactory.Instance.NewRedGoriyaIdleRight();
-
-            walkUp = EnemySpriteFactory.Instance.NewRedGoriyaWalkingUp();
-            walkDown = EnemySpriteFactory.Instance.NewRedGoriyaWalkingDown();
-            walkLeft = EnemySpriteFactory.Instance.NewRedGoriyaWalkingLeft();
-            walkRight = EnemySpriteFactory.Instance.NewRedGoriyaWalkingRight();
-
-            attackUp = EnemySpriteFactory.Instance.NewRedGoriyaAttackingUp();
-            attackDown = EnemySpriteFactory.Instance.NewRedGoriyaAttackingDown();
-            attackLeft = EnemySpriteFactory.Instance.NewRedGoriyaAttackingLeft();
-            attackRight = EnemySpriteFactory.Instance.NewRedGoriyaAttackingRight();
+            return new EnemyMovement(spawnArea, 1.5f);
         }
 
-        private Vector2 GetAttackDirection()
+        protected override EnemyAnimation CreateAnimation()
         {
-            return lastDirection switch
+            return EnemyAnimationFactory.CreateRedGoriyaAnimation();
+        }
+
+        private IEnumerable<Vector2> GetAttackDirection()
+        {
+            return new[] { Movement.LastDirection switch
             {
                 Direction.Up => new Vector2(0, -1),
                 Direction.Down => new Vector2(0, 1),
                 Direction.Left => new Vector2(-1, 0),
                 Direction.Right => new Vector2(1, 0),
                 _ => new Vector2(0, -1)
-            };
+            }};
         }
 
         public override void Attack(ItemManager itemManager)
         {
             if (hasThrownBoomerang) return;
-
             hasThrownBoomerang = true;
 
-            Rectangle boomerangLocation = new Rectangle(
-                Location.X,
-                Location.Y,
-                Location.Width / 2,
-                Location.Height / 2
-                );
-
-            _activeBoomerang = new ProjectileItem(
-                  boomerangLocation,
-                  GetAttackDirection(),
-                  ItemFactory.Instance.CreateBoomerangSprite(),
-                  5.0f,
-                  150.0f,
-                  true,
-                  false
-                  );
-
-
-            itemManager.AddProjectile(_activeBoomerang);
+            Shooter.Shoot(Location, ItemFactory.Instance.CreateBoomerangSprite(), GetAttackDirection());
 
             SoundEffectManager.Instance.playBoomerang();
         }
 
-        public override void ResetAttackState()
-        {
-            hasThrownBoomerang = false;
-        }
 
-        public override void UpdateAnimation(GameTime gameTime)
-        {
-            base.UpdateAnimation(gameTime);
-            if (hasThrownBoomerang && _activeBoomerang.HasReturned())
-                hasThrownBoomerang = false;
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-        }
+        public override void ResetAttackState() => hasThrownBoomerang = false;
+        public override float GetAttackDuration() => 1.5f;
     }
 }

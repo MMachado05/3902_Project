@@ -345,7 +345,8 @@ namespace Project.Rooms
                                         (y - 1) * gr.TileHeight,
                                         gr.TileWidth,
                                         gr.TileHeight
-                                    )
+                                    ),
+                                    itemManager
                                 )
                             );
                             break;
@@ -357,7 +358,8 @@ namespace Project.Rooms
                                         (y - 1) * gr.TileHeight,
                                         gr.TileWidth,
                                         gr.TileHeight
-                                    )
+                                    ),
+                                    itemManager
                                 )
                             );
                             break;

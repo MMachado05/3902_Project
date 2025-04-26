@@ -1,42 +1,44 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Project.Characters;
+using System.Collections.Generic;
 using Project.Factories;
 using Project.Items;
 using Project.Packages.Sounds;
+using Project.Enemies.Helper;
+using Project.Characters;
 
 namespace Project.Enemies.EnemyClasses
 {
     public class Aquamentus : Enemy
     {
-        private List<ProjectileItem> projectiles = new List<ProjectileItem>();
-        public bool hasShot = false;
+        private bool hasShot = false;
 
-        public Aquamentus(Rectangle initialPosition) : base(initialPosition)
+        private readonly ItemManager itemManager;
+
+        public Aquamentus(Rectangle initialPosition, ItemManager itemManager) : base(initialPosition)
         {
+            this.itemManager = itemManager;
             Health = 2;
+            Shooter = new ProjectileShooter(itemManager);
         }
 
-        protected override void LoadAnimations()
+
+        protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            idleLeft = EnemySpriteFactory.Instance.NewAquamentusIdleLeft();
-            idleRight = EnemySpriteFactory.Instance.NewAquamentusIdleRight();
-
-            walkLeft = EnemySpriteFactory.Instance.NewAquamentusWalkingLeft();
-            walkRight = EnemySpriteFactory.Instance.NewAquamentusWalkingRight();
-
-            attackLeft = EnemySpriteFactory.Instance.NewAquamentusAttackingLeft();
-            attackRight = EnemySpriteFactory.Instance.NewAquamentusAttackingRight();
+            return new EnemyMovement(spawnArea, 1.0f);
         }
 
-        private Vector2[] GetAttackDirections()
+        protected override EnemyAnimation CreateAnimation()
         {
-            return lastDirection switch
+            return EnemyAnimationFactory.CreateAquamentusAnimation();
+        }
+
+        private IEnumerable<Vector2> GetAttackDirections()
+        {
+            return Movement.LastDirection switch
             {
-                Direction.Left => [new Vector2(-1, 0), new Vector2(-0.7f, -0.7f), new Vector2(-0.7f, 0.7f)],
-                Direction.Right => [new Vector2(1, 0), new Vector2(0.7f, -0.7f), new Vector2(0.7f, 0.7f)],
-                _ => [new Vector2(0, -1)]
+                Direction.Left => new[] { new Vector2(-1, 0), new Vector2(-0.7f, -0.7f), new Vector2(-0.7f, 0.7f) },
+                Direction.Right => new[] { new Vector2(1, 0), new Vector2(0.7f, -0.7f), new Vector2(0.7f, 0.7f) },
+                _ => new[] { new Vector2(0, -1) }
             };
         }
 
@@ -45,41 +47,13 @@ namespace Project.Enemies.EnemyClasses
             if (hasShot) return;
             hasShot = true;
 
-            foreach (Vector2 direction in GetAttackDirections())
-            {
-                Rectangle fireballLocation = new Rectangle(Location.X, Location.Y, Location.Width / 2, Location.Height / 2);
-                itemManager.AddProjectile(new ProjectileItem(
-                      fireballLocation,
-                      direction,
-                      ItemFactory.Instance.CreateFireballSprite(),
-                      5.0f,
-                      600f,
-                      true,
-                      false
-                      ));
-            }
+            Shooter.Shoot(Location, ItemFactory.Instance.CreateFireballSprite(), GetAttackDirections());
+
             SoundEffectManager.Instance.playFireball();
         }
 
-        public override void ResetAttackState()
-        {
-            hasShot = false;
-        }
-
-        public override void UpdateAnimation(GameTime gameTime)
-        {
-            base.UpdateAnimation(gameTime);
-            projectiles.ForEach(p => p.Update(gameTime));
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            base.Draw(spriteBatch);
-            projectiles.ForEach(p => p.Draw(spriteBatch));
-        }
-
+        public override void ResetAttackState() => hasShot = false;
         public override float GetAttackDuration() => 2f;
-
         public override List<Direction> PossibleMovementDirections()
         {
             return new List<Direction> { Direction.Left, Direction.Right };

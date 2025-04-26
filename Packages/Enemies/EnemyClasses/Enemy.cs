@@ -2,147 +2,100 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
+using Project.Enemies.Helper;
 using Project.Enemies.EnemyStateClasses;
 using Project.Items;
-using Project.Sprites;
-using Project.Enemies.Helper;
 
 namespace Project.Enemies.EnemyClasses
 {
     public abstract class Enemy : IEnemy
     {
-        public Rectangle Location { get; set; }
-        public virtual int PlayerHealthEffect => 0;
-        public bool IsPassable => true;
-        public float Speed { get; set; } = 1.0f;
+        protected EnemyMovement Movement { get; private set; }
+        protected EnemyAnimation Animation { get; private set; }
+        protected EnemyStateMachine StateMachine { get; private set; }
+        protected CooldownTimer HurtCooldown { get; } = new CooldownTimer(1.0f);
+        protected ProjectileShooter Shooter { get; set; }
         public int Health { get; set; }
-        public virtual bool IsDead => Health <= 0;
-
-        protected EnemyStateMachine stateMachine;
-        protected Direction lastDirection = Direction.Left;
-        protected ISprite idleUp, idleDown, idleLeft, idleRight;
-        protected ISprite walkUp, walkDown, walkLeft, walkRight;
-        protected ISprite attackUp, attackDown, attackLeft, attackRight;
-        protected ISprite currentAnimation;
-        private float elapsedTime;
-        private readonly CooldownTimer hurtCooldown = new CooldownTimer(1.0f);
-
-        private Rectangle lastLocation;
-
-        protected Enemy(Rectangle initialPosition)
+        public float Speed
         {
-            Location = initialPosition;
-            stateMachine = new EnemyStateMachine(new SimpleRandomAI(), GetInitialState());
-            LoadAnimations();
-            currentAnimation = idleRight;
+            get => Movement.Speed;
+            set => Movement.Speed = value;
+        }
+        public bool IsDead => Health <= -1;
+        public Rectangle Location
+        {
+            get => Movement.Location;
+            set => Movement.SetLocation(value);
         }
 
-        protected abstract void LoadAnimations();
-        protected virtual IEnemyState GetInitialState() => new IdleState();
+        public int PlayerHealthEffect { get; } = 0;
+        public bool IsPassable { get; } = true;
 
-        public void MoveInDirection(Direction direction)
+        public Enemy(Rectangle spawnArea)
         {
-            lastLocation = Location;
-            lastDirection = direction;
-            Vector2 movement = direction switch
-            {
-                Direction.Up => new Vector2(0, -1),
-                Direction.Down => new Vector2(0, 1),
-                Direction.Left => new Vector2(-1, 0),
-                Direction.Right => new Vector2(1, 0),
-                _ => Vector2.Zero,
-            };
-
-            Location = new Rectangle(
-                Location.X + (int)(movement.X * Speed),
-                Location.Y + (int)(movement.Y * Speed),
-                Location.Width,
-                Location.Height
-            );
-
-            currentAnimation = GetWalkAnimation(direction);
+            Movement = CreateMovement(spawnArea);
+            Animation = CreateAnimation();
+            StateMachine = CreateStateMachine();
         }
 
-        private ISprite GetWalkAnimation(Direction direction) => direction switch
+        protected abstract EnemyMovement CreateMovement(Rectangle spawnArea);
+        protected abstract EnemyAnimation CreateAnimation();
+        protected virtual EnemyStateMachine CreateStateMachine()
         {
-            Direction.Up => walkUp,
-            Direction.Down => walkDown,
-            Direction.Left => walkLeft,
-            Direction.Right => walkRight,
-            _ => walkDown,
-        };
-
-        public void SetIdleAnimation()
-        {
-            currentAnimation = lastDirection switch
-            {
-                Direction.Up => idleUp,
-                Direction.Down => idleDown,
-                Direction.Left => idleLeft,
-                Direction.Right => idleRight,
-                _ => idleDown,
-            };
+            return new EnemyStateMachine(new SimpleRandomAI(), new IdleState());
         }
-
-        public virtual void SetAttackAnimation()
-        {
-            currentAnimation = lastDirection switch
-            {
-                Direction.Up => attackUp,
-                Direction.Down => attackDown,
-                Direction.Left => attackLeft,
-                Direction.Right => attackRight,
-                _ => attackDown,
-            };
-        }
-
-        public virtual void Attack(ItemManager itemManager) { }
-        public virtual void ResetAttackState() { }
-        public virtual float GetAttackDuration() => 4f;
 
         public virtual void Update(GameTime gameTime, ItemManager itemManager)
         {
-            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            hurtCooldown.Update(delta);
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            HurtCooldown.Update(deltaTime);
 
-            stateMachine.Update(this, itemManager);
-            UpdateAnimation(gameTime);
+            StateMachine.Update(this, deltaTime, itemManager);
+            Movement.Update(deltaTime);
+            Animation.Update(deltaTime, Movement.IsMoving(), Movement.LastDirection);
         }
 
-        public virtual void UpdateAnimation(GameTime gameTime)
-        {
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (elapsedTime >= 0.25f)
-            {
-                currentAnimation.Update(gameTime);
-                elapsedTime = 0;
-            }
-        }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            currentAnimation.Draw(spriteBatch, Location);
+            Animation.Draw(spriteBatch, Location);
         }
+
+        protected Direction FacingDirection = Direction.Left;
+
+        public virtual void MoveInDirection(Direction direction)
+        {
+            if (direction == Direction.None)
+            {
+                Movement.Stop();
+            }
+            else
+            {
+                Movement.SetDirection(direction);
+                FacingDirection = direction;
+            }
+        }
+
+        public virtual void Attack(ItemManager itemManager = null) { }
+        public virtual void ResetAttackState() { }
+        public virtual float GetAttackDuration() => 0.5f;
 
         public void TakeDamage(int amount)
         {
-            if (hurtCooldown.IsReady)
+            if (HurtCooldown.IsReady)
             {
                 Health = System.Math.Max(Health - amount, 0);
-                hurtCooldown.Reset();
+                HurtCooldown.Reset();
             }
         }
 
         public void CollideWith(IGameObject collider, Vector2 from)
         {
             if (!collider.IsPassable)
-            {
-                Location = lastLocation;
-            }
+                Movement.RevertToPreviousPosition();
+
             if (collider is Arrow or Explosion or ThrownBoomerang)
-            {
                 TakeDamage(1);
-            }
         }
 
         public virtual List<Direction> PossibleMovementDirections()

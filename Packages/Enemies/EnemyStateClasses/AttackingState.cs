@@ -6,13 +6,14 @@ namespace Project.Enemies.EnemyStateClasses
     {
         private float timer;
         private bool hasAttacked;
+        private bool done;
 
-        public bool IsDone => timer >= 4;
         public StateId Id => StateId.Attacking;
+        public bool IsDone => done;
 
-        public void Execute(IEnemy enemy, ItemManager itemManager)
+        public void Execute(IEnemy enemy, float deltaTime, ItemManager itemManager = null)
         {
-            timer += 0.1f;
+            timer += deltaTime;
 
             if (!hasAttacked)
             {
@@ -20,10 +21,11 @@ namespace Project.Enemies.EnemyStateClasses
                 hasAttacked = true;
             }
 
-            if (IsDone)
+            if (timer >= enemy.GetAttackDuration())
+            {
                 enemy.ResetAttackState();
+                done = true;
+            }
         }
     }
-
 }
-

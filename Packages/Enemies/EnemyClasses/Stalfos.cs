@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using Project.Factories;
+using Project.Enemies.Helper;
+using Project.Enemies.EnemyStateClasses;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -8,24 +9,22 @@ namespace Project.Enemies.EnemyClasses
         public Stalfos(Rectangle initialPosition) : base(initialPosition)
         {
             Health = 1;
+            Speed = 500.0f;
         }
 
-        protected override void LoadAnimations()
+        protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            idleUp = EnemySpriteFactory.Instance.NewStalfosIdleUp();
-            idleDown = EnemySpriteFactory.Instance.NewStalfosIdleDown();
-            idleLeft = EnemySpriteFactory.Instance.NewStalfosIdleLeft();
-            idleRight = EnemySpriteFactory.Instance.NewStalfosIdleRight();
+            return new EnemyMovement(spawnArea, 500.0f);
+        }
 
-            walkUp = EnemySpriteFactory.Instance.NewStalfosWalkingUp();
-            walkDown = EnemySpriteFactory.Instance.NewStalfosWalkingDown();
-            walkLeft = EnemySpriteFactory.Instance.NewStalfosWalkingLeft();
-            walkRight = EnemySpriteFactory.Instance.NewStalfosWalkingRight();
+        protected override EnemyAnimation CreateAnimation()
+        {
+            return EnemyAnimationFactory.CreateStalfosAnimation();
+        }
 
-            attackUp = EnemySpriteFactory.Instance.NewStalfosAttackingUp();
-            attackDown = EnemySpriteFactory.Instance.NewStalfosAttackingDown();
-            attackLeft = EnemySpriteFactory.Instance.NewStalfosAttackingLeft();
-            attackRight = EnemySpriteFactory.Instance.NewStalfosAttackingRight();
+        protected override EnemyStateMachine CreateStateMachine()
+        {
+            return new EnemyStateMachine(new AggressiveMoverAI(), new MovingState(this));
         }
     }
 }

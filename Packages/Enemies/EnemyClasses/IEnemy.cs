@@ -1,32 +1,21 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Project.Characters;
 using Project.Items;
+using Project.Characters;
 
 namespace Project.Enemies
 {
     public interface IEnemy : IGameObject
     {
-        float Speed { get; set; }
         int Health { get; set; }
-        /*void SetPosition(Vector2 newPosition);*/
-
-        /// <summary>
-        /// Trigger this Enemy to perform their attack.
-        /// </summary>
-        void Attack(ItemManager itemManager);
-
-        /// <summary>
-        /// Return Enemy's internal state to not attacking.
-        /// </summary>
-        void ResetAttackState();
-
-        /// <summary>
-        /// Returns the length of this Enemy's attack animation in seconds.
-        /// </summary>
-        float GetAttackDuration();
-        void Update(GameTime gameTime, ItemManager itemManager);
+        float Speed { get; set; }
         bool IsDead { get; }
+        Rectangle Location { get; set; }
+
+        void Update(GameTime gameTime, ItemManager itemManager);
+        void Attack(ItemManager itemManager);
+        void ResetAttackState();
+        float GetAttackDuration();
         void TakeDamage(int amount);
         void MoveInDirection(Direction direction);
         List<Direction> PossibleMovementDirections();

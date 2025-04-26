@@ -18,13 +18,35 @@ namespace Project.Enemies.Helper
             this.range = projectileRange;
         }
 
-        public void Shoot(Rectangle location, ISprite sprite, IEnumerable<Vector2> directions)
+        public List<ProjectileItem> Shoot(Rectangle origin, ISprite sprite, IEnumerable<Vector2> rawDirections)
         {
-            foreach (var direction in directions)
+            List<ProjectileItem> projectiles = new();
+            foreach (var rawDirection in rawDirections)
             {
-                var projLocation = new Rectangle(location.X, location.Y, location.Width / 2, location.Height / 2);
-                itemManager.AddProjectile(new ProjectileItem(projLocation, direction, sprite, speed, range, true, false));
+                if (rawDirection == Vector2.Zero) continue;
+                Vector2 direction = Vector2.Normalize(rawDirection);
+
+                Rectangle projectileLocation = new Rectangle(
+                    origin.Center.X - origin.Width / 4,
+                    origin.Center.Y - origin.Height / 4,
+                    origin.Width / 2,
+                    origin.Height / 2
+                );
+
+                ProjectileItem projectile = new ProjectileItem(
+                    projectileLocation,
+                    direction,
+                    sprite,
+                    speed,
+                    range,
+                    true,
+                    false
+                );
+
+                itemManager.AddProjectile(projectile);
+                projectiles.Add(projectile);
             }
+            return projectiles;
         }
     }
 }

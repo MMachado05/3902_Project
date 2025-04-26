@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
-using Project.Factories;
+using Project.Enemies.Helper;
+using Project.Enemies.EnemyStateClasses;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -10,13 +11,19 @@ namespace Project.Enemies.EnemyClasses
             Health = 6;
         }
 
-        protected override void LoadAnimations()
+        protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            var move = EnemySpriteFactory.Instance.NewNickMoving();
+            return new EnemyMovement(spawnArea, 30.0f);
+        }
 
-            idleUp = idleDown = idleLeft = idleRight = move;
-            walkUp = walkDown = walkLeft = walkRight = move;
-            attackUp = attackDown = attackLeft = attackRight = move;
+        protected override EnemyAnimation CreateAnimation()
+        {
+            return EnemyAnimationFactory.CreateNickAnimation();
+        }
+
+        protected override EnemyStateMachine CreateStateMachine()
+        {
+            return new EnemyStateMachine(new AggressiveMoverAI(), new MovingState(this));
         }
     }
 }
