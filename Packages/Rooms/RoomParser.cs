@@ -379,8 +379,8 @@ namespace Project.Rooms
                                     new Rectangle(
                                         x * gr.TileWidth,
                                         (y - 1) * gr.TileHeight,
-                                        gr.TileWidth,
-                                        gr.TileHeight
+                                        2 * gr.TileWidth,
+                                        2 * gr.TileWidth
                                     )
                                 )
                             );
