@@ -14,6 +14,7 @@ namespace Project.Factories
         private Texture2D aquamentusSpriteSheet;
 
         private Texture2D nickSpriteSheet;
+        private Texture2D spawnerSpriteSheet;
 
         private static EnemySpriteFactory instance = new EnemySpriteFactory();
 
@@ -26,7 +27,7 @@ namespace Project.Factories
             redGoriyaSpriteSheet = content.Load<Texture2D>("RedGoriya");
             stalfosSpriteSheet = content.Load<Texture2D>("Stalfos");
             aquamentusSpriteSheet = content.Load<Texture2D>("Aquamentus");
-            nickSpriteSheet = content.Load<Texture2D>("nick");
+            spawnerSpriteSheet = content.Load<Texture2D>("staticSpawner");
         }
 
         // ----------------- RED GORIYA SPRITES -----------------
@@ -73,5 +74,9 @@ namespace Project.Factories
 
         // ----------------- NICK SPRITES -----------------
         public ISprite NewNickMoving() => new AnimatedLoopSprite(nickSpriteSheet, new Rectangle(0, 0, 128, 128), 2, CharacterState.Walking);
+
+        // ----------------- SPAWNER SPRITES -----------------
+        public ISprite NewStaticSpawner() => new StationarySprite(nickSpriteSheet, new Rectangle(0, 0, 384, 448), CharacterState.Stopped);
+
     }
 }
