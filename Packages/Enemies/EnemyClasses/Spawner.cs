@@ -82,7 +82,7 @@ namespace Project.Enemies.EnemyClasses
         {
             return new List<Rectangle>
             {
-                // generate accurate rectangles
+                this.Location // generate accurate rectangles
             };
         }
 

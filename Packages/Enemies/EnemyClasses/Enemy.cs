@@ -5,142 +5,95 @@ using Project.Characters;
 using Project.Enemies.EnemyStateClasses;
 using Project.Items;
 using Project.Sprites;
+using Project.Enemies.Helper;
 
 namespace Project.Enemies.EnemyClasses
 {
     public abstract class Enemy : IEnemy
     {
         public Rectangle Location { get; set; }
-        public virtual int PlayerHealthEffect { get => 0; }
-        public bool IsPassable { get => false; }
-
-        public float Speed { get; set; }
+        public virtual int PlayerHealthEffect => 0;
+        public bool IsPassable => true;
+        public float Speed { get; set; } = 1.0f;
         public int Health { get; set; }
         public virtual bool IsDead => Health <= 0;
-        //private IEnemyState CurrentState { get; set; }
+
         protected EnemyStateMachine stateMachine;
-
         protected Direction lastDirection = Direction.Left;
-
-        public ISprite idleUp, idleDown, idleLeft, idleRight;
-        public ISprite walkUp, walkDown, walkLeft, walkRight;
-        public ISprite attackUp, attackDown, attackLeft, attackRight;
-        public ISprite currentAnimation;
+        protected ISprite idleUp, idleDown, idleLeft, idleRight;
+        protected ISprite walkUp, walkDown, walkLeft, walkRight;
+        protected ISprite attackUp, attackDown, attackLeft, attackRight;
+        protected ISprite currentAnimation;
         private float elapsedTime;
-
-        private float hurtCooldown = 0f;
-        private const float HurtDelay = 1.0f;
+        private readonly CooldownTimer hurtCooldown = new CooldownTimer(1.0f);
 
         private Rectangle lastLocation;
 
-        public Enemy(Rectangle initialPosition)
+        protected Enemy(Rectangle initialPosition)
         {
             Location = initialPosition;
-            Speed = 1.0f;
             stateMachine = new EnemyStateMachine(new SimpleRandomAI(), GetInitialState());
-
             LoadAnimations();
             currentAnimation = idleRight;
-            // TODO: Each enemy should be able to decide this on its own
         }
 
         protected abstract void LoadAnimations();
-
-
-        // TODO: Either the property should be public, or unsettable. We could also
-        // just have some sort of "move" command.
-        /*public void SetPosition(Vector2 newPosition)*/
-        /*{*/
-        /*    Position = newPosition;*/
-        /*}*/
+        protected virtual IEnemyState GetInitialState() => new IdleState();
 
         public void MoveInDirection(Direction direction)
         {
-            lastDirection = direction;
             lastLocation = Location;
-
-            int movementX = 0;
-            int movementY = 0;
-
-            switch (direction)
+            lastDirection = direction;
+            Vector2 movement = direction switch
             {
-                case Direction.Up:
-                    movementY = -1;
-                    currentAnimation = walkUp;
-                    break;
-                case Direction.Down:
-                    movementY = 1;
-                    currentAnimation = walkDown;
-                    break;
-                case Direction.Left:
-                    movementX = -1;
-                    currentAnimation = walkLeft;
-                    break;
-                case Direction.Right:
-                    movementX = 1;
-                    currentAnimation = walkRight;
-                    break;
-            }
+                Direction.Up => new Vector2(0, -1),
+                Direction.Down => new Vector2(0, 1),
+                Direction.Left => new Vector2(-1, 0),
+                Direction.Right => new Vector2(1, 0),
+                _ => Vector2.Zero,
+            };
 
-            Location = new Rectangle(Location.X + movementX * (int)(Speed), Location.Y + movementY * (int)(Speed), Location.Width, Location.Height);
+            Location = new Rectangle(
+                Location.X + (int)(movement.X * Speed),
+                Location.Y + (int)(movement.Y * Speed),
+                Location.Width,
+                Location.Height
+            );
+
+            currentAnimation = GetWalkAnimation(direction);
         }
 
+        private ISprite GetWalkAnimation(Direction direction) => direction switch
+        {
+            Direction.Up => walkUp,
+            Direction.Down => walkDown,
+            Direction.Left => walkLeft,
+            Direction.Right => walkRight,
+            _ => walkDown,
+        };
 
         public void SetIdleAnimation()
         {
-            switch (lastDirection)
+            currentAnimation = lastDirection switch
             {
-                case Direction.Up: currentAnimation = idleUp; break;
-                case Direction.Down: currentAnimation = idleDown; break;
-                case Direction.Left: currentAnimation = idleLeft; break;
-                case Direction.Right: currentAnimation = idleRight; break;
-            }
+                Direction.Up => idleUp,
+                Direction.Down => idleDown,
+                Direction.Left => idleLeft,
+                Direction.Right => idleRight,
+                _ => idleDown,
+            };
         }
 
         public virtual void SetAttackAnimation()
         {
-            switch (lastDirection)
+            currentAnimation = lastDirection switch
             {
-                case Direction.Up: currentAnimation = attackUp; break;
-                case Direction.Down: currentAnimation = attackDown; break;
-                case Direction.Left: currentAnimation = attackLeft; break;
-                case Direction.Right: currentAnimation = attackRight; break;
-            }
-        }
-
-        public void UpdateState(GameTime gameTime, ItemManager itemManager)
-        {
-            stateMachine.Update(this, itemManager);
-        }
-
-
-        public virtual void UpdateAnimation(GameTime gameTime)
-        {
-            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (elapsedTime > 0.25f)
-            {
-                currentAnimation.Update(gameTime);
-                elapsedTime = 0f;
-            }
-        }
-
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            currentAnimation.Draw(spriteBatch, Location);
-        }
-
-        public void CollideWith(IGameObject collider, Vector2 from)
-        {
-            // TODO: Implement, need to check what the collision is with
-            if (!collider.IsPassable)
-            {
-                Location = lastLocation;
-            }
-            if (collider is Arrow || collider is Explosion || collider is ThrownBoomerang)
-            {
-                Health -= 1;
-                Location = new Rectangle(Location.X + (int)from.X, Location.Y + (int)from.Y, Location.Width, Location.Height);
-            }
+                Direction.Up => attackUp,
+                Direction.Down => attackDown,
+                Direction.Left => attackLeft,
+                Direction.Right => attackRight,
+                _ => attackDown,
+            };
         }
 
         public virtual void Attack(ItemManager itemManager) { }
@@ -149,27 +102,52 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Update(GameTime gameTime, ItemManager itemManager)
         {
-            if (hurtCooldown > 0)
-                hurtCooldown -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            hurtCooldown.Update(delta);
 
-            UpdateState(gameTime, itemManager);
+            stateMachine.Update(this, itemManager);
             UpdateAnimation(gameTime);
         }
 
-        public virtual void TakeDamage(int amount)
+        public virtual void UpdateAnimation(GameTime gameTime)
         {
-            if (hurtCooldown <= 0)
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (elapsedTime >= 0.25f)
             {
-                Health -= amount;
-                hurtCooldown = HurtDelay;
+                currentAnimation.Update(gameTime);
+                elapsedTime = 0;
             }
         }
 
-        protected virtual IEnemyState GetInitialState() => new IdleState();
+        public virtual void Draw(SpriteBatch spriteBatch)
+        {
+            currentAnimation.Draw(spriteBatch, Location);
+        }
+
+        public void TakeDamage(int amount)
+        {
+            if (hurtCooldown.IsReady)
+            {
+                Health = System.Math.Max(Health - amount, 0);
+                hurtCooldown.Reset();
+            }
+        }
+
+        public void CollideWith(IGameObject collider, Vector2 from)
+        {
+            if (!collider.IsPassable)
+            {
+                Location = lastLocation;
+            }
+            if (collider is Arrow or Explosion or ThrownBoomerang)
+            {
+                TakeDamage(1);
+            }
+        }
+
         public virtual List<Direction> PossibleMovementDirections()
         {
-            return new List<Direction>{Direction.Up, Direction.Down, Direction.Right,
-          Direction.Left};
+            return new List<Direction> { Direction.Up, Direction.Down, Direction.Left, Direction.Right };
         }
     }
 }
