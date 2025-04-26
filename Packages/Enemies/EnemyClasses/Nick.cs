@@ -7,7 +7,7 @@ namespace Project.Enemies.EnemyClasses
     {
         public Nick(Rectangle initialPosition) : base(initialPosition)
         {
-            Health = 15;
+            Health = 6;
         }
 
         protected override void LoadAnimations()

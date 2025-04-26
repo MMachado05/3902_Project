@@ -76,6 +76,7 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
             this.roomManager = new RoomManager();
             this.gameRenderer = new GameRenderer(
                 _graphics.PreferredBackBufferWidth,
@@ -90,7 +91,6 @@ namespace Project
             // if they have any say in how these are drawn to the screen.
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 

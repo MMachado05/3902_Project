@@ -379,8 +379,21 @@ namespace Project.Rooms
                                     new Rectangle(
                                         x * gr.TileWidth,
                                         (y - 1) * gr.TileHeight,
-                                        2 * gr.TileWidth,
-                                        2 * gr.TileWidth
+                                        6 * gr.TileWidth,
+                                        7 * gr.TileWidth
+                                    )
+                                )
+                            );
+                            break;
+                        case "sp":
+                            enemyManager.AddEnemy(
+                                new Spawner(
+                                    enemyManager,
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileWidth,
+                                        6 * gr.TileWidth,
+                                        7 * gr.TileWidth
                                     )
                                 )
                             );

@@ -18,7 +18,7 @@ namespace Project.Enemies.EnemyClasses
         public int Health { get; set; }
         public virtual bool IsDead => Health <= 0;
         //private IEnemyState CurrentState { get; set; }
-        private EnemyStateMachine stateMachine;
+        protected EnemyStateMachine stateMachine;
 
         protected Direction lastDirection = Direction.Left;
 

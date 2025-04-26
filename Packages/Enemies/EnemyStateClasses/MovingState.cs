@@ -24,7 +24,6 @@ namespace Project.Enemies.EnemyStateClasses
         public void Execute(IEnemy enemy, ItemManager itemManager)
         {
             timer += 0.1f;
-
             enemy.MoveInDirection(moveDirection);
         }
 
