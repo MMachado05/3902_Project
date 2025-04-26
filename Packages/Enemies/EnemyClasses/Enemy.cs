@@ -5,6 +5,7 @@ using Project.Characters;
 using Project.Enemies.Helper;
 using Project.Enemies.EnemyStateClasses;
 using Project.Items;
+using System;
 
 namespace Project.Enemies.EnemyClasses
 {
@@ -47,6 +48,10 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Update(GameTime gameTime, ItemManager itemManager)
         {
+#if DEBUG
+    System.Console.WriteLine($"[Enemy Debug] {this.GetType().Name} | Speed: {Movement.Speed} | Direction: {Movement.LastDirection} | Moving: {Movement.IsMoving()} | Location: {Location}");
+#endif
+
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             HurtCooldown.Update(deltaTime);
 
@@ -92,7 +97,40 @@ namespace Project.Enemies.EnemyClasses
         public void CollideWith(IGameObject collider, Vector2 from)
         {
             if (!collider.IsPassable)
-                Movement.RevertToPreviousPosition();
+            {
+                Direction currentDirection = Movement.LastDirection;
+
+                Direction oppositeDirection = currentDirection switch
+                {
+                    Direction.Up => Direction.Down,
+                    Direction.Down => Direction.Up,
+                    Direction.Left => Direction.Right,
+                    Direction.Right => Direction.Left,
+                    _ => Direction.None
+                };
+
+                const int pushDistance = 5;
+
+                Vector2 safePush = oppositeDirection switch
+                {
+                    Direction.Up => new Vector2(0, -pushDistance),
+                    Direction.Down => new Vector2(0, pushDistance),
+                    Direction.Left => new Vector2(-pushDistance, 0),
+                    Direction.Right => new Vector2(pushDistance, 0),
+                    _ => Vector2.Zero
+                };
+
+                Movement.SetLocation(new Rectangle(
+                    Movement.Location.X + (int)safePush.X,
+                    Movement.Location.Y + (int)safePush.Y,
+                    Movement.Location.Width,
+                    Movement.Location.Height
+                ));
+
+                StateMachine.OverrideState(new MovingState(this, oppositeDirection));
+            }
+
+
 
             if (collider is Arrow or Explosion or ThrownBoomerang)
                 TakeDamage(1);

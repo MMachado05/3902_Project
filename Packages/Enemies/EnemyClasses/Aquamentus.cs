@@ -18,13 +18,14 @@ namespace Project.Enemies.EnemyClasses
         {
             this.itemManager = itemManager;
             Health = 2;
+            Speed = 100.0f;
             Shooter = new ProjectileShooter(itemManager);
         }
 
 
         protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            return new EnemyMovement(spawnArea, 1.0f);
+            return new EnemyMovement(spawnArea, 100.0f);
         }
 
         protected override EnemyAnimation CreateAnimation()

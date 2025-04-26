@@ -20,5 +20,10 @@ namespace Project.Enemies.EnemyStateClasses
             if (current.IsDone)
                 current = ai.DecideNextState(enemy, current, deltaTime);
         }
+
+        public void OverrideState(IEnemyState newState)
+        {
+            current = newState;
+        }
     }
 }

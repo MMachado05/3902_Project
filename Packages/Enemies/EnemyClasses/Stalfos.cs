@@ -9,12 +9,12 @@ namespace Project.Enemies.EnemyClasses
         public Stalfos(Rectangle initialPosition) : base(initialPosition)
         {
             Health = 1;
-            Speed = 500.0f;
+            Speed = 100.0f;
         }
 
         protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            return new EnemyMovement(spawnArea, 500.0f);
+            return new EnemyMovement(spawnArea, 100.0f);
         }
 
         protected override EnemyAnimation CreateAnimation()

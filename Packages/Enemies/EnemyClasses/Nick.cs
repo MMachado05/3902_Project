@@ -9,11 +9,12 @@ namespace Project.Enemies.EnemyClasses
         public Nick(Rectangle initialPosition) : base(initialPosition)
         {
             Health = 6;
+            Speed = 50.0f;
         }
 
         protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            return new EnemyMovement(spawnArea, 30.0f);
+            return new EnemyMovement(spawnArea, 50.0f);
         }
 
         protected override EnemyAnimation CreateAnimation()

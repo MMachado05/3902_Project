@@ -12,11 +12,11 @@ namespace Project.Enemies.EnemyStateClasses
             {
                 int roll = rng.Next(0, 10); // 0–9
                 if (roll == 0) // 10% chance
-                    return new AttackingState();
+                    return new IdleState();
                 else if (roll <= 6) // 70% chance
                     return new MovingState(enemy);
                 else // 20% chance
-                    return new IdleState();
+                    return new AttackingState();
             }
 
             return current;

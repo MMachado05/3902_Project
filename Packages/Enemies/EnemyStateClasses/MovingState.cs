@@ -12,13 +12,23 @@ namespace Project.Enemies.EnemyStateClasses
         private float timer;
         private static readonly Random rng = new Random();
 
-        public StateId Id => StateId.Moving;
-        public bool IsDone => timer >= duration;
+        private bool forceDone = false;
 
-        public MovingState(IEnemy enemy)
+        public StateId Id => StateId.Moving;
+        public bool IsDone => timer >= duration || forceDone;
+
+        public MovingState(IEnemy enemy, Direction? forcedDirection = null)
         {
             duration = 2.0f + (float)rng.NextDouble() * 3.0f;
-            moveDirection = PickDirection(enemy.PossibleMovementDirections());
+
+            if (forcedDirection.HasValue)
+            {
+                moveDirection = forcedDirection.Value;
+            }
+            else
+            {
+                moveDirection = GenerateDirection(enemy.PossibleMovementDirections(), rng);
+            }
         }
 
         public void Execute(IEnemy enemy, float deltaTime, ItemManager itemManager = null)
@@ -27,10 +37,14 @@ namespace Project.Enemies.EnemyStateClasses
             enemy.MoveInDirection(moveDirection);
         }
 
-        private Direction PickDirection(List<Direction> validDirections)
+        private Direction GenerateDirection(List<Direction> validDirections, Random rng)
         {
-            if (validDirections.Count == 0) return Direction.None;
-            return validDirections[rng.Next(validDirections.Count)];
+            return validDirections[rng.Next(validDirections.Count - 1)];
+        }
+
+        public void ForceEnd()
+        {
+            forceDone = true;
         }
     }
 }
