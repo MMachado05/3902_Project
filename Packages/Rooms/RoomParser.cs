@@ -373,6 +373,18 @@ namespace Project.Rooms
                                 )
                             );
                             break;
+                        case "nk":
+                            enemyManager.AddEnemy(
+                                new Nick(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    )
+                                )
+                            );
+                            break;
                         case "hr":
                             itemManager.addItem(
                                 new Heart(
