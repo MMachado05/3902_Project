@@ -20,6 +20,8 @@ namespace Project.Sprites.ConcreteClasses
         {
             this.maxFrames = maxFrames - 1;
             this.currFrame = 0;
+            this.topLeftXInitial = sourceInitial.X;
+            this.topLeftYInitial = sourceInitial.Y;
         }
 
         public override void Update(GameTime gameTime)
