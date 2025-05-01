@@ -35,6 +35,8 @@ namespace Project
         RoomManager roomManager;
         SoundEffectManager soundEffectManager;
 
+        private const int HUD_HEIGHT = 96;
+
         // gameOver
         private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen, pauseScreen;
 
@@ -49,7 +51,7 @@ namespace Project
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
-            _graphics.PreferredBackBufferHeight = 704; // Set height
+            _graphics.PreferredBackBufferHeight = 704 + HUD_HEIGHT; // Set height
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -99,6 +101,15 @@ namespace Project
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
 
+            var mapTexture = SolidBlockFactory.Instance.MapSpriteSheet;
+
+            var mapRenderer = new MapRenderer(mapTexture, new Vector2(800, 0), 3.2f);
+            mapRenderer.SetRoomIndex(roomManager.GetCurrentRoomIndex());
+            this.gameRenderer.SetMapRenderer(mapRenderer);
+
+            var pauseMapRenderer = new MapRenderer(mapTexture, Vector2.Zero, 1f);
+            pauseMapRenderer.SetRoomIndex(roomManager.GetCurrentRoomIndex());
+
             SoundEffectManager.Instance.LoadContent(Content);
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
             this.updater = new Updater(
@@ -115,11 +126,23 @@ namespace Project
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
-            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory);
+            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory, pauseMapRenderer);
         }
 
         protected override void Update(GameTime gameTime)
         {
+
+            int currentIndex = roomManager.GetCurrentRoomIndex();
+
+            gameRenderer.SetMapRoomIndex(currentIndex);
+            if (screen is PauseScreen ps)
+            {
+                ps.SetMapRoomIndex(currentIndex);
+            }
+
+
+            this.gameRenderer.Update(gameTime);
+
             switch (gameState.State)
             {
                 case GameState.MainMenu:

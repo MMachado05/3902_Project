@@ -36,6 +36,9 @@ namespace Project.Packages
         private bool _active;
         IBlock MiniMap;
 
+        private int _roomIndex;
+
+
         public bool IsOnScreen
         {
             get => this._active;
@@ -54,9 +57,12 @@ namespace Project.Packages
             SavedPlayerLocation = this._defaultPlayerLocation;
             this.MiniMap = roomData.MiniMap;
             RoomName = roomData.RoomName;
+            this._roomIndex = roomData.RoomIndex;
 
             this._active = false;
         }
+
+        public int GetRoomIndex() => _roomIndex;
 
         public void TriggerPlayerAttack()
         {
@@ -79,7 +85,7 @@ namespace Project.Packages
                         this.internalMap[x, y].Draw(sb);
                 }
             }
-            MiniMap.Draw(sb);
+            //MiniMap.Draw(sb);
 
             // Draw player in default location if this room was just activated
             if (!this._active)

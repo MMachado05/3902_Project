@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Project.Characters;
 using Project.Enemies;
+using Project.Rooms.Blocks;
 
 namespace Project.Rooms
 {
@@ -18,5 +19,6 @@ namespace Project.Rooms
         public string GetRoomName();
         public void TriggerPlayerAttack();
         public List<IEnemy> GetAllCurrentEnimeies();
+
     }
 }

@@ -227,5 +227,8 @@ namespace Project.Factories
                 dest
             );
         }
+
+        public Texture2D MapSpriteSheet => _mapSpriteSheet;
+
     }
 }

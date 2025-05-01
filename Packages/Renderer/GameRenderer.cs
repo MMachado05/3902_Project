@@ -54,6 +54,8 @@ namespace Project.Renderer
         private Label _inventoryPanel;
         private Button _musicToggleButton;
         private ICommand _toggleMusicCommand;
+        private MapRenderer _mapRenderer;
+
 
         public GameRenderer(
             int screenWidth,
@@ -70,38 +72,94 @@ namespace Project.Renderer
             this.tileHeight = tileHeight;
             this._fieldsSatisfied = false;
             this._gameState = gameState;
-
             InitializePauseMenuUI();
+        }
+
+        public void SetMapRenderer(MapRenderer mapRenderer)
+        {
+            _mapRenderer = mapRenderer;
+        }
+
+        public void SetMapRoomIndex(int index)
+        {
+            _mapRenderer?.SetRoomIndex(index);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            // Ensure dependencies have been injected
-            if (!this._fieldsSatisfied)
-                this.SatisfyFields();
+            if (!_fieldsSatisfied)
+                SatisfyFields();
 
-            this._roomManager.DrawCurrentRoom(spriteBatch);
-            this._playerCharacter.Draw(spriteBatch);
+            // Draw room & player with vertical offset
+            spriteBatch.End();
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateTranslation(0, 96, 0));
+            _roomManager.DrawCurrentRoom(spriteBatch);
+            _playerCharacter.Draw(spriteBatch);
+            spriteBatch.End();
 
-            HealthBarSpriteFactory
-                .Instance.HealthBarSprite(_playerCharacter.health)
-                .Draw(spriteBatch, new Rectangle(64, 0, 256, 64));
+            // Draw HUD at top of screen
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            var healthBar = HealthBarSpriteFactory.Instance.HealthBarSprite(_playerCharacter.health);
+            healthBar.Draw(spriteBatch, new Rectangle(64, 8, 256, 64));
 
-            // TODO: Catch collisions during the drawing stage and call relevant commands
-            //  to colliding objects as needed
+            var inventory = _playerCharacter._inventory;
 
-            if (this._gameState.State == GameState.Paused)
+            if (inventory?.Items != null && inventory.Items.Count > 0)
             {
-                spriteBatch.End();
+                int itemSize = 48;
+                int startX = 520;
+                int startY = 16;
 
-                _pauseDesktop.Render(); // Myra test
+                int index = 0;
+                foreach (var kvp in inventory.Items)
+                {
+                    if (index == inventory.ActiveSlot)
+                    {
+                        var item = kvp.Key;
+                        var drawRect = new Rectangle(startX, startY, itemSize, itemSize);
 
-                spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+                        // Draw border (use 1x1 white pixel texture scaled)
+                        Texture2D pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+                        pixel.SetData(new[] { Color.White });
+                        Color borderColor = Color.CornflowerBlue;
+                        int thickness = 2;
+
+                        // Top
+                        spriteBatch.Draw(pixel, new Rectangle(drawRect.X, drawRect.Y, drawRect.Width, thickness), borderColor);
+                        // Bottom
+                        spriteBatch.Draw(pixel, new Rectangle(drawRect.X, drawRect.Y + drawRect.Height - thickness, drawRect.Width, thickness), borderColor);
+                        // Left
+                        spriteBatch.Draw(pixel, new Rectangle(drawRect.X, drawRect.Y, thickness, drawRect.Height), borderColor);
+                        // Right
+                        spriteBatch.Draw(pixel, new Rectangle(drawRect.X + drawRect.Width - thickness, drawRect.Y, thickness, drawRect.Height), borderColor);
+
+                        // Draw item itself
+                        var originalLocation = item.Location;
+                        item.Location = drawRect;
+                        item.Draw(spriteBatch);
+                        item.Location = originalLocation;
+
+                        break;
+                    }
+                    index++;
+                }
             }
+
+            if (_mapRenderer != null)
+            {
+                _mapRenderer.Draw(spriteBatch);
+            }
+
+
+            if (_gameState.State == GameState.Paused)
+                _pauseDesktop.Render();
         }
 
         /// <summary>The renderer shouldn't need to update anything.</summary>
-        public void Update(GameTime gameTime) { }
+        public void Update(GameTime gameTime)
+        {
+            _mapRenderer.SetRoomIndex(_roomManager.GetCurrentRoomIndex());
+        }
 
         private void SatisfyFields()
         {

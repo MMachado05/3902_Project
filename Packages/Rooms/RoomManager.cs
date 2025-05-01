@@ -7,6 +7,8 @@ using Project.Characters;
 using Project.Packages.Characters;
 using Project.Packages.Sounds;
 using Project.Renderer;
+using System.Collections.Generic;
+using Project.Packages;
 
 namespace Project.Rooms
 {
@@ -26,6 +28,7 @@ namespace Project.Rooms
         private bool NoEnimes;
         public int CurrentRoomRow { get { return currentRoomX; } }
         public int CurrentRoomColumn { get { return currentRoomY; } }
+
 
         /// <summary>
         /// Be sure to run LoadRoomsFromContent before calling any other methods.
@@ -128,7 +131,8 @@ namespace Project.Rooms
             {
                 SoundEffectManager.Instance.playDungeonMusic();
             }
-            if(Room.GetRoomName().Equals("boss")&&Room.GetAllCurrentEnimeies().Count==0){
+            if (Room.GetRoomName().Equals("boss") && Room.GetAllCurrentEnimeies().Count == 0)
+            {
                 NoEnimes = true;
             }
 
@@ -265,5 +269,11 @@ namespace Project.Rooms
         {
             return this.Map[this.currentRoomX, this.currentRoomY];
         }
+
+        public int GetCurrentRoomIndex()
+        {
+            return (GetCurrentRoom() as BaseRoom)?.GetRoomIndex() ?? -1;
+        }
+
     }
 }
