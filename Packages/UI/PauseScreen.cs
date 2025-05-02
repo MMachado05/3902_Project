@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Project.Inventory;
 using Project.Renderer;
+using Project.Items;
+using Project.Factories;
 
 namespace Project.UI
 {
@@ -64,6 +66,7 @@ namespace Project.UI
                 int startX = (screenWidth - (itemSize + padding) * inventory.Items.Count) / 2;
 
                 int index = 0;
+
                 foreach (var kvp in inventory.Items)
                 {
                     var item = kvp.Key;
@@ -73,8 +76,10 @@ namespace Project.UI
                     item.Location = drawRect;
                     item.Draw(spriteBatch);
 
+                    // Draw quantity (xN) below the item
                     spriteBatch.DrawString(font, $"x{quantity}", new Vector2(drawRect.X, drawRect.Y + itemSize + 2), Color.White);
 
+                    // Draw selector indicator if this is the active item
                     if (index == inventory.ActiveSlot)
                     {
                         spriteBatch.DrawString(font, "x", new Vector2(drawRect.X + itemSize / 2 - 8, drawRect.Y - 20), Color.Yellow);

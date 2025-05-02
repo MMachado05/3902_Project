@@ -8,7 +8,7 @@ namespace Project.Enemies.EnemyClasses
     {
         public Nick(Rectangle initialPosition) : base(initialPosition)
         {
-            Health = 6;
+            Health = 5;
             Speed = 50.0f;
         }
 

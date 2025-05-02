@@ -74,34 +74,33 @@ namespace Project.Packages
             this._player = player;
         }
 
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Matrix transform)
         {
             Background.Draw(sb);
-            for (int x = 0; x < this.internalMap.GetLength(0); x++)
+
+            for (int x = 0; x < internalMap.GetLength(0); x++)
             {
-                for (int y = 0; y < this.internalMap.GetLength(1); y++)
+                for (int y = 0; y < internalMap.GetLength(1); y++)
                 {
-                    if (this.internalMap[x, y] != null)
-                        this.internalMap[x, y].Draw(sb);
+                    internalMap[x, y]?.Draw(sb);
                 }
             }
-            //MiniMap.Draw(sb);
 
-            // Draw player in default location if this room was just activated
-            if (!this._active)
+            if (!_active)
             {
-                this._active = true;
-
-                this._player.Location =
-                    SavedPlayerLocation != Rectangle.Empty
-                        ? SavedPlayerLocation
-                        : _defaultPlayerLocation;
+                _active = true;
+                _player.Location = SavedPlayerLocation != Rectangle.Empty
+                    ? SavedPlayerLocation
+                    : _defaultPlayerLocation;
             }
 
-            this._player.Draw(sb);
-            this._enemyManager.Draw(sb);
+            _enemyManager.Draw(sb);
             _itemManager.Draw(sb);
+            _player.Draw(sb);
         }
+
+
+
         public string GetRoomName()
         {
             return RoomName;

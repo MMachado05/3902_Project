@@ -22,14 +22,14 @@ namespace Project.Enemies.EnemyClasses
             get => Movement.Speed;
             set => Movement.Speed = value;
         }
-        public bool IsDead => Health <= -1;
+        public bool IsDead => Health <= 0;
         public Rectangle Location
         {
             get => Movement.Location;
             set => Movement.SetLocation(value);
         }
 
-        public int PlayerHealthEffect { get; } = 0;
+        public int PlayerHealthEffect { get; } = -1;
         public bool IsPassable { get; } = true;
 
         public Enemy(Rectangle spawnArea)
@@ -48,9 +48,6 @@ namespace Project.Enemies.EnemyClasses
 
         public virtual void Update(GameTime gameTime, ItemManager itemManager)
         {
-#if DEBUG
-    System.Console.WriteLine($"[Enemy Debug] {this.GetType().Name} | Speed: {Movement.Speed} | Direction: {Movement.LastDirection} | Moving: {Movement.IsMoving()} | Location: {Location}");
-#endif
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             HurtCooldown.Update(deltaTime);
@@ -87,10 +84,12 @@ namespace Project.Enemies.EnemyClasses
 
         public void TakeDamage(int amount)
         {
+            //Console.WriteLine($"[Damage Attempt] Health={Health}, CooldownReady={HurtCooldown.IsReady}");
             if (HurtCooldown.IsReady)
             {
-                Health = System.Math.Max(Health - amount, 0);
+                Health = Math.Max(Health - amount, 0);
                 HurtCooldown.Reset();
+                Console.WriteLine($"[Damaged] New Health={Health}");
             }
         }
 
@@ -130,9 +129,7 @@ namespace Project.Enemies.EnemyClasses
                 StateMachine.OverrideState(new MovingState(this, oppositeDirection));
             }
 
-
-
-            if (collider is Arrow or Explosion or ThrownBoomerang)
+            if (collider is Arrow or BasicAttack or ThrownBoomerang)
                 TakeDamage(1);
         }
 

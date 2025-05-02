@@ -87,6 +87,7 @@ namespace Project
                 64,
                 this.gameState
             );
+            this.gameRenderer.LoadContent(Content);
 
             // Load all textures
             // TODO: All of these should likely take the tile width and height, especially
@@ -195,17 +196,16 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
             if (screen != null)
             {
+                _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 screen.Draw(_spriteBatch);
+                _spriteBatch.End();
             }
             else
             {
                 gameRenderer.Draw(_spriteBatch);
             }
-            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

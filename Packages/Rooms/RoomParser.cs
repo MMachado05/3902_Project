@@ -490,6 +490,19 @@ namespace Project.Rooms
                                 )
                             );
                             break;
+                        case "ar":
+                            itemManager.addItem(
+                                new ArrowItem(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateArrowSprite()
+                                )
+                            );
+                            break;
                         default:
                             break;
                     }

@@ -47,7 +47,7 @@ namespace Project.Items
             }
         }
 
-        public override void Use(ItemManager itemManager)
+        public override void Use(ItemManager itemManager, Player player)
         {
             SoundEffectManager.Instance.playBoomerang();
             switch (Direction)

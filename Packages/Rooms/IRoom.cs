@@ -14,7 +14,7 @@ namespace Project.Rooms
         public bool IsOnScreen { get; set; }
 
         public void Update(GameTime gameTime);
-        public void Draw(SpriteBatch sb);
+        void Draw(SpriteBatch spriteBatch, Matrix transform);
         public void AssignPlayer(Player player);
         public string GetRoomName();
         public void TriggerPlayerAttack();
