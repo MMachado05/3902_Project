@@ -4,22 +4,22 @@ using Project.Enemies.EnemyStateClasses;
 
 namespace Project.Enemies.EnemyClasses
 {
-    public class Stalfos : Enemy
+    public class Nick : Enemy
     {
-        public Stalfos(Rectangle initialPosition) : base(initialPosition)
+        public Nick(Rectangle initialPosition) : base(initialPosition)
         {
-            Health = 1;
-            Speed = 100.0f;
+            Health = 5;
+            Speed = 50.0f;
         }
 
         protected override EnemyMovement CreateMovement(Rectangle spawnArea)
         {
-            return new EnemyMovement(spawnArea, 100.0f);
+            return new EnemyMovement(spawnArea, 50.0f);
         }
 
         protected override EnemyAnimation CreateAnimation()
         {
-            return EnemyAnimationFactory.CreateStalfosAnimation();
+            return EnemyAnimationFactory.CreateNickAnimation();
         }
 
         protected override EnemyStateMachine CreateStateMachine()

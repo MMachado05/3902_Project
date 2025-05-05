@@ -134,7 +134,7 @@ namespace Project.Characters
                     slashX, slashY);
             }
 
-            _inventory.GetCurrentItem().Use(itemManager);
+            _inventory.GetCurrentItem().Use(itemManager, this);
         }
 
         public void Update(GameTime gameTime)
@@ -229,6 +229,11 @@ namespace Project.Characters
             {
                 ((IItem)collider).ToBeDeleted = true;
                 points += 1;
+            }
+            if (collider is ArrowItem)
+            {
+                _inventory.Add((IItem)collider);
+                ((IItem)collider).ToBeDeleted = true;
             }
             if (collider is Heart)
             {

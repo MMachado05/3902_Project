@@ -2,7 +2,7 @@ using System;
 
 namespace Project.Enemies.EnemyStateClasses
 {
-    public class SimpleRandomAI : IEnemyAI
+    public class AggressiveMoverAI : IEnemyAI
     {
         private static readonly Random rng = new Random();
 
@@ -10,13 +10,15 @@ namespace Project.Enemies.EnemyStateClasses
         {
             if (current.IsDone)
             {
-                int roll = rng.Next(0, 10); // 0–9
-                if (roll == 0) // 10% chance
-                    return new IdleState();
-                else if (roll <= 6) // 70% chance
+                if (current.Id == StateId.Idle)
+                {
+                    // After idle, always move
                     return new MovingState(enemy);
-                else // 20% chance
-                    return new AttackingState();
+                }
+
+                return rng.NextDouble() < 0.9
+                    ? new MovingState(enemy) // 90% move
+                    : new IdleState();        // 10% idle
             }
 
             return current;

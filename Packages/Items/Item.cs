@@ -22,7 +22,11 @@ namespace Project.Items
             Equipped = false;
         }
 
-        public virtual void Use(ItemManager itemManager) { }
+        public virtual void Use(ItemManager itemManager, Player player)
+        {
+            // Default: do nothing
+        }
+
         public abstract void Update(GameTime gameTime);
 
         public virtual void Draw(SpriteBatch spriteBatch)

@@ -56,12 +56,5 @@ namespace Project.Items
                 Equipped = true;
             }
         }
-
-        public override void Use(ItemManager itemManager)
-        {
-            Explosion.Location = new Rectangle(Location.X - 64, Location.Y - 64, Location.Width * 4, Location.Height * 4);
-            ExplodingBomb = new StationaryItem(Location, ItemFactory.Instance.CreateExplodingBombSprite());
-            PlacedBomb = true;
-        }
     }
 }

@@ -28,24 +28,50 @@ namespace Project.Inventory
 
         public bool Add(IItem item)
         {
-            bool added = true;
-            Type itemType = item.GetType();
-
-            foreach (KeyValuePair<IItem, int> itemCount in Items)
+            // Handle Bow — only one allowed
+            if (item is Bow newBow)
             {
-                if (itemCount.Key.GetType() == itemType)
+                foreach (var entry in Items.Keys)
                 {
-                    Items[itemCount.Key] += 2;
-                    if (itemCount.Key is Bow brow)
-                        brow.Count += 2;
+                    if (entry is Bow)
+                        return false;
+                }
+
+                Items.Add(newBow, 1);
+                _itemsOrdered.Add(newBow);
+                return true;
+            }
+
+            // Handle ArrowItem — always one instance, stack count
+            if (item is ArrowItem)
+            {
+                foreach (var entry in Items.Keys)
+                {
+                    if (entry is ArrowItem)
+                    {
+                        Items[entry]++;
+                        return true;
+                    }
+                }
+
+                Items.Add(item, 1);
+                _itemsOrdered.Add(item);
+                return true;
+            }
+
+            // Default stackable item logic
+            foreach (var entry in Items.Keys)
+            {
+                if (entry.GetType() == item.GetType())
+                {
+                    Items[entry]++;
+                    return true;
                 }
             }
-            Items.Add(item, 2);
-            _itemsOrdered.Add(item);
-            if (item is Bow bow)
-                bow.Count += 2;
 
-            return added;
+            Items.Add(item, 1);
+            _itemsOrdered.Add(item);
+            return true;
         }
 
         public bool Remove(IItem item)

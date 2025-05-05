@@ -35,6 +35,8 @@ namespace Project
         RoomManager roomManager;
         SoundEffectManager soundEffectManager;
 
+        private const int HUD_HEIGHT = 96;
+
         // gameOver
         private IScreen screen = null, gameOverScreen, gameWinningScreen, mainMenuScreen, pauseScreen;
 
@@ -49,7 +51,7 @@ namespace Project
         {
             _graphics = new GraphicsDeviceManager(this);
             _graphics.PreferredBackBufferWidth = 960; // Set width
-            _graphics.PreferredBackBufferHeight = 704; // Set height
+            _graphics.PreferredBackBufferHeight = 704 + HUD_HEIGHT; // Set height
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -76,6 +78,7 @@ namespace Project
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            EnemySpriteFactory.Instance.LoadAllTextures(Content);
             this.roomManager = new RoomManager();
             this.gameRenderer = new GameRenderer(
                 _graphics.PreferredBackBufferWidth,
@@ -84,13 +87,13 @@ namespace Project
                 64,
                 this.gameState
             );
+            this.gameRenderer.LoadContent(Content);
 
             // Load all textures
             // TODO: All of these should likely take the tile width and height, especially
             // if they have any say in how these are drawn to the screen.
             PlayerSpriteFactory.Instance.LoadAllTextures(Content);
             SolidBlockFactory.Instance.LoadAllTextures(Content, this.roomManager);
-            EnemySpriteFactory.Instance.LoadAllTextures(Content);
 
             HealthBarSpriteFactory.Instance.LoadAllTextures(Content);
 
@@ -98,6 +101,15 @@ namespace Project
             this.roomManager.LoadRoomsFromContent(Content, gameRenderer);
             this.roomManager.AssignPlayer(this.player);
             this.gameRenderer.PlayerCharacter = this.player;
+
+            var mapTexture = SolidBlockFactory.Instance.MapSpriteSheet;
+
+            var mapRenderer = new MapRenderer(mapTexture, new Vector2(800, 0), 3.2f);
+            mapRenderer.SetRoomIndex(roomManager.GetCurrentRoomIndex());
+            this.gameRenderer.SetMapRenderer(mapRenderer);
+
+            var pauseMapRenderer = new MapRenderer(mapTexture, Vector2.Zero, 1f);
+            pauseMapRenderer.SetRoomIndex(roomManager.GetCurrentRoomIndex());
 
             SoundEffectManager.Instance.LoadContent(Content);
             // Osama: Also, these need to be loaded after roomManager, so moving these down here.
@@ -115,11 +127,23 @@ namespace Project
             gameOverScreen = new GameOverScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             gameWinningScreen = new GameWinningScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
             mainMenuScreen = new MainMenuScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, background);
-            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory);
+            pauseScreen = new PauseScreen(font, _graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight, this.player._inventory, pauseMapRenderer);
         }
 
         protected override void Update(GameTime gameTime)
         {
+
+            int currentIndex = roomManager.GetCurrentRoomIndex();
+
+            gameRenderer.SetMapRoomIndex(currentIndex);
+            if (screen is PauseScreen ps)
+            {
+                ps.SetMapRoomIndex(currentIndex);
+            }
+
+
+            this.gameRenderer.Update(gameTime);
+
             switch (gameState.State)
             {
                 case GameState.MainMenu:
@@ -172,17 +196,16 @@ namespace Project
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
             if (screen != null)
             {
+                _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
                 screen.Draw(_spriteBatch);
+                _spriteBatch.End();
             }
             else
             {
                 gameRenderer.Draw(_spriteBatch);
             }
-            _spriteBatch.End();
 
             base.Draw(gameTime);
         }

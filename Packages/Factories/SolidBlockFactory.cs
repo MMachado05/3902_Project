@@ -39,7 +39,7 @@ namespace Project.Factories
         public void LoadAllTextures(ContentManager content, RoomManager roomManager)
         {
             this._textureAtlas = content.Load<Texture2D>("blocks");
-            this._bossRoomTexture = content.Load<Texture2D>("bossBackground");
+            this._bossRoomTexture = content.Load<Texture2D>("spawnerBackground");
             this._room1Texture = content.Load<Texture2D>("room2background");
             this._room2Texture = content.Load<Texture2D>("room2background");
             this._room3Texture = content.Load<Texture2D>("room3background");
@@ -92,7 +92,7 @@ namespace Project.Factories
         {
             return new BackgroundBlock(
                 _bossRoomTexture,
-                new Rectangle(0, 0, 580, 425),
+                new Rectangle(0, 0, 832, 576),
                 new Rectangle(64, 64, 832, 576)
             );
         }
@@ -163,8 +163,8 @@ namespace Project.Factories
         public IBlock room8Background()
         {
             return new BackgroundBlock(
-                _bossRoomTexture,
-                new Rectangle(0, 0, 580, 425),
+                _room2Texture,
+                new Rectangle(0, 0, 2048, 2048),
                 new Rectangle(64, 64, 832, 576)
             );
         }
@@ -227,5 +227,8 @@ namespace Project.Factories
                 dest
             );
         }
+
+        public Texture2D MapSpriteSheet => _mapSpriteSheet;
+
     }
 }

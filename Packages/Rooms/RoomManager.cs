@@ -7,6 +7,9 @@ using Project.Characters;
 using Project.Packages.Characters;
 using Project.Packages.Sounds;
 using Project.Renderer;
+using System.Collections.Generic;
+using Project.Packages;
+using Project;
 
 namespace Project.Rooms
 {
@@ -22,26 +25,39 @@ namespace Project.Rooms
         private IRoom[,] Map;
         private int currentRoomX;
         private int currentRoomY;
+        private int pendingRoomX;
+        private int pendingRoomY;
+        private IRoom pendingRoom;
+
         public Player player;
         private bool NoEnimes;
         public int CurrentRoomRow { get { return currentRoomX; } }
         public int CurrentRoomColumn { get { return currentRoomY; } }
 
-        /// <summary>
-        /// Be sure to run LoadRoomsFromContent before calling any other methods.
-        /// </summary>
+        private Camera2D _camera = new Camera2D();
+
+        private const int roomWidth = 960;
+        private const int roomHeight = 720;
+
+        private IRoom previousRoom;
+        public IRoom PreviousRoom => previousRoom;
+        public IRoom PendingRoom => pendingRoom;
+
         public RoomManager()
         {
             currentRoomX = currentRoomY = 0;
-
+            pendingRoomX = currentRoomX;
+            pendingRoomY = currentRoomY;
             this.roomParser = new RoomParser();
             this.collisionManager = new CollisionManager();
             NoEnimes = false;
         }
 
+        public Matrix CameraTransform => _camera.Transform;
+        public Camera2D Camera => _camera;
+
         public void LoadRoomsFromContent(ContentManager content, GameRenderer gr)
         {
-            // Create reader for the list of all rooms
             string pathPrefix = Environment.CurrentDirectory + "/Rooms/";
             string roomListPath = pathPrefix + "rooms.csv";
             if (!File.Exists(roomListPath))
@@ -51,7 +67,6 @@ namespace Project.Rooms
             }
             StreamReader roomListReader = new StreamReader(roomListPath);
 
-            // Get "dimensions" of CSV map to create room array
             string roomLine;
             int mapWidth = 0;
             int mapHeight = 0;
@@ -61,11 +76,9 @@ namespace Project.Rooms
                 mapWidth = Math.Max(mapWidth, roomLine.Split(",").Length - 1);
             }
 
-            // Restart reader
             roomListReader.DiscardBufferedData();
             roomListReader.BaseStream.Seek(0, SeekOrigin.Begin);
 
-            // Add rooms to map from CSV
             this.Map = new IRoom[mapWidth, mapHeight];
             string[] roomRow;
             int mapRoomX = 0;
@@ -77,7 +90,7 @@ namespace Project.Rooms
                 mapRoomX = 0;
                 for (int i = 0; i < roomRow.Length - 1; i++)
                 {
-                    if (roomRow[i] != "-") // Ignore "rooms" that don't exist
+                    if (roomRow[i] != "-")
                     {
                         this.Map[mapRoomX, mapRoomY] = roomParser.LoadRoom(
                             pathPrefix + roomRow[i],
@@ -94,7 +107,6 @@ namespace Project.Rooms
             }
         }
 
-
         public void AssignPlayer(Player player)
         {
             this.player = player;
@@ -108,162 +120,110 @@ namespace Project.Rooms
             }
         }
 
-        public void DrawCurrentRoom(SpriteBatch sb)
-        {
-            this.GetCurrentRoom().Draw(sb);
-            // TODO: Draw enemies
-            // TODO: Draw items
-        }
-
         public void Update(GameTime gameTime)
         {
+            _camera.Update(gameTime);
+
+            if (!_camera.IsTransitioning && (pendingRoomX != currentRoomX || pendingRoomY != currentRoomY))
+            {
+                currentRoomX = pendingRoomX;
+                currentRoomY = pendingRoomY;
+                player.Location = pendingRoom.SavedPlayerLocation != Rectangle.Empty
+                    ? pendingRoom.SavedPlayerLocation
+                    : new Rectangle(10, 10, player.Location.Width, player.Location.Height);
+            }
+
             IRoom Room = this.GetCurrentRoom();
             Room.Update(gameTime);
 
             if (this.currentRoomX == 2 && this.currentRoomY == 4)
-            {
                 SoundEffectManager.Instance.playBossMusic();
-            }
             else
-            {
                 SoundEffectManager.Instance.playDungeonMusic();
-            }
-            if(Room.GetRoomName().Equals("boss")&&Room.GetAllCurrentEnimeies().Count==0){
-                NoEnimes = true;
-            }
 
+            if (Room.GetRoomName().Equals("boss") && Room.GetAllCurrentEnimeies().Count == 0)
+                NoEnimes = true;
         }
-        public bool IsThereEnmey()
-        {
-            return NoEnimes;
-        }
+
+        public bool IsThereEnmey() => NoEnimes;
 
         public void GotoRoomBelow()
         {
-            IRoom currentRoom = this.GetCurrentRoom();
-            currentRoom.SavedPlayerLocation = new Rectangle(
-                player.Location.X,
-                player.Location.Y - 20,
-                player.Location.Width,
-                player.Location.Height
-            );
+            var currentRoom = GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(player.Location.X, player.Location.Y - 20, player.Location.Width, player.Location.Height);
             currentRoom.IsOnScreen = false;
 
             newY = currentRoomY + 1;
-
             if (newY < Map.GetLength(COLS) && Map[currentRoomX, newY] != null)
             {
-                currentRoomY = newY;
-                IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(player);
-
-                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    player.Location = nextRoom.SavedPlayerLocation;
-                else
-                    player.Location = new Rectangle(
-                        player.Location.X,
-                        10,
-                        player.Location.Width,
-                        player.Location.Height
-                    );
+                previousRoom = currentRoom;
+                pendingRoomX = currentRoomX;
+                pendingRoomY = newY;
+                pendingRoom = Map[pendingRoomX, pendingRoomY];
+                pendingRoom.AssignPlayer(player);
+                player.Location = new Rectangle(player.Location.X, 10, player.Location.Width, player.Location.Height);
+                _camera.StartTransition(new Vector2(0, -roomHeight));
             }
         }
 
         public void GotoRoomAbove()
         {
-            IRoom currentRoom = this.GetCurrentRoom();
-            currentRoom.SavedPlayerLocation = new Rectangle(
-                player.Location.X,
-                player.Location.Y + 20,
-                player.Location.Width,
-                player.Location.Height
-            );
+            var currentRoom = GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(player.Location.X, player.Location.Y + 20, player.Location.Width, player.Location.Height);
             currentRoom.IsOnScreen = false;
 
             newY = currentRoomY - 1;
-
             if (newY >= 0 && Map[currentRoomX, newY] != null)
             {
-                currentRoomY = newY;
-                IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(player);
-
-                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    player.Location = nextRoom.SavedPlayerLocation;
-                else
-                    player.Location = new Rectangle(
-                        player.Location.X,
-                        640,
-                        player.Location.Width,
-                        player.Location.Height
-                    );
+                previousRoom = currentRoom;
+                pendingRoomX = currentRoomX;
+                pendingRoomY = newY;
+                pendingRoom = Map[pendingRoomX, pendingRoomY];
+                pendingRoom.AssignPlayer(player);
+                player.Location = new Rectangle(player.Location.X, 640, player.Location.Width, player.Location.Height);
+                _camera.StartTransition(new Vector2(0, roomHeight));
             }
         }
 
         public void GotoRoomToRight()
         {
-            IRoom currentRoom = this.GetCurrentRoom();
-            currentRoom.SavedPlayerLocation = new Rectangle(
-                player.Location.X - 20,
-                player.Location.Y,
-                player.Location.Width,
-                player.Location.Height
-            );
+            var currentRoom = GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(player.Location.X - 20, player.Location.Y, player.Location.Width, player.Location.Height);
             currentRoom.IsOnScreen = false;
 
             newX = currentRoomX + 1;
-
             if (newX < Map.GetLength(ROWS) && Map[newX, currentRoomY] != null)
             {
-                currentRoomX = newX;
-                IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(player);
-
-                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    player.Location = nextRoom.SavedPlayerLocation;
-                else
-                    player.Location = new Rectangle(
-                        10,
-                        player.Location.Y,
-                        player.Location.Width,
-                        player.Location.Height
-                    );
+                previousRoom = currentRoom;
+                pendingRoomX = newX;
+                pendingRoomY = currentRoomY;
+                pendingRoom = Map[pendingRoomX, pendingRoomY];
+                pendingRoom.AssignPlayer(player);
+                player.Location = new Rectangle(10, player.Location.Y, player.Location.Width, player.Location.Height);
+                _camera.StartTransition(new Vector2(-roomWidth, 0));
             }
         }
 
         public void GotoRoomToLeft()
         {
-            IRoom currentRoom = this.GetCurrentRoom();
-            currentRoom.SavedPlayerLocation = new Rectangle(
-                player.Location.X + 20,
-                player.Location.Y,
-                player.Location.Width,
-                player.Location.Height
-            );
+            var currentRoom = GetCurrentRoom();
+            currentRoom.SavedPlayerLocation = new Rectangle(player.Location.X + 20, player.Location.Y, player.Location.Width, player.Location.Height);
             currentRoom.IsOnScreen = false;
 
             newX = currentRoomX - 1;
-
             if (newX >= 0 && Map[newX, currentRoomY] != null)
             {
-                currentRoomX = newX;
-                IRoom nextRoom = this.GetCurrentRoom();
-                nextRoom.AssignPlayer(player);
-
-                if (nextRoom.SavedPlayerLocation != Rectangle.Empty)
-                    player.Location = nextRoom.SavedPlayerLocation;
-                else
-                    player.Location = new Rectangle(
-                        900,
-                        player.Location.Y,
-                        player.Location.Width,
-                        player.Location.Height
-                    );
+                previousRoom = currentRoom;
+                pendingRoomX = newX;
+                pendingRoomY = currentRoomY;
+                pendingRoom = Map[pendingRoomX, pendingRoomY];
+                pendingRoom.AssignPlayer(player);
+                player.Location = new Rectangle(900, player.Location.Y, player.Location.Width, player.Location.Height);
+                _camera.StartTransition(new Vector2(roomWidth, 0));
             }
         }
-        public IRoom GetCurrentRoom()
-        {
-            return this.Map[this.currentRoomX, this.currentRoomY];
-        }
+
+        public IRoom GetCurrentRoom() => this.Map[this.currentRoomX, this.currentRoomY];
+        public int GetCurrentRoomIndex() => (GetCurrentRoom() as BaseRoom)?.GetRoomIndex() ?? -1;
     }
 }

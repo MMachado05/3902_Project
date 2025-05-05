@@ -132,6 +132,8 @@ namespace Project.Rooms
         DoorBlock door;
         IBlock mini_map;
 
+        int roomIndex = -1;
+
         public IRoom LoadRoom(
             string filePath,
             GameRenderer gr,
@@ -139,6 +141,7 @@ namespace Project.Rooms
             int tileWidth,
             int tileHeight,
             CollisionManager collisionManager
+
         )
         {
             StreamReader reader = new(filePath);
@@ -194,6 +197,7 @@ namespace Project.Rooms
                                 tileHeight,
                                 "bossBackground"
                             );
+                            roomIndex = 8;
                             break;
                         case "room1":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -203,6 +207,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room1";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room1");
+                            roomIndex = 0;
                             break;
                         case "room2":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -212,6 +217,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room2";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room2");
+                            roomIndex = 1;
                             break;
                         case "room3":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -221,6 +227,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room3";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room3");
+                            roomIndex = 2;
                             break;
                         case "room4":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -230,6 +237,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room4";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room4");
+                            roomIndex = 4;
                             break;
                         case "room5":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -239,6 +247,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room5";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room5");
+                            roomIndex = 3;
                             break;
                         case "room6":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -248,6 +257,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room6";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room6");
+                            roomIndex = 5;
                             break;
                         case "room7":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -257,6 +267,7 @@ namespace Project.Rooms
                             );
                             RoomName = "room7";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room7");
+                            roomIndex = 6;
                             break;
                         case "room8":
                             mini_map = SolidBlockFactory.Instance.MiniMap(
@@ -267,6 +278,7 @@ namespace Project.Rooms
 
                             RoomName = "room8";
                             Background = AddBlockToRoom(x, y, gr, tileWidth, tileHeight, "room8");
+                            roomIndex = 7;
                             break;
                         case "bl":
 
@@ -345,7 +357,8 @@ namespace Project.Rooms
                                         (y - 1) * gr.TileHeight,
                                         gr.TileWidth,
                                         gr.TileHeight
-                                    )
+                                    ),
+                                    itemManager
                                 )
                             );
                             break;
@@ -357,7 +370,8 @@ namespace Project.Rooms
                                         (y - 1) * gr.TileHeight,
                                         gr.TileWidth,
                                         gr.TileHeight
-                                    )
+                                    ),
+                                    itemManager
                                 )
                             );
                             break;
@@ -369,6 +383,31 @@ namespace Project.Rooms
                                         (y - 1) * gr.TileHeight,
                                         gr.TileWidth,
                                         gr.TileHeight
+                                    )
+                                )
+                            );
+                            break;
+                        case "nk":
+                            enemyManager.AddEnemy(
+                                new Nick(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        6 * gr.TileWidth,
+                                        7 * gr.TileWidth
+                                    )
+                                )
+                            );
+                            break;
+                        case "sp":
+                            enemyManager.AddEnemy(
+                                new Spawner(
+                                    enemyManager,
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileWidth,
+                                        6 * gr.TileWidth,
+                                        7 * gr.TileWidth
                                     )
                                 )
                             );
@@ -451,6 +490,19 @@ namespace Project.Rooms
                                 )
                             );
                             break;
+                        case "ar":
+                            itemManager.addItem(
+                                new ArrowItem(
+                                    new Rectangle(
+                                        x * gr.TileWidth,
+                                        (y - 1) * gr.TileHeight,
+                                        gr.TileWidth,
+                                        gr.TileHeight
+                                    ),
+                                    ItemFactory.Instance.CreateArrowSprite()
+                                )
+                            );
+                            break;
                         default:
                             break;
                     }
@@ -466,7 +518,8 @@ namespace Project.Rooms
                 BlockMap = internalMap,
                 Background = Background,
                 MiniMap = mini_map,
-                RoomName = RoomName
+                RoomName = RoomName,
+                RoomIndex = roomIndex
             };
 
             return new BaseRoom(data);

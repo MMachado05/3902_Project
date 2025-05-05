@@ -83,6 +83,11 @@ namespace Project.Factories
         public ISprite CreateSlashSprite() => new StationarySprite(slashTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
         public ISprite CreateExplosionSprite() => new StationarySprite(explosionTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
 
+        public ISprite CreateArrowSprite()
+        {
+            return new StationarySprite(UpArrowTexture, new Rectangle(0, 0, 16, 16), new CharacterState());
+        }
+
         public IItem CreateBasicAttack(Direction direction, int locationX, int locationY)
         {
             Rectangle location = new Rectangle(locationX, locationY, _tileWidth, _tileHeight);

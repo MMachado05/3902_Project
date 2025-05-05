@@ -4,7 +4,7 @@ namespace Project.Enemies.EnemyStateClasses
 {
     public interface IEnemyState
     {
-        void Execute(IEnemy enemy, ItemManager itemManager);
+        void Execute(IEnemy enemy, float deltaTime, ItemManager itemManager = null);
         bool IsDone { get; }
         StateId Id { get; }
     }
